@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글자색 바꾸기</title>
+</head>
+
+<body>
+  <h1 id="heading">자바스크립트</h1>
+  <p id="text">위 텍스트를 클릭해 보세요</p>
+
+  <script>
+    let heading = document.getElementById('heading');
+    heading.onclick = function () {
+      heading.style.color = '#f00';
+      alert('색상변경');
+      console.log('콘솔창에 출력-색상변경');
+      // document.write('<h1>어서오세요</h1>');
+      heading.innerHTML = '어서오세요';
+    }
+    // shift + alt + f (자동 줄 정리)
+  </script>
+</body>
+
+</html>

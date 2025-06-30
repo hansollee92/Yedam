@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2단 레이아웃</title>
+  <style>
+    #container{
+      width: 960px;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin: 0 auto;
+    }
+    header{
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    main{
+      width: 620px;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+      float: left;
+    }
+    aside{
+      width: 220px;
+      border: 1px solid #ccc;
+      background-color: #ddd;
+      padding: 20px;
+      float: right;
+      margin-bottom: 20px;
+    }
+    footer{
+      clear: both;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .greentext{
+      color: green;
+      font-size: 13px;  
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <p class="greentext">
+        - container : 테두리 1px, 너비 960px, 안여백 20px, 화면 중앙에 위치<br>
+        - header : 테두리 1px, 안여백 10px, 아래 요소와 간격 20px
+      </p>
+      <h1>사이트 제목</h1>
+    </header>
+    <main>
+      <section>
+        <h2>본문</h2>
+        <p>내용 입력1</p>
+        <p>내용 입력2</p>
+        <p class="greentext">
+          테두리 1px, 너비 620px, <br>
+          안여백 20px, 왼쪽으로 플로팅,<br>
+          아래요소와 간격 20px
+        </p>
+      </section>
+    </main>
+    <aside>
+      <h2>사이드 바</h2>
+      <p>광고1</p>
+      <p>광고2</p>
+      <p class="greentext">
+        테두리 1px, 너비 220px, 안여백 20px, 오른쪽으로 플로팅, 아래요소와 간격 20px, 배경색
+      </p>
+    </aside>
+    <footer>
+      <h2>푸터</h2>
+      <p>저작권 정보, 연락처 등</p>
+      <p class="greentext">
+        테두리 1px, 양쪽 플로팅 해제, 안여백 10px
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
