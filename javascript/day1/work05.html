@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>과제5 : 홀짝게임</title>
+</head>
+
+<body>
+  <script>
+    /*
+      5. 홀짝게임 (while(true){ break; } 참고)
+      -> 이길때까지 반복하도록 수정
+    */
+
+    let com;  //컴퓨터 값
+    let me;   //사용자 값
+
+    com = Math.floor(Math.random() * 2);
+
+    while (true) {
+
+      me = prompt('수를 입력하세요');
+      
+      if (me % 2 == com) {
+        alert('졌습니다');
+      } else {
+        alert('이겼습니다');
+        break;
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>

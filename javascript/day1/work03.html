@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>과제3 : 가위바위보게임</title>
+</head>
+<body>
+  <script>
+    /*
+    3. 가위바위보 게임 (if 연습)
+       1, 2, 3  난수 생성  ( 1:가위, 2:바위, 3:보)
+       1~3 사이의 값을 입력
+       결과출력: 이기면 '승' 지면 '패'
+    */
+
+    let com;    //컴퓨터 값
+    let me;     //사용자 값
+
+    // 컴퓨터 값 할당
+    com = Math.floor(Math.random() * 2) + 1;
+
+    // 사용자 값 할당
+    me = prompt('1~3 사이의 값을 입력하세요(1:가위, 2:바위, 3:보)');
+
+    // 조건
+    if(me == 1 && com == 3 || me == 2 && com == 1 || me == 3 && com == 2){
+      document.write('승');
+    }else{
+      document.write('패');
+    }
+
+  </script>
+</body>
+</html>
