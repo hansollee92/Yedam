@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      width: 100px;
+      background-color: #ccc;
+      margin: 10px;
+      padding: 10px 20px 30px 40px;
+      float: left;
+    }
+
+    .gugu {
+      background-color: blanchedalmond;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    let sum = 0;
+    // let num = prompt();
+
+    // num(입력한값)까지 반복
+    // 1~5까지 반복
+
+    // let i=1
+    // for(; i<=5;){
+    //   sum += i;
+    //   i++;
+    // }
+
+    for (let i = 1; i <= 5; i++) {
+      sum += i;
+    }
+
+    console.log(sum);
+
+
+    //-------------------------------------------------------------------------
+    // 중첩 반복문
+    // 구구단 만들기
+
+    for (let i = 2; i <= 19; i++) {
+      // console.log(`=======${i}단======`);
+      document.write(`<div><h3>==${i}단==</h3>`);
+      for (let j = 1; j <= 9; j++) {
+        document.write(`${i} x ${j} = ${i * j}<br>`);
+        // console.log(`${i} x ${j} = ${i * j}`);
+      }
+      document.write('</div>');
+    }
+
+    let gugu = "";
+    for (let i = 2; i <= 9; i++) {
+      gugu += `==${i}단== \n`;
+      for (let j = 1; j <= 9; j++) {
+        gugu += `${i} x ${j} = ${i * j}`;
+      }c
+    }
+    console.log(gugu);
+
+    // 변수 활용
+    let gugudan = "";
+    for (let i = 2; i <= 5; i++) {
+      gugudan += `<div class='gugu'><h3>==${i}단==</h3>`;
+      for (let j = 1; j <= 9; j++) {
+        gugudan += `${i} x ${j} = ${i * j}<br>`;
+      }
+      gugudan += '</div>';
+    }
+    console.log(gugudan);
+    document.write(gugudan);
+
+    // 구구단 표로 만들기 (자바)
+
+
+
+
+  </script>
+</body>
+
+</html>
