@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이벤트</title>
+  <style>
+    img {
+      width: 300px;
+    }
+
+    button {
+      display: block;
+    }
+
+    #desc {
+      width: 300px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>상세설명 보기/닫기</h3>
+  <img src="../../html/img/tangerines.jpg" alt="레드향">
+  <!-- <button type="button" id="open" onclick="show();">상세설명 보기</button> -->
+  <button type="button" id="open">상세설명 보기</button>
+  <div id="desc">
+    <h3>레드향</h3>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod minima consectetur eveniet, placeat tenetur
+      recusandae beatae blanditiis possimus accusantium veritatis rem excepturi commodi nemo numquam obcaecati? Sequi
+      fuga doloribus commodi.</p>
+    <!-- <button type="button" id="close" onclick="closef();">상세설명 닫기</button> -->
+    <button type="button" id="close">상세설명 닫기</button>
+  </div>
+
+  <script>
+    let showBtn = document.querySelector('#open');
+    let closeBtn = document.querySelector('#close');
+    let desc = document.querySelector('#desc');
+
+    showBtn.onclick = show;
+    closeBtn.onclick = closef;
+
+    function show() {
+      desc.style.display = 'block';
+      showBtn.style.display = 'none';
+    }
+    function closef() {
+      desc.style.display = 'none';
+      showBtn.style.display = 'block';
+    }
+
+
+  </script>
+</body>
+
+</html>
