@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계산기</title>
+    <style>
+        #container{
+            width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        button{
+            width: 80px;
+            height: 40px;
+            font-size: 18px;
+        }
+        ul{
+            list-style: none;
+        }
+        input{
+            padding: 5px;
+        }
+        #result{
+            background: rgb(228, 238, 209);
+        }
+
+    </style>
+    
+</head>
+<body>
+    <div id="container">
+        <h1>계산기</h1>
+        <form name="calc">
+            <ul>
+                <li>
+                    수1 : <input type="text" id="num1">
+                    수2 : <input type="text" id="num2">
+                    결과 : <input type="text" id="result"></li>
+                
+            </ul>
+            <ul>
+                <li>
+                    <button type="button" id="add">더하기</button>
+                    <button type="button" id="sub">빼기</button>
+                    <button type="button" id="multy">곱하기</button>
+                    <button type="button" id="divid">나누기</button>
+                    <button type="reset">지우기</button>
+                </li>
+            </ul>
+        </form>  
+    </div>
+    <script src="js/operator.js"></script>
+</body>
+</html>
