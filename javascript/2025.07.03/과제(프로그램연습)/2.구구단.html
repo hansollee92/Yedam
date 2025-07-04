@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>구구단</title>
 </head>
+
 <body>
     <form name="gugudan">
         <label>단 입력 : <input type="text" id="dan"></label>
@@ -14,6 +16,51 @@
 
     <script>
         // 출력 버튼이 클릭되면 입력된 단만 출력
+
+        // 웹 문서의 입력상자에 단을 입력하고
+        // 출력 버튼을 클릭하면
+        // 해당 단을 출력하는 프로그램
+
+        // let guguBtn = document.querySelector('#btn');
+        // let guguNum = document.querySelector('#dan');
+        // let gugures = document.querySelector('#result');
+
+        // // 구구단
+        // function gugudan(){
+        //     console.log(guguNum);
+        //     let gugu = '';    //구구단을 저장할 변수지정
+        //     for (let i = 1; i < 10; i++) {
+        //         // 값 가져오면 안됨 (input)
+        //         gugu += `${guguNum.value} x ${i} = ${guguNum.value * i}<br>`;
+        //     }
+        //     gugures.innerHTML = gugu;
+        //     // console.log(gugu);
+        // }        
+        // guguBtn.onclick = gugudan;
+
+
+        //------------------------------------------------------------------------------
+
+        let userNum = document.querySelector('#dan');
+        let userBtn = document.querySelector('#btn');
+        let gugunResult = document.querySelector('#result');
+
+        function gugudanPro() {
+            // 구구단 만들기(사용자가 입력한 숫자!)
+            let gugu = '';  //변수 지정(저장)
+            for (let i = 1; i <= 9; i++) {
+                gugu += `${userNum.value} x ${i} = ${userNum.value * i}<br>`;
+            }
+            gugunResult.innerHTML = gugu;
+        }
+
+        // 이벤트 발생  
+        userBtn.onclick = gugudanPro;
+
+
+
+
     </script>
 </body>
+
 </html>

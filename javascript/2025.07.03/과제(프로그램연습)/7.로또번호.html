@@ -35,26 +35,45 @@
     <div id="lotto"></div>
   </div>
   <script>
-    let autoBtn = document.querySelector('#btn');
-    let result = document.querySelector('#lotto');
-    // autoBtn.onclick = lottoM;
-    autoBtn.addEventListener('click', lottoM);
+    // let autoBtn = document.querySelector('#btn');
+    // let result = document.querySelector('#lotto');
+    // // autoBtn.onclick = lottoM;
+    // autoBtn.addEventListener('click', lottoM);
 
-    function lottoM() {
+    // function lottoM() {
+    //   let lottoNum = [];
+    //   for (let i = 0; i < 6; i++) {
+    //     let ranNum = Math.floor(Math.random() * 45) + 1;
+    //     if (lottoNum.indexOf(ranNum) == -1) {
+    //       lottoNum.push(ranNum);
+    //     } else {
+    //       i--;
+    //     }
+    //   }
+    //   // 이거 여기안에서 하면 안찍히는건 클릭 이벤트 발생이 안되었으니깐!
+    //   console.log(lottoNum.join(':'));
+    //   result.innerHTML = lottoNum.join(' ');
+    //   // join 해준 이유는 그냥 배열값 넣을 수도 있지만, 쉼표 없앨려고~
+    // }
+
+    // ------------------------------------------------------------------------------------------------
+    let btn = document.querySelector('#btn');
+    let result = document.querySelector('#lotto');
+
+    function makeLottoNum() {
       let lottoNum = [];
       for (let i = 0; i < 6; i++) {
-        let ranNum = Math.floor(Math.random() * 45) + 1;
-        if (lottoNum.indexOf(ranNum) == -1) {
-          lottoNum.push(ranNum);
+        let randonNum = Math.floor(Math.random() * 45 + 1);
+        if ( lottoNum.indexOf(randonNum) == -1 ) {
+          lottoNum.push(randonNum);
         } else {
           i--;
         }
       }
-      // 이거 여기안에서 하면 안찍히는건 클릭 이벤트 발생이 안되었으니깐!
-      console.log(lottoNum.join(':'));
-      result.innerHTML = lottoNum.join(' ');
-      // join 해준 이유는 그냥 배열값 넣을 수도 있지만, 쉼표 없앨려고~
+      result.innerHTML = lottoNum;
     }
+    btn.onclick = makeLottoNum;
+
   </script>
 </body>
 

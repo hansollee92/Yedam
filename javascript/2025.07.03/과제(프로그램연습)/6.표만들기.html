@@ -1,48 +1,76 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>표만들기</title>
   <style>
-    #container{
+    #container {
       width: 600px;
       margin: 0 auto;
     }
+
     form {
-      margin-bottom:30px;
-    }
-    input[type="text"] {
-      width:30px;
-      height:20px;
-      text-align: center;
-    }
-    button {
-      margin-left:10px;
-    }
-    table {
-      width:500px;      
-      border-collapse: collapse;
-    }
-    td {
-      border:1px solid #ccc;
-      padding:10px;
+      margin-bottom: 30px;
     }
 
+    input[type="text"] {
+      width: 30px;
+      height: 20px;
+      text-align: center;
+    }
+
+    button {
+      margin-left: 10px;
+    }
+
+    table {
+      width: 500px;
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
   </style>
 </head>
+
 <body>
   <div id="container">
     <form name="layout">
-      <input type="text" id="rCount" value="1">행 
-      <input type="text" id="cCount" value="1">열    
+      <input type="text" id="rCount" value="1">행
+      <input type="text" id="cCount" value="1">열
       <button type="button" id="btn">작성</button>
     </form>
     <div id="contents"></div>
   </div>
 
   <script>
-   
+    // 동적 표 만드는 프로그램
+    let rCount = document.querySelector('#rCount');
+    let cCount = document.querySelector('#cCount');
+    let btn = document.querySelector('#btn');
+    let tablein = document.querySelector('#contents');
+
+    function maketable() {
+      table = '<table border=1>';
+      for (let i = 1; i <= rCount.value; i++) {
+        table += '<tr>'
+        for (let j = 1; j <= cCount.value; j++) {
+          table += `<td>${i},${j}</td>`;
+        }
+        table += '</tr>'
+      }
+      table += '</table>'
+      tablein.innerHTML = table;
+    }
+
+    btn.onclick = maketable;
+
+
   </script>
 </body>
+
 </html>
