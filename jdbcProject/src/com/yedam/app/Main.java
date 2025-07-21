@@ -101,40 +101,73 @@ public class Main {
 		Scanner scn = new Scanner(System.in);
 		BookDAO dao = new BookDAO();  //도서목록을 조회.
 		while(run) {
-			System.out.println("-----------------------");
-			System.out.println("도서 관리 시스템");
+			System.out.println("―――――――――――――――――――――――――――――――――――");
+			System.out.println("📚 도서 관리 시스템");
 			System.out.println("1. 도서목록");
 			System.out.println("2. 도서등록");
 			System.out.println("3. 도서수정");
 			System.out.println("4. 도서삭제");
 			System.out.println("9. 종료");
-			System.out.println("-----------------------");
-			System.out.print("선택: ");
+			System.out.println("―――――――――――――――――――――――――――――――――――");
+			System.out.print("> 선택: ");
 			int menu = scn.nextInt();   //입력값을 menu 변수에 대입
 			switch(menu) {
 			case 1: //도서목록.
 				ArrayList<Book> list = dao.findAll(); //반환값이 ArrayList<Book>
-				System.out.println("도서번호 도서명         저자     가격");
-				System.out.println("==============================");
+				System.out.println("도서번호\t도서명\t\t저자\t가격");
+				System.out.println("-----------------------------------");
 				for(int i=0; i<list.size(); i++) {
-					System.out.println(list.get(i).getId()+" "+
-				                       list.get(i).getTitle()+" "+
-							           list.get(i).getAuthor()+" "+
+					System.out.println(list.get(i).getId()+"\t"+
+				                       list.get(i).getTitle()+"\t"+
+							           list.get(i).getAuthor()+"\t"+
 				                       list.get(i).getPrice());
 				}//end of for.
 				break;
-//			case 2: //도서등록.
-//			case 3: //도서수정.
-//			case 4: //도서삭제.
+			case 2: //도서등록.
+				System.out.print("> 도서번호: ");
+				int bno = scn.nextInt();scn.nextLine();            //반환값 int
+				// nextInt()는 사용자가 1003을 넣고 엔터를 쳤을 경우 사용자가 입력했던 '1003'만 읽어서 담아준다. 엔터가 처리되지 않았다. 
+				// nextLine()은 엔터까지 모두 처리해준다. 그래서 scn.nextLine()을 한번 더 입력해주는 방식으로 이 문제를 처리해줄 수 있다.
+				// 또는 Integer.parseInt(nextLine())과 같이 처리해야함
+				System.out.print("> 도서제목: ");
+				String title = scn.nextLine();                     //반환값 String
+				System.out.print("> 저자: ");
+				String author = scn.nextLine(); 
+				System.out.print("> 가격: ");
+				int price = scn.nextInt();scn.nextLine();			
+				Book book = new Book(bno, title, author, price);
+				if(dao.insert(book)) {
+					System.out.println("정상 등록");
+				}else {
+					System.out.println("등록 중 오류 발생");
+				}			
+				break;
+			case 3: //도서수정.
+				System.out.print("> 도서번호: ");
+				bno = scn.nextInt(); scn.nextLine();
+				System.out.print("> 가격: ");
+				price = scn.nextInt(); scn.nextLine();
+				
+				if(dao.update(bno, price)) {
+					System.out.println("정상 수정");
+				}else {
+					System.out.println("수정 중 오류 발생");
+				}
+				
+			break;	
+			case 4: //도서삭제.
+			break;
 			case 9: //종료.
 				run = false;
 			}//end of switch.
 		}//end of while.
 		System.out.println("end of program.");
 	}//end of main().
+
+
 }
 
 
 
 
-// 교수님 주소 : 
+// 교수님 git주소 : changholee2010/HelloJava 참고
