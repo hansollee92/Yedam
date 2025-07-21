@@ -75,99 +75,122 @@ import java.util.Scanner;
 //			e.printStackTrace();
 //		}
 //				
-		
-		// cmd - ipconfig 명령어 하면 본인의 아이피를 확인할 수 있는데 
-		// 이 아이피를 통해서도 접속을 할수가 있는데 
-		// 오라클 디벨로터로 들어가서 새로 만들기> localhost되어 있는데에 아이피 입력
-		// (접속 오래 걸리면 : 방화벽>고급설정>인바운드규칙>새규칙>포트>특정포트1521>연결허용>오라클접속요청이름설정 만들기)
-		// 옆사람 ip에 접속해서 아래 작성해서 실행해보기!
-		// select * from tab;
-		// select * from book; 으로 확인가능
-		
-		
-		
-		// ----------------------------------------------------------------------------------------------------------------------------
-		
-		// 위에서는 직접적으로 데이터를 직접 넣었지만
-		// 실제로는 사용자한테 입력값을 받아야한다. ---> BookDAO class 만들고 method 만들기
-		
-		
+
+// cmd - ipconfig 명령어 하면 본인의 아이피를 확인할 수 있는데 
+// 이 아이피를 통해서도 접속을 할수가 있는데 
+// 오라클 디벨로터로 들어가서 새로 만들기> localhost되어 있는데에 아이피 입력
+// (접속 오래 걸리면 : 방화벽>고급설정>인바운드규칙>새규칙>포트>특정포트1521>연결허용>오라클접속요청이름설정 만들기)
+// 옆사람 ip에 접속해서 아래 작성해서 실행해보기!
+// select * from tab;
+// select * from book; 으로 확인가능
+
+// ----------------------------------------------------------------------------------------------------------------------------
+
+// 위에서는 직접적으로 데이터를 직접 넣었지만
+// 실제로는 사용자한테 입력값을 받아야한다. ---> BookDAO class 만들고 method 만들기
+
 //	}
 //}
 
 public class Main {
-	public static void main(String[] args) {		
-		boolean run = true;    //반복조건에 사용.
+	public static void main(String[] args) {
+		boolean run = true; // 반복조건에 사용.
 		Scanner scn = new Scanner(System.in);
-		BookDAO dao = new BookDAO();  //도서목록을 조회.
-		while(run) {
+		BookDAO dao = new BookDAO(); // 도서목록을 조회.
+		while (run) {
 			System.out.println("―――――――――――――――――――――――――――――――――――");
 			System.out.println("📚 도서 관리 시스템");
 			System.out.println("1. 도서목록");
 			System.out.println("2. 도서등록");
 			System.out.println("3. 도서수정");
 			System.out.println("4. 도서삭제");
+			System.out.println("5. 도서검색");
 			System.out.println("9. 종료");
 			System.out.println("―――――――――――――――――――――――――――――――――――");
 			System.out.print("> 선택: ");
-			int menu = scn.nextInt();   //입력값을 menu 변수에 대입
-			switch(menu) {
-			case 1: //도서목록.
-				ArrayList<Book> list = dao.findAll(); //반환값이 ArrayList<Book>
+			int menu = scn.nextInt(); // 입력값을 menu 변수에 대입
+			switch (menu) {
+			case 1: // 도서목록.
+				ArrayList<Book> list = dao.findAll(); // 반환값이 ArrayList<Book>
 				System.out.println("도서번호\t도서명\t\t저자\t가격");
 				System.out.println("-----------------------------------");
-				for(int i=0; i<list.size(); i++) {
-					System.out.println(list.get(i).getId()+"\t"+
-				                       list.get(i).getTitle()+"\t"+
-							           list.get(i).getAuthor()+"\t"+
-				                       list.get(i).getPrice());
-				}//end of for.
+				for (int i = 0; i < list.size(); i++) {
+					System.out.println(list.get(i).getId() + "\t" + list.get(i).getTitle() + "\t"
+							+ list.get(i).getAuthor() + "\t" + list.get(i).getPrice());
+				} // end of for.
 				break;
-			case 2: //도서등록.
+			case 2: // 도서등록.
 				System.out.print("> 도서번호: ");
-				int bno = scn.nextInt();scn.nextLine();            //반환값 int
-				// nextInt()는 사용자가 1003을 넣고 엔터를 쳤을 경우 사용자가 입력했던 '1003'만 읽어서 담아준다. 엔터가 처리되지 않았다. 
-				// nextLine()은 엔터까지 모두 처리해준다. 그래서 scn.nextLine()을 한번 더 입력해주는 방식으로 이 문제를 처리해줄 수 있다.
+				int bno = scn.nextInt();
+				scn.nextLine(); // 반환값 int
+				// nextInt()는 사용자가 1003을 넣고 엔터를 쳤을 경우 사용자가 입력했던 '1003'만 읽어서 담아준다. 엔터가 처리되지 않았다.
+				// nextLine()은 엔터까지 모두 처리해준다. 그래서 scn.nextLine()을 한번 더 입력해주는 방식으로 이 문제를 처리해줄 수
+				// 있다.
 				// 또는 Integer.parseInt(nextLine())과 같이 처리해야함
 				System.out.print("> 도서제목: ");
-				String title = scn.nextLine();                     //반환값 String
+				String title = scn.nextLine(); // 반환값 String
 				System.out.print("> 저자: ");
-				String author = scn.nextLine(); 
+				String author = scn.nextLine();
 				System.out.print("> 가격: ");
-				int price = scn.nextInt();scn.nextLine();			
+				int price = scn.nextInt();
+				scn.nextLine();
 				Book book = new Book(bno, title, author, price);
-				if(dao.insert(book)) {
+				if (dao.insert(book)) {
 					System.out.println("정상 등록");
-				}else {
+				} else {
 					System.out.println("등록 중 오류 발생");
-				}			
+				}
 				break;
-			case 3: //도서수정.
+			case 3: // 도서수정.
 				System.out.print("> 도서번호: ");
-				bno = scn.nextInt(); scn.nextLine();
+				bno = scn.nextInt();
+				scn.nextLine();
 				System.out.print("> 가격: ");
-				price = scn.nextInt(); scn.nextLine();
-				
-				if(dao.update(bno, price)) {
+				price = scn.nextInt();
+				scn.nextLine();
+
+				if (dao.update(bno, price)) {
 					System.out.println("정상 수정");
-				}else {
+				} else {
 					System.out.println("수정 중 오류 발생");
 				}
-				
-			break;	
-			case 4: //도서삭제.
-			break;
-			case 9: //종료.
-				run = false;
-			}//end of switch.
-		}//end of while.
-		System.out.println("end of program.");
-	}//end of main().
 
+				break;
+			case 4: // 도서삭제.
+				System.out.print("> 삭제할 도서번호: ");
+				bno = scn.nextInt();
+				scn.nextLine();
+
+				Book bookname = dao.findById(bno);
+				boolean delete = dao.delete(bno);
+				if (delete) {
+					System.out.println(bno + "번의 '" + bookname.getTitle() + "' 도서가 삭제되었습니다.");
+				} else {
+					System.out.println("해당하는 책이 없습니다.");
+				}
+				break;
+			case 5: // 도서검색.
+				System.out.print("> 검색할 도서번호: ");
+				bno = scn.nextInt();
+				scn.nextLine();
+				Book findById = dao.findById(bno);
+
+				if (findById != null) {
+					System.out.println("도서번호\t도서명\t\t저자\t가격");
+					System.out.println("-----------------------------------");
+					System.out.println(findById.getId() + "\t" + findById.getTitle() + "\t" + findById.getAuthor()
+							+ "\t" + findById.getPrice());
+				} else {
+					System.out.println("해당하는 책이 없습니다.");
+				}
+				break;
+			case 9: // 종료.
+				run = false;
+			}// end of switch.
+		} // end of while.
+		System.out.println("end of program.");
+	}// end of main().
 
 }
-
-
-
 
 // 교수님 git주소 : changholee2010/HelloJava 참고
