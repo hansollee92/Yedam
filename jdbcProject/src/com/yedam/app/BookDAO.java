@@ -56,7 +56,8 @@ public class BookDAO {
 //			e.printStackTrace();
 //		}		
 
-		String query = "insert into book(id, title, author, price)" + "     values(?,?,?,?)";
+		String query = "insert into book(id, title, author, price)" + 
+		          "     values(?,?,?,?)";
 		// 2)PrepareStatement를 이용한 구문 만들기
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -121,14 +122,6 @@ public class BookDAO {
 	}
 
 	// 단건조회(findById)
-
-//	--도서 단건 조회
-//	select id,
-//	       title,
-//	       author,
-//	       price
-//	from book
-//	where id = 1000;
 
 	// 입력 : 도서번호(int) 입력
 	// 반환 : Book 객체 하나 (찾으면) 또는 null (없으면)
