@@ -14,6 +14,17 @@ public class Post {
 	
 	//생성자
 	public Post() {}
+	public Post(String title, String content) {
+		super();
+		this.title = title;
+		this.content = content;
+	}
+	public Post(int boardNo, String title, String content) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+	}
 	public Post(int boardNo, String title, int id, Date redate, String content) {
 		super();
 		this.boardNo = boardNo;

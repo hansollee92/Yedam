@@ -41,7 +41,7 @@ public class PostDAO {
 		}		
 		return list;		
 		
-	}//end findAll()
+	}
 	
 	
 	
@@ -56,7 +56,7 @@ public class PostDAO {
 			stmt.setInt(1, boardNo);
 
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				Post post = new Post(); 
 				post.setBoardNo(rs.getInt("boardNo"));
 				post.setTitle(rs.getString("title"));
@@ -78,64 +78,136 @@ public class PostDAO {
 	
 	
 	
-	
-	// 글 검색(사용자)
-	public Post searchUser(String userName) {
+	// 검색 메소드	
+	public ArrayList<Post> postSearch(String column, String keyword){
 		Connection conn = DBUtil.getConnect();
-		String query = "select p.boardNo, p.title, m.userName, p.redate "+
-		           "    from post p join member2 m on(p.id = m.id) "+
-				   "    where m.userName = ? ";
+		ArrayList<Post> list = new ArrayList<Post>();
+		String query = "select p.boardNo, p.title, m.userName, p.redate"+
+		            "   from post p join member2 m "+
+				    "   on(m.id = p.id) "+
+		            "   where " + column + " like ? " +   //column값을 정확하게 받아야함!
+		            "   order by boardNo desc";		
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setString(1, userName);
+			stmt.setString(1, "%" + keyword +"%");			
 			ResultSet rs = stmt.executeQuery();
-			if(rs.next()) {
-				Post post = new Post(); 
+			
+			while(rs.next()) {
+				Post post = new Post();
 				post.setBoardNo(rs.getInt("boardNo"));
 				post.setTitle(rs.getString("title"));
-
+				
 				Member member = new Member();
-				member.setUserName(rs.getString("userName")); 
-				post.setMember(member);  //post에 member값 넣기
+				member.setUserName(rs.getString("userName"));
+				post.setMember(member);
 				
 				post.setRedate(rs.getDate("redate"));
-				return post;
+				list.add(post);
+			}						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
+	// 글등록
+	public boolean postUpload(Post post) {		
+		Connection conn = DBUtil.getConnect();
+		String query = "insert into post (boardNo, title, id, content) "+
+		            "   values (board_seq.nextval, ?, ?, ?)";
+		                // 사용자가 로그인이 되어 있다면 자동으로 여기 id값이 입력되게 -> LoginContext 클래스 필요
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, post.getTitle());
+			stmt.setInt(2, LoginContext.loginUser.getId());   // LoginContext에 저장된 로그인한 사용자 id값 자동 입력
+			stmt.setString(3, post.getContent());
+			
+			int r = stmt.executeUpdate();
+			if(r > 0) {
+				return true;
+			}			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}		
+		return false;
+	}
+	
+	
+	
+	// 글수정
+	public boolean postUpdate(Post post) {
+		
+		Connection conn = DBUtil.getConnect();
+		String query = "update post set title = ?, content = ? where boardNo = ?";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, post.getTitle());
+			stmt.setString(2, post.getContent());
+			stmt.setInt(3, post.getBoardNo());
+			int r = stmt.executeUpdate();
+			if(r > 0) {
+				return true;
 			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		}
+			
+		return false;
+	}
+	
+	
+	// 글 하나 검색
+	public Post findPost(int boardNo) {
+		Connection conn = DBUtil.getConnect();
+		String query = "select p.boardNo, p.title, p.id, m.userName, p.redate, p.content"+
+		          "     from post p join member2 m "+
+				  "           on (p.id = m.id) "+
+		          "     where p.boardNo = ?";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setInt(1, boardNo);
+			
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				Post post = new Post(
+					    rs.getInt("boardNo"),
+					    rs.getString("title"),
+					    Integer.parseInt(rs.getString("id")),
+					    rs.getDate("redate"),   
+					    rs.getString("content")
+					);
+				return post;
+			}
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
-	// 글 검색(제목, 키워드)
-	public Post searchTitle(String keyword) {
+	
+	
+	
+	// 글삭제
+	public boolean postDel(int boardNo) {
 		Connection conn = DBUtil.getConnect();
-		String query = "select p.boardNo, p.title, m.userName, p.redate "+
-		           "    from post p join member2 m on(p.id = m.id) "+
-				   "    where p.title " +
-		           "    like ?";
-		           // 자바에서는 '%?%'문자열로 인식해서 ?를 찾지 못해서 java.sql.SQLException: 부적합한 열 인덱스 오류 나타남
-		
+		String query = "delete from post" + 
+		         "      where boardNo = ?";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setString(1, "%" + keyword + "%");
-			ResultSet rs = stmt.executeQuery();
-			if(rs.next()) {
-				Post post = new Post(); 
-				post.setBoardNo(rs.getInt("boardNo"));
-				post.setTitle(rs.getString("title"));
-
-				Member member = new Member();
-				member.setUserName(rs.getString("userName")); 
-				post.setMember(member);  //post에 member값 넣기
-				
-				post.setRedate(rs.getDate("redate"));
-				return post;
+			stmt.setInt(1, boardNo);
+			
+			int r = stmt.executeUpdate();
+			if(r > 0) {
+				return true;
 			}			
-		} catch (SQLException e) {
+		} catch (SQLException e) {			
 			e.printStackTrace();
 		}		
-		return null;
+		return false;
 	}
 	
 	

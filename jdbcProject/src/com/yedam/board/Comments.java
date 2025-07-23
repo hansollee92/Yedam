@@ -1,40 +1,52 @@
 package com.yedam.board;
 
+import java.util.Date;
+
 public class Comments {
 	
 	//필드
-	private String user;
+	private String nickName;
 	private String message;
-	private int boardNo;
+	private Date redate;
+	private Post post;
 	
 	//생성자
 	public Comments(){}
-	public Comments(String user, String message, int boardNo) {
-		super();
-		this.user = user;
-		this.message = message;
-		this.boardNo = boardNo;
-	}	
-	
+
 	//메소드
-	public String getUser() {
-		return user;
+	public String getNickName() {
+		return nickName;
 	}
-	public void setUser(String user) {
-		this.user = user;
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
+
 	public String getMessage() {
 		return message;
 	}
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public int getBoardNo() {
-		return boardNo;
+
+	public Date getRedate() {
+		return redate;
 	}
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
+
+	public void setRedate(Date redate) {
+		this.redate = redate;
 	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+	
 	
 	
 }//end of Comments.

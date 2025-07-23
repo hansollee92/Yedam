@@ -63,7 +63,7 @@ public class BookDAO {
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setInt(1, book.getId()); // ?의 첫번째 값을 지정
 			stmt.setString(2, book.getTitle());
-			stmt.setString(3, book.getAuthor());
+			stmt.setString(3, book.getAuthor()); 
 			stmt.setInt(4, book.getPrice());
 
 			int r = stmt.executeUpdate();
@@ -92,7 +92,7 @@ public class BookDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 		return false;
 	}// end of update.
