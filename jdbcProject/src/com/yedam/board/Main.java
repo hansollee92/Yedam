@@ -1,6 +1,5 @@
 package com.yedam.board;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +15,6 @@ public class Main {
 		System.out.println();
 		System.out.println("            해당하는 번호를 입력하면 글을 확인할 수 있습니다!     ");
 		System.out.println("      ╚════════════════════════════════════════════╝");
-
 
 		while (run) {
 			menu();
@@ -46,12 +44,6 @@ public class Main {
 
 	}// end of Main Method
 
-	
-	
-	
-	
-	
-	
 	// 메소드
 	// -----------------------------------------------------------------------------------------------------------------------
 
@@ -79,13 +71,15 @@ public class Main {
 		System.out.println();
 	}
 
-	// 글확인
+	// 글확인 & 댓글확인 (댓글 작성)
 	public static void postView() {
 		Scanner sc = new Scanner(System.in);
 		PostDAO pdao = new PostDAO();
+		CommentsDAO cdao = new CommentsDAO();
 		System.out.print("> 글번호 입력: ");
 		int bno = Integer.parseInt(sc.nextLine());
 		Post postCheck = pdao.postCheck(bno);
+		ArrayList<Comments> commentsList = cdao.findComments(bno);
 
 		if (postCheck != null) {
 			System.out.println();
@@ -97,79 +91,120 @@ public class Main {
 			System.out.println("-----------------------------------------------------------");
 			System.out.println(postCheck.getContent());
 			System.out.println();
+			System.out.println("📬 댓글");
+
+			// 댓글 보기
+			if (commentsList.size() == 0) { // 댓글이 없으면
+				System.out.println("댓글이 아직 없습니다.");
+			} else { // 댓글이 있으면
+				for (int i = 0; i < commentsList.size(); i++) {
+					System.out.println("-[" + commentsList.get(i).getCommentsNo() + "] "
+							+ commentsList.get(i).getNickName() + " : " + commentsList.get(i).getMessage() + " ("
+							+ commentsList.get(i).getRedate() + ")");
+				}
+			}
+			System.out.println("-----------------------------------------------------------");
+
 		} else {
 			System.out.println("해당하는 글이 없습니다.");
 		}
+
+		// 댓글 작성
+		System.out.printf("> 댓글을 작성하시겠습니까? (y/n): ");
+		String commentCheck = sc.nextLine().trim();
+
+		if (commentCheck.equalsIgnoreCase("y")) {
+			Comments comment = new Comments();
+
+			if (LoginContext.loginUser != null) {
+				// 로그인 유저 댓글
+				comment.setNickName(LoginContext.loginUser.getUserName());
+			} else {
+				// 게스트 댓글
+				System.out.print("> 닉네임: ");
+				comment.setNickName(sc.nextLine().trim());
+			}
+			System.out.print("> 내용: ");
+			comment.setMessage(sc.nextLine().trim());
+			comment.setBoardNo(bno);
+
+			boolean commentResult = cdao.commentUpload(comment);
+			if (commentResult) {
+				System.out.println("> 댓글이 등록되었습니다.");
+			} else {
+				System.out.println("> 댓글 등록에 실패했습니다.");
+			}
+
+		}
+
 	}
 
 	// 검색
 	public static void postSearch() {
-		
-		Scanner sc = new Scanner(System.in);	
+
+		Scanner sc = new Scanner(System.in);
 		PostDAO pdao = new PostDAO();
-		
-		while(true) {
+
+		while (true) {
 			System.out.println();
 			System.out.println("📋 《《 게시글 검색 》》");
 			System.out.println("검색할 항목을 아래에서 입력해 주세요.");
 			System.out.println("⋯ 1. 제목");
 			System.out.println("⋯ 2. 글쓴이");
 			System.out.println("-----------------------------------------------------------");
-			System.out.print("> ");			
-			
+			System.out.print("> ");
+
 			int srhNo;
 			// 바로 숫자변환하면 에러터짐 (사용자가 문자열값을 넣을 경우 형변환 불가능)
+
 			// 일단 선언 한 다음에 try-catch문으로 처리
 			// NumberFormatException : 예외클래스로 숫자가 아닌 것들을 강제형변환할때 일어나는 에러
-			// 이 에러가 일어나면~ 아래를 출력해라라는 의미! 
-			try{
-				srhNo = Integer.parseInt(sc.nextLine().trim()); 
-			}catch(NumberFormatException e){  //숫자가 아닌 값 들어왔을 때
-				System.out.println("1 또는 2 를 입력해주세요!");   
+			// 이 에러가 일어나면~ 아래를 출력해라라는 의미!
+			try {
+				srhNo = Integer.parseInt(sc.nextLine().trim());
+			} catch (NumberFormatException e) { // 숫자가 아닌 값 들어왔을 때
+				System.out.println("1 또는 2 를 입력해주세요!");
 				continue;
 			}
-			
+
 			String column = null;
 			String keyword = null;
-			if(srhNo == 1) {
+			if (srhNo == 1) {
 				column = "p.title";
 				System.out.print("> 검색어를 입력하세요: ");
-				keyword = sc.nextLine().trim();				
-			}else if(srhNo == 2) {
+				keyword = sc.nextLine().trim();
+			} else if (srhNo == 2) {
 				column = "m.userName";
 				System.out.print("> 글쓴이를 입력하세요: ");
-				keyword = sc.nextLine().trim();				
-			}else { //1,2가 아닌 숫자값이 들어왔을 때 
+				keyword = sc.nextLine().trim();
+			} else { // 1,2가 아닌 숫자값이 들어왔을 때
 				System.out.println("1 또는 2 를 입력해주세요");
 				continue;
 			}
-						
-			ArrayList<Post> result = pdao.postSearch(column, keyword);			
-			if(keyword.isBlank()) {   //== keyword.trim().isEmpty()
+
+			ArrayList<Post> result = pdao.postSearch(column, keyword);
+			if (keyword.isBlank()) { // == keyword.trim().isEmpty()
 				System.out.println("아무것도 입력이 되지 않았습니다. 값을 입력해주세요!");
 				continue;
-			}			
-			if(!result.isEmpty()) { 
+			}
+			if (!result.isEmpty()) {
 				System.out.println();
 				System.out.println("📋 《《 게시글 검색 결과 》》");
 				System.out.printf("%-5s %-30s %-8s %-10s\n", "번호", "제목", "글쓴이", "작성일");
 				System.out.println("--------------------------------------------------------------");
-				for(Post post : result) {
-					System.out.printf("%-5d %-30s %-8s %-10s\n",
-							post.getBoardNo(),
-							post.getTitle(),
-							post.getMember().getUserName(),
-							post.getRedate());
+				for (Post post : result) {
+					System.out.printf("%-5d %-30s %-8s %-10s\n", post.getBoardNo(), post.getTitle(),
+							post.getMember().getUserName(), post.getRedate());
 				}
-			}else {
+				System.out.println();
+			} else {
 				System.out.println("해당 키워드가 검색되지 않습니다.");
 			}
-			break;		
-		
+			break;
+
 		}
 	}
 
-		
 	// 로그인
 	public static void postLogin() {
 
@@ -189,11 +224,10 @@ public class Main {
 			System.out.println();
 			System.out.print("😎🎉'" + login.getUserName() + "'님 안녕하세요!\n");
 			adminMenu();
-		}else { 
+		} else {
 			System.out.println("ID 또는 비밀번호가 일치하지 않습니다.\\n");
 		}
 
-		
 	}
 
 	// 메뉴 (로그인후)
@@ -232,7 +266,7 @@ public class Main {
 				postdel();
 				break;
 
-			default: // 로그아웃 (로그아웃말로 바로 종료되는 기능을 만들려면...?)
+			default: // 로그아웃
 				userRun = false;
 				System.out.println();
 			}
@@ -305,8 +339,8 @@ public class Main {
 
 	// 글 삭제
 	public static void postdel() {
-		Scanner sc = new Scanner(System.in);		
-		
+		Scanner sc = new Scanner(System.in);
+
 		System.out.print("> 삭제할 글번호 입력: ");
 		int boardNo = Integer.parseInt(sc.nextLine());
 

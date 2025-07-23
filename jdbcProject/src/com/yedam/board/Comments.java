@@ -1,19 +1,20 @@
 package com.yedam.board;
 
-import java.util.Date;
-
 public class Comments {
-	
-	//필드
+
+	// 필드
+	private int commentsNo;
 	private String nickName;
 	private String message;
-	private Date redate;
+	private String redate;
 	private Post post;
-	
-	//생성자
-	public Comments(){}
+	private int boardNo;
 
-	//메소드
+	// 생성자
+	public Comments() {
+	}
+
+	// 메소드
 	public String getNickName() {
 		return nickName;
 	}
@@ -30,11 +31,11 @@ public class Comments {
 		this.message = message;
 	}
 
-	public Date getRedate() {
+	public String getRedate() {
 		return redate;
 	}
 
-	public void setRedate(Date redate) {
+	public void setRedate(String redate) {
 		this.redate = redate;
 	}
 
@@ -46,7 +47,20 @@ public class Comments {
 		this.post = post;
 	}
 
-	
-	
-	
-}//end of Comments.
+	public int getBoardNo() {
+		return boardNo;
+	}
+
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
+	}
+
+	public int getCommentsNo() {
+		return commentsNo;
+	}
+
+	public void setCommentsNo(int commentsNo) {
+		this.commentsNo = commentsNo;
+	}
+
+}// end of Comments.
