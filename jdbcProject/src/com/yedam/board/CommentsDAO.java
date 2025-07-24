@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.yedam.app.DBUtil;
+import com.yedam.board.DBUtil;
 
 public class CommentsDAO {
 
