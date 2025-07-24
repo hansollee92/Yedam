@@ -7,7 +7,6 @@ public class Comments {
 	private String nickName;
 	private String message;
 	private String redate;
-	private Post post;
 	private int boardNo;
 
 	// 생성자
@@ -37,14 +36,6 @@ public class Comments {
 
 	public void setRedate(String redate) {
 		this.redate = redate;
-	}
-
-	public Post getPost() {
-		return post;
-	}
-
-	public void setPost(Post post) {
-		this.post = post;
 	}
 
 	public int getBoardNo() {

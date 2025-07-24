@@ -11,13 +11,15 @@ import com.yedam.app.DBUtil;
 public class CommentsDAO {
 
 	// 메소드
-
-	// 댓글찾기&보기(by boardNo)
+	// 댓글보기(by boardNo)
 	public ArrayList<Comments> findComments(int boardNo) {
 		Connection conn = DBUtil.getConnect();
 		ArrayList<Comments> list = new ArrayList<Comments>();
-		String query = "select commentsNo, nickName, message, boardNo, to_char(redate, 'YYYY-MM-DD HH24:MI') \"redate\" "
-				+ "     from comments " + "     where boardNo = ? " + "     order by commentsNo";
+		String query = "select commentsNo, nickName, message, boardNo, "
+				+ "            to_char(redate, 'YYYY-MM-DD HH24:MI') \"redate\" "
+				+ "     from comments " 
+				+ "     where boardNo = ? " 
+				+ "     order by commentsNo";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setInt(1, boardNo);
@@ -45,7 +47,7 @@ public class CommentsDAO {
 		Connection conn = DBUtil.getConnect();
 		String query = "insert into comments (commentsNo, nickName, message, boardNo) "
 				+ "     values (comments_seq.nextval, ?, ?, ?)";
-		// 게시글 번호는 그 글에 들어와있으니 자동으로 입력되게
+		// 게시글 번호는 그 글에 들어와있으니 자동으로 입력되게(bno)
 
 		try {
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -61,7 +63,6 @@ public class CommentsDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 

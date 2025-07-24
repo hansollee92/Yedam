@@ -9,9 +9,8 @@ import com.yedam.app.DBUtil;
 
 public class MemberDAO {
 
-	// 메소드	
-	
-	// 로그인시 유저 체크
+	// 메소드		
+	// 로그인 유저
 	public Member login (int id, String pw) {
 		Connection conn = DBUtil.getConnect();
 		String query = "select id, userName, pw " + 
