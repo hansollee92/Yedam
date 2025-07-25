@@ -12,7 +12,16 @@ import com.yedam.vo.Book;
 public class Main {
 
 	public static void main(String[] args) {
+	
+		BookControl ctrl = new BookControl();
+		ctrl.exe();
 		
+	}
+	
+	
+	
+	
+	void backup() {		
 		//Object ;  > [Ctrl]+호버해서 Object를 살펴보기
 		
 //		DBUtil util = new DBUtil();  //인스턴스를 통해서 메모리 로딩.
@@ -54,7 +63,7 @@ public class Main {
 		// 인터페이스 - 구현클래스.
 		BookMapper mapper = sqlSession.getMapper(BookMapper.class);
 //		Book book = mapper.selectBook(1001);    -- 위의 단건조회와 같은 역할
-		List<Book> list = mapper.selectList();
+		List<Book> list = mapper.selectList(1);
 		for(Book book : list) {
 			System.out.println(book.toStr());
 		}
