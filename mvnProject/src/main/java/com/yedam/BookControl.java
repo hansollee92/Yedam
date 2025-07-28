@@ -49,6 +49,8 @@ public class BookControl {
 	void bookList() {
 		
 		int page = 1;
+		int lastPage = 1;   // 마지막페이지 정보)
+		
 		while(true) {
 			List<Book> list = mapper.selectList(page);
 			// id / title / price
