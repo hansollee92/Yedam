@@ -12,7 +12,7 @@ public class DBUtil {
 
 	//
 	public static SqlSessionFactory getInstance() {
-		String resource = "com/yedam/common/mybatis-config.xml";
+		String resource = "config/mybatis-config.xml";
 		// 우리가 만들어야할 파일이 mybatis-config.xml 이거인데 이걸 읽어들여서 자바에서 쓰는 객체로 변환해주는 작업을 한다.
 		// 내부적으로 어떤식으로 흘러가는지는 정확히 알수없지만 SqlSessionFactoryBuilder()이 그걸 처리한다.
 		

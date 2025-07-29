@@ -16,7 +16,7 @@ import com.yedam.vo.BoardVO;
 // 서블릿의 실행순서
 // 페이지 75
 // liver server
-// client -> 웹서버(정적 페이지) -> 서블릿컨테이너(톰캣) -> init() -> service()
+// client -> 웹서버(정적 페이지) -> 서블릿컨테이너(톰캣) -> init() -> service() -> destory()
 //                      init()은 서버 최초요청때만 실행되고 service()는 요청때마다 실행
 //                      위의 형태는 톰캣의 형태가 저렇고 다른 서버들은 다르게 받을 수도 있다. 
 @WebServlet("/board")

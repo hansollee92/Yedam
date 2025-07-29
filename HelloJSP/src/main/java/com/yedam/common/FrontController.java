@@ -1,0 +1,61 @@
+package com.yedam.common;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.yedam.control.AddBoardControl;
+import com.yedam.control.BoardControl;
+import com.yedam.control.BoardListControl;
+import com.yedam.control.RegisterControl;
+
+// init - service - destroy 생명주기
+// *.do -> 실행할 컨트롤.
+// 요청url === 실행할 컨트롤 
+public class FrontController extends HttpServlet {
+	         // 이름에도 알수있듯이 컨트롤되는 것들을 모두 여기에 넣을 것이다. 
+	         // Front를 붙인건, 안내데스크를 프론트라고 하듯이 기능들을 안내한다는 의미에서 붙여졌다.
+	
+	Map<String, Control> map;	
+	
+	//생성자
+	public FrontController() {
+		map = new HashMap<String, Control>();
+	}
+	
+	// init, service [Ctrl] + [Space]로 만들기
+	@Override
+	public void init() throws ServletException {   //여기서는 호출
+		map.put("/boardList.do", new BoardListControl());
+		map.put("/board.do", new BoardControl());
+		// BoardListControl, BoardControl은 다른 패키지에 있어서 import해줘야함
+		
+		map.put("/register.do", new RegisterControl());    //글등록화면
+		map.put("/addBoard.do", new AddBoardControl());    //글등록처리
+	}
+		
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// url vs. uri.
+		// http://localhost:8080/HelloJSP/boardList.do  (url)
+		//                       ---------------------
+		//                       uri : url에서 호스트와 포트를 제외한 나머지 부분을 uri
+		
+		String uri = req.getRequestURI();    //req.getRequestURI()가 즉, 저 부분을 반환해주는 메소드이다.
+		String context = req.getContextPath();     //tomcat에서 context~라고 나오면 프로젝트 정보이다.(/HelloJSP의 정보를 반환해줌)
+		String page = uri.substring(context.length());  // 전체 uri값에서 context를 뺀 이후가 우리가 실제적으로 호출하는 페이지! 
+		                                 // 그래서 저 값을 알고 싶어서 subString <- 문자를 어디에서 어디까지 자르는 메소드를 들고와서 반환할꺼임
+		// substring은 매개값으로 시작값과 끝나는값 두가지가 올 수 있는데 하나의 값만 있으면 저 길이만큼을 빼겠다는 거임. 
+		
+		Control control = map.get(page);
+		control.execute(req, resp);		
+		
+	}
+	
+	
+}
