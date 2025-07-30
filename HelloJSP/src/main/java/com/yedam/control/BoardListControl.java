@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
 import com.yedam.common.PageDTO;
+import com.yedam.common.SearchDTO;
 import com.yedam.service.BoardService;
 import com.yedam.service.BoardServiceImpl;
 import com.yedam.vo.BoardVO;
@@ -20,22 +21,34 @@ public class BoardListControl implements Control {
 			throws ServletException, IOException {
 		//WEB-INF/html/register_form.html
 		
+		// 파라미터. (page&searchCondition&keyword)		
 		String page = req.getParameter("page");
-		page = page == null ? "1" : page;		
+		String sc = req.getParameter("searchCondition");
+		String kw = req.getParameter("keyword");
+		
+		page = page == null ? "1" : page;	
+		
+		// SearchDTO (메소드에 전달할 파라미터)
+		SearchDTO search = new SearchDTO();
+		search.setPage(Integer.parseInt(page));
+		search.setSearchCondition(sc);
+		search.setKeyword(kw);
 		
 		BoardService svc = new BoardServiceImpl();
-		List<BoardVO> list = svc.boardList(Integer.parseInt(page));  //글목록
+		List<BoardVO> list = svc.boardList(search);  //글목록
 		// 저기에 담겨있는 데이터를 아래의 페이지에 넘겨줘야함 
 		// req(요청정보)에 값을 담아서!
 		// 그럼 어떻게 담냐? 
 	
 		// 페이징
-		int totalCnt = 96;
+		int totalCnt = svc.totalCount(search);
 		PageDTO paging = new PageDTO(Integer.parseInt(page), totalCnt);				
 		
 		// jsp(뷰역할) 페이지에 데이터 전달
 		req.setAttribute("board_list", list);	
 		req.setAttribute("paging", paging);
+		req.setAttribute("searchCondition", sc);
+		req.setAttribute("keyword", kw);		
 		
 		//요청재지정
 		req.getRequestDispatcher("WEB-INF/html/board_list.jsp").forward(req, resp);

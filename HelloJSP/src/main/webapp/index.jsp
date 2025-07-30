@@ -1,33 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-	<h3>Hello, JSP</h3>
-	<!-- < % % >을 사용하여 자바코드를 사용할 수 있음 -->
-	<%
-	String msg = "Hello, World";
-	System.out.println(msg);
-	int age = 20;
-	%>
-	<p>여기는 HTML영역입니다</p>
-	<%
-	if (age >= 20) {
-	%>
-	<p>성년입니다</p>
-	<%
-	} else {
-	%>
-	<p>미성년입니다.</p>
-	<%
-	}
-	%>
-	<!-- 동적인 기능을 구현하고자 이런식으로 JSP에 언어를 집어넣었다
-	좋긴한데 너무 혼란스러움. Java, HTML을 편하게 작성할순 있지만 이것을 읽는 입장에선 혼란스럽다 -->
+<body>	
+	<jsp:forward page="boardList.do"></jsp:forward>
+	<h3>Hello, JSP</h3>	
+	
+	<c:set var="name" value="홍길동" ></c:set>
+	<c:out value="${name }"></c:out>
+	
+	<c:choose>
+		<c:when test="${name == '홍길동'}">
+			<p>정답</p>
+		</c:when>
+		<c:otherwise>
+			<p>오답</p>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:set var="age" value="23"></c:set>
+	<c:if test="${age >= 20}">
+		<p>당신은 성년입니다</p>
+	</c:if>
+	
+	<c:choose> 
+		<c:when test="${age >= 30}">
+			<p style="color:red;">성년</p>
+		</c:when>
+		<c:when test="${age >= 20 }">
+			<p style="color:blue;">청년</p>
+		</c:when>
+		<c:otherwise>
+			<p style="color:green">미성년</p>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:forEach var="i" begin="1" end="10" step="2">
+		<p>2 * ${i} = ${2 * i}</p>
+	</c:forEach>
 
 </body>
 </html>

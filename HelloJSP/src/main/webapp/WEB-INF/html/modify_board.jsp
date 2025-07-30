@@ -7,9 +7,9 @@
 
 <jsp:include page="includes/header.jsp" />
 
-<h3>글상세화면(board.jsp)</h3>
+<h3>글수정화면(modify_board.jsp)</h3>
 
-<form action="modifyForm.do">
+<form action="modifyBoard.do">
 <input type="hidden" value="${board_info.boardNo}" name="bno">
 	<table class="table">
 		<tr>
@@ -27,16 +27,20 @@
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="3"><c:out value="${board_info.title}" /></td>
+			<td colspan="3">
+				<input type="text" name="title" value="${board_info.title}" class="form-control" />
+			</td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td colspan="3"><c:out value="${board_info.content}" /></td>
+			<td colspan="3">
+				<textarea name="content" class="form-control">${board_info.content}</textarea>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="4" align="center">
-				<input type="submit" value="수정" class="btn btn-success">
-				<button type="button" class="btn btn-danger">삭제</button>
+				<input type="submit" value="저장" class="btn btn-success">
+				<button type="button" class="btn btn-secondary">취소</button>
 			</td>
 		</tr>
 	</table>
