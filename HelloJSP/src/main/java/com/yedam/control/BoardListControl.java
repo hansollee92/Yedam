@@ -42,7 +42,7 @@ public class BoardListControl implements Control {
 	
 		// 페이징
 		int totalCnt = svc.totalCount(search);
-		PageDTO paging = new PageDTO(Integer.parseInt(page), totalCnt);				
+		PageDTO paging = new PageDTO(Integer.parseInt(page), totalCnt);						
 		
 		// jsp(뷰역할) 페이지에 데이터 전달
 		req.setAttribute("board_list", list);	

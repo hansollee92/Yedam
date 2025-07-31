@@ -30,6 +30,8 @@ public class ModifyBoardControl implements Control {
 		board.setTitle(title);
 		board.setContent(content);
 		
+        // boardList.do?searchCondition=&keyword=&page=9 수정하고 이동하는게 
+		// 원래 그 해당 페이지로 가는 방법은...? 
 		BoardService svc = new BoardServiceImpl();
 		if(svc.modifyBoard(board)) {
 			resp.sendRedirect("boardList.do");

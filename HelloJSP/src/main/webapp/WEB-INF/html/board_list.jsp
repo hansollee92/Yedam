@@ -40,7 +40,7 @@
 		<c:forEach var="board" items="${board_list}">
 			<tr>
 				<td><c:out value="${board.boardNo}" /></td>
-				<td><a href='board.do?bno=${board.boardNo}'><c:out
+				<td><a href='board.do?bno=${board.boardNo}&page=${paging.currPage}'><c:out
 							value="${board.title}" /></a></td>
 				<td><c:out value="${board.writer}" /></td>
 				<td><c:out value="${board.viewCnt}" /></td>
