@@ -5,12 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!-- 포맷관련 -->
 
-<jsp:include page="includes/header.jsp" />
 
 <h3>글수정화면(modify_board.jsp)</h3>
 
 <form action="modifyBoard.do">
 <input type="hidden" value="${board_info.boardNo}" name="bno">
+<input type="hidden" value="${page}" name="page">
 	<table class="table">
 		<tr>
 			<th>글번호</th>
@@ -46,4 +46,3 @@
 	</table>
 </form>
 
-<jsp:include page="includes/footer.jsp" />

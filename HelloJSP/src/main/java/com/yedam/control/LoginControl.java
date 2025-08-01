@@ -35,6 +35,8 @@ public class LoginControl implements Control {
 			HttpSession session = req.getSession();   
 			//요청정보에 넘어온 값을 확인해서 Session객체를 만들어줌, 객체 이름은 HttpSession 
 			session.setAttribute("logId", id);    // 속성(logId) = 로그인아이디
+			session.setAttribute("auth", member.getResponsibility());    //user인지 admin인지 구분하는
+			// auth가 권한을 담고 있는데 
 			resp.sendRedirect("boardList.do");			
 		}
 		

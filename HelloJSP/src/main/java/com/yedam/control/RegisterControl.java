@@ -15,7 +15,8 @@ public class RegisterControl implements Control {
 		   throws ServletException, IOException{
 		// WEB-INF/html/register_form.html을 열어주는 기능		
 		
-		req.getRequestDispatcher("WEB-INF/html/register_form.jsp").forward(req, resp);		
+//		req.getRequestDispatcher("WEB-INF/html/register_form.jsp").forward(req, resp);		
+		req.getRequestDispatcher("user/register_form.tiles").forward(req, resp);		
 		
 		
 //		try {

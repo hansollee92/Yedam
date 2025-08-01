@@ -19,7 +19,9 @@ public class ModifyFormControl implements Control {
 
 		// 수정화면
 		// 예를 들어 bno=3이면 3번을 수정할 수 있도록 해야함
+		// modifyForm.do?bno=41&page=9
 		String bno = req.getParameter("bno");
+		String page = req.getParameter("page");
 
 		// DB조회
 		BoardService svc = new BoardServiceImpl();
@@ -33,9 +35,11 @@ public class ModifyFormControl implements Control {
 			
 			// view영역(jsp)로 값을 전달
 			req.setAttribute("board_info", board);
+			req.setAttribute("page", page);
 			
 			// 요청재지정
-			req.getRequestDispatcher("WEB-INF/html/modify_board.jsp").forward(req, resp);	
+//			req.getRequestDispatcher("WEB-INF/html/modify_board.jsp").forward(req, resp);	
+			req.getRequestDispatcher("user/modify_board.tiles").forward(req, resp);	
 			
 		}else {
 			// 권한 없을 경우 
@@ -45,7 +49,7 @@ public class ModifyFormControl implements Control {
 			req.setAttribute("msg", "권한이 없습니다.");
 			
 			//요청재지정
-			req.getRequestDispatcher("WEB-INF/html/board.jsp").forward(req, resp);		
+			req.getRequestDispatcher("user/board.tiles").forward(req, resp);		
 			
 		}
 

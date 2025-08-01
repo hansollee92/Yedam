@@ -18,6 +18,7 @@ public class BoardControl implements Control{
 		throws ServletException, IOException {
 		
 		//parameter(?bon=3)
+		//parameter(page=9)
 		String bno = req.getParameter("bno");
 		String page = req.getParameter("page");
 		
@@ -29,7 +30,8 @@ public class BoardControl implements Control{
 		req.setAttribute("page", page);
 				
 		//요청재지정
-		req.getRequestDispatcher("WEB-INF/html/board.jsp").forward(req, resp);
+//		req.getRequestDispatcher("WEB-INF/html/board.jsp").forward(req, resp);
+		req.getRequestDispatcher("user/board.tiles").forward(req, resp);
 		
 	}
 		

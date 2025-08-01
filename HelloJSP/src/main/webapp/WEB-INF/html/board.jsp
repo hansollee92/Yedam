@@ -5,7 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!-- 포맷관련 -->
 
-<jsp:include page="includes/header.jsp" />
 
 <h3>글상세화면(board.jsp)</h3>
 
@@ -34,7 +33,21 @@
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="3"><c:out value="${board_info.title}" /></td>
+			<td colspan="4"><c:out value="${board_info.title}" /></td>
+		</tr>
+		<tr>
+			<th>파일첨부</th>
+			<td colspan="4">
+				<c:choose>
+					<c:when test="${!empty board_info.image}">
+						<img width="150px" src='upload/${board_info.image}'>
+					</c:when>
+					<c:otherwise>
+						<!-- <span style="font-size:12px; color:#aaa;">첨부파일 없음</span> -->
+						<img src="https://dummyimage.com/100x50/eee/000&text=no+image">
+					</c:otherwise>
+				</c:choose>
+			</td>
 		</tr>
 		<tr>
 			<th>내용</th>
@@ -50,4 +63,3 @@
 	</table>
 </form>
 
-<jsp:include page="includes/footer.jsp" />
