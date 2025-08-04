@@ -14,7 +14,8 @@ import com.yedam.vo.MemberVO;
 public class SignUpControl implements Control {
 
 	@Override
-	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void execute(HttpServletRequest req, HttpServletResponse resp) 
+			throws ServletException, IOException {
 
 		// 회원정보 등록 -> 게시글 목록 페이지
 		// param : id, psw, name

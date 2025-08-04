@@ -13,6 +13,7 @@ import com.yedam.control.AddBoardControl;
 import com.yedam.control.BoardControl;
 import com.yedam.control.BoardListControl;
 import com.yedam.control.DeleteBoardControl;
+import com.yedam.control.JSControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.LogoutControl;
@@ -60,8 +61,10 @@ public class FrontController extends HttpServlet {
 		map.put("/logout.do", new LogoutControl());          //로그아웃
 		
 		map.put("/memberList.do", new MemberListControl());  //회원목록 화면
-	}
 		
+		map.put("/js.do", new JSControl());   //기타
+		
+	}
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// url vs. uri.
