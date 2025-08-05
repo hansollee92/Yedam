@@ -20,9 +20,7 @@
 	
 	현재 위와 같은 경로로 되어 있음
 	그렇기 때문에 경로가 위와 같이 됨 js/basic.js 	
-	-->	 
-	
-	 
+	-->	  
 	
 	<div style="display: none;">
 		ID : <input type="text" id="mid" ><br>
@@ -32,18 +30,15 @@
 	</div>
 	<div style="display: none;">
 		<ul id="list"></ul>
-	</div>
-
-	
-		
+	</div>		
 	
 	<!-- 문제 -->
-	<div>
+	<div style="display: none;">
 		이름 : <input type="text" id="std_name"><br>
 		영어 : <input type="number" id="std_score"><br>
 		<button id="addList">추가</button>
 	</div><br>
-	<div>
+	<div style="display: none;">
 		<table border="1">
 			<thead>
 				<tr>
@@ -61,12 +56,50 @@
 	</div>
 	 
 
+	<div id="show">
+		<table border="2">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>FName</th>
+					<th>LName</th>
+					<th>Salary</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- 데이터건수만큼 아래의 코드를 만들고자 한다 
+				<tr>
+					<td></td>
+				</tr> -->
+			</tbody>
+		</table>
+	</div>
+
+
+	<div id="item" style="display: none;">
+		<table border="2">
+			<thead>
+				<tr>
+					<th>이름</th>
+					<th>점수</th>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- 데이터건수만큼 아래의 코드를 만들고자 한다 
+				<tr>
+					<td></td>
+				</tr> -->
+			</tbody>
+		</table>
+	</div>
+
+
 
 
 
 	<!-- 스크립트는 항상 아래에 있어야함 아님 null 오류뜸 -->	
-	<script type="text/javascript" src="js/data.js"></script>
-	 
+	<script type="text/javascript" src="js/ajax2.js"></script>
 	 
 </body>
 </html>
