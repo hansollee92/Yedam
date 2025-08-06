@@ -6,5 +6,7 @@ import com.yedam.vo.ReplyVO;
 
 public interface ReplyService {
 
-	List<ReplyVO> replyList(int boardNo);
+	List<ReplyVO> replyList(int boardNo, int page);      //댓글목록
+	boolean removeReply(int replyNo);          //댓글삭제
+	boolean addReply(ReplyVO reply);           //댓글등록
 }

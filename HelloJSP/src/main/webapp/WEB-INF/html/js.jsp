@@ -99,7 +99,7 @@
 
 
 	<!-- 스크립트는 항상 아래에 있어야함 아님 null 오류뜸 -->	
-	<script type="text/javascript" src="js/ajax2.js"></script>
+	<script type="text/javascript" src="js/example/ajax2.js"></script>
 	 
 </body>
 </html>

@@ -23,11 +23,13 @@ public class ReplyListControl implements Control {
 		resp.setContentType("text/json;charset=utf-8");         // 인코딩
 		
 		String bno = req.getParameter("bno");
+		String page = req.getParameter("page");
+		
 		// 댓글목록은 boardNo를 가지고 가지고 온다. 
 		// parameter는 String형식으로 가져옴
 		
 		ReplyService svc = new ReplyServiceImpl();  //서비스 객체생성
-		List<ReplyVO> list = svc.replyList(Integer.parseInt(bno));
+		List<ReplyVO> list = svc.replyList(Integer.parseInt(bno), Integer.parseInt(page));
 		
 		//Gson 라이브러리 활용해서 json문자열 객체를 만들고자 함
 		Gson gson = new GsonBuilder().create();
