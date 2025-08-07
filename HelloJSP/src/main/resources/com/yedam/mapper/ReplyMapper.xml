@@ -32,8 +32,35 @@
 		values (#{replyNo}, #{boardNo}, #{reply}, #{replyer})
 	</insert>
 	
+	<!-- 댓글건수 계산 -->
+	<select id="selectCount" parameterType="int">		
+		select count(1)
+		from tbl_reply
+		where board_no = #{boardNo}
+		group by board_no
+	</select>
 	
 	
+	<!-- Event 관련 기능 -->
+	<!-- 이벤트 목록 조회 -->
+	<select id="eventList">
+		select title      as "title",
+		       start_date as "start",
+		       end_date   as "end"
+		from tbl_event
+	</select>
+	
+	<!-- 이벤트 등록 -->
+	<insert id="insertEvent" parameterType="com.yedam.vo.EventVO">
+		insert into tbl_event (title, start_date, end_date)
+		values (#{title}, #{startDate}, #{endDate})
+	</insert>
+	
+	<!-- 이벤트 삭제 -->
+	<delete id="deleteEvent" parameterType="String">
+		delete from tbl_event
+	    where title = #{title}
+	</delete>
 	
 	
 
