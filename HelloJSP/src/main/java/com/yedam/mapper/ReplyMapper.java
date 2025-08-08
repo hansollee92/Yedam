@@ -17,5 +17,5 @@ public interface ReplyMapper {
 	// Calender 목록, 추가, 삭제 -> mapper.xml에 추가 
 	List<EventVO> eventList();         //달력 이벤트 목록
 	int insertEvent(EventVO event);    //달력 이벤트 등록
-	int deleteEvent(String title);     //달력 이벤트 삭제
+	int deleteEvent(@Param("title") String title);     //달력 이벤트 삭제
 }

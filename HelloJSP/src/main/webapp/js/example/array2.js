@@ -46,6 +46,37 @@ function makeRow(member) {
 }
 
 
+document.querySelector('select').addEventListener('change', function(){
+	searchCenterList();
+})
+	
+function searchCenterList(sido){
+	fetch(url)
+	.then(resolve => resolve.json())
+	.then(result => {
+		//console.log(result.data[0]);
+		result.data.forEach(elem =>{
+			let option = document.querySelector('select>option').value;
+			
+			if(elem.sido == `${option}`){
+				let tr = document.createElement('tr');
+				['id', 'centerName', 'phoneNumber'].forEach(prop => {
+					let td = document.createElement('td');
+					td.innerText = elem[prop];
+					tr.appendChild(td);
+				})		
+				document.querySelector('#list').appendChild(tr);			
+
+			}
+			
+		});
+	})
+	.catch(err => console.error(err));	
+}
+
+
+
+
 // 급여가 7000 이상인 사람들을 목록에 출력
 // 전체 members를 가져와서 filter 처리를 할 것임 
 /*members.filter(elem => {

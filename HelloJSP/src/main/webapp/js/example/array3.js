@@ -33,6 +33,7 @@ let result = studentAry.reduce((acc, elem) =>{
 
 
 
+
 /*
 
 // 80점이 넘는 사람들만 reduce를 활용해서 콘솔에 담고 싶다면? 
