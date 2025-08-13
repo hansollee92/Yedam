@@ -54,6 +54,15 @@ body{font-family: var(--font);}
   width: 100%;
   display: block
 }
+.logo-member{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+.logo-member img{
+  width: 173px;
+}
 
 .search {
   flex: 1;
@@ -79,6 +88,12 @@ body{font-family: var(--font);}
   color: var(--gray);
   font-size: var(--font-sm);
 }
+#search-form .form-control:focus{
+  border-color: #2b8276; /* 원하는 색 (여기선 초록) */
+  box-shadow: 0 0 0 0.2rem rgba(43, 130, 118, 0.434); /* 그림자색도 변경 */
+}
+
+
 #search-form .btn {
   position: absolute;
   right: 4px;
