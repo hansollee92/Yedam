@@ -6,6 +6,7 @@ create table member (
     member_name   varchar2(10) not null, -- 이름
     member_birth  date not null, -- 생년월일
     member_phone  number(10) not null, -- 전화번호
+    member_img    varchar2(100),
     member_score  number default 2 -- 평점
 );
 
@@ -112,5 +113,6 @@ create sequence commu_seq;
 create sequence commuReply_seq;
 create sequence notice_seq;
 
-
+-- 커밋
+commit;
 
