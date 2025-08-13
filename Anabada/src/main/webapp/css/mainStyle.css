@@ -246,7 +246,7 @@ section {
 
 /* footer */
 footer {
-  width: 70%;
+  width: min(1200px, 94%);
   margin: 0 auto;
   font-family: var(--font);
   color: var(--gray);
