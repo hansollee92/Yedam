@@ -443,6 +443,11 @@ h1,h2,h3,h4,h5,h6 {
 .banner-ad.large .banner-content .banner-title {
   font-size: 54px;
 }
+banner-ad img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 비율 유지하며 배너 영역 채우기 */
+}
 
 /* Swiper carousel */
 .swiper-prev,
