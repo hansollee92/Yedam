@@ -14,29 +14,30 @@ import com.yedam.control.bongTest;
 
 public class FrontController extends HttpServlet {
 
-	Map<String, Control> map;	
-	
-	//생성자
+	Map<String, Control> map;
+
+	// 생성자
 	public FrontController() {
 		map = new HashMap<String, Control>();
 	}
-	
+
 	@Override
 	public void init() throws ServletException {
-		
+
 		// 상품 상세
 		map.put("/product.do", new ProductControl());
 		map.put("bonggeun", new bongTest());
+		map.put("/jaewoo.do", null);
 	}
-	
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String uri = req.getRequestURI();  
-		String context = req.getContextPath();    
-		String page = uri.substring(context.length());  	                                 
-		
+		String uri = req.getRequestURI();
+		String context = req.getContextPath();
+		String page = uri.substring(context.length());
+
 		Control control = map.get(page);
-		control.execute(req, resp);		
+		control.execute(req, resp);
 	}
-	
+
 }
