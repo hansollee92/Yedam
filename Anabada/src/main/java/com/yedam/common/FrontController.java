@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.control.ProductControl;
+import com.yedam.control.bongTest;
 
 public class FrontController extends HttpServlet {
 
@@ -25,6 +26,7 @@ public class FrontController extends HttpServlet {
 		
 		// 상품 상세
 		map.put("/product.do", new ProductControl());
+		map.put("bonggeun", new bongTest());
 	}
 	
 	@Override
