@@ -28,6 +28,7 @@ public class FrontController extends HttpServlet {
 		map.put("/product.do", new ProductControl());
 		map.put("bonggeun", new bongTest());
 		map.put("/jaewoo.do", null);
+		// map.put("/boardList.do", new BoardListControl());   //테스트용 주석
 	}
 
 	@Override
