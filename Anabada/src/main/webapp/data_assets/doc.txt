@@ -24,4 +24,6 @@
 
 <25-08-13>
   - tiles 레이아웃 설정
-  - git -> branch 연습 및 설정
+  - git -> branch : pull, merge 연습
+
+<25-08-14>
