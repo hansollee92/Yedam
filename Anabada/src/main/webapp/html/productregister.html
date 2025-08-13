@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div class="field">
+
+		<div class="productImage">
+			<label> 상품이미지</label> <input type="file" id="productImage"
+				name="productImage" accept="image/*">
+		</div>
+
+		<div class="prdname">
+			<label>상품명</label> <input type="text" id="productText"
+				name="prdText">
+		</div>
+
+		<div class="category">
+			<label>카테고리</label> <select id="category" name="category">
+				<option value="">카테고리 선택</option>
+				<option value="의류">의류</option>
+				<option value="신발">신발</option>
+				<option value="악세사리">악세사리</option>
+				<option value="디지털/가전">디지털가전</option>
+				<option value="스포츠">스포츠</option>
+				<option value="도서/티켓">도서취미</option>
+				<option value="가구/생활">가구생활</option>
+			</select>
+			<div id="pick" class="result">
+				선택한 카테고리 : <b>-</b>
+			</div>
+		</div>
+		
+		<div class="prdstatus">
+		<label>상품 상태</label>
+		<input type="radio" name="condition" value="새상품(미사용)"> 새상품(미사용)<span>사용하지 않은 새 상품</span>
+        <input type="radio" name="condition" value="사용감없음"> 사용감 없음<span>사용은 했지만 눈에 띄는 흔적이나 얼룩이 없음</span>
+        <input type="radio" name="condition" value="사용감적음"> 사용감 적음<span>눈에 띄는 흔적이나 얼룩이 약간 있음</span>
+        <input type="radio" name="condition" value="사용감많음"> 사용감 많음<span>눈에 띄는 흔적이나 얼룩이 많이 있음</span>
+        <input type="radio" name="condition" value="고장/파손상품"> 고장/파손 상품<span>기능 이상이나 외관 손상 등으로 수리/수선 필요</span>
+		</div>
+		
+		<div class="prdDesc">
+		<label>상품설명</label>
+		<textarea id="description" name="description" placeholder="·브랜드, 모델명, 구매 시기, 하자 유무 등 상품 설명을 최대한 자세히 적어주세요.
+·전화번호, SNS, 계정 등 개인정보 입력은 제한될 수 있어요.">
+         </textarea>
+		</div>
+		
+		<div class="tag">
+		<label>태그<span>(선택)</span></label>
+		</div>
+		
+		<div class="price">
+		<label>가격</label>
+		<input="text" name="price" placholder="가격을 입력해 주세요">
+		</div>
+		
+		<div class="tadeType">
+		<label>거래방법</label>
+		
+		</div>
+	</div>
+	<script>
+        //카테고리를 선택하면 밑에 선택한 항목을 표시함.
+		 const selectEl = document.getElementById('category');
+         const pickedEl = document.getElementById('pick').querySelector('b');
+ 
+       // 기본값이 있을 때 대비
+         if (selectEl.value) pickedEl.textContent = selectEl.value;
+ 
+       // 선택이 바뀔 때마다 표시 갱신
+        selectEl.addEventListener('change', function () {
+        pickedEl.textContent = this.value || '-';
+        }
+	</script>
+
+</body>
+</html>
