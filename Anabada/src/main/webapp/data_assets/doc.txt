@@ -1,0 +1,27 @@
+
+<25-08-11>
+  - 화면설계 : ppt 
+
+<25-08-12>
+  - 화면설계 : figma(https://www.figma.com/design/ytadoCBTJsdttfFBzOBLv8/250811-%EC%95%84%EB%82%98%EB%B0%94%EB%8B%A4-%EC%B4%88%EC%95%88?node-id=23-661&t=logM67IsqtVjc67q-0)
+  - DB설계 : ERD Cloud(https://www.erdcloud.com/d/8cd5SDcHfBZfPEqXu)
+  - 분업 : 
+	1. 메인 C
+	2. 로그인 / 회원가입 B
+	3. 상품목록 / 검색목록 C
+	4. 상품등록 D
+	5. 상품(상세) - 구매자화면/판매자화면/완료/결제모달/지도api(되면) 1명
+	6. 결제 - 결제화면 (토스API) B
+	7. 공지사항 게시판 A
+	8. 커뮤니티 게시판(글 등록, 상세까지) / 글 수정, 삭제 없음 D
+	9. 마이페이지 (찜, 판매내역, 구매내역, 리뷰내역(모달까지)) A
+
+	C - 재우 지원
+	5 - 한솔이 지원
+	D - 창범이 지원
+	B - 민수 지원
+	A - 봉근이 지원
+
+<25-08-13>
+  - tiles 레이아웃 설정
+  - git -> branch 연습 및 설정
