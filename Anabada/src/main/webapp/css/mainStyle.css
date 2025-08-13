@@ -250,14 +250,6 @@ body{font-family: var(--font);}
 }
 
 
-/* 임시값(수정필요) */
-section {
-  width: 70%;
-  height: 100vh;
-}
-
-
-
 
 /* footer */
 footer {
@@ -277,6 +269,7 @@ footer {
   border: 1px solid var(--light-gray);
   padding: 15px 35px;
   transition: .5s;
+  background-color: #fff;
 }
 .top-btn:hover {
   background-color: var(--light-gray);

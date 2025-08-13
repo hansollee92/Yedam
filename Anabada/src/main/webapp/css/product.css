@@ -1,0 +1,321 @@
+.product-detail {
+  width: min(1200px, 94%);
+  margin: 40px auto;
+}
+.product-detail .pd-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pd-gallery {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.pd-gallery img {
+  display: block;
+  width: 100%;
+}
+
+/* 판매완료(soldOut) 상태일때 활성화 */
+.soldout-mark {
+  position: absolute;
+  inset: 0;
+  display: none;
+  background: rgba(0, 0, 0, .7);
+  border-radius: 8px;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+}
+.soldout-mark span{
+  font-size: var(--font-lg);
+  font-family: var(--font);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 60%;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+.product-detail.soldOut .soldout-mark {
+  display: flex;
+}
+
+/* Product_info */
+.pd-summary{
+  display: flex;
+  flex-direction: column;
+  padding-left: 70px;
+}
+.pd-summary .pd-title {
+  font-size: 22px;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  color: var(--black-color);
+}
+.pd-price {
+  font-size: var(--font-lg);
+  margin-bottom: 20px;
+}
+.pd-price strong {
+  font-weight: 700;
+}
+.pd-price span{
+  font-size: var(--font-md);
+}
+.pd-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 30px;
+  color: var(--gray);
+  margin: 20px 0 10px;
+}
+
+/* 상품 상태(판매자한테만 보이는) */
+.pd-meta .pd-status {
+  margin-left: auto;
+  /* display: none; */
+}
+.product-detail.is-seller .pd-meta .pd-status {
+  display: block;
+}
+.pd-meta .form-select {
+  width: 140px;
+  height: 36px;
+  padding: .25rem .75rem;
+  border: 1px solid var(--light-gray);
+  border-radius: 6px;
+  color: var(--gray);
+  font-size: var(--font-sm);
+}
+.pd-meta .form-select:focus{
+  border-color: #2b8276; 
+  box-shadow: 0 0 0 0.2rem rgba(43, 130, 118, 0.434);
+}
+
+/* 상품 간략 설명 */
+.pd-attrs{
+  margin: 30px 0 175px;
+  line-height: 2.5;
+  padding-left: 0 !important;
+  color: var(--black-color);
+}
+.pd-attrs li {
+  position: relative;
+  padding-left: 14px;
+}
+.pd-attrs li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--gray);
+}
+.pd-attrs span{
+  margin-right: 30px;
+  color: var(--gray);
+}
+
+/* 버튼 */
+.pd-actions{
+  width: 100%;
+}
+.row-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.btn-line {
+  width: 50%;
+  padding: 16px 20px;
+  border: 1px solid var(--light-gray);
+  background: #fff;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: var(--font-sm);
+  cursor: pointer;
+  transition: 0.5s;
+}
+.btn-line:hover{
+  background-color: #eee;
+}
+.btn-primary {
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.btn-lg {
+  height: 60px;
+}
+.btn-lg:hover{
+  background-color: #03473f;
+}
+.is-disabled {
+  background: var(--disable-color) !important;
+  cursor: default;
+}
+
+/* Show/Hide by state */
+.product-detail .buyer-actions,
+.product-detail .seller-actions,
+.product-detail .sold-actions {
+  display: none;
+}
+.product-detail.onSale .buyer-actions {
+  display: block;
+}
+.product-detail.reserved .seller-actions {
+  display: block;
+}
+.product-detail.soldOut .sold-actions {
+  display: block;
+}
+
+/* 상세설명 */
+.pd-section {
+  width: 100%;
+  margin: 60px 0;
+}
+.pd-sec-title {
+  font-size: var(--font-md);
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: var(--black-color);
+}
+.pd-desc {
+  color: var(--black-color);
+  line-height: 1.9;
+}
+
+
+/* Cards */
+.pd-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+.pd-card {
+  border-top: 1px solid var(--light-gray);
+  padding: 18px 6px;
+}
+.pd-card-head {
+  font-weight: 500;
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: var(--gray);
+}
+.pd-card-body {
+  color: var(--gray);
+  margin-bottom: 30px;
+}
+
+/* Map placeholder */
+.pd-map {
+  margin-top: 26px;
+}
+.map-box {
+  height: 200px;
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: #777;
+}
+
+/* Q&A */
+.pd-qna-head {
+  margin-top: 100px;
+}
+.pd-qna-head .pd-sec-title {
+  margin-bottom: 10px;
+  color: var(--black-color);
+  font-weight: 700;
+  font-size: 22px;
+}
+.pd-qna-head .pd-help{
+  margin-bottom: 30px;
+}
+.pd-qna-head button{
+  width: 200px;
+  height: 60px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  transition: 0.5s;
+}
+.pd-qna-head button:hover{
+  background-color: #03473f;
+}
+
+.qna-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-family: var(--font);
+}
+
+.qna-table thead th {
+  background: #fafafa;
+  border-top: 1px solid var(--light-gray);
+  border-bottom: 1px solid var(--light-gray);
+  text-align: left;
+  padding: 12px;
+}
+
+.qna-table tbody td {
+  border-bottom: 1px solid var(--light-gray);
+  padding: 12px 12px;
+  color: #444;
+}
+
+.qna-table tbody tr:hover {
+  background: #fcfcfc
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin: 18px 0 0;
+}
+
+.pagination li {
+  list-style: none;
+}
+
+.pagination a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--light-gray);
+  border-radius: 6px;
+  color: #666;
+  font-size: 14px;
+}
+
+.pagination li.active a {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .product-detail .pd-top {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
