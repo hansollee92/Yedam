@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 //요청 url === 실행할 컨트롤.
 
 public class FrontController extends HttpServlet {
-sssss
 	Map<String, Control> map;
 	
 	//생성자.
