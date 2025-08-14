@@ -72,6 +72,8 @@
     <definition name="WILDCARD:mypage/*" extends="mypage">
 	  <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp"/>
 	</definition>  
+	
+
   
 
 </tiles-definitions>
