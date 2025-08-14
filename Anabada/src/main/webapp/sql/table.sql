@@ -5,25 +5,29 @@ create table member (
     member_pw     varchar2(100) not null, -- 비밀번호
     member_name   varchar2(10) not null, -- 이름
     member_birth  date not null, -- 생년월일
-    member_phone  number(10) not null, -- 전화번호
+    member_phone  varchar2(20) not null, -- 전화번호
     member_img    varchar2(100),
     member_score  number default 2 -- 평점
 );
 
--- 2. 상품 테이블
+-- 2. 상품 테이블 (비정규화 지도API)
 create table product (
     prd_no      number(5) primary key, -- 상품번호
     prd_name    varchar2(30) not null, -- 상품명
     price       number(20) default 0 not null, -- 상품가격
     prd_date    date default sysdate, -- 등록일자
-    category    varchar2(10) not null, -- 카테고리
-    prd_status   varchar2(10) not null, -- 상품상태
-    prd_desc    varchar2(300), -- 상품설명
+    category    varchar2(30) not null, -- 카테고리 : 의류, 신발, 악세사리, 디지털/가전, 스포츠, 도서/티켓, 가구/생활, 기타
+    prd_status   varchar2(20) not null, -- 상품상태 : 새상품(미사용), 사용감 없음, 사용감 적음, 사용감 많음, 고장/파손 상품
+    prd_desc    varchar2(1000), -- 상품설명
     prd_tag     varchar2(100), -- 태그
-    trade_type  varchar2(10) not null, -- 거래방식
-    field       varchar2(20), -- 지역
-    sale_status  varchar2(20) not null, -- 판매상태
-    prd_img     varchar2(100), -- 상품이미지명
+    trade_type  varchar2(20) not null, -- 거래방식 : 직거래, 택배거래 
+    sale_status  varchar2(20) not null, -- 판매상태 : 판매중, 예약중, 판매완료
+    prd_img     varchar2(100), -- 상품이미지명(상품번호_이미지이름.확장자, 예: 3_테이블.jpg)
+    sido     varchar2(20),  -- 시/도 (예: 대구광역시)
+    sigungu  varchar2(20),  -- 시/군/구 (예: 수성구)
+    dong     varchar2(40),  -- 읍/면/동 (예: 범어동)
+    lat      number(9,6),   -- 위도
+    lng      number(9,6),    -- 경도
     member_no   number(5),
     foreign key (member_no) references member (member_no)
 );
@@ -115,4 +119,9 @@ create sequence notice_seq;
 
 -- 커밋
 commit;
+
+
+
+
+
 
