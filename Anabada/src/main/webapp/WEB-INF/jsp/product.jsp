@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />    
 
-<!-- 상품상태 : onSale reserved soldOut -->
+<!-- 상품상태 : on-sale reserved sold-out -->
 <section class="product-detail onSale">
 
   <div class="pd-top">
