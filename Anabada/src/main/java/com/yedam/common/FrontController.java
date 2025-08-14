@@ -19,7 +19,7 @@ import com.yedam.control.PayControl;
 import com.yedam.control.PayFormControl;
 
 public class FrontController extends HttpServlet {// HttpServlet를 상속받음
-		
+	 
 	Map<String, Control> map;
 	
 	// 생성자
