@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.yedam.common.Control;
+
+import com.yedam.mapper.ProductMapper;
+
 import com.yedam.service.ProductService;
 import com.yedam.service.ProductServiceImpl;
 import com.yedam.vo.ProductVO;

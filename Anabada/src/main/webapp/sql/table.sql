@@ -13,7 +13,7 @@ create table member (
 -- 2. 상품 테이블 (비정규화 지도API)
 create table product (
     prd_no      number(5) primary key, -- 상품번호
-    prd_name    varchar2(30) not null, -- 상품명
+    prd_name    varchar2(100) not null, -- 상품명
     price       number(20) default 0 not null, -- 상품가격
     prd_date    date default sysdate, -- 등록일자
     category    varchar2(30) not null, -- 카테고리 : 의류, 신발, 악세사리, 디지털/가전, 스포츠, 도서/티켓, 가구/생활, 기타

@@ -2,6 +2,7 @@
 -- 필요시 주석 해제 후 사용할 것!!
 
 -- table 삭제 (순서대로 할 것)
+-- drop table wish;
 -- drop table qna_reply;
 -- drop table qna;
 -- drop table notice;
@@ -22,3 +23,4 @@
 -- drop sequence commu_seq;
 -- drop sequence commuReply_seq;
 -- drop sequence notice_seq;
+-- drop sequence wish_seq;

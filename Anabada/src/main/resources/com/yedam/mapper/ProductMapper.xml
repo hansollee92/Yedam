@@ -3,6 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.ProductMapper">
+
+  <!--  내가 한 찜 목록보기  -->
+  <select id="selectWish" parameterType="int" resultType="product">
+      select  p.prd_no,
+              p.prd_name,
+              p.price,
+              p.prd_img,
+              p.sale_status,
+              w.wish_no
+      from wish w join product p
+                    on w.prd_no = p.prd_no
+      WHERE w.member_no = #{memberNo}
+      ORDER BY w.wish_no DESC;
+  </select>
+
+  <!--  상품별 찜한 사람 수 조회  -->
+  <select id="countWishMember">
+      select  p.prd_no,
+              p.prd_name,
+              count(w.member_no) AS wish_count
+      from wish w join product p
+                    on w.prd_no = p.prd_no
+                  group by p.prd_no, p.prd_name
+      order by wish_count desc
+  </select>
 	
 	<!-- 상품 단건검색 -->
 	<select id="selectProduct" parameterType="int" resultType="product">
@@ -10,5 +35,6 @@
 		from product
 		where prd_no = #{prdNo}
 	</select>
+
 
 </mapper>

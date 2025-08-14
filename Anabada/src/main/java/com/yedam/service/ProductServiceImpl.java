@@ -14,6 +14,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductVO findProduct(int prdNo) {
 		return mapper.selectProduct(prdNo);
-	}
+	}  
+  
+  @Override
+  public ProductVO searchWish(int memberNo) {
+      return mapper.selectWish(memberNo);
+  }
 
 }
+
