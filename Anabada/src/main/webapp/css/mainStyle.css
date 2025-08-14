@@ -32,6 +32,8 @@ body{font-family: var(--font);}
   --light-gray: #eee;
   --gray: #888;
   --font-sm: 14px;
+  --font-md: 22px;
+  --font-lg: 30px;
   --font: "Roboto", "Noto Sans KR", "Pretendard", "Apple SD Gothic Neo", sans-serif;
 }
 
@@ -281,3 +283,4 @@ footer {
   letter-spacing: 2px;
   font-size: var(--font-sm);
 }
+

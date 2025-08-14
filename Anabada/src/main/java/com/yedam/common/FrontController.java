@@ -31,7 +31,8 @@ public class FrontController extends HttpServlet {
 		String page = uri.substring(context.length());  
 		
 		Control control = map.get(page);
-		control.execute(req, resp);		
+		control.execute(req, resp);	
+		
 	}
 	
 	
