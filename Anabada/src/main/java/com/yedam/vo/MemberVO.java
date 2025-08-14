@@ -2,7 +2,6 @@ package com.yedam.vo;
 
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -19,3 +18,4 @@ public class MemberVO {
     private List<ProductVO> wish;
 
 }
+
