@@ -49,6 +49,7 @@
   display: flex;
   flex-direction: column;
   padding-left: 70px;
+  font-family: var(--font);
 }
 .pd-summary .pd-title {
   font-size: 22px;
@@ -222,15 +223,17 @@
 
 /* Map placeholder */
 .pd-map {
+  width: 100%;
   margin-top: 26px;
+  transform:none;
 }
 .map-box {
+  width: 100%;
   height: 200px;
-  border: 1px solid var(--light-gray);
-  border-radius: 8px;
-  display: grid;
-  place-items: center;
-  color: #777;
+}
+.map-box #map{
+	width: 100%;
+	height: 200px;
 }
 
 /* Q&A */
