@@ -17,7 +17,7 @@ create table product (
     price       number(20) default 0 not null, -- 상품가격
     prd_date    date default sysdate, -- 등록일자
     category    varchar2(10) not null, -- 카테고리
-    prd_status   varchar2(10) not null, -- 상품상태
+    prd_status  varchar2(10) not null, -- 상품상태
     prd_desc    varchar2(300), -- 상품설명
     prd_tag     varchar2(100), -- 태그
     trade_type  varchar2(10) not null, -- 거래방식
