@@ -18,6 +18,13 @@
       ORDER BY w.wish_no DESC;
   </select>
 
+	<!-- 상품 이미지 경로 업데이트 -->
+    <update id="updateProductImage" parameterType="map">
+        UPDATE product
+        SET prd_img = #{prd_img}
+        WHERE prd_no = #{prd_no}
+    </update>
+
   <!--  상품별 찜한 사람 수 조회  -->
   <select id="countWishMember">
       select  p.prd_no,
@@ -28,13 +35,27 @@
                   group by p.prd_no, p.prd_name
       order by wish_count desc
   </select>
-	
+
 	<!-- 상품 단건검색 -->
 	<select id="selectProduct" parameterType="int" resultType="product">
 		select *
 		from product
 		where prd_no = #{prdNo}
 	</select>
+
+    <!-- 상품 이미지 경로 조회 -->
+    <select id="getProductImage" parameterType="int" resultType="string">
+        SELECT prd_img
+        FROM product
+        WHERE prd_no = #{prd_no}
+    </select>
+
+    <!-- 상품 이미지 경로 삭제 -->
+    <update id="clearProductImage" parameterType="int">
+        UPDATE product
+        SET prd_img = NULL
+        WHERE prd_no = #{prd_no}
+    </update>
 
 
 </mapper>

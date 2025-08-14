@@ -11,7 +11,7 @@ public class DBUtil {
 
 	public static SqlSessionFactory getInstance() {
 		String resource = "config/mybatis-config.xml";
-		
+
 		InputStream inputStream = null;
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
