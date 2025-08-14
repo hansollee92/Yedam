@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />    
 
 	<div class="field">
+	<h1>판매할 상품 등록</h1>
 
 		<div class="productImage">
 			<label> 상품이미지</label> <input type="file" id="productImage"
@@ -14,8 +12,8 @@
 		</div>
 
 		<div class="prdname">
-			<label>상품명</label> <input type="text" id="productText"
-				name="prdText">
+			<label>상품명</label> 
+			<input type="text" id="productText" name="prdText" placeholder="상품명을 입력해주세요">
 		</div>
 
 		<div class="category">
@@ -56,13 +54,18 @@
 		
 		<div class="price">
 		<label>가격</label>
-		<input type="text" name="price" placholder="가격을 입력해 주세요">
+		<input type="text" name="price" placeholder="가격을 입력해 주세요">
 		</div>
 		
 		<div class="tadeType">
 		<label>거래방법</label>
-		
+		<input type="radio" name="tradeType" value="택배거래">택배거래
+		<input type="radio" name="tradeType" value="직거래">직거래
+		<input type="text" name="tradeTypeText" value="직거래방법"> 
+		<!-- 지도 api로 직거래 지역 입력 -->
 		</div>
+		
+		
 	</div>
 	<script>
         //카테고리를 선택하면 밑에 선택한 항목을 표시함.
@@ -78,5 +81,3 @@
         }
 	</script>
 
-</body>
-</html>

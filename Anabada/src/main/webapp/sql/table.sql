@@ -20,7 +20,7 @@ create table product (
     prd_status   varchar2(20) not null, -- 상품상태 : 새상품(미사용), 사용감 없음, 사용감 적음, 사용감 많음, 고장/파손 상품
     prd_desc    varchar2(1000), -- 상품설명
     prd_tag     varchar2(100), -- 태그
-    trade_type  varchar2(20) not null, -- 거래방식 : 직거래, 택배거래 
+    trade_type  varchar2(20) not null, -- 거래방식 : 직거래, 택배거래
     sale_status  varchar2(20) not null, -- 판매상태 : 판매중, 예약중, 판매완료
     prd_img     varchar2(100), -- 상품이미지명(상품번호_이미지이름.확장자, 예: 3_테이블.jpg)
     sido     varchar2(20),  -- 시/도 (예: 대구광역시)
@@ -129,9 +129,4 @@ create sequence wish_seq;
 
 -- 커밋
 commit;
-
-
-
-
-
 

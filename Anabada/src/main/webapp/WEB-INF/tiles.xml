@@ -75,6 +75,8 @@
     <definition name="WILDCARD:mypage/*" extends="mypage">	<!-- mypage로 시작하는 뷰만 body부분 덮어씌워짐 -->
 	  <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp"/>
 	</definition>  
+	
+
   
 
 </tiles-definitions>
