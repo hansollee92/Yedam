@@ -1,0 +1,190 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', Arial, sans-serif;
+}
+
+.mypage-container {
+  display: flex;
+  width: min(1200px, 94%);
+  margin: 35px auto;
+  gap: 32px;
+}
+
+
+.sidebar {
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  border-radius: 10px;
+  width: 240px;
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: fit-content;
+}
+
+.update-myInfo {
+  color: #999;
+  margin-top: 40px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.update-myInfo:hover {
+  text-decoration: underline;
+}
+
+.profile-img {
+  width: 96px;
+  height: 96px;
+  background: #d9d9d9;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.profile-info strong {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.info-item {
+  font-size: 15px;
+  color: #333;
+  margin: 2px 0;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 8px 0;
+}
+
+.stars {
+  color: #159e9c;
+  font-size: 18px;
+}
+
+.score {
+  margin-left: 6px;
+  font-size: 15px;
+  color: #00796b;
+}
+
+.menu-list {
+  list-style: none;
+  width: 100%;
+  margin: 24px 0 0 0;
+  padding: 0;
+}
+
+.menu-list li {
+  font-size: 17px;
+  color: #262626;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.menu-list li:hover {
+  color: #159e9c;
+  text-decoration: underline;
+}
+
+.main-content {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  padding: 32px;
+}
+
+.main-content h2 {
+  margin-top: 0;
+  font-size: 20px;
+  margin-bottom: 28px;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 20px;
+}
+
+.item-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.item-img {
+  width: 100%;
+  aspect-ratio: 1.8 / 1; /* 가로:세로 비율 */
+  background: #eff2f6;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.item-desc {
+  font-size: 15px;
+  color: #2d2d2d;
+  margin-bottom: 6px;
+}
+
+.item-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* 별점 css */
+.star-rating {   
+  position: relative;
+  display: inline-block;
+  font-size: 1.5rem;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  cursor: pointer;
+  user-select: none;
+}
+
+.star-rating > span {
+  display: inline-block;
+  position: relative;
+  color: white; 
+  -webkit-text-stroke: 1px #0c8275;
+}
+
+.star-rating > span.full {
+  color: #0c8275;
+}
+
+.star-rating > span.partial {
+  background: linear-gradient(90deg, #0c8275 var(--percent), white var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+@media (max-width: 900px) {
+  .items-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .mypage-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    padding: 24px 8px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 24px;
+  }
+}
