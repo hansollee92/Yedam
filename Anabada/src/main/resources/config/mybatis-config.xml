@@ -10,6 +10,7 @@
   </settings>
 
   <typeAliases>
+    <typeAlias alias="member" type="com.yedam.vo.MemberVO"/>
     <typeAlias alias="product" type="com.yedam.vo.ProductVO"/>
   </typeAliases>
 
