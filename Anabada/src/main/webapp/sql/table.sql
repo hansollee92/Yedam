@@ -13,7 +13,7 @@ create table member (
 -- 2. 상품 테이블
 create table product (
     prd_no      number(5) primary key, -- 상품번호
-    prd_name    varchar2(30) not null, -- 상품명
+    prd_name    varchar2(100) not null, -- 상품명
     price       number(20) default 0 not null, -- 상품가격
     prd_date    date default sysdate, -- 등록일자
     category    varchar2(10) not null, -- 카테고리
