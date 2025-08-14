@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.mapper.ProductMapper">
+
+	<!-- 상품 이미지 경로 업데이트 -->
+    <update id="updateProductImage" parameterType="map">
+        UPDATE product
+        SET prd_img = #{prd_img}
+        WHERE prd_no = #{prd_no}
+    </update>
+
+    <!-- 상품 이미지 경로 조회 -->
+    <select id="getProductImage" parameterType="int" resultType="string">
+        SELECT prd_img
+        FROM product
+        WHERE prd_no = #{prd_no}
+    </select>
+
+    <!-- 상품 이미지 경로 삭제 -->
+    <update id="clearProductImage" parameterType="int">
+        UPDATE product
+        SET prd_img = NULL
+        WHERE prd_no = #{prd_no}
+    </update>
+</mapper>
