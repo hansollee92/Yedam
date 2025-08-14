@@ -13,15 +13,15 @@ public class ProductVO {
 	private String prdDesc;        //상품설명
 	private String prdTag;         //상품태그
 	private String tradeType;      //거래방식(직거래, 택배거래)
-	private String field;          //지역 요약어
 	private String sido;           //시/도 (예:대구광역시)
 	private String sigungu;        //시/군/구 (예: 수성구)
 	private String dong;           //읍/면/동 (예: 범어동)
-	private int lat;               //위도
-	private int lng;               //경도
+	private double lat;            //위도
+	private double lng;            //경도
 	private String saleStatus;     //판매상태(판매중, 예약중, 판매완료)
 	private String prdImg;         //상품이미지명(상품번호_상품이름.jpg)
 	private int memberNo;          //회원번호 (fk)
+	private int viewCnt;           //조회수
 }
 
 
