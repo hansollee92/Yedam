@@ -101,6 +101,15 @@ create table notice (
     noti_date       date default sysdate -- 작성일
 );
 
+-- 10. 찜 테이블
+create table wish (
+    wish_no     number(5) primary key,
+    member_no   number(5),
+    prd_no      number(5),
+    foreign key (member_no) references member (member_no),
+    foreign key (prd_no) references product (prd_no)
+);
+
 
 -- 시퀀스 생성
 create sequence member_seq;
@@ -112,6 +121,7 @@ create sequence review_seq;
 create sequence commu_seq;
 create sequence commuReply_seq;
 create sequence notice_seq;
+create sequence wish_seq;
 
 -- 커밋
 commit;
