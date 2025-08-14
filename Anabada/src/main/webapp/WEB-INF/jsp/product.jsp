@@ -1,27 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />    
+<c:set var="ctx" value="${pageContext.request.contextPath}" /> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>   
 
-<!-- 상품상태 : onSale reserved soldOut -->
+<!-- 상품상태 : on-sale reserved sold-out -->
 <section class="product-detail onSale">
 
   <div class="pd-top">
     <div class="pd-gallery col-6">
-      <img src="${ctx}/images/product/jacket.jpg" alt="상품 이미지">
+      <img src="${ctx}/images/product/${product.prdImg}" alt="${product.prdName}">
       <!-- 판매완료 오버레이 (soldOut일 때 자동 표시) -->
       <div class="soldout-mark"><span>판매완료</span></div>
     </div>
 
     <div class="pd-summary col-6" >
-      <h1 class="pd-title">유스 24SS M70 필드 자켓 블랙 S</h1>
-      <div class="pd-price"><strong>150,000</strong> <span>원</span></div>
+      <h1 class="pd-title">${product.prdName}</h1>
+      <div class="pd-price"><strong><fmt:formatNumber value="${product.price}" pattern="#,###"/></strong> <span>원</span></div>
 
       <div class="line"></div>
       <div class="pd-meta">
         <span><i class="fa-solid fa-heart"></i> 24</span>
-        <span><i class="fa-solid fa-eye"></i> 50</span>
-        <span><i class="fa-solid fa-clock"></i> 2025.08.01</span>
+        <span><i class="fa-solid fa-eye"></i> ${product.viewCnt}</span>
+        <span><i class="fa-solid fa-clock"></i> ${product.prdDate}</span>
 
         <!-- 판매자만 보이는 상태 셀렉트 -->
         <div class="pd-status">
@@ -35,8 +36,8 @@
 
 
       <ul class="pd-attrs">
-        <li><span>상품상태</span>새 상품</li>
-        <li><span>거래방식</span>택배 거래</li>
+        <li><span>상품상태</span>${product.prdStatus}</li>
+        <li><span>거래방식</span>${product.tradeType}</li>
       </ul>
 
       <!-- 버튼 영역 -->
@@ -74,37 +75,33 @@
   <!-- 상품 정보 -->
   <section class="pd-section">
     <h2 class="pd-sec-title">상품 정보</h2>
-    <p class="pd-desc">
-      집에서 시착만 해보고 택 그대로 있는 새상품입니다.<br>
-      정가 184000원인데 현재는 품절 상품입니다.<br>
-      무광 톤다운된 카키로 데일리하게 입을 수 있는 제품이고<br>
-      충분한 주머니가 달려있어서 실용성까지 챙길 수 있는 멋드러진 상품입니다. <br><br>
-      택배거래 가능하며, <br>
-      반택은 부피가 커서 불가합니다. <br>
-      직거래 원하시면 문의주세요.
-      <br><br>네고불가
-    </p>
+    <p class="pd-desc">${product.prdDesc}</p>
   </section>
 
   <!-- 정보 카드 3열 -->
   <section class="pd-cards">
     <div class="pd-card">
       <div class="pd-card-head"><i class="fa-solid fa-location-dot"></i> 직거래 지역</div>
-      <div class="pd-card-body">-</div>
+      <div class="pd-card-body">${product.sido} ${product.sigungu} ${product.dong}</div>
     </div>
     <div class="pd-card">
       <div class="pd-card-head"><i class="fa-solid fa-folder-open"></i> 카테고리</div>
-      <div class="pd-card-body">의류</div>
+      <div class="pd-card-body">${product.category}</div>
     </div>
     <div class="pd-card">
       <div class="pd-card-head"><i class="fa-solid fa-hashtag"></i> 상품태그</div>
-      <div class="pd-card-body">#남성의류 #자켓 #카키자켓</div>
+      <div class="pd-card-body tags">
+      	<!-- <span>잘려진 태그1</span> 
+      	     <span>잘려진 태그2</span> 
+      	     <span>잘려진 태그3</span> 
+      	-->
+      </div>
     </div>
   </section>
 
   <!-- 지도 -->
   <section class="pd-map">
-    <div class="map-box">[ 지도 영역 ]</div>
+    <div class="map-box"><div id="map"></div></div>
   </section>
 
   <!-- 문의하기 안내 -->
@@ -176,3 +173,43 @@
   </section>
 
 </section>
+
+<!-- kakao map api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd689b27e4b7fc12b2893cb036221eb8"></script>
+<script>
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = { 
+	        center: new kakao.maps.LatLng(${product.lat}, ${product.lng}), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+	// 마커가 표시될 위치입니다 
+	var markerPosition  = new kakao.maps.LatLng(${product.lat}, ${product.lng}); 
+	
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+	    position: markerPosition
+	});
+	
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
+	
+	// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+	// marker.setMap(null);    
+</script>
+
+<!-- tag 잘라서 화면에 다시 출력하기 -->
+<script>
+	let tags = '${product.prdTag}';
+	
+	let tagArray = tags.split(",").map(tag => tag.trim());
+	
+	tagArray.forEach(tag => {
+		let span = document.createElement('span');
+    span.textContent = tag;
+    document.querySelector('.tags').appendChild(span);
+	})
+	
+</script>

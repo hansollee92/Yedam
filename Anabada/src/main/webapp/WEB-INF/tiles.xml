@@ -20,6 +20,7 @@
          메인 : main.jsp
          상품리스트 : product_list.jsp
          상품상세 : product.jsp
+         상품수정 : product_modify.jsp
          커뮤니티 목록 : commu_list.jsp
                 상세 : commu.jsp
                 글쓰기 : commu_register.jsp

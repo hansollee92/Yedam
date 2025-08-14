@@ -10,7 +10,6 @@
         where   member_no = #{memberNo}
     </select>
 
-
     <select id="selectwish">
 
     </select>
