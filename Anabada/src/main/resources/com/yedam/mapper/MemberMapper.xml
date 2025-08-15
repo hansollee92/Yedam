@@ -11,7 +11,7 @@
   </select>
 
 	<!-- 아이디 중복 체크 -->
-	<select id="existsMemberId" parameterType="string" resultType="int">
+	<select id="countById" parameterType="string" resultType="int">
 		SELECT COUNT(*) FROM member WHERE member_id = #{memberId}
 	</select>
 
