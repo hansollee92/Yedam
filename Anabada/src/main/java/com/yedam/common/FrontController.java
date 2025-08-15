@@ -1,21 +1,26 @@
 package com.yedam.common;
 
-import com.yedam.control.MemberControl;
-import com.yedam.control.ProductControl;
-
-import javax.servlet.ServletConfig;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.control.JoinControl;
+import com.yedam.control.JoinFormControl;
+import com.yedam.control.LoginControl;
+import com.yedam.control.LoginFormControl;
+import com.yedam.control.LogoutControl;
+import com.yedam.control.MemberControl;
+import com.yedam.control.PayControl;
+import com.yedam.control.PayFormControl;
+import com.yedam.control.ProductControl;
+import com.yedam.control.ProductListControl;
 
-public class FrontController extends HttpServlet {
-	Map<String, Control> map;
 
 	public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 
@@ -58,4 +63,3 @@ public class FrontController extends HttpServlet {
 			control.execute(req, resp);
 		}
 	}
-}
