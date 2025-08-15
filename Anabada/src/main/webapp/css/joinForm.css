@@ -63,8 +63,23 @@
   height: 44px;
   box-sizing: border-box;
   padding-left: 130px;  /* 라벨 공간 */
-  padding-right: 80px;  /* 버튼 공간 */
+  padding-right: 100px;  /* 버튼 공간 */
 }
+
+/* 비번 일치/불일치 메시지 공통 위치 */
+.inline-msg {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.inline-msg.ok { color: #22a055;} /* 초록 */
+.inline-msg.bad { color: #d33;} /* 빨강 */
 
 .joinBtn {
 	text-align: center;

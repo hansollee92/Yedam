@@ -31,8 +31,9 @@
 		  
 		  <div class="input-wrapper">
 		  	<!-- 비밀번호 확인 -->
-		    <label for="PwConfirm" class="inside-label">비밀번호 확인</label>
-		    <input type="password" id="PwConfirm" required>
+		    <label for="pwConfirm" class="inside-label">비밀번호 확인</label>
+		    <input type="password" id="pwConfirm" required>
+		    <span class="inline-msg" id="pwMsg" aria-live="polite"></span>
 		  </div>
 		</fieldset>
 		
@@ -59,7 +60,7 @@
 		
 		<fieldset class="joinBtn">
 			<button type="submit">회원가입</button>
-			<button type="button" onclick="location.href='http://localhost/Anabada/loginForm.do'">취소</button>
+			<button type="button" onclick="">취소</button>
 		</fieldset>
 	</form>
 </div>

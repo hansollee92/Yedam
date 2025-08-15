@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.control.CheckIdControl;
 import com.yedam.control.JoinControl;
 import com.yedam.control.JoinFormControl;
 import com.yedam.control.LoginControl;
@@ -23,7 +24,7 @@ import com.yedam.control.ProductListControl;
 
 
 	public class FrontController extends HttpServlet {// HttpServlet를 상속받음
-
+		
 		Map<String, Control> map;
 
 		// 생성자
@@ -40,6 +41,7 @@ import com.yedam.control.ProductListControl;
 			map.put("/join.do", new JoinControl());                // 회원가입 기능
 			map.put("/loginForm.do", new LoginFormControl());    // 로그인 화면
 			map.put("/login.do", new LoginControl());            // 로그인 기능
+		    map.put("/checkId.do", new CheckIdControl());		// 아이디 중복체크
 			map.put("/logout.do", new LogoutControl());            // 로그아웃 기능
 			map.put("/payForm.do", new PayFormControl());        // 결제 화면
 			map.put("/pay.do", new PayControl());                // 결제 기능
