@@ -7,6 +7,5 @@ public interface MemberService {
     boolean registerMember(MemberVO vo); // 회원가입
     boolean isDuplicateId(String memberId); // 아이디 중복 여부 (있으면 true)
   
-    MemberVO searchMember(String memberId, String memberPw);      //로그인처리
-	  MemberVO searchMember(int int1);
+    MemberVO selectMember(String memberId, String memberPw);      //로그인처리
 }

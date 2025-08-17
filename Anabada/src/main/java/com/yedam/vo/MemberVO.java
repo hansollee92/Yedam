@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class MemberVO {
+public class MemberVO { 
 	private int memberNo;          // 유저번호(회원번호)
 	private String memberId;       // 아이디
 	private String memberPw;       // 비밀번호
