@@ -8,7 +8,7 @@
   <div class="wrapper">
     <div class="header-top">
       <div class="logo">
-        <a href="#none">
+        <a href="${ctx}/productList.do">
           <img src="${ctx}/images/logo.png" alt="아나바다 로고">
           <span class="visually-hidden">아나바다</span>
         </a>
