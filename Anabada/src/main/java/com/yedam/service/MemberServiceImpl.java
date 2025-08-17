@@ -26,6 +26,8 @@ public class MemberServiceImpl implements MemberService {
 	// 회원가입
 	@Override
     public boolean registerMember(MemberVO vo) {
-	    return mapper.insertMember(vo) == 1;
+		boolean ok = mapper.insertMember(vo) == 1;
+	    if (ok) sqlSession.commit(); // 커밋
+	    return ok;
     }
 }
