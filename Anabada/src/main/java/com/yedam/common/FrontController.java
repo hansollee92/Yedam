@@ -22,6 +22,7 @@ import com.yedam.control.PayControl;
 import com.yedam.control.PayFormControl;
 import com.yedam.control.ProductControl;
 import com.yedam.control.ProductListControl;
+import com.yedam.control.SearchControl;
 
 
 	public class FrontController extends HttpServlet {// HttpServlet를 상속받음
@@ -49,9 +50,9 @@ import com.yedam.control.ProductListControl;
 			// End 오민수
 			
 			map.put("/main.do", new MainControl());	//메인페이지
+			map.put("/productList.do", new ProductListControl());   //상품리스트
 			
 			// 상품 
-			map.put("/productList.do", new ProductListControl());   //상품리스트
 			map.put("/product.do", new ProductControl());           //상품 상세
 			
 			// 회원

@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.yedam.common.DBUtil;
 import com.yedam.mapper.ProductMapper;
 import com.yedam.vo.ProductVO;
+import com.yedam.vo.SearchVO;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -28,41 +29,29 @@ public class ProductServiceImpl implements ProductService {
 	}
   
 	
-	
-	
-	
-	
     @Override
     public ProductVO searchWish(int memberNo) {
         return mapper.selectWish(memberNo);
     }
 
-    @Override
-    public int updateProductImage(int prdNo, String prdImg) {
-        if (prdImg == null || prdImg.isBlank()) {
-            throw new IllegalArgumentException("prdImg가 비어있습니다.");
-        }
-        Map<String, Object> param = new HashMap<>();
-        param.put("prd_no", prdNo);
-        param.put("prd_img", prdImg);
-        return mapper.updateProductImage(param);
-    }
-    @Override
-	public List<ProductVO> getMainRecent(int limit) {
-		int safeLimit = (limit <= 0 || limit > 50) ? 12 : limit; //기본값/ 상한선
-		return mapper.selectRecentImage(limit);
-	}
-
-
-    @Override
-	public List<ProductVO> findList(Map<String,Object> param) {
-	    return mapper.selectProductList(param);
-	}
+  
 
 	@Override
 	public List<ProductVO> productList(ProductVO dao) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	
+
+	@Override
+	public List<ProductVO> searchProducts(SearchVO s) {
+		return mapper.selectProducts(s);
+	}
+
+	@Override
+	public int countProducts(SearchVO s) {
+		 return mapper.countProducts(s);
 	}
 
 
