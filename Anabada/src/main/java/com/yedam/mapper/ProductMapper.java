@@ -15,6 +15,7 @@ public interface ProductMapper {
 	String getProductImage(int prdNo); // 상품 이미지 경로 조회
 	int clearProductImage(int prdNo); // 상품 이미지 경로 삭제
 	List<ProductVO> selectProductList();     //상품목록
+	int insertProduct(ProductVO vo);
     
 	
 	// 한솔이가 확인하고 아래 주석풀고 사용할지 말지 결정
