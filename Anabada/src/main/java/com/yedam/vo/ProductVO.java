@@ -22,6 +22,7 @@ public class ProductVO {
 	private String prdImg;         //상품이미지명(상품번호_상품이름.jpg)
 	private int memberNo;          //회원번호 (fk)
 	private int viewCnt;           //조회수
+	private String  imageUrl;	   //화면용 URL (SQL에서 alias로 내려받거나, JSP에서 조합)
 }
 
 

@@ -1,38 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 
-<body>
-<!-- 배너: 21:9 비율, 높이 자동 반응형 -->
-<div class="container">
-  <div class="ratio ratio-21x9" style="max-height: 320px; overflow: hidden;">
-    <img src="${ctx}/images/banner01.png" alt="배너"
-         class="w-100 h-100" style="object-fit: cover;">
-  </div>
-</div>
+<section class="wrapper">
+  <h2 class="today-title">오늘의 상품 추천</h2>
 
+  <c:if test="${empty productList}">
+    <p>등록된 상품이 없습니다.</p>
+  </c:if>
 
-<div class="container">
-<h2 class="h5 mb-3">오늘의 상품 추천</h2>
-<p><a href="">오늘 올라온 상품들이 궁금하다면 확인</a></p>
-  <div class="row g-3">
-    <c:forEach var="i" begin="1" end="12">
-      <!-- 모바일 2열, 태블릿 3열, 데스크톱 4열 -->
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card h-100">
-          <div class="rati ratio-1x1">o
-            <img src="${ctx}/images/sample_${i}.png"   
-                 alt="상품 ${i}" class="w-100 h-100" style="object-fit: cover;">
-          </div>
-          <div class="card-body">
-            <div class="text-truncate">상품 이름 ${i}</div>
-            <div class="small text-muted mt-1">1일 전</div>
-            <div class="fw-bold mt-1">100,000원</div>
-          </div>
-        </div>
-      </div>
-    </c:forEach>
-  </div>
-</div>
-</body>
+  <c:if test="${not empty productList}">
+    <ul class="prod-grid">
+      <c:forEach var="p" items="${productList}">
+        <li class="prod-card">
+          <a class="prod-link" href="${ctx}/product/product.tiles?prdNo=${p.prdNo}">
+            <img class="prod-thumb"
+                 src="${ctx}/images/${p.prdImg}"
+                 alt="${p.prdName}"
+                 loading="lazy"
+                 onerror="this.src='${ctx}/images/noimage.png'">
+            <div class="prod-info">
+              <p class="prod-name">${p.prdName}</p>
+              <p class="prod-price"><fmt:formatNumber value="${p.price}" type="number"/>원</p>
+              <div class="prod-meta"><span>${p.sigungu}</span></div>
+            </div>
+          </a>
+        </li>
+      </c:forEach>
+    </ul>
+  </c:if>
+</section>
