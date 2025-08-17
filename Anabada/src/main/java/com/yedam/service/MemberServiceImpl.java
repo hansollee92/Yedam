@@ -32,9 +32,9 @@ public class MemberServiceImpl implements MemberService {
 	    return ok;
     }
 
+    // 마이페이지 회원 정보
 	@Override
 	public MemberVO searchMember(int memberNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.selectMember(memberNo);
 	}
 }
