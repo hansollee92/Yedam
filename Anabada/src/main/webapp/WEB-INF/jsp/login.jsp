@@ -21,6 +21,10 @@
     <div class="form-row">
       <input id="memberPw" name="memberPw" type="password" required placeholder="비밀번호">
     </div>
+    
+    <div class="login-search">
+    	<a href="#">아이디/비밀번호 찾기</a>
+    </div>
 
     <div class="form-actions">
       <button type="submit" class="btn btn_login">로그인</button>
