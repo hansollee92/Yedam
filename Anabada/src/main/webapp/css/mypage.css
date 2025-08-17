@@ -123,7 +123,7 @@ body {
 
 .item-img {
   width: 100%;
-  aspect-ratio: 1.8 / 1; /* 가로:세로 비율 */
+  aspect-ratio: 1.8 / 2; /* 가로:세로 비율 */
   background: #eff2f6;
   border-radius: 6px;
   margin-bottom: 10px;
