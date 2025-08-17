@@ -18,15 +18,11 @@ public class MypageControl implements com.yedam.common.Control {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String memberNo = req.getParameter("memberNo");
 
-        MemberService msvc = new MemberServiceImpl();
-        MemberVO member = msvc.searchMember(Integer.parseInt(memberNo));
-
-        ProductService psvc = new ProductServiceImpl();
-        List<ProductVO> list = psvc.searchWish(Integer.parseInt(memberNo));
+        MemberService svc = new MemberServiceImpl();
+        MemberVO member = svc.searchMember(Integer.parseInt(memberNo));
 
         req.setAttribute("member_info", member);
-        req.setAttribute("wish_list", list);
 
-        req.getRequestDispatcher("mypage/wish.tiles").forward(req, resp);
+        req.getRequestDispatcher("mypage/mypage.tiles").forward(req, resp);
     }
 }
