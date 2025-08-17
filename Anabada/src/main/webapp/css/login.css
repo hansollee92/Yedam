@@ -1,0 +1,110 @@
+/* .change-background{
+	background-color: #f8f8f8;
+	overflow: hidden;
+} */
+
+/* 로그인 */
+.auth-card{
+  width: min(540px, 94%);
+  margin: 100px auto 150px;
+  background: #fff;
+  border: 1px solid var(--light-gray);
+  border-radius: 16px;
+  box-shadow: 0 5px 10px rgba(0,0,0,.05);
+  padding: 28px 26px 24px;
+}
+.auth-title{
+  font-size: var(--font-md); 
+  font-weight: 700; 
+  margin-bottom: 7px; 
+  color: var(--black-color);
+}
+.auth-sub{
+  color:var(--primary-color); 
+  font-size:var(--font-sm); 
+  margin-bottom:50px;
+}
+/* 알림창(아이디, 비밀번호 올바르지 않을때) */
+.auth-alert{
+  background:#fff4f4; 
+  color:#c0392b; 
+  border:1px solid #f1c4c4;
+  border-radius:10px; 
+  padding:10px 12px; 
+  font-size:var(--font-sm); 
+  margin-bottom:12px;
+}
+
+/* 폼 */
+.auth-form .form-row{
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px; 
+  margin-bottom: 12px;
+}
+.auth-form label{
+  font-size:13px; 
+  color: var(--gray);
+}
+.auth-form input{
+  height:44px; 
+  padding:10px 12px; 
+  border:1px solid var(--light-gray);
+  border-radius:12px; 
+  background:#fbfcfd; 
+  font-size:15px; 
+  outline:none;
+}
+.auth-form input:focus{
+  border-color:var(--primary-color); 
+  box-shadow:0 0 0 3px rgba(12,130,117,.12);
+}
+
+/* 버튼 */
+.form-actions{
+  display:flex; 
+  gap:10px; 
+  margin-top:50px;
+  justify-content: center;
+  width: 100%;
+}
+.form-actions .btn{
+  width: 50%;
+  display:inline-flex; 
+  align-items:center; 
+  justify-content:center; 
+  height:44px; 
+  padding:0 18px; 
+  border-radius:12px; 
+  border:1px solid transparent; 
+  font-weight:600; 
+  cursor:pointer; 
+  font-size: var(--font-sm);
+  trainsition: 0.5s;
+}
+.btn_login{
+  background: var(--primary-color) !important; 
+  color: #fff !important;
+}
+.btn_login:hover{
+  background-color: var(--disable-color) !important;
+}
+.btn_cancel{
+  background: var(--light-gray) !important; 
+  color: var(--black-color) !important;
+}
+.btn_cancel:hover{
+  background: var(--gray) !important;
+}
+.login-search a{
+	font-size: 12px;
+	color: var(--gray);
+}
+
+
+/* 반응형 */
+@media (max-width:480px){
+  .auth-card{padding:22px 18px;}
+  .form-actions{flex-direction:column;}
+  .form-actions .btn{width:100%;}
+}

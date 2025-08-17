@@ -6,7 +6,7 @@
 <!-- header 파일. -->
 <header>
    <div class="logo logo-member">
-     <a href="#none">
+     <a href="${ctx}/productList.do">
        <img src="${ctx}/images/logo.png" alt="아나바다 로고">
        <span class="visually-hidden">아나바다</span>
      </a>

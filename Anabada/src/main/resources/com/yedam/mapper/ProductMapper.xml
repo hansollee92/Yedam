@@ -37,25 +37,109 @@
   </select>
 
 	<!-- 상품 단건검색 -->
-	<select id="selectProduct" parameterType="int" resultType="product">
-		select *
-		from product
-		where prd_no = #{prdNo}
+  
+	<!-- 상품 목록 -->
+	<select id="selectProductList">
+	    select *
+	    from (
+			select p.*
+			from   product p
+			order by p.prd_no desc
+	    )
+	    <![CDATA[ 
+	    where rownum  <= 16
+	    ]]>
 	</select>
 
-    <!-- 상품 이미지 경로 조회 -->
-    <select id="getProductImage" parameterType="int" resultType="string">
-        SELECT prd_img
-        FROM product
-        WHERE prd_no = #{prd_no}
-    </select>
+	<!-- 상품 단건 조회 -->
+	<select id="selectProduct" parameterType="int" resultType="product">
+		select *
+		from   product
+		where  prd_no = #{prdNo}
+	</select>
 
-    <!-- 상품 이미지 경로 삭제 -->
-    <update id="clearProductImage" parameterType="int">
-        UPDATE product
-        SET prd_img = NULL
-        WHERE prd_no = #{prd_no}
-    </update>
+	<!--  상품별 찜한 사람 수 조회  -->
+	<select id="countWishMember">
+	    select  p.prd_no,
+	            p.prd_name,
+	            count(w.member_no) AS wish_count
+	    from wish w join product p
+	                  on w.prd_no = p.prd_no
+	                group by p.prd_no, p.prd_name
+	    order by wish_count desc
+	</select>
+  
+  
+  
+	<!-- 메인: 최신 N개 + 대표이미지 -->
+<!-- 	<select id="selectRecentImage" parameterType="int" resultType="product">
+	    SELECT
+	       p.prd_no                           AS prdNo,
+	       p.prd_name                         AS prdName,
+	       p.price                            AS price,
+	       TO_CHAR(p.prd_date, 'YYYY-MM-DD')  AS prdDate,
+	       p.category                         AS category,
+	       p.sido                             AS sido,
+	       p.sigungu                          AS sigungu,
+	       NVL(p.prd_img, 'noimage.png')      AS prdImg
+	    FROM product p
+	    WHERE p.sale_status = '판매중'
+	    ORDER BY p.prd_date DESC
+	    FETCH FIRST #{limit} ROWS ONLY
+	</select> -->
 
+  <!-- 상품 목록(카테고리/검색/정렬/페이징) -->
+  <!--  <select id="selectProductList" parameterType="map" resultType="product">
 
+    <bind name="qLike" value="q != null ? ('%' + q.toUpperCase() + '%') : null"/>
+    SELECT
+       p.prd_no                           AS prdNo,
+       p.prd_name                         AS prdName,
+       p.price                            AS price,
+       TO_CHAR(p.prd_date, 'YYYY-MM-DD')  AS prdDate,
+       p.category                         AS category,
+       p.prd_status                       AS prdStatus,
+       p.prd_desc                         AS prdDesc,
+       p.prd_tag                          AS prdTag,
+       p.trade_type                       AS tradeType,
+       p.sale_status                      AS saleStatus,
+       NVL(p.prd_img, 'noimage.png')      AS prdImg,
+       p.sido                             AS sido,
+       p.sigungu                          AS sigungu,
+       p.dong                             AS dong,
+       p.lat                              AS lat,
+       p.lng                              AS lng,
+       p.member_no                        AS memberNo
+    FROM product p
+    WHERE p.sale_status = '판매중'
+      <if test="category != null and category != ''">
+        AND p.category = #{category}
+      </if>
+      <if test="qLike != null">
+        AND (
+              UPPER(p.prd_name)  LIKE #{qLike}
+           OR UPPER(p.sido)      LIKE #{qLike}
+           OR UPPER(p.sigungu)   LIKE #{qLike}
+           OR UPPER(p.dong)      LIKE #{qLike}
+           OR UPPER(p.prd_tag)   LIKE #{qLike}
+        )
+      </if>
+    <choose>
+      <when test="sort == 'low'">
+        ORDER BY p.price ASC, p.prd_date DESC
+      </when>
+      <when test="sort == 'high'">
+        ORDER BY p.price DESC, p.prd_date DESC
+      </when>
+      <otherwise>
+        ORDER BY p.prd_date DESC
+      </otherwise>
+    </choose>
+
+    <if test="pageSize != null and pageSize > 0">
+      OFFSET #{offset, jdbcType=INTEGER} ROWS
+      FETCH NEXT #{pageSize, jdbcType=INTEGER} ROWS ONLY
+    </if>
+  </select>-->
+    
 </mapper>
