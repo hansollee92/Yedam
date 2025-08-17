@@ -208,8 +208,9 @@
 	
 	tagArray.forEach(tag => {
 		let span = document.createElement('span');
-    span.textContent = tag;
-    document.querySelector('.tags').appendChild(span);
+		span.classList.add('tag');
+	    span.textContent = tag;
+	    document.querySelector('.tags').appendChild(span);
 	})
 	
 </script>
