@@ -15,7 +15,7 @@
       from wish w join product p
                     on w.prd_no = p.prd_no
       WHERE w.member_no = #{memberNo}
-      ORDER BY w.wish_no DESC;
+      ORDER BY w.wish_no DESC
   </select>
 
 	<!-- 상품 이미지 경로 업데이트 -->
