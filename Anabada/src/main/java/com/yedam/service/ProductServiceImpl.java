@@ -32,34 +32,50 @@ public class ProductServiceImpl implements ProductService {
   public List<ProductVO> searchWish(int memberNo) {
     return mapper.selectWish(memberNo);
   }
-
-  @Override
-  public int updateProductImage(int prdNo, String prdImg) {
-      if (prdImg == null || prdImg.isBlank()) {
-          throw new IllegalArgumentException("prdImg가 비어있습니다.");
-      }
-      Map<String, Object> param = new HashMap<>();
-      param.put("prd_no", prdNo);
-      param.put("prd_img", prdImg);
-      return mapper.updateProductImage(param);
-  }
   
-  @Override
-	public List<ProductVO> getMainRecent(int limit) {
-		int safeLimit = (limit <= 0 || limit > 50) ? 12 : limit; //기본값/ 상한선
-		return mapper.selectRecentImage(limit);
-	}
+  
+    // 아래 주석처리된거 ProductService.java파일 내에 주석처리된 것들과 관련됨
+    // 한솔이랑 재우가 같이 확인해보고 주석풀고 사용할건 사용
 
-  @Override
-	public List<ProductVO> findList(Map<String,Object> param) {
-	    return mapper.selectProductList(param);
-	}
+//  @Override
+//  public int updateProductImage(int prdNo, String prdImg) {
+//      if (prdImg == null || prdImg.isBlank()) {
+//          throw new IllegalArgumentException("prdImg가 비어있습니다.");
+//      }
+//      Map<String, Object> param = new HashMap<>();
+//      param.put("prd_no", prdNo);
+//      param.put("prd_img", prdImg);
+//      return mapper.updateProductImage(param);
+//  }
+  
+//  @Override
+//	public List<ProductVO> getMainRecent(int limit) {
+//		int safeLimit = (limit <= 0 || limit > 50) ? 12 : limit; //기본값/ 상한선
+//		return mapper.selectRecentImage(limit);
+//	}
+//
+//  @Override
+//	public List<ProductVO> findList(Map<String,Object> param) {
+//	    return mapper.selectProductList(param);
+//	}
 
 	@Override
 	public List<ProductVO> productList(ProductVO dao) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	@Override
+//	public String getProductImage(int prdNo) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public int clearProductImage(int prdNo) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
 
 }
 
