@@ -58,11 +58,11 @@
 	</definition>    
 
     <!-- 마이페이지 
-    	 http://localhost:8080/Anabada/mypage/wish.tiles  
+    	 http://localhost:8080/Anabada/mypage/wish_list.tiles
     	 http://localhost:8080/Anabada/mypage/sales_list.tiles  
     	 http://localhost:8080/Anabada/mypage/pur_list.tiles 
     	 .... 
-    	 찜하기 : wish.jsp
+    	 찜하기 : wish_list.jsp
     	 판매 내역 : sales_list.jsp
     	 구입 내역 : pur_list.jsp
     	 내정보수정 : profile_edit.jsp    	 
