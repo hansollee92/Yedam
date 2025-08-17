@@ -25,10 +25,22 @@
       </div>
 
       <ul class="auth">
-        <li><a href="#none"><i class="fa-regular fa-circle-user"></i> 로그인</a></li>
-        <li class="v-line"></li>
-        <li><a href="#none"><i class="fa-solid fa-circle-plus"></i> 회원가입</a></li>
+	      <c:choose>
+	      		<c:when test="not empty sessionScope.loginUser">
+	      			<li><a href="#"><i class="fa-regular fa-circle-check"></i> 판매하기</a></li>
+	      			<li class="v-line"></li>
+	      			<li><a href="#"><i class="fa-regular fa-circle-user"></i> 마이페이지</a></li>
+	      			<li class="v-line"></li>
+	      			<li><a href="#"><i class="fa-solid fa-circle-xmark"></i> 로그아웃</a></li>
+	      		</c:when>
+	      		<c:otherwise>
+	      			<li><a href="${ctx}/loginForm.do"><i class="fa-regular fa-circle-user"></i> 로그인</a></li>
+			        <li class="v-line"></li>
+			        <li><a href="${ctx}/joinForm.do"><i class="fa-solid fa-circle-plus"></i> 회원가입</a></li>
+	      		</c:otherwise>
+	      </c:choose>
       </ul>
+      
     </div>
 
     <nav class="main-nav">
