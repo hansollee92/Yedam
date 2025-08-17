@@ -13,7 +13,7 @@ public class MemberServiceImpl implements MemberService {
     //로그인
 	@Override
 	public MemberVO searchMember(String memberId, String memberPw) {
-		return mapper.selectMember(memberId, memberPw);
+		return mapper.selectLoginMember(memberId, memberPw);
 	}    
     
     // 아이디 중복체크
@@ -30,11 +30,6 @@ public class MemberServiceImpl implements MemberService {
 	    return mapper.insertMember(vo) == 1;
     }
 
-	@Override
-	public MemberVO searchMember(int int1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }
