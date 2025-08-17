@@ -8,21 +8,13 @@ import org.apache.ibatis.annotations.Param;
 import com.yedam.vo.ProductVO;
 
 public interface ProductMapper {
-
-    
-    public List<ProductVO> selectProductList();     //상품목록
-    public ProductVO selectProduct(int prdNo);      //상품단건조회
-    
-    
-    public ProductVO selectWish(int memberNo);
-    
-    
-    
-    
-    
-    
-    
-    
+	List<ProductVO> productList(ProductVO dao);
+  List<ProductVO> selectWish(int memberNo); // 내가 찜한 상품 조회
+  ProductVO selectProduct(int prdNo); //상품단건조회
+	int updateProductImage(Map<String, Object> param); // 상품 이미지 경로 업데이트
+	String getProductImage(int prdNo); // 상품 이미지 경로 조회
+	int clearProductImage(int prdNo); // 상품 이미지 경로 삭제
+  List<ProductVO> selectProductList();     //상품목록
     
 	// 상품 이미지 경로 업데이트
 	public int updateProductImage(Map<String, Object> param);
@@ -33,6 +25,5 @@ public interface ProductMapper {
 	public List<ProductVO> selectCategoryRecent(@Param("category") String category, @Param("limit") int limit);
 	
 	public List<ProductVO> selectCategoryPopular(@Param("category") String category,  @Param("limit") int limit);
-	 
 
 }

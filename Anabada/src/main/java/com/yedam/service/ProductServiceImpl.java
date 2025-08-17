@@ -26,35 +26,31 @@ public class ProductServiceImpl implements ProductService {
 	public ProductVO findProduct(int prdNo) {
 		return mapper.selectProduct(prdNo);
 	}
-  
-	
-	
-	
-	
-	
-    @Override
-    public ProductVO searchWish(int memberNo) {
-        return mapper.selectWish(memberNo);
-    }
 
-    @Override
-    public int updateProductImage(int prdNo, String prdImg) {
-        if (prdImg == null || prdImg.isBlank()) {
-            throw new IllegalArgumentException("prdImg가 비어있습니다.");
-        }
-        Map<String, Object> param = new HashMap<>();
-        param.put("prd_no", prdNo);
-        param.put("prd_img", prdImg);
-        return mapper.updateProductImage(param);
-    }
-    @Override
+
+  @Override
+  public List<ProductVO> searchWish(int memberNo) {
+    return mapper.selectWish(memberNo);
+  }
+
+  @Override
+  public int updateProductImage(int prdNo, String prdImg) {
+      if (prdImg == null || prdImg.isBlank()) {
+          throw new IllegalArgumentException("prdImg가 비어있습니다.");
+      }
+      Map<String, Object> param = new HashMap<>();
+      param.put("prd_no", prdNo);
+      param.put("prd_img", prdImg);
+      return mapper.updateProductImage(param);
+  }
+  
+  @Override
 	public List<ProductVO> getMainRecent(int limit) {
 		int safeLimit = (limit <= 0 || limit > 50) ? 12 : limit; //기본값/ 상한선
 		return mapper.selectRecentImage(limit);
 	}
 
-
-    @Override
+  @Override
 	public List<ProductVO> findList(Map<String,Object> param) {
 	    return mapper.selectProductList(param);
 	}
@@ -64,9 +60,6 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
 
 }
 
