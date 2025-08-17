@@ -16,4 +16,3 @@ public class JoinFormControl implements Control {
 		req.getRequestDispatcher("/member/join.tiles").forward(req, resp);
 	}
 }
-llll

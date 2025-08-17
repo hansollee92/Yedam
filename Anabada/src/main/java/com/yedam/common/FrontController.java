@@ -49,6 +49,7 @@ import com.yedam.control.ProductListControl;
 			// End 오민수
 			
 			map.put("/main.do", new MainControl());	//메인페이지
+			
 			// 상품 
 			map.put("/productList.do", new ProductListControl());   //상품리스트
 			map.put("/product.do", new ProductControl());           //상품 상세
