@@ -10,10 +10,11 @@ public class MemberServiceImpl implements MemberService {
     SqlSession sqlSession = DBUtil.getInstance().openSession();
     MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 
-    @Override
-    public MemberVO searchMember(int memberNo) {
-        return mapper.selectMember(memberNo);
-    }
+    //로그인
+	@Override
+	public MemberVO searchMember(String memberId, String memberPw) {
+		return mapper.selectMember(memberId, memberPw);
+	}    
     
     // 아이디 중복체크
 	@Override
@@ -30,4 +31,12 @@ public class MemberServiceImpl implements MemberService {
 	    if (ok) sqlSession.commit(); // 커밋
 	    return ok;
     }
+
+	@Override
+	public MemberVO searchMember(int int1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

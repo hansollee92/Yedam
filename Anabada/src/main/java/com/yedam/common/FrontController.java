@@ -10,21 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.yedam.control.CheckIdControl;
-import com.yedam.control.JoinControl;
-import com.yedam.control.JoinFormControl;
-import com.yedam.control.JoinSuccessControl;
-import com.yedam.control.LoginControl;
-import com.yedam.control.LoginFormControl;
-import com.yedam.control.LogoutControl;
-import com.yedam.control.MemberControl;
-import com.yedam.control.PayControl;
-import com.yedam.control.PayFormControl;
-import com.yedam.control.ProductControl;
-import com.yedam.control.ProductListControl;
+import com.yedam.control.*;
 
-
-	public class FrontController extends HttpServlet {// HttpServlet를 상속받음
+public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 		
 		Map<String, Control> map;
 
@@ -40,18 +28,19 @@ import com.yedam.control.ProductListControl;
 			// Start 오민수
 			map.put("/joinForm.do", new JoinFormControl());        // 회원가입 화면
 			map.put("/join.do", new JoinControl());                // 회원가입 기능
-			map.put("/joinSuccess.do", new JoinSuccessControl()); // 회원가입 성공 시 보이는 화면
-			map.put("/checkId.do", new CheckIdControl());		// 아이디 중복체크
-			map.put("/loginForm.do", new LoginFormControl());    // 로그인 화면
-			map.put("/login.do", new LoginControl());            // 로그인 기능
+			map.put("/joinSuccess.do", new JoinSuccessControl());  // 회원가입 성공 시 보이는 화면
+			map.put("/checkId.do", new CheckIdControl());		       // 아이디 중복체크
+			map.put("/loginForm.do", new LoginFormControl());      // 로그인 화면
+			map.put("/login.do", new LoginControl());              // 로그인 기능
 			map.put("/logout.do", new LogoutControl());            // 로그아웃 기능
-			map.put("/payForm.do", new PayFormControl());        // 결제 화면
-			map.put("/pay.do", new PayControl());                // 결제 기능
+			map.put("/payForm.do", new PayFormControl());          // 결제 화면
+			map.put("/pay.do", new PayControl());                  // 결제 기능
 			// End 오민수
-			map.put("/member.do", new MemberControl());
-			map.put("/wish.do", new ProductControl());
+      
+			map.put("/mypage.do", new MypageControl());
 			map.put("/product.do", new ProductControl()); //상품 상세
-			map.put("/productList.do", new ProductListControl());
+			map.put("/productList.do", new ProductListControl()); //상품리스트
+      map.put("/main.do", new MainControl());	//메인페이지
 		}
 
 		@Override
