@@ -36,10 +36,9 @@ body {
   text-decoration: underline;
 }
 
-.profile-img {
+.profile-img > img {
   width: 96px;
   height: 96px;
-  background: #d9d9d9;
   border-radius: 50%;
   margin-bottom: 16px;
 }
