@@ -28,6 +28,11 @@ public class ProductServiceImpl implements ProductService {
 		return product;		
 	}
 
+  @Override
+  public List<ProductVO> searchWish(int memberNo) {
+    return mapper.selectWish(memberNo);
+  } 
+
 	//상품 수정
 	@Override
 	public boolean productModify(ProductVO product) {
@@ -38,11 +43,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return false;
 	}
-  
-	
-
-
-
+ 
 
 
 }

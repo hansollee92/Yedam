@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.yedam.control.CheckIdControl;
 import com.yedam.control.JoinControl;
 import com.yedam.control.JoinFormControl;
@@ -41,14 +42,15 @@ import com.yedam.control.ProductModifyFormControl;
 		public void init(ServletConfig config) throws ServletException {
 
 			// Start 오민수
-			map.put("/joinForm.do", new JoinFormControl());         // 회원가입 화면
-			map.put("/join.do", new JoinControl());                 // 회원가입 기능(처리)
-			map.put("/loginForm.do", new LoginFormControl());       // 로그인 화면
-			map.put("/login.do", new LoginControl());               // 로그인 기능(처리)
-		    map.put("/checkId.do", new CheckIdControl());		    // 아이디 중복체크
-			map.put("/logout.do", new LogoutControl());             // 로그아웃 기능
-			map.put("/payForm.do", new PayFormControl());           // 결제 화면
-			map.put("/pay.do", new PayControl());                   // 결제 기능
+        map.put("/joinForm.do", new JoinFormControl());        // 회원가입 화면
+        map.put("/join.do", new JoinControl());                // 회원가입 기능
+        map.put("/joinSuccess.do", new JoinSuccessControl());  // 회원가입 성공 시 보이는 화면
+        map.put("/checkId.do", new CheckIdControl());		       // 아이디 중복체크
+        map.put("/loginForm.do", new LoginFormControl());      // 로그인 화면
+        map.put("/login.do", new LoginControl());              // 로그인 기능
+        map.put("/logout.do", new LogoutControl());            // 로그아웃 기능
+        map.put("/payForm.do", new PayFormControl());          // 결제 화면
+        map.put("/pay.do", new PayControl());                  // 결제 기능
 			// End 오민수
 			
 			map.put("/main.do", new MainControl());	//메인페이지
@@ -65,6 +67,7 @@ import com.yedam.control.ProductModifyFormControl;
 			
 			// 마이페이지
 			map.put("/wish.do", new ProductControl()); 
+      map.put("/wishList.do", new WishListControl()); // 찜목록
 			
 			
 		}
@@ -82,3 +85,4 @@ import com.yedam.control.ProductModifyFormControl;
 			control.execute(req, resp);
 		}
 	}
+
