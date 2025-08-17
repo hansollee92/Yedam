@@ -40,7 +40,7 @@ public class LoginControl implements Control {
 			//로그인 성공
 			HttpSession session = req.getSession();
 			session.setAttribute("logMember", member);
-			resp.sendRedirect(req.getContextPath() + "/productList.do");
+			resp.sendRedirect(req.getContextPath() + "/main.do");
 		}
 
 	}
