@@ -24,6 +24,33 @@
 		where  prd_no = #{prdNo}
 	</select>
 	
+	<!-- 상품 조회수 증가 -->
+	<update id="updateCntProduct" parameterType="int">
+		update product
+		set view_cnt = view_cnt + 1
+		where prd_no = #{prdNo}
+	</update>
+	
+	<!-- 상품 수정 -->
+	<update id="updateProduct" parameterType="product">
+		update product
+		set prd_name = #{prdName},
+		    price = #{price},
+		    category = #{category},
+		    prd_status = #{prdStatus},
+		    prd_desc = #{prdDesc},
+		    prd_tag = #{prdTag},
+		    trade_type = #{tradeType},
+		    prd_img = #{prdImg},
+		    sido = #{sido},
+		    sigungu = #{sigungu},
+		    dong = #{dong},
+		    lat = #{lat},
+		    lng = #{lng}
+		where prd_no = #{prdNo}    
+	</update>	
+	
+	
 	<!--  내가 한 찜 목록보기  -->
 	<select id="selectWish" parameterType="int" resultType="product">
 	    select  p.prd_no,

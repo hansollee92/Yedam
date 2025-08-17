@@ -1,8 +1,6 @@
 package com.yedam.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -21,49 +19,17 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectProductList();
 	}
 	
-	//상품 단건조회
+	//상품 단건조회 + 조회수
 	@Override
 	public ProductVO findProduct(int prdNo) {
-		return mapper.selectProduct(prdNo);
+		ProductVO product = mapper.selectProduct(prdNo);
+		mapper.updateCntProduct(prdNo);
+		sqlSession.commit(); //조회수 반영을 위한 커밋
+		return product;		
 	}
   
 	
-	
-	
-	
-	
-    @Override
-    public ProductVO searchWish(int memberNo) {
-        return mapper.selectWish(memberNo);
-    }
 
-    @Override
-    public int updateProductImage(int prdNo, String prdImg) {
-        if (prdImg == null || prdImg.isBlank()) {
-            throw new IllegalArgumentException("prdImg가 비어있습니다.");
-        }
-        Map<String, Object> param = new HashMap<>();
-        param.put("prd_no", prdNo);
-        param.put("prd_img", prdImg);
-        return mapper.updateProductImage(param);
-    }
-    @Override
-	public List<ProductVO> getMainRecent(int limit) {
-		int safeLimit = (limit <= 0 || limit > 50) ? 12 : limit; //기본값/ 상한선
-		return mapper.selectRecentImage(limit);
-	}
-
-
-    @Override
-	public List<ProductVO> findList(Map<String,Object> param) {
-	    return mapper.selectProductList(param);
-	}
-
-	@Override
-	public List<ProductVO> productList(ProductVO dao) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 
