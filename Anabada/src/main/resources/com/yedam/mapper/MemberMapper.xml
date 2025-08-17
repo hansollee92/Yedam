@@ -40,7 +40,7 @@
 		VALUES (
 			#{memberNo}, #{memberId}, #{memberPw}, #{memberName},
 			#{memberBirth}, #{memberPhone}, #{memberImg},
-			NVL(#{memberScore}, 2)
+			NVL(NULLIF(#{memberScore}, 0), 2)
 			)
 	</insert>
 
