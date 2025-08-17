@@ -1,16 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" /> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" /> 
 
-<!-- 상품상태 : on-sale reserved sold-out -->
-<section class="product-detail onSale">
+<!-- <c:set var="이름" value="값" />
+     JSP 페이지에서 잠깐 사용할 임시변수를 만들 수 있는 set -->
+     
+<!-- 로그인 사용자 객체 저장 -->
+<c:set var="loginMember" value="${sessionScope.logMember}" />
+<!-- 판매자 본인여부 체크(ture/false) -->
+<c:set var="owner" value="${not empty loginMember and loginMember.memberNo == product.memberNo }" />
+<!-- 판매상태를 css클래스용 문자열로 변환 (이중삼항연산자)-->
+<c:set var="saleClass" value="${product.saleStatus eq '판매중' ? 'onsale'
+                         : (product.saleStatus eq '예약중' ? 'reserved' : 'soldout')}" />
+
+
+<!-- 상품상태 : onsale reserved soldout -->
+<!-- ${owner ? 'sellerView' : ''} : 판매자일경우(true) 판매자 화면만 보이게끔 처리 -->
+<section class="product-detail ${saleClass} ${owner ? 'sellerView' : ''}">
 
   <div class="pd-top">
     <div class="pd-gallery col-6">
       <img src="${ctx}/images/product/${product.prdImg}" alt="${product.prdName}">
-      <!-- 판매완료 오버레이 (soldOut일 때 자동 표시) -->
+      <!-- 판매완료 오버레이 (soldout일 때 자동 표시) -->
       <div class="soldout-mark"><span>판매완료</span></div>
     </div>
 
@@ -24,14 +37,16 @@
         <span><i class="fa-solid fa-eye"></i> ${product.viewCnt}</span>
         <span><i class="fa-solid fa-clock"></i> ${product.prdDate}</span>
 
-        <!-- 판매자만 보이는 상태 셀렉트 -->
-        <div class="pd-status">
-          <select class="form-select">
-            <option>판매중</option>
-            <option>예약중</option>
-            <option>판매완료</option>
-          </select>
-        </div>
+	    <!-- 판매자만 보이는 상태 셀렉트 -->
+	    <c:if test="${owner}">
+	        <div class="pd-status">
+	          <select class="form-select" name="saleStatus">
+	            <option ${product.saleStatus == '판매중' ? 'selected' : ''}>판매중</option>
+	            <option ${product.saleStatus == '예약중' ? 'selected' : ''}>예약중</option>
+	            <option ${product.saleStatus == '판매완료' ? 'selected' : ''}>판매완료</option>
+	          </select>
+	        </div>
+        </c:if>
       </div>
 
 
@@ -43,28 +58,79 @@
       <!-- 버튼 영역 -->
       <div class="pd-actions">
 
-        <!-- 구매자 전용 -->
-        <div class="buyer-actions">
-          <div class="row-actions">
-            <button type="button" class="btn-line">찜하기</button>
-            <button type="button" class="btn-line">문의하기</button>
-          </div>
-          <button type="button" class="btn-primary btn-lg">구매하기</button>
-        </div>
-
-        <!-- 판매자 전용 -->
-        <div class="seller-actions">
-          <div class="row-actions">
-            <button type="button" class="btn-line">글 수정</button>
-            <button type="button" class="btn-line">글 삭제</button>
-          </div>
-          <button type="button" class="btn-primary btn-lg is-disabled">예약 중</button>
-        </div>
-
-        <!-- 판매완료 전용 -->
-        <div class="sold-actions">
-          <button type="button" class="btn-primary btn-lg is-disabled" disabled>판매완료</button>
-        </div>
+		<c:choose>		
+		    <%-- 1) 판매자(소유자) 화면 --%>
+		    <c:when test="${owner}">
+		      <c:choose>
+		        <%-- 판매완료면 '판매완료' 만 --%>
+		        <c:when test="${product.saleStatus eq '판매완료'}">
+		          <div class="sold-actions">
+		            <button type="button" class="btn-primary btn-lg is-disabled" disabled>판매완료</button>
+		          </div>
+		        </c:when>
+		
+		        <%-- 그 외(판매중/예약중)면 판매자용 버튼 --%>
+		        <c:otherwise>
+		          <div class="seller-actions">
+		            <div class="row-actions">
+		              <%-- 예시: 수정/삭제 액션 연결 --%>
+		              <button type="button"
+		                      class="abtn common-btn seller-btn"
+		                      onclick="location.href='${ctx}/productEditForm.do?prdNo=${product.prdNo}'">
+		                글 수정
+		              </button>
+		
+		              <form action="${ctx}/productDelete.do" method="post" onsubmit="return confirm('삭제할까요?')" style="display:inline">
+		                <input type="hidden" name="prdNo" value="${product.prdNo}">
+		                <button type="submit" class="abtn common-btn">글 삭제</button>
+		              </form>
+		            </div>
+		
+		            <%-- 예약중 버튼: 상태가 '예약중' 일 때만 활성 --%>
+		            <button type="button"
+		                    class="btn-primary btn-lg ${product.saleStatus eq '예약중' ? '' : 'disabled'}"
+		                    ${product.saleStatus eq '예약중' ? '' : 'disabled'}>
+		              예약 중
+		            </button>
+		          </div>
+		        </c:otherwise>
+		      </c:choose>
+		    </c:when>
+		
+		    <%-- 2) 구매자/비로그인 화면 --%>
+		    <c:otherwise>
+		      <c:choose>
+		        <%-- 판매완료면 '판매완료' 만 --%>
+		        <c:when test="${product.saleStatus eq '판매완료'}">
+		          <div class="sold-actions">
+		            <button type="button" class="btn-primary btn-lg is-disabled" disabled>판매완료</button>
+		          </div>
+		        </c:when>
+		
+		        <%-- 판매중/예약중: 구매자용 버튼 --%>
+		        <c:otherwise>
+		          <div class="buyer-actions">
+		            <div class="row-actions">
+		              <%-- 예시: 찜/문의 액션 연결 --%>
+		              <form action="${ctx}/wishToggle.do" method="post">
+		                <input type="hidden" name="prdNo" value="${product.prdNo}">
+		                <button type="submit" class="abtn common-btn">찜하기</button>
+		              </form>
+		              <a class="abtn" href="#none">문의하기</a>
+		            </div>
+		
+		            <%-- 구매하기: '판매중' 일 때만 활성 --%>
+		            <button type="button"
+		                    class="btn-primary btn-lg ${product.saleStatus ne '판매중' ? 'disabled' : ''}"
+		                    ${product.saleStatus ne '판매중' ? 'disabled' : ''}>
+		              구매하기
+		            </button>
+		          </div>
+		        </c:otherwise>
+		      </c:choose>
+		    </c:otherwise>
+		
+		  </c:choose>
 
       </div>
 
