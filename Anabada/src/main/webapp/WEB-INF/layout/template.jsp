@@ -19,9 +19,10 @@
   <meta name="keywords" content="">
   <meta name="description" content="">
 	
-	<link rel="stylesheet" href="${ctx}/css/joinForm.css"> <!-- 회원가입 화면 CSS -->
   <link rel="stylesheet" href="${ctx}/css/mainStyle.css">
-  <link rel="stylesheet" href="${ctx}/css/product.css">
+  <link rel="stylesheet" href="${ctx}/css/product.css">  
+  <link rel="stylesheet" href="${ctx}/css/login.css">
+  <link rel="stylesheet" href="${ctx}/css/joinForm.css"> <!-- 회원가입 화면 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,10 +36,12 @@
 <body>
   <!--header-->
   <tiles:insertAttribute name="header" />
-  <!-- body -->
-  <tiles:insertAttribute name="body" />
-  <!-- footer -->
-  <tiles:insertAttribute name="footer" />
+  <div class="change-background">
+	  <!-- body -->
+	  <tiles:insertAttribute name="body" />
+	  <!-- footer -->
+	  <tiles:insertAttribute name="footer" />
+  </div>
 
   <!-- script -->
   <script src="js/jquery-1.11.0.min.js"></script>
