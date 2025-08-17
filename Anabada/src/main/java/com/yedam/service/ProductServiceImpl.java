@@ -19,11 +19,12 @@ public class ProductServiceImpl implements ProductService {
 	public ProductVO findProduct(int prdNo) {
 		return mapper.selectProduct(prdNo);
 	}
-  
-  @Override
-  public ProductVO searchWish(int memberNo) {
+
+    @Override
+    public List<ProductVO> searchWish(int memberNo) {
       return mapper.selectWish(memberNo);
-  }
+    }
+
     @Override
     public List<ProductVO> productList(ProductVO dao) {
         return mapper.productList(dao);
