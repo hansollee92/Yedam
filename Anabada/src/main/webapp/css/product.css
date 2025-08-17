@@ -322,13 +322,6 @@
   border-color: var(--primary-color);
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-  .product-detail .pd-top {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
 
 /* tag # 붙이기 */
 .tags{
@@ -343,4 +336,11 @@
 	content: "#";
 	color: var(--gray);
 	margin-right: 2px;
+}
+/* Responsive */
+@media (max-width: 992px) {
+  .product-detail .pd-top {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
