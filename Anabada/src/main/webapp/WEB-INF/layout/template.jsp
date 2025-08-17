@@ -20,6 +20,7 @@
   <meta name="description" content="">
 	
   <link rel="stylesheet" href="${ctx}/css/mainStyle.css">
+  <link rel="stylesheet" href="${ctx}/css/main.css">  
   <link rel="stylesheet" href="${ctx}/css/product.css">  
   <link rel="stylesheet" href="${ctx}/css/login.css">
   <link rel="stylesheet" href="${ctx}/css/joinForm.css"> <!-- 회원가입 화면 CSS -->
@@ -34,6 +35,7 @@
 </head>
 
 <body>
+
   <!--header-->
   <tiles:insertAttribute name="header" />
   <div class="change-background">
@@ -43,6 +45,8 @@
 	  <tiles:insertAttribute name="footer" />
   </div>
 
+  <!--top button-->
+  <div class="top-btn"><a href="#">TOP</a></div>
   <!-- script -->
   <script src="js/jquery-1.11.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
