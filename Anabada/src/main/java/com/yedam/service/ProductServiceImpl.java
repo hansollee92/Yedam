@@ -39,16 +39,17 @@ public class ProductServiceImpl implements ProductService {
         param.put("prd_img", prdImg);
         return mapper.updateProductImage(param);
     }
+    @Override
+	public List<ProductVO> getMainRecent(int limit) {
+		int safeLimit = (limit <= 0 || limit > 50) ? 12 : limit; //기본값/ 상한선
+		return mapper.selectRecentImage(limit);
+	}
+
 
     @Override
-    public String getProductImage(int prdNo) {
-        return mapper.getProductImage(prdNo);
-    }
-
-    @Override
-    public int clearProductImage(int prdNo) {
-        return mapper.clearProductImage(prdNo);
-    }
+	public List<ProductVO> findList(Map<String,Object> param) {
+	    return mapper.selectProductList(param);
+	}
 
 
 

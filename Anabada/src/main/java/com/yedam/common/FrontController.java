@@ -16,6 +16,7 @@ import com.yedam.control.JoinFormControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.LogoutControl;
+import com.yedam.control.MainControl;
 import com.yedam.control.MemberControl;
 import com.yedam.control.PayControl;
 import com.yedam.control.PayFormControl;
@@ -47,6 +48,7 @@ import com.yedam.control.ProductListControl;
 			map.put("/pay.do", new PayControl());                   // 결제 기능
 			// End 오민수
 			
+			map.put("/main.do", new MainControl());	//메인페이지
 			// 상품 
 			map.put("/productList.do", new ProductListControl());   //상품리스트
 			map.put("/product.do", new ProductControl());           //상품 상세
