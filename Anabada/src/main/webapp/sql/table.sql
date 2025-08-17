@@ -28,6 +28,7 @@ create table product (
     dong     varchar2(40),  -- 읍/면/동 (예: 범어동)
     lat      number(9,6),   -- 위도
     lng      number(9,6),    -- 경도
+    view_cnt   number(10) default 0 not null,   --조회수
     member_no   number(5),
     foreign key (member_no) references member (member_no)
 );
