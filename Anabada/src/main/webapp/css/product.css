@@ -11,10 +11,17 @@
   position: relative;
   border-radius: 10px;
   overflow: hidden;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-height: 480px;
+  min-height: 280px;
 }
 .pd-gallery img {
-  display: block;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 /* 판매완료(soldOut) 상태일때 활성화 */
@@ -315,21 +322,25 @@
   border-color: var(--primary-color);
 }
 
+
+/* tag # 붙이기 */
+.tags{
+	display: flex;
+	gap: 8px;
+}
+.tag{
+	display: inline-block;
+	margin-right: 8px;
+}
+.tag::before{
+	content: "#";
+	color: var(--gray);
+	margin-right: 2px;
+}
 /* Responsive */
 @media (max-width: 992px) {
   .product-detail .pd-top {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-}
-
-/* tag # 붙이기 */
-.tag-list{
-	display: flex;
-	gap: 8px;
-}
-.tag::before{
-	content: "#";
-	color: var(--black-color);
-	margin-right: 2px;
 }
