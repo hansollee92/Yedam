@@ -322,3 +322,14 @@
     gap: 16px;
   }
 }
+
+/* tag # 붙이기 */
+.tag-list{
+	display: flex;
+	gap: 8px;
+}
+.tag::before{
+	content: "#";
+	color: var(--black-color);
+	margin-right: 2px;
+}
