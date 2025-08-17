@@ -76,7 +76,7 @@
 		              <%-- 예시: 수정/삭제 액션 연결 --%>
 		              <button type="button"
 		                      class="abtn common-btn seller-btn"
-		                      onclick="${ctx}/productModify.do?prdNo=${product.prdNo}'">
+		                      onclick="location.href='${ctx}/productModifyForm.do?prdNo=${product.prdNo}'">
 		                글 수정
 		              </button>
 		

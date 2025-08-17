@@ -24,6 +24,7 @@ import com.yedam.control.ProdcutRemoveControl;
 import com.yedam.control.ProductControl;
 import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductModifyControl;
+import com.yedam.control.ProductModifyFormControl;
 
 
 	public class FrontController extends HttpServlet {// HttpServlet를 상속받음
@@ -53,10 +54,11 @@ import com.yedam.control.ProductModifyControl;
 			map.put("/main.do", new MainControl());	//메인페이지
 			
 			// 상품 
-			map.put("/productList.do", new ProductListControl());         //상품리스트
-			map.put("/product.do", new ProductControl());                 //상품 상세 + 조회수
-			map.put("/prodcutmodify.do", new ProductModifyControl());     //상품 수정
-			map.put("/productremove.do", new ProdcutRemoveControl());     //상품 삭제
+			map.put("/productList.do", new ProductListControl());                //상품리스트
+			map.put("/product.do", new ProductControl());                        //상품 상세 + 조회수
+			map.put("/productModifyForm.do", new ProductModifyFormControl());    //상품 수정 화면 
+			map.put("/prodcutModify.do", new ProductModifyControl());            //상품 수정 처리
+			map.put("/productRemove.do", new ProdcutRemoveControl());            //상품 삭제
 			
 			// 회원
 			map.put("/member.do", new MemberControl());

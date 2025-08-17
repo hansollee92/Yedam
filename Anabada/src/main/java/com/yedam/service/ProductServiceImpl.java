@@ -27,6 +27,17 @@ public class ProductServiceImpl implements ProductService {
 		sqlSession.commit(); //조회수 반영을 위한 커밋
 		return product;		
 	}
+
+	//상품 수정
+	@Override
+	public boolean productModify(ProductVO product) {
+		int r = mapper.updateProduct(product);
+		if(r > 0) {
+			sqlSession.commit();
+			return true;
+		}
+		return false;
+	}
   
 	
 
