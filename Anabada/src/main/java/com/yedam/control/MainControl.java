@@ -13,17 +13,21 @@ import com.yedam.service.ProductServiceImpl;
 import com.yedam.vo.ProductVO;
 
 public class MainControl implements Control {
-
-	// 매 요청마다 생성방지
-	private final ProductService svc = new ProductServiceImpl();
-	@Override
 	
-	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@Override	
+	public void execute(HttpServletRequest req, HttpServletResponse resp) 
+			throws ServletException, IOException {
 		
-		List<ProductVO> list = svc.getMainRecent(12);	
-		req.setAttribute("productList", list);	
+		ProductService svc = new ProductServiceImpl();
+		List<ProductVO> list = svc.productList();
 		
-		req.getRequestDispatcher("/main.tiles").forward(req, resp);
+		req.setAttribute("product_list", list);
+		req.getRequestDispatcher("product/main.tiles").forward(req, resp);				
+		
+//		List<ProductVO> list = svc.getMainRecent(12);	
+//		req.setAttribute("productList", list);	
+//		
+//		req.getRequestDispatcher("product/main.tiles").forward(req, resp);
 	}
 
 }

@@ -4,40 +4,62 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.ProductMapper">
 
-  <!-- 상품 단건 조회 -->
-  <select id="selectProduct" parameterType="int" resultType="product">
-  	select *
-  	from   product
-  	where  prd_no = #{prdNo}
-  </select>
+	<!-- 상품 목록 -->
+	<select id="selectProductList">
+	    select *
+	    from (
+			select p.*
+			from   product p
+			order by p.prd_no desc
+	    )
+	    <![CDATA[ 
+	    where rownum  <= 16
+	    ]]>
+	</select>
 
-  <!--  내가 한 찜 목록보기  -->
-  <select id="selectWish" parameterType="int" resultType="product">
-      select  p.prd_no,
-              p.prd_name,
-              p.price,
-              p.prd_img,
-              p.sale_status,
-              w.wish_no
-      from wish w join product p
-                    on w.prd_no = p.prd_no
-      WHERE w.member_no = #{memberNo}
-      ORDER BY w.wish_no DESC;
-  </select>
+	<!-- 상품 단건 조회 -->
+	<select id="selectProduct" parameterType="int" resultType="product">
+		select *
+		from   product
+		where  prd_no = #{prdNo}
+	</select>
+	
+	<!--  내가 한 찜 목록보기  -->
+	<select id="selectWish" parameterType="int" resultType="product">
+	    select  p.prd_no,
+	            p.prd_name,
+	            p.price,
+	            p.prd_img,
+	            p.sale_status,
+	            w.wish_no
+	    from wish w join product p
+	                  on w.prd_no = p.prd_no
+	    WHERE w.member_no = #{memberNo}
+	    ORDER BY w.wish_no DESC;
+	</select>
 
-  <!--  상품별 찜한 사람 수 조회  -->
-  <select id="countWishMember">
-      select  p.prd_no,
-              p.prd_name,
-              count(w.member_no) AS wish_count
-      from wish w join product p
-                    on w.prd_no = p.prd_no
-                  group by p.prd_no, p.prd_name
-      order by wish_count desc
-  </select>
+	<!--  상품별 찜한 사람 수 조회  -->
+	<select id="countWishMember">
+	    select  p.prd_no,
+	            p.prd_name,
+	            count(w.member_no) AS wish_count
+	    from wish w join product p
+	                  on w.prd_no = p.prd_no
+	                group by p.prd_no, p.prd_name
+	    order by wish_count desc
+	</select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 	<!-- 메인: 최신 N개 + 대표이미지 -->
-	<select id="selectRecentImage" parameterType="int" resultType="product">
+<!-- 	<select id="selectRecentImage" parameterType="int" resultType="product">
 	    SELECT
 	       p.prd_no                           AS prdNo,
 	       p.prd_name                         AS prdName,
@@ -51,16 +73,12 @@
 	    WHERE p.sale_status = '판매중'
 	    ORDER BY p.prd_date DESC
 	    FETCH FIRST #{limit} ROWS ONLY
-	</select>
+	</select> -->
 
   <!-- 상품 목록(카테고리/검색/정렬/페이징) -->
-  <select id="selectProductList"
-          parameterType="map"
-          resultType="com.yedam.vo.ProductVO">
+  <!--  <select id="selectProductList" parameterType="map" resultType="product">
 
-    <!-- LIKE 파라미터(대소문자 무시) -->
     <bind name="qLike" value="q != null ? ('%' + q.toUpperCase() + '%') : null"/>
-
     SELECT
        p.prd_no                           AS prdNo,
        p.prd_name                         AS prdName,
@@ -105,12 +123,11 @@
       </otherwise>
     </choose>
 
-    <!-- 페이징 -->
     <if test="pageSize != null and pageSize > 0">
       OFFSET #{offset, jdbcType=INTEGER} ROWS
       FETCH NEXT #{pageSize, jdbcType=INTEGER} ROWS ONLY
     </if>
-  </select>
+  </select>-->
     
 
 

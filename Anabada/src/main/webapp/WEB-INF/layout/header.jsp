@@ -63,6 +63,3 @@
   </div>
 </header>
 <div class="line"></div>
-
-<!--top button-->
-<div class="top-btn"><a href="#">TOP</a></div>

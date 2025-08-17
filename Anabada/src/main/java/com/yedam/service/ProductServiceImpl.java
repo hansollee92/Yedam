@@ -15,18 +15,26 @@ public class ProductServiceImpl implements ProductService {
 	SqlSession sqlSession = DBUtil.getInstance().openSession();
 	ProductMapper mapper = sqlSession.getMapper(ProductMapper.class);
 
+	//상품 목록
+	@Override
+	public List<ProductVO> productList() {
+		return mapper.selectProductList();
+	}
+	
+	//상품 단건조회
 	@Override
 	public ProductVO findProduct(int prdNo) {
 		return mapper.selectProduct(prdNo);
 	}
   
-  @Override
-  public ProductVO searchWish(int memberNo) {
-      return mapper.selectWish(memberNo);
-  }
+	
+	
+	
+	
+	
     @Override
-    public List<ProductVO> productList(ProductVO dao) {
-        return mapper.productList(dao);
+    public ProductVO searchWish(int memberNo) {
+        return mapper.selectWish(memberNo);
     }
 
     @Override
@@ -50,6 +58,13 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> findList(Map<String,Object> param) {
 	    return mapper.selectProductList(param);
 	}
+
+	@Override
+	public List<ProductVO> productList(ProductVO dao) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 

@@ -8,8 +8,18 @@ import com.yedam.vo.ProductVO;
 public interface ProductService {
 	List<ProductVO> productList(ProductVO dao);
 
-    public ProductVO searchWish (int memberNo);
-	  public ProductVO findProduct(int prdNo);    //상품단건조회
+	public ProductVO searchWish (int memberNo);
+	
+	public ProductVO findProduct(int prdNo);    //상품단건조회
+	public List<ProductVO> productList();       //상품목록
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	// 대표 이미지 경로 업데이트
     int updateProductImage(int prdNo, String prdImg);
 

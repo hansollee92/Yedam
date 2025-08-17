@@ -8,10 +8,18 @@ import org.apache.ibatis.annotations.Param;
 import com.yedam.vo.ProductVO;
 
 public interface ProductMapper {
-	List<ProductVO> productList(ProductVO dao);
 
-    public ProductVO selectWish(int memberNo);
+    
+    public List<ProductVO> selectProductList();     //상품목록
     public ProductVO selectProduct(int prdNo);      //상품단건조회
+    
+    
+    public ProductVO selectWish(int memberNo);
+    
+    
+    
+    
+    
     
     
     
