@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.yedam.common.CategoryDTO;
 import com.yedam.common.DBUtil;
+import com.yedam.common.PageDTO;
+import com.yedam.common.SearchDTO;
 import com.yedam.mapper.ProductMapper;
 import com.yedam.vo.ProductVO;
-import com.yedam.vo.SearchVO;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -34,13 +36,13 @@ public class ProductServiceImpl implements ProductService {
 
 
 	@Override
-	public List<ProductVO> searchProducts(SearchVO s) {
-		return mapper.selectProducts(s);
+	public List<ProductVO> searchProducts(SearchDTO search, CategoryDTO category) {
+		return mapper.selectProducts(search, category);
 	}
 
 	@Override
-	public int countProducts(SearchVO s) {
-		 return mapper.countProducts(s);
+	public int countProducts(SearchDTO search, CategoryDTO category) {
+		 return mapper.countProducts(search, category);
 	}
 
 	//상품 수정
@@ -54,6 +56,8 @@ public class ProductServiceImpl implements ProductService {
 		return false;
 	}
 
+
+	
  
 
 

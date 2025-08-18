@@ -131,3 +131,6 @@ create sequence wish_seq;
 -- 커밋
 commit;
 
+
+
+
