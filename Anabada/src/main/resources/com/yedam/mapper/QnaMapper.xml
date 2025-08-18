@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.QnaMapper">
+
+	<!-- 문의하기 게시판 목록 -->
+	<select id="selectqnaList" parameterType="int">
+		select 
+		   q.qna_no        as qnaNo,
+		   q.qna_title     as qnaTitle,
+		   q.qna_content   as qnaContent,
+		   q.qna_date      as qnaDate,
+		   q.member_no     as memberNo,
+		   q.prd_no        as prdNo,
+		   m.member_id     as memberId
+		from qna q join member m
+		            on m.member_no = q.member_no
+		where q.prd_no = #{prdNo}
+		order by q.qna_no desc	
+	</select>
+
+
+
+
+</mapper>
