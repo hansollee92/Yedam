@@ -56,7 +56,7 @@
 
         <fieldset class="joinBtn">
           <button type="submit">회원가입</button>
-          <button type="button" onclick="">취소</button>
+          <button type="button" onclick="location.href='${ctx}/main.do'">취소</button>
         </fieldset>
       </form>
 
