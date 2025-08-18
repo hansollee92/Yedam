@@ -39,11 +39,11 @@
 			        <li><a href="${ctx}/joinForm.do"><i class="fa-solid fa-circle-plus"></i> 회원가입</a></li>
 	      		</c:when>
 	      		<c:otherwise>
-	      			<li><a href="#"><i class="fa-regular fa-circle-check"></i> 판매하기</a></li>
+	      			<li><a href="${ctx}/productInsertForm.do"><i class="fa-regular fa-circle-check"></i> 판매하기</a></li>
 	      			<li class="v-line"></li>
-	      			<li><a href="mypage.do?memberNo=${logMember.memberNo}"><i class="fa-regular fa-circle-user"></i> 마이페이지</a></li>
+	      			<li><a href="${ctx}/mypage.do?memberNo=${logMember.memberNo}"><i class="fa-regular fa-circle-user"></i> 마이페이지</a></li>
 	      			<li class="v-line"></li>
-	      			<li><a href="#"><i class="fa-solid fa-circle-xmark"></i> 로그아웃</a></li>
+	      			<li><a href="${ctx}/logout.do"><i class="fa-solid fa-circle-xmark"></i> 로그아웃</a></li>
 	      		</c:otherwise>
 	      </c:choose>
       </ul>
@@ -52,7 +52,7 @@
 
     <nav class="main-nav">
       <div class="dropdown">
-        <a class="dropdown-toggle" href="#none"><i class="fa-solid fa-bars"></i></a>
+        <a class="dropdown-toggle" href="#"><i class="fa-solid fa-bars"></i></a>
         <ul class="dropdown-menu">
           <li class="label">전체 카테고리</li>
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=의류'/>">의류</a></li>
@@ -65,7 +65,7 @@
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=기타'/>">기타</a></li>
         </ul>
       </div>
-      <div><a href="#none" class="notice-link">공지사항</a></div>
+      <div><a href="#" class="notice-link">공지사항</a></div>
     </nav>
   </div>
 </header>
