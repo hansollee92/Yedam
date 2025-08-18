@@ -41,20 +41,12 @@ public class ProductInsertFormControl implements Control {
 		}
 		
 		ProductService svc = new ProductServiceImpl();
-		ProductVO product = svc.findProduct(prdNo);
+		ProductVO product = svc.productInsert();
+
+		req.setAttribute("product", product);
+		req.getRequestDispatcher("/product/product_register.tiles").forward(req, resp);
 		
-		// 게시글 소유자 검증
-				if(login.getMemberNo() == product.getMemberNo()) {
-					req.setAttribute("product", product);
-					req.getRequestDispatcher("/product/product_register.tiles").forward(req, resp);
-				}else {
-					resp.setContentType("text/html; charset=UTF-8");
-					PrintWriter out = resp.getWriter();
-					out.println("<script>alert('권한이 없습니다.'); history.back();</script>");
-					out.flush();
-					return;
-				}
-		
+
 
 	}
 

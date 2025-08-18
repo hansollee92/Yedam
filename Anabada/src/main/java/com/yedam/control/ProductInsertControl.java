@@ -36,7 +36,6 @@ public class ProductInsertControl implements Control {
 	    
 		
 		ProductService svc = new ProductServiceImpl();
-
 				
 		String prdNo      = mr.getParameter("prdNo");
 		String prdName    = mr.getParameter("prdName");
@@ -57,9 +56,7 @@ public class ProductInsertControl implements Control {
 		
 		
 		//확장자 포함된 파일명으로 저장
-		String newImage = mr.getFilesystemName("imageFile");   
-		String finalImg = (newImage != null) ? newImage : origin.getPrdImg();		
-		
+		String newImage = mr.getFilesystemName("imageFile");  	
 		
 		ProductVO param = new ProductVO();
 		param.setPrdNo(Integer.parseInt(prdNo));
@@ -76,15 +73,17 @@ public class ProductInsertControl implements Control {
 		param.setDong(dong);
 		param.setLat(Double.parseDouble(lat));
 		param.setLng(Double.parseDouble(lng));
-		param.setPrdImg(finalImg);		
+		param.setPrdImg(newImage);		
 		
-		if(svc.productInsert(param)) {
-			resp.sendRedirect("main.do");
-		}else {
-			// 실패 시 간단 알림 페이지로
-            resp.setContentType("text/html; charset=UTF-8");
-            resp.getWriter().write("<script>alert('등록에 실패했습니다.'); history.back();</script>");
-		}
+		
+		
+//		if(svc.productInsert(param)) {
+//			resp.sendRedirect("main.do");
+//		}else {
+//			// 실패 시 간단 알림 페이지로
+//            resp.setContentType("text/html; charset=UTF-8");
+//            resp.getWriter().write("<script>alert('등록에 실패했습니다.'); history.back();</script>");
+//		}
 		
 
 	

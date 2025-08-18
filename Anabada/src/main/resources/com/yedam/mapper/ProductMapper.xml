@@ -52,43 +52,38 @@
 	</update>	
 	
 	<!-- 상품 등록 -->
-	<insert id="insertProduct" parameterType="product">
-		insert into product (
-		prd_no, 
-		prd_name, 
-		price, 
-		category, 
-		prd_status, 
-		prd_desc, 
-		prd_tag, 
-		trade_type, 
-		sale_status, 
-		prd_img, 
-		member_no, 
-		sido, 
-		sigungu, 
-		dong, 
-		lat, 
-		lng
-		)
-		
-		values (
-		product_seq.nextval,
-		#{prdName},
-		#{price},
-		#{category},
-		#{prdStatus},
-		#{prdDesc},
-		#{prdTag},
-		#{tradeType},
-		#{saleStatus},
-		#{prdImg},
-		#{sido},
-		#{sigungu},
-		#{dong},
-		#{lat},
-		#{lng}
-		)
+	<insert id="insertProduct">
+		insert into product (prd_no, 
+		                     prd_name, 
+		                     price, 
+		                     category, 
+		                     prd_status, 
+		                     prd_desc, 
+		                     prd_tag, 
+		                     trade_type, 
+		                     sale_status, 
+		                     prd_img, 
+		                     member_no, 
+		                     sido, 
+		                     sigungu, 
+		                     dong, 
+		                     lat, 
+		                     lng)		
+		values (product_seq.nextval,
+		       #{prdName},
+		       #{price},
+		       #{category},
+		       #{prdStatus},
+			   #{prdDesc},
+			   #{prdTag},
+			   #{tradeType},
+			   #{saleStatus},
+			   #{prdImg},
+			   #{sido},
+			   #{sigungu},
+			   #{dong},
+			   #{lat},
+			   #{lng})
 	</insert>		
 
 	
@@ -160,69 +155,68 @@
     </update>
   
   	<!-- 목록 조회 -->
- <select id="selectProducts" parameterType="com.yedam.vo.SearchVO"
-        resultType="com.yedam.vo.ProductVO">
-  select ta.*
-  from (
-    select rownum rn, p.*
-    from (
-      select prd_no, prd_name, prd_tag, price, prd_img,
-             to_char(prd_date,'YYYY-MM-DD') as prdDate,
-             category, sido, sigungu, dong, lat, lng,
-             trade_type, sale_status, view_cnt
-      from product
-      <where>
-        <if test="category != null and category != ''">
-          and category = #{category}
-        </if>
-
-        <if test="sido != null and sido != ''">
-          and sido = #{sido}
-        </if>
-        <if test="sigungu != null and sigungu != ''">
-          and sigungu = #{sigungu}
-        </if>
-        <if test="dong != null and dong != ''">
-          and dong = #{dong}
-        </if>
-
-        <if test="keyword != null and keyword != ''">
-          <if test="searchCondition == 'N'">
-            and prd_name like '%' || #{keyword} || '%'
-          </if>
-          <if test="searchCondition == 'T'">
-            and prd_tag like '%' || #{keyword} || '%'
-          </if>
-          <if test="searchCondition == 'F'">
-            and (sido like '%' || #{keyword} || '%'
-              or sigungu like '%' || #{keyword} || '%'
-              or dong like '%' || #{keyword} || '%')
-          </if>
-          <if test="searchCondition == null or searchCondition == '' 
-                    or (searchCondition != 'N' and searchCondition != 'T' and searchCondition != 'F')">
-            and (
-                 prd_name like '%' || #{keyword} || '%'
-              or prd_tag  like '%' || #{keyword} || '%'
-              or sido     like '%' || #{keyword} || '%'
-              or sigungu  like '%' || #{keyword} || '%'
-              or dong     like '%' || #{keyword} || '%'
-            )
-          </if>
-        </if>
-      </where>
-      order by prd_no desc
-    ) p
-  ) ta
-  where ta.rn > (#{page} - 1) * #{amount}
-  <![CDATA[
-    and ta.rn <= #{page} * #{amount}
-  ]]>
-</select>
+	 <select id="selectProducts" parameterType="com.yedam.common.SearchDTO" resultType="product">
+	  select ta.*
+	  from (
+	    select rownum rn, p.*
+	    from (
+	      select prd_no, prd_name, prd_tag, price, prd_img,
+	             to_char(prd_date,'YYYY-MM-DD') as prdDate,
+	             category, sido, sigungu, dong, lat, lng,
+	             trade_type, sale_status, view_cnt
+	      from product
+	      <where>
+	        <if test="category != null and category != ''">
+	          and category = #{category}
+	        </if>
+	
+	        <if test="sido != null and sido != ''">
+	          and sido = #{sido}
+	        </if>
+	        <if test="sigungu != null and sigungu != ''">
+	          and sigungu = #{sigungu}
+	        </if>
+	        <if test="dong != null and dong != ''">
+	          and dong = #{dong}
+	        </if>
+	
+	        <if test="keyword != null and keyword != ''">
+	          <if test="searchCondition == 'N'">
+	            and prd_name like '%' || #{keyword} || '%'
+	          </if>
+	          <if test="searchCondition == 'T'">
+	            and prd_tag like '%' || #{keyword} || '%'
+	          </if>
+	          <if test="searchCondition == 'F'">
+	            and (sido like '%' || #{keyword} || '%'
+	              or sigungu like '%' || #{keyword} || '%'
+	              or dong like '%' || #{keyword} || '%')
+	          </if>
+	          <if test="searchCondition == null or searchCondition == '' 
+	                    or (searchCondition != 'N' and searchCondition != 'T' and searchCondition != 'F')">
+	            and (
+	                 prd_name like '%' || #{keyword} || '%'
+	              or prd_tag  like '%' || #{keyword} || '%'
+	              or sido     like '%' || #{keyword} || '%'
+	              or sigungu  like '%' || #{keyword} || '%'
+	              or dong     like '%' || #{keyword} || '%'
+	            )
+	          </if>
+	        </if>
+	      </where>
+	      order by prd_no desc
+	    ) p
+	  ) ta
+	  where ta.rn > (#{page} - 1) * #{amount}
+	  <![CDATA[
+	    and ta.rn <= #{page} * #{amount}
+	  ]]>
+	</select>
 
 
 
   <!-- 총 건수 (페이징 계산용) -->
- <select id="countProducts" parameterType="com.yedam.vo.SearchVO" resultType="int">
+ <select id="countProducts" parameterType="com.yedam.common.SearchDTO" resultType="int">
   SELECT COUNT(*)
   FROM product
   <where>

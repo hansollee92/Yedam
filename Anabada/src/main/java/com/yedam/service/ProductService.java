@@ -18,7 +18,7 @@ public interface ProductService {
 	  public boolean productRemove(int prdNo);              //상품삭제
 	  public boolean productSaleStatus(String saleStatus, int prdNo);  //상품 판매상태 수정
     
-    public boolean productInsert(ProductVO vo);    // 상품등록
+      public ProductVO productInsert();    // 상품등록
   
 	  public List<ProductVO> searchProducts(SearchDTO search, CategoryDTO category);  //검색목록 / 검색결과
 	  int countProducts(SearchDTO search, CategoryDTO category); //페이징 
