@@ -58,7 +58,7 @@
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=의류'/>">의류</a></li>
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=신발'/>">신발</a></li>
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=악세사리'/>">악세사리</a></li>
-          <li><a class="dropdown-item"href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=디지털%2F가전'/>">디지털/가전</a></li>
+          <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=디지털%2F가전'/>">디지털/가전</a></li>
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=스포츠'/>">스포츠</a></li>
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=도서%2F티켓'/>">도서/티켓</a></li>
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=가구%2F생활'/>">가구/생활</a></li>
