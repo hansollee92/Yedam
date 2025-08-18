@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.yedam.vo.MemberVO;
+import com.yedam.common.CategoryDTO;
+import com.yedam.common.PageDTO;
+import com.yedam.common.SearchDTO;
+
 import com.yedam.vo.ProductVO;
-import com.yedam.vo.SearchVO;
 
 public interface ProductMapper {
 
@@ -18,8 +20,8 @@ public interface ProductMapper {
     public int updateSaleStatus(@Param("saleStatus") String saleStatus, @Param("prdNo") int prdNo);    //상품 판매상태 수정
     
     public List<ProductVO> selectWish(int memberNo);  // 내가 찜한 상품 조회
-    public List<ProductVO> selectProducts(SearchVO s);  // 목록
-    public int countProducts(SearchVO s);               // 총건수
+    public List<ProductVO> selectProducts(SearchDTO search, CategoryDTO category);  // 검색목록
+    public int countProducts(SearchDTO search, CategoryDTO category);               // 총건수
     public int insertProduct(ProductVO vo);             // 상품등록
 
 
