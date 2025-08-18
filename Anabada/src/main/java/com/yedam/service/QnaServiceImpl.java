@@ -31,4 +31,15 @@ public class QnaServiceImpl implements QnaService {
 		return mapper.selectCount();
 	}
 
+	//문의게시판 글등록
+	@Override
+	public boolean qnaResigter(QnaVO qna) {
+		int r = mapper.insertQna(qna);
+		if(r > 0) {
+			sqlSession.commit();
+			return true;
+		}		
+		return false;
+	}
+
 }

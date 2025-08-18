@@ -172,7 +172,7 @@
   <section class="pd-qna-head">
     <h2 class="pd-sec-title">문의하기</h2>
     <p class="pd-help">구매하려는 상품에 대해 궁금한 점이 있는 경우 판매자에게 문의해보세요.</p>
-    <button type="button" class="btn-primary">상품 문의하기</button>
+    <a class="btn-primary qnaBtn" href="${ctx}/qnaRegisterFrom.do?prdNo=${product.prdNo}">상품 문의하기</a>
   </section>
 
   <!-- 문의 목록 -->
@@ -208,7 +208,7 @@
     </table>
 
 	<%-- 페이지네이션 --%>
-	<nav class="pg" aria-label="Page navigation example">
+	<nav id="pg-nav" aria-label="Page navigation example">
 		<ul class="pagination justify-content-center" 
 		        style="
 		            --bs-pagination-color: var(--black-color);
@@ -238,7 +238,7 @@
 		  <c:choose>
 		  	<c:when test="${paging.previous}">
 			  <li class="page-item">
-			    <a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${paging.start -1}">
+			    <a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${paging.start -1}#pg-nav">
 			    	<i class="fa-solid fa-angle-left"></i>
 			    </a>
 			  </li>
@@ -259,7 +259,7 @@
 				</c:when>
 				<c:otherwise>
 					<li class="page-item">
-						<a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${p}">${p}</a>
+						<a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${p}#pg-nav">${p}</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
@@ -269,7 +269,7 @@
 		  <c:choose>
 			<c:when test="${paging.next}">
 				<li class="page-item">
-					<a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${paging.end +1}">
+					<a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${paging.end +1}#pg-nav">
 						<i class="fa-solid fa-angle-right"></i>
 					</a>
 				</li>

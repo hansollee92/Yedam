@@ -197,12 +197,26 @@ a.abtn{
   height: 60px;
 }
 .btn-lg:hover{
-  background-color: #03473f;
+  background-color: var(--dark-primary);
 }
 .is-disabled {
   background: var(--disable-color) !important;
   cursor: default;
 }
+.pd-qna-head .qnaBtn{
+	width: 200px;
+	height: 60px;
+	display: inline-block;
+	color: #fff !important;
+	padding: 10px;
+	text-align: center;
+	line-height: 40px;
+}
+.pd-qna-head .qnaBtn:hover{
+	background-color: var(--dark-primary);
+}
+
+
 
 /* 공통: 기본값은 숨김 */
 .product-detail .buyer-actions,
