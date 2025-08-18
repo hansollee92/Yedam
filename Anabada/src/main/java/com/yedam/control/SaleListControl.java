@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class WishListControl implements com.yedam.common.Control {
+public class SaleListControl implements com.yedam.common.Control {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String memberNo = req.getParameter("memberNo");
 
         ProductService svc = new ProductServiceImpl();
-        List<ProductVO> list = svc.searchWish(Integer.parseInt(memberNo));
+        List<ProductVO> list = svc.searchSale(Integer.parseInt(memberNo));
 
-        req.setAttribute("wish_list", list);
+        req.setAttribute("sale_list", list);
 
-        req.getRequestDispatcher("mylist/wish_list.tiles").forward(req, resp);
+        req.getRequestDispatcher("mylist/sale_list.tiles").forward(req, resp);
     }
 }

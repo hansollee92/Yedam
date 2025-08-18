@@ -35,8 +35,9 @@ create table product (
 
 -- 3. 상품문의 테이블
 create table qna (
-    qna_no      number(5) primary key, -- 문의번호
-    qna_title   varchar2(100) not null, -- 제목
+    qna_no      number(10) primary key, -- 문의번호
+    qna_title   varchar2(200) not null, -- 제목
+    qna_content varchar2(2000) not null, -- 내용
     qna_date    date default sysdate, -- 작성일
     member_no   number(5),
     prd_no      number(5),
@@ -130,4 +131,7 @@ create sequence wish_seq;
 
 -- 커밋
 commit;
+
+
+
 

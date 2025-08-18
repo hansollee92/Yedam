@@ -16,7 +16,7 @@
   <form id="filterForm" method="get" action="${ctx}/productList.do">
     <input type="hidden" name="searchCondition" value="${searchCondition}">
     <input type="hidden" name="keyword"         value="${keyword}">
-    <input type="hidden" name="page"            value="1">
+    <input type="hidden" name="page"            value="${page }">
     <input type="hidden" name="category"        id="categoryInput" value="${selectedCat}">
   </form>
   
@@ -87,6 +87,69 @@
   </section>
 </div>
 
+<!-- paging -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+
+    <!-- 이전 -->
+    <c:url var="prevUrl" value="/productList.do">
+      <c:param name="page" value="${paging.start - 1}"/>
+      <c:param name="amount" value="${amount}"/>
+      <c:param name="searchCondition" value="${searchCondition}"/>
+      <c:param name="keyword" value="${keyword}"/>
+      <c:param name="category" value="${category}"/>
+      <c:param name="sido" value="${sido}"/>
+      <c:param name="sigungu" value="${sigungu}"/>
+      <c:param name="dong" value="${dong}"/>
+    </c:url>
+    <li class="page-item ${paging.previous ? '' : 'disabled'}">
+      <a class="page-link" href="${paging.previous ? prevUrl : '#'}">Previous</a>
+    </li>
+
+    <!-- 숫자 페이지 -->
+    <c:forEach var="p" begin="${paging.start}" end="${paging.end}">
+      <c:choose>
+        <c:when test="${paging.currPage eq p}">
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">${p}</span>
+          </li>
+        </c:when>
+        <c:otherwise>
+          <c:url var="pageUrl" value="/productList.do">
+            <c:param name="page" value="${p}"/>
+            <c:param name="amount" value="${amount}"/>
+            <c:param name="searchCondition" value="${searchCondition}"/>
+            <c:param name="keyword" value="${keyword}"/>
+            <c:param name="category" value="${category}"/>
+            <c:param name="sido" value="${sido}"/>
+            <c:param name="sigungu" value="${sigungu}"/>
+            <c:param name="dong" value="${dong}"/>
+          </c:url>
+          <li class="page-item">
+            <a class="page-link" href="${pageUrl}">${p}</a>
+          </li>
+        </c:otherwise>
+      </c:choose>
+    </c:forEach>
+
+    <!-- 다음 -->
+    <c:url var="nextUrl" value="/productList.do">
+      <c:param name="page" value="${paging.end + 1}"/>
+      <c:param name="amount" value="${amount}"/>
+      <c:param name="searchCondition" value="${searchCondition}"/>
+      <c:param name="keyword" value="${keyword}"/>
+      <c:param name="category" value="${category}"/>
+      <c:param name="sido" value="${sido}"/>
+      <c:param name="sigungu" value="${sigungu}"/>
+      <c:param name="dong" value="${dong}"/>
+    </c:url>
+    <li class="page-item ${paging.next ? '' : 'disabled'}">
+      <a class="page-link" href="${paging.next ? nextUrl : '#'}">Next</a>
+    </li>
+
+  </ul>
+</nav>
+
 <!-- 스타일: 카테고리 표처럼, 간격 일정 -->
 <style>
   .cat-wrap { margin: 50px 0; }
@@ -116,6 +179,96 @@
                                 .prd-list { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 640px)  { .cat-grid { grid-template-columns: repeat(2, 1fr); }
                                 .prd-list { grid-template-columns: repeat(2, 1fr); } }
+                                
+ /* 색상 커스터마이즈 */
+:root{
+  --pg-primary: #137e78;                 /* 활성/호버 포인트 색 */
+  --pg-text:    #4B5563;                  /* 기본 숫자 색 */
+  --pg-hover-bg: rgba(19,126,120,.12);    /* 호버 배경 */
+}
+
+/* 컨테이너 간격 + 정렬 */
+nav[aria-label="Page navigation example"] .pagination{
+  justify-content: center;
+  gap: 12px;
+  margin: 28px 0;                         /* 위/아래 간격 */
+}
+
+/* 기본: 숫자만(박스 없음) */
+nav[aria-label="Page navigation example"] .pagination .page-item .page-link{
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 36px; height: 36px;
+  padding: 0 8px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--pg-text);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color .15s ease, color .15s ease, box-shadow .15s ease, transform .05s ease;
+}
+
+/* Hover: 박스가 '그때만' 생김 */
+nav[aria-label="Page navigation example"] .pagination
+.page-item:not(.active):not(.disabled) .page-link:hover{
+  background: var(--pg-hover-bg);
+  color: var(--pg-primary);
+  box-shadow: inset 0 0 0 1px var(--pg-primary);
+  transform: translateY(-1px);
+}
+
+/* 활성 페이지(현재) */
+nav[aria-label="Page navigation example"] .pagination .page-item.active .page-link{
+  background: var(--pg-primary);
+  color: #fff;
+  box-shadow: none;
+  cursor: default;
+}
+
+/* 비활성 */
+nav[aria-label="Page navigation example"] .pagination .page-item.disabled .page-link{
+  color: #9CA3AF; pointer-events: none;
+}
+
+/* ▼ Prev / Next: 텍스트 숨기고 화살표만 크게 보여주기 */
+/* first/last-child 대신 first/last-of-type로 더 안전하게 */
+nav[aria-label="Page navigation example"] .pagination .page-item:first-of-type .page-link,
+nav[aria-label="Page navigation example"] .pagination .page-item:last-of-type  .page-link{
+  font-size: 0 !important;      /* 텍스트 숨김 */
+  padding: 0 !important;
+  min-width: 36px; height: 36px;
+}
+
+/* 왼쪽 화살표 */
+nav[aria-label="Page navigation example"] .pagination .page-item:first-of-type .page-link::before{
+  content: '\2039';              /* ‹ */
+  font-size: 30px;               /* ← 작게 보이면 이 값 키우기 */
+  line-height: 1;
+  color: inherit;
+}
+
+/* 오른쪽 화살표 */
+nav[aria-label="Page navigation example"] .pagination .page-item:last-of-type .page-link::before{
+  content: '\203A';              /* › */
+  font-size: 30px;
+  line-height: 1;
+  color: inherit;
+}
+
+/* 키보드 포커스 링 */
+nav[aria-label="Page navigation example"] .pagination .page-item .page-link:focus-visible{
+  outline: 2px solid var(--pg-primary);
+  outline-offset: 2px;
+}
+
+/* 모바일 */
+@media (max-width:480px){
+  nav[aria-label="Page navigation example"] .pagination{ gap: 8px; }
+  nav[aria-label="Page navigation example"] .pagination .page-item .page-link{
+    min-width: 32px; height: 32px; border-radius: 6px;
+  }
+}
 </style>
 
 
@@ -145,39 +298,3 @@
     });
   });
 </script>
-
-
-
-
-
-
-
-
-<!-- <section class="wrapper">
-  <h2 class="today-title">오늘의 상품 추천</h2>
-
-  <c:if test="${empty productList}">
-    <p>등록된 상품이 없습니다.</p>
-  </c:if>
-
-  <c:if test="${not empty productList}">
-    <ul class="prod-grid">
-      <c:forEach var="p" items="${productList}">
-        <li class="prod-card">
-          <a class="prod-link" href="${ctx}/product/product.tiles?prdNo=${p.prdNo}">
-            <img class="prod-thumb"
-                 src="${ctx}/images/${p.prdImg}"
-                 alt="${p.prdName}"
-                 loading="lazy"
-                 onerror="this.src='${ctx}/images/noimage.png'">
-            <div class="prod-info">
-              <p class="prod-name">${p.prdName}</p>
-              <p class="prod-price"><fmt:formatNumber value="${p.price}" type="number"/>원</p>
-              <div class="prod-meta"><span>${p.sigungu}</span></div>
-            </div>
-          </a>
-        </li>
-      </c:forEach>
-    </ul>
-  </c:if>
-</section> -->
