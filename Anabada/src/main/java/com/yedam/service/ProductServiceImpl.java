@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
   
 	
     @Override
-    public ProductVO searchWish(int memberNo) {
+    public List<ProductVO> searchWish(int memberNo) {
         return mapper.selectWish(memberNo);
     }
 
@@ -51,11 +51,6 @@ public class ProductServiceImpl implements ProductService {
 	public int countProducts(SearchVO s) {
 		 return mapper.countProducts(s);
 	}
-
-  @Override
-  public List<ProductVO> searchWish(int memberNo) {
-    return mapper.selectWish(memberNo);
-  } 
 
 	//상품 수정
 	@Override

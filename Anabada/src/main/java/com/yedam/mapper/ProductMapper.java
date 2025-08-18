@@ -14,9 +14,7 @@ public interface ProductMapper {
     public int updateCntProduct(int prdNo);         //상품 조회수증가 
     public int updateProduct(ProductVO product);    //상품 수정
     
-    
-    
-    public ProductVO selectWish(int memberNo);
+    public List<ProductVO> selectWish(int memberNo);
     
     List<ProductVO> selectProducts(SearchVO s);  // 목록
     int countProducts(SearchVO s);               // 총건수
