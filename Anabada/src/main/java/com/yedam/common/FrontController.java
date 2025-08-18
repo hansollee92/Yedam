@@ -39,6 +39,7 @@ public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 			// End 오민수
 			
 			map.put("/main.do", new MainControl());	//메인페이지
+			map.put("/productList.do", new ProductListControl());   //상품리스트
 			
 			// 상품 
 			map.put("/productList.do", new ProductListControl());                //상품리스트

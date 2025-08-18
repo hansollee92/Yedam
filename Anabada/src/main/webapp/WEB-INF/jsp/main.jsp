@@ -5,6 +5,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
 
+
 <div class="main-wrap">
 
   <!-- Swiper -->
@@ -17,7 +18,7 @@
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
-
+  
   <!-- Product List -->
   <section class="products">
     <div class="sec-head">
