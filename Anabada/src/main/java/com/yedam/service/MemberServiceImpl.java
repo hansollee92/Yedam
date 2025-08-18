@@ -13,7 +13,7 @@ public class MemberServiceImpl implements MemberService {
     //로그인
 	@Override
 
-	public MemberVO selectMember(String memberId, String memberPw) {
+	public MemberVO loginMember(String memberId, String memberPw) {
 		return mapper.selectLoginMember(memberId, memberPw);
 	}    
     
