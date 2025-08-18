@@ -10,15 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.yedam.control.CheckIdControl;
 import com.yedam.control.JoinControl;
 import com.yedam.control.JoinFormControl;
+import com.yedam.control.JoinSuccessControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.LogoutControl;
 import com.yedam.control.MainControl;
-import com.yedam.control.MemberControl;
 import com.yedam.control.PayControl;
 import com.yedam.control.PayFormControl;
 import com.yedam.control.ProdcutRemoveControl;
@@ -26,6 +25,7 @@ import com.yedam.control.ProductControl;
 import com.yedam.control.ProductListControl;
 import com.yedam.control.ProductModifyControl;
 import com.yedam.control.ProductModifyFormControl;
+import com.yedam.control.WishListControl;
 
 
 	public class FrontController extends HttpServlet {// HttpServlet를 상속받음
@@ -63,11 +63,9 @@ import com.yedam.control.ProductModifyFormControl;
 			map.put("/productRemove.do", new ProdcutRemoveControl());            //상품 삭제
 			
 			// 회원
-			map.put("/member.do", new MemberControl());
 			
 			// 마이페이지
-			map.put("/wish.do", new ProductControl()); 
-      map.put("/wishList.do", new WishListControl()); // 찜목록
+			  	map.put("/wishList.do", new WishListControl()); // 찜목록
 			
 			
 		}

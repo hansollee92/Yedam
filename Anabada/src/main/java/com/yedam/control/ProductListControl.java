@@ -16,9 +16,9 @@ public class ProductListControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ProductVO dao = new ProductVO();
+
 		ProductService svc = new ProductServiceImpl();
-		List<ProductVO> list = svc.productList(dao);
+		List<ProductVO> list = svc.productList();
 		
 		req.setAttribute("productList", list);
 		req.getRequestDispatcher("WEB-INF/jsp/product_list.jsp").forward(req, resp);

@@ -23,7 +23,7 @@ public class LoginControl implements Control {
 		String memberPw = req.getParameter("memberPw");
 		
 		MemberService svc = new MemberServiceImpl();
-		MemberVO member = svc.selectMember(memberId, memberPw);
+		MemberVO member = svc.loginMember(memberId, memberPw);
 		
 		//파라미터 기본 검증
 		if(memberId == null || memberPw == null || memberId.isBlank() || memberPw.isBlank()) {
