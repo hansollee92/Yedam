@@ -25,9 +25,46 @@ public class ProductServiceImpl implements ProductService {
 	//상품 단건조회 + 조회수
 	@Override
 	public ProductVO findProduct(int prdNo) {
-		return mapper.selectProduct(prdNo);
+		ProductVO product = mapper.selectProduct(prdNo);
+		int r = mapper.updateCntProduct(prdNo);
+		if(r > 0) {
+			sqlSession.commit();
+		}
+		return product;
 	}
   
+	//상품 수정
+	@Override
+	public boolean productModify(ProductVO product) {
+		int r = mapper.updateProduct(product);
+		if(r > 0) {
+			sqlSession.commit();
+			return true;
+		}
+		return false;
+	}
+	
+	// 상품삭제
+	@Override
+	public boolean productRemove(int prdNo) {
+		int r = mapper.deleteProduct(prdNo);
+		if(r > 0) {
+			sqlSession.commit();
+			return true;
+		}		
+		return false;
+	}
+	
+	// 상품 판매상태 수정
+	@Override
+	public boolean productSaleStatus(String saleStatus, int prdNo) {		
+		 int r = mapper.updateSaleStatus(saleStatus, prdNo);
+		 if(r > 0) {
+			 sqlSession.commit();
+			 return true;
+		 }		
+		return false;
+	}
 	
     @Override
     public List<ProductVO> searchWish(int memberNo) {
@@ -45,16 +82,8 @@ public class ProductServiceImpl implements ProductService {
 		 return mapper.countProducts(search, category);
 	}
 
-	//상품 수정
-	@Override
-	public boolean productModify(ProductVO product) {
-		int r = mapper.updateProduct(product);
-		if(r > 0) {
-			sqlSession.commit();
-			return true;
-		}
-		return false;
-	}
+
+
 
 
 	
