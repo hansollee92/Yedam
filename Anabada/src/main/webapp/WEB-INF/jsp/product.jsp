@@ -172,7 +172,7 @@
   <section class="pd-qna-head">
     <h2 class="pd-sec-title">문의하기</h2>
     <p class="pd-help">구매하려는 상품에 대해 궁금한 점이 있는 경우 판매자에게 문의해보세요.</p>
-    <button type="button" class="btn-primary">상품 문의하기</button>
+    <a class="btn-primary qnaBtn" href="${ctx}/qnaRegisterFrom.do?prdNo=${product.prdNo}">상품 문의하기</a>
   </section>
 
   <!-- 문의 목록 -->
@@ -199,7 +199,7 @@
       	<c:forEach var="qna" items="${qna_list}" varStatus="status">
 	        <tr>
 	          <td>${qna.qnaNo}</td>
-	          <td><a href="#none" style="text-decoration: none; color: #333;">${qna.qnaTitle}</a></td>
+	          <td><a href="${ctx}/qna.do?prdNo=${qna.prdNo}&qnaNo=${qna.qnaNo}" style="text-decoration: none; color: #333;">${qna.qnaTitle}</a></td>
 	          <td>${qna.memberId}</td>
 	          <td><fmt:formatDate value="${qna.qnaDate}" pattern="yyyy-MM-dd"/></td>
 	        </tr>	        
@@ -207,21 +207,83 @@
       </tbody>
     </table>
 
-    <nav aria-label="...">
-      <ul class="pagination">
-        <li class="page-item disabled">
-          <a class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active">
-          <a class="page-link" href="#" aria-current="page">2</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#"><i class="fa-solid fa-chevron-right"></i></a>
-        </li>
-      </ul>
-    </nav>
+	<%-- 페이지네이션 --%>
+	<nav id="pg-nav" aria-label="Page navigation example">
+		<ul class="pagination justify-content-center" 
+		        style="
+		            --bs-pagination-color: var(--black-color);
+			        --bs-pagination-bg: #fff;
+			        --bs-pagination-border-color: var(--light-gray);
+			
+			        --bs-pagination-hover-color: var(--primary-color);
+			        --bs-pagination-hover-bg: rgba(12,130,117,.06);
+			        --bs-pagination-hover-border-color: var(--primary-color);
+			
+			        --bs-pagination-active-color: #fff;
+			        --bs-pagination-active-bg: var(--primary-color);
+			        --bs-pagination-active-border-color: var(--primary-color);
+			
+			        --bs-pagination-disabled-color: var(--gray);
+			        --bs-pagination-disabled-bg: #f4f5f6;
+			        --bs-pagination-disabled-border-color: var(--light-gray);
+			
+			        --bs-pagination-padding-x: 0;
+			        --bs-pagination-padding-y: 0;
+			        --bs-pagination-font-size: 14px;
+			        --bs-pagination-border-radius: 10px;
+			        gap: 8px;
+		        ">
+		  
+		  <%-- 이전페이지 --%>
+		  <c:choose>
+		  	<c:when test="${paging.previous}">
+			  <li class="page-item">
+			    <a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${paging.start -1}#pg-nav">
+			    	<i class="fa-solid fa-angle-left"></i>
+			    </a>
+			  </li>
+			</c:when>
+			<c:otherwise>
+			 <li class="page-item disabled">
+			    <a class="page-link"><i class="fa-solid fa-angle-left"></i></a>
+			  </li>
+			</c:otherwise>
+		  </c:choose>
+		  		  
+		  <c:forEach var="p" begin="${paging.start}" end="${paging.end}">
+			<c:choose>
+				<c:when test="${paging.currPage eq p}">
+					<li class="page-item active" aria-current="page">
+						<span class="page-link">${p}</span>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item">
+						<a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${p}#pg-nav">${p}</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+		  </c:forEach>		  
+		  
+		  <%-- 다음 페이지 --%>
+		  <c:choose>
+			<c:when test="${paging.next}">
+				<li class="page-item">
+					<a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${paging.end +1}#pg-nav">
+						<i class="fa-solid fa-angle-right"></i>
+					</a>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+					<a class="page-link"><i class="fa-solid fa-angle-right"></i></a>
+				</li>
+			</c:otherwise>
+		  </c:choose>
+		  
+		</ul>
+	</nav>
+	
   </section>
 
 </section>
@@ -327,5 +389,29 @@
 	
 	
   	
+</script>
+
+<%-- 페이지네이션 스타일 강제적용(부트스트랩) --%>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.pagination .page-link').forEach(function (el) {
+    el.style.display = 'flex';
+    el.style.alignItems = 'center';
+    el.style.justifyContent = 'center';
+    el.style.minWidth = '35px';
+    el.style.height = '35px';
+    el.style.padding = '0';
+    el.style.lineHeight = '1';
+    el.style.boxShadow = 'none';
+    el.style.textDecoration = 'none';
+    el.style.borderWidth = '1px';
+    el.style.borderStyle = 'solid';
+    el.style.borderRadius = '8px';   // ← 둥글기 추가
+    // 테두리 색은 변수로 가니까 여기선 생략
+    // 아이콘 중앙정렬
+    var i = el.querySelector('i');
+    if (i) { i.style.lineHeight = '1'; i.style.fontSize = '14px'; }
+  });
+});
 </script>
 
