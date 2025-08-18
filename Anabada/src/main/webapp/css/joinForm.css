@@ -1,6 +1,6 @@
 /* 배경 회색 */
 body.join-page {
-  background-color: #EEEEEE;
+  background-color: #f7f7f7;
 }
 
 /* header는 흰색 */
@@ -15,13 +15,14 @@ body.join-page footer {
 
 /* join 전체 wrapper */
 .join-wrapper {
-	position: relative;
+  position: relative;
   margin-bottom: 12px;
   background: #EEEEEE;
   padding: 80px;
   display: flex;
   justify-content: center;
   width: 100%;
+  font-family: var(--font);
 }
 
 /* 카드 컨테이너 (가입 폼) */
@@ -34,6 +35,7 @@ body.join-page footer {
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
   padding: 60px 50px;
+  font-family: var(--font);
 }
 
 /* 제목 스타일 */
@@ -41,12 +43,14 @@ body.join-page footer {
   margin: 0 0 8px;
   font-size: 28px;
   font-weight: 700;
+  font-family: var(--font);
 }
 .joinTitle p {
   margin: 0 0 50px;
   color: #189a7e;
   font-size: 15px;
   font-weight: 600;
+  font-family: var(--font);
 }
 
 .input-wrapper{
@@ -64,6 +68,7 @@ body.join-page footer {
   padding-left:150px;   /* 라벨 공간 */
   font-size:14px;
   outline:none;
+  font-family: var(--font);
 }
 .input-wrapper input:focus {
   border-color: #16a085;
@@ -80,6 +85,7 @@ body.join-page footer {
   font-size: 14px;
   pointer-events: none;
   width: 110px;
+  font-family: var(--font);
 }
 
 .topJoinInfo {
@@ -106,6 +112,7 @@ body.join-page footer {
   border-radius: 6px;
   background: #EEEEEE;
   color:#333;
+  font-family: var(--font);
 }
 
 /* 버튼 영역 */
@@ -113,6 +120,7 @@ body.join-page footer {
   margin-top: 50px;
   display: flex;
   gap: 10px;
+  font-family: var(--font);
 }
 .joinBtn button {
   flex: 1;
@@ -122,6 +130,7 @@ body.join-page footer {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
+  font-family: var(--font);
 }
 .joinBtn button[type="submit"] {
   background: #0C8274;
@@ -142,6 +151,7 @@ body.join-page footer {
   font-size: 13px;
   min-height: 20px;         /* ← 메시지 없을 때도 공간 확보 */
   visibility: hidden;       /* 기본은 보이지 않음(공간은 유지) */
+  font-family: var(--font);
 }
 
 .inline-msg.ok  { color: #28a745; visibility: visible; }
