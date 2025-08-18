@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.yedam.common.CategoryDTO;
 import com.yedam.common.DBUtil;
 import com.yedam.common.PageDTO;
 import com.yedam.common.SearchDTO;
@@ -92,13 +91,13 @@ public class ProductServiceImpl implements ProductService {
 
 
 	@Override
-	public List<ProductVO> searchProducts(SearchDTO search, CategoryDTO category) {
-		return mapper.selectProducts(search, category);
+	public List<ProductVO> searchProducts(SearchDTO search) {
+		return mapper.selectProducts(search);
 	}
 
 	@Override
-	public int countProducts(SearchDTO search, CategoryDTO category) {
-		 return mapper.countProducts(search, category);
+	public int countProducts(SearchDTO search) {
+		 return mapper.countProducts(search);
 	}
 
 

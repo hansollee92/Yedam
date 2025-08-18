@@ -2,7 +2,6 @@ package com.yedam.service;
 
 import java.util.List;
 
-import com.yedam.common.CategoryDTO;
 import com.yedam.common.PageDTO;
 import com.yedam.common.SearchDTO;
 import com.yedam.vo.ProductVO;
@@ -20,8 +19,8 @@ public interface ProductService {
     
       public ProductVO productInsert();    // 상품등록
   
-	  public List<ProductVO> searchProducts(SearchDTO search, CategoryDTO category);  //검색목록 / 검색결과
-	  int countProducts(SearchDTO search, CategoryDTO category); //페이징 
+	  public List<ProductVO> searchProducts(SearchDTO search);  //검색목록 / 검색결과
+	  int countProducts(SearchDTO search); //페이징 
 	  public List<ProductVO> searchWish (int memberNo);  //찜한 상품 조회  
 
 
