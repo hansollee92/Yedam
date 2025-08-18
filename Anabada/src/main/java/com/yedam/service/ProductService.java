@@ -7,7 +7,8 @@ import com.yedam.vo.SearchVO;
 
 public interface ProductService {
 	  List<ProductVO> productList(ProductVO dao);
-	  public boolean productModify(ProductVO product);   //상품수정 	 
+	  public boolean productModify(ProductVO product);   //상품수정 	
+	  public boolean productInsert(ProductVO vo);    // 상품등록
 	  public ProductVO findProduct(int prdNo);       //상품(단건조회 + 조회수)
   
 	  public List<ProductVO> searchWish (int memberNo); // 찜한 상품 조회
