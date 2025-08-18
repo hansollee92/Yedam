@@ -1,6 +1,5 @@
 package com.yedam.control;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -65,7 +64,6 @@ public class ProductModifyControl implements Control {
 		//확장자 포함된 파일명으로 저장
 		String newImage = mr.getFilesystemName("imageFile");   
 		String finalImg = (newImage != null) ? newImage : origin.getPrdImg();		
-		
 		
 		ProductVO param = new ProductVO();
 		param.setPrdNo(prdNo);
