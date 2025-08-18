@@ -18,4 +18,5 @@ public interface ProductMapper {
     public List<ProductVO> selectProducts(SearchVO s);  // 목록
     public int countProducts(SearchVO s);               // 총건수
     public int insertProduct(ProductVO vo);             // 상품등록
+
 }

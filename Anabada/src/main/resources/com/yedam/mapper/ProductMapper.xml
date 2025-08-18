@@ -82,7 +82,7 @@
         SET prd_img = #{prd_img}
         WHERE prd_no = #{prd_no}
     </update>
-
+  
   	<!-- 목록 조회 -->
  <select id="selectProducts" parameterType="com.yedam.vo.SearchVO" resultType="com.yedam.vo.ProductVO">
   SELECT 
@@ -144,8 +144,6 @@
       </if>
     </where>
   </select>
-
-
 
 
 
