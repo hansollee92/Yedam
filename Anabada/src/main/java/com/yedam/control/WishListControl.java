@@ -20,6 +20,6 @@ public class WishListControl implements com.yedam.common.Control {
 
         req.setAttribute("wish_list", list);
 
-        req.getRequestDispatcher("mypage/wish_list.tiles").forward(req, resp);
+        req.getRequestDispatcher("mylist/wish_list.tiles").forward(req, resp);
     }
 }

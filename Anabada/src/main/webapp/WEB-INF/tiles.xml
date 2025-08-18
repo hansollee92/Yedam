@@ -9,7 +9,7 @@
         <put-attribute name="title" value="" />
         <put-attribute name="header" value="" />
         <put-attribute name="body" value="" />
-        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
+        <put-attribute name="footer" value="" />
     </definition>
 
     <!-- 메인, 상품리스트, 상품상세페이지, 커뮤니티(목록,상세,글쓰기,수정), 공지사항(목록,상세) -->
@@ -63,7 +63,7 @@
     	 http://localhost:8080/Anabada/mypage/pur_list.tiles 
     	 .... 
     	 찜하기 : wish_list.jsp
-    	 판매 내역 : sales_list.jsp
+    	 판매 내역 : sale_list.jsp
     	 구입 내역 : pur_list.jsp
     	 내정보수정 : profile_edit.jsp    	 
     -->
@@ -74,9 +74,14 @@
     </definition>
     <definition name="WILDCARD:mypage/*" extends="mypage">	<!-- mypage로 시작하는 뷰만 body부분 덮어씌워짐 -->
 	  <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp"/>
-	</definition>  
-	
+	</definition>
 
-  
+    <definition name="mylist" extends="app.template">
+        <put-attribute name="body" value="/WEB-INF/layout/body.jsp" />
+    </definition>
+    <definition name="WILDCARD:mylist/*" extends="mylist">	<!-- mylist로 시작하는 뷰만 body부분 덮어씌워짐 -->
+        <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp"/>
+    </definition>
+
 
 </tiles-definitions>

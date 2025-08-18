@@ -19,7 +19,19 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> productList() {
 		return mapper.selectProductList();
 	}
-	
+
+	// 내가 판매하는 물건 조회
+	@Override
+	public List<ProductVO> searchSale(int memberNo) {
+		return mapper.selectSale(memberNo);
+	}
+
+	// 내가 구매한 물건 조회
+	@Override
+	public List<ProductVO> searchPur(int memberNo) {
+		return mapper.selectPur(memberNo);
+	}
+
 	//상품 단건조회 + 조회수
 	@Override
 	public ProductVO findProduct(int prdNo) {

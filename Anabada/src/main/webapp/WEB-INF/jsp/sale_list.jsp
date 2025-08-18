@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="${ctx}/css/mypage.css">
 </header>
 <body>
-<h2>구매 내역</h2>
+<h2>판매 내역</h2>
 <div class="items-grid">
-    <c:forEach var="pur" items="${pur_list}" >
-        <a href="product.do?prdNo=${pur.prdNo}" class="item-card">
-            <div class="item-img"><c:out value="${pur.prdImg}" /></div>
-            <div class="item-desc"><c:out value="${pur.prdName}" /></div>
-            <div class="item-price"><fmt:formatNumber value="${pur.price}" pattern="#,###" /></div>
+    <c:forEach var="sale" items="${sale_list}" >
+        <a href="product.do?prdNo=${sale.prdNo}" class="item-card">
+            <div class="item-img"><c:out value="${sale.prdImg}" /></div>
+            <div class="item-desc"><c:out value="${sale.prdName}" /></div>
+            <div class="item-price"><fmt:formatNumber value="${sale.price}" pattern="#,###" /></div>
         </a>
     </c:forEach>
 </div>
