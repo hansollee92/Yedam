@@ -46,6 +46,9 @@ public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 			map.put("/product.do", new ProductControl());                        //상품 상세 + 조회수
 			map.put("/productModifyForm.do", new ProductModifyFormControl());    //상품 수정 화면 
 			map.put("/productModify.do", new ProductModifyControl());            //상품 수정 처리(post)
+			map.put("/productInsertForm.do", new ProductInsertFormControl());    //상품 등록 화면 
+			map.put("/productInsert.do", new ProductInsertControl());            //상품 등록 처리(post)
+			
 			map.put("/productRemove.do", new ProdcutRemoveControl());            //상품 삭제
 			
 			// 회원
