@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
-
+<%--
   <!-- 서버 에러 메시지 노출용 (필요 시) -->
   <c:if test="${param.err == '1'}">
     <div class="auth-alert" role="alert">아이디 또는 비밀번호가 올바르지 않습니다.</div>
@@ -23,7 +23,9 @@
       <a class="btn cancel" href="${ctx}/">취소</a>
     </div>
   </form>
-</section>
+
+ --%>
+
 
 <body class="login-page">    
 	<!-- 로그인 -->
