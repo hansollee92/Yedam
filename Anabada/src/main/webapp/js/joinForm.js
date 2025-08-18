@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	  const v = memberBirthInput.value.trim();
 	  if (!v) return;
 
-	  // 1) 숫자 8자리 형식 검사
+	  // 숫자 8자리 형식 검사
 	  if (!/^\d{8}$/.test(v)) {
 	    alert("생년월일은 8자리 숫자(YYYYMMDD)로 작성해주세요");
 	    memberBirthInput.value = "";
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	    return;
 	  }
 
-	  // 2) 실제 존재하는 날짜인지 체크
+	  // 실제 존재하는 날짜인지 체크
 	  const y = parseInt(v.substring(0, 4), 10);
 	  const m = parseInt(v.substring(4, 6), 10);
 	  const d = parseInt(v.substring(6, 8), 10);
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	    return;
 	  }
 
-	  // 3) 범위 체크: 1895-01-01 ~ 오늘
+	  // 범위 체크: 1895-01-01 ~ 오늘
 	  const min = new Date(1895, 0, 1); // 1895-01-01
 	  const today = new Date();
 	  // 시간 요소 제거(자정 기준 비교)

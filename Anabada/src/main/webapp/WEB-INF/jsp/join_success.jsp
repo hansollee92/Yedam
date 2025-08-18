@@ -23,12 +23,12 @@
         <c:when test="${status == 'success'}">
           <div class="button-group">
             <a class="btn-login" href="${pageContext.request.contextPath}/loginForm.do">로그인</a>
-            <a class="btn-home" href="">홈</a>
+            <a class="btn-home" href="${pageContext.request.contextPath}/main.do">홈</a>
           </div>
         </c:when>
         <c:otherwise>
           <div class="button-group">
-            <a class="btn-home" href="">홈</a>
+            <a class="btn-home" href="${pageContext.request.contextPath}/main.do">홈</a>
           </div>
         </c:otherwise>
       </c:choose>

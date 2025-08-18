@@ -98,10 +98,6 @@ body.login-page header{
 .btn_cancel:hover{
   background: var(--gray) !important;
 }
-.login-search a{
-	font-size: 12px;
-	color: var(--gray);
-}
 
 
 /* 반응형 */
