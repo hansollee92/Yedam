@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.yedam.common.CategoryDTO;
 import com.yedam.common.Control;
 import com.yedam.common.PageDTO;
 import com.yedam.common.SearchDTO;
@@ -25,7 +24,7 @@ public class ProductListControl implements Control {
     	String page 	 = req.getParameter("page");
         String sc        = req.getParameter("searchCondition"); // "N"(상품명) / "T"(태그)
         String kw        = req.getParameter("keyword");
-        String cat  = req.getParameter("category");
+        String cat  	 = req.getParameter("category");
         
         page = page == null ? "1" : page;
         
@@ -34,26 +33,24 @@ public class ProductListControl implements Control {
         search.setPage(Integer.parseInt(page));
         search.setSearchCondition(sc);
         search.setKeyword(kw);
-        
-        CategoryDTO category  = new CategoryDTO();
-        category.setCategory(cat);
-               
+        search.setCategory(cat);
+      
         ProductService svc = new ProductServiceImpl();  //각각의 데이터 공간을 처리해줌
-        List<ProductVO> list = svc.searchProducts(search, category);   // ✅ 메서드명 수정
+        List<ProductVO> list = svc.searchProducts(search);   // ✅ 메서드명 수정
         
         
         // 4) 페이징
-        int totalCnt = svc.countProducts(search, category); // ★ 목록 WHERE와 동일 조건
+        int totalCnt = svc.countProducts(search); // ★ 목록 WHERE와 동일 조건
         PageDTO paging = new PageDTO(Integer.parseInt(page), totalCnt);
 
 		
 
         // 5) JSP 전달 (키 이름 일관)
         req.setAttribute("productList", list);   // ✅ productList로 통일
-        req.setAttribute("paging", paging);
+        req.setAttribute("page", page);
         req.setAttribute("searchCondition", sc);
         req.setAttribute("keyword", kw);
-        req.setAttribute("category", category);
+        req.setAttribute("category", cat);
 
         // 6) 포워드 (상품 리스트 뷰)
         req.getRequestDispatcher("product/product_list.tiles").forward(req, resp);
