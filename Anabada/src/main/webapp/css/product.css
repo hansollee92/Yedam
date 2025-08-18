@@ -139,22 +139,6 @@
   margin-bottom: 10px;
 }
 
-/* .btn-line {
-  display: inline-block;
-  width: 50%;
-  text-decoration: none;
-  padding: 16px 20px;
-  background: var(--light-gray);
-  border-radius: 8px;
-  font-family: var(--font);
-  font-size: var(--font-sm);
-  cursor: pointer;
-  transition: 0.5s;
-}
-.btn-line:hover{
-  background-color: #aaa;
-} */
-
 .row-actions form{
   display: inline-block;
   width: 50%;
@@ -394,4 +378,81 @@ a.abtn{
     grid-template-columns: 1fr;
     gap: 16px;
   }
+}
+
+
+/* 모달창 */
+#tradeModal{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 99999;
+}
+.modal_overlay{
+    width: 100%;
+    height: 100%;
+	position: absolute; 
+	background-color: rgba(0,0,0,0.7);
+	transition: .5s;
+}
+.modal_dialog{
+    max-width: 450px;
+    position: relative; 
+    margin: 15vh auto 0;
+    background: #fff; 
+    color: var(--black-color);
+    border-radius: 16px; 
+    padding: 28px 28px 24px;
+    text-align: center;
+    transition: 0.5s;
+}
+.modal_close{
+    position: absolute;
+    top: 30px;
+    right: 35px;
+    color: var(--black-color);
+    font-size: var(--font-sm);
+    border: none;
+    background-color: #fff;
+    transition: 0.3s;
+}
+.modal_close:hover{
+    cursor: pointer;
+    transform: scale(1.5);
+}
+#tradeModalTitle{
+    font-size: var(--font-md);
+    margin: 25px 0 30px 0;
+    font-weight: 700;
+}
+.modal_header{
+    margin-bottom: 40px;
+    font-family: var(--font);
+}
+.trade-btn{
+    display: inline-block;
+    width: 100%;
+    padding: 20px 15px;
+    font-family: var(--font);
+    font-size: var(--font-sm);
+    color: var(--black-color);
+    margin-bottom: 5px;
+    font-weight: 600;
+    transition: .5s;
+    text-decoration: none;
+}
+.trade-btn:hover{
+    background-color: var(--light-gray);
+}
+.tradeBtn-primary{
+    background-color: var(--primary-color);
+    color: #fff;
+}
+.tradeBtn-primary:hover{
+    background-color: var(--disable-color);
+}
+
+/* 작은 화면 */
+@media (max-width:560px){
+  .modal__dialog{ margin:12vh 16px 0; padding:24px; }
 }

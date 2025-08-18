@@ -80,7 +80,7 @@
 		                글 수정
 		              </button>
 		
-		              <form action="${ctx}/productDelete.do" method="post" onsubmit="return confirm('삭제할까요?')" style="display:inline">
+		              <form action="${ctx}/productRemove.do" method="post" onsubmit="return confirm('삭제할까요?')" style="display:inline">
 		                <input type="hidden" name="prdNo" value="${product.prdNo}">
 		                <button type="submit" class="abtn common-btn">글 삭제</button>
 		              </form>
@@ -88,8 +88,8 @@
 		
 		            <%-- 예약중 버튼: 상태가 '예약중' 일 때만 활성 --%>
 		            <button type="button"
-		                    class="btn-primary btn-lg ${product.saleStatus eq '예약중' ? '' : 'disabled'}"
-		                    ${product.saleStatus eq '예약중' ? '' : 'disabled'}>
+		                    class="btn-primary btn-lg ${product.saleStatus eq '예약중' ? 'disabled' : '' }"
+		                    ${product.saleStatus eq '예약중' ? 'disabled' : '' }>
 		              예약 중
 		            </button>
 		          </div>
@@ -120,9 +120,7 @@
 		            </div>
 		
 		            <%-- 구매하기: '판매중' 일 때만 활성 --%>
-		            <button type="button"
-		                    class="btn-primary btn-lg ${product.saleStatus ne '판매중' ? 'disabled' : ''}"
-		                    ${product.saleStatus ne '판매중' ? 'disabled' : ''}>
+		            <button type="button" id="purchase-btn" class="btn-primary btn-lg">
 		              구매하기
 		            </button>
 		          </div>
@@ -240,6 +238,27 @@
 
 </section>
 
+
+<%-- 결제 모달창 --%>
+<div id="tradeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="tradeModalTitle" aria-hidden="true">
+  <div class="modal_overlay"></div>
+
+  <div class="modal_dialog" role="document">
+    <button class="modal_close" type="button" aria-label="닫기" data-close><i class="fa-solid fa-xmark"></i></button>
+
+    <div class="modal_header">
+      <h3 id="tradeModalTitle" class="modal_title">거래방식을 선택해주세요!</h3>
+      <p class="modal_subtitle">직거래를 선택할 경우 문의하기 게시판으로<br> 바로 이동이 됩니다.</p>
+    </div>
+
+    <div class="modal_actions">
+      <a class="trade-btn tradeBtn-primary" href="${ctx}/inquiryForm.do?prdNo=${product.prdNo}">직거래 문의하기</a>
+      <a class="trade-btn"   href="${ctx}/payForm.do?prdNo=${product.prdNo}">택배 거래</a>
+    </div>
+  </div>
+</div>
+
+
 <!-- kakao map api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd689b27e4b7fc12b2893cb036221eb8"></script>
 <script>
@@ -266,8 +285,10 @@
 	// marker.setMap(null);    
 </script>
 
-<!-- tag 잘라서 화면에 다시 출력하기 -->
+
 <script>
+
+	// tag 잘라서 화면에 나타내기
 	let tags = '${product.prdTag}';
 	
 	let tagArray = tags.split(",").map(tag => tag.trim());
@@ -277,6 +298,46 @@
 		span.classList.add('tag');
 	    span.textContent = tag;
 	    document.querySelector('.tags').appendChild(span);
-	})
+	})	
 	
+	
+	// 구매버튼 눌렀을 때
+	document.addEventListener('DOMContentLoaded', () => {
+	  // 요소 찾기
+	  const modal        = document.getElementById('tradeModal');
+	  const overlay      = modal?.querySelector('.modal_overlay'); 
+	  const closeBtn     = modal?.querySelector('.modal_close');  
+	  const purchaseBtn  = document.getElementById('purchase-btn');
+	
+	  // 초기 상태: CSS 없이 JS로 숨김
+	  if (modal) modal.style.display = 'none';
+	
+	  // 열기/닫기
+	  const openModal = (e) => {
+	    e?.preventDefault?.();
+	    if (!modal) return;
+	    modal.style.display = 'block';                   // 보여주기
+	    document.documentElement.style.overflow = 'hidden'; // 배경 스크롤 잠금
+	    modal.querySelector('.modal_actions .trade-btn')?.focus(); // 포커스 이동(옵션)
+	  };
+	
+	  const closeModal = () => {
+	    if (!modal) return;
+	    modal.style.display = 'none';                    // 숨기기
+	    document.documentElement.style.overflow = '';    // 스크롤 복원
+	    purchaseBtn?.focus();                            // 포커스 복귀(옵션)
+	  };
+	
+	  // 이벤트 연결 (요소 없을 수 있으니 안전하게 ?.)
+	  purchaseBtn?.addEventListener('click', openModal);
+	  overlay?.addEventListener('click', closeModal);
+	  closeBtn?.addEventListener('click', closeModal);
+	  document.addEventListener('keydown', (e) => {
+	    if (e.key === 'Escape' && modal?.style.display === 'block') closeModal();
+	  });
+	});
+	
+	
+  	
 </script>
+
