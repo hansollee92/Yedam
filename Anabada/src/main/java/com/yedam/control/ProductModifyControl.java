@@ -34,7 +34,7 @@ public class ProductModifyControl implements Control {
 				new DefaultFileRenamePolicy() 				
 				);		
 	
-		int prdNo = Integer.parseInt(mr.getParameter("prdNo"), -1);
+		int prdNo = Integer.parseInt(mr.getParameter("prdNo"));		
 		if(prdNo < 0) {
 			resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "잘못된 요청입니다.");
 			return;
