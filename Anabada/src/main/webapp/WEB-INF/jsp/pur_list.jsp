@@ -12,10 +12,20 @@
 <div class="items-grid">
     <c:forEach var="pur" items="${pur_list}" >
         <a href="product.do?prdNo=${pur.prdNo}" class="item-card">
-            <div class="item-img"><c:out value="${pur.prdImg}" /></div>
+            <div class="item-img"><img src="${ctx}/images/product/${pur.prdImg}"></div>
             <div class="item-desc"><c:out value="${pur.prdName}" /></div>
             <div class="item-price"><fmt:formatNumber value="${pur.price}" pattern="#,###" /></div>
         </a>
     </c:forEach>
 </div>
+<script>
+    document.querySelectorAll('.item-img').forEach(function(img) {
+        img.addEventListener('mouseenter', function() {
+            img.classList.add('clicked');
+        });
+        img.addEventListener('mouseleave', function() {
+            img.classList.remove('clicked');
+        });
+    });
+</script>
 </body>
