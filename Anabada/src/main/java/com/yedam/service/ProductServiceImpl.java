@@ -62,6 +62,17 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return false;
 	}
+	
+	//상품 등록
+	@Override
+	public boolean productInsert(ProductVO vo) {
+		int r = mapper.insertProduct(vo);
+		if(r > 0) {
+			sqlSession.commit();
+			return true;
+		}
+		return false;
+	}
 
  
 
