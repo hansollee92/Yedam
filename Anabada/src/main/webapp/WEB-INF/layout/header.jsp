@@ -15,17 +15,19 @@
       </div>
 
       <div class="search">
-        <form id="search-form" action="${pageContext.request.contextPath}/productList.do"method="get">
-          <input type="text" name="keyword" class="form-control" 
-         		 placeholder="어떤 상품을 찾으시나요? 상품명, 지역명, 태그 검색" 
-         		 value="${param.keyword}">
-          <input type="hidden" name="searchCondition" value=""> <!-- 통합검색 -->
- 		  <input type="hidden" name="page" value="1">
-  		  <input type="hidden" name="amount" value="12">
-          <button class="btn" type="button" id="button-addon2">
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <span class="visually-hidden">검색</span>
-          </button>
+        <form id="search-form" action="${pageContext.request.contextPath}/productList.do" method="get">
+            <label>
+                <input type="text" name="keyword" class="form-control"
+                       placeholder="어떤 상품을 찾으시나요? 상품명, 지역명, 태그 검색"
+                       value="${param.keyword}">
+            </label>
+            <input type="hidden" name="searchCondition" value=""> <!-- 통합검색 -->
+            <input type="hidden" name="page" value="1">
+            <input type="hidden" name="amount" value="12">
+            <button class="btn" type="button" id="button-addon2">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <span class="visually-hidden">검색</span>
+            </button>
         </form>
       </div>
 
