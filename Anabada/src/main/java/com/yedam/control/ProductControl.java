@@ -35,7 +35,7 @@ public class ProductControl implements Control {
 		QnaService qsvc = new QnaServiceImpl();
 		
 		//페이징
-		int totalCnt = qsvc.totalCnt();
+		int totalCnt = qsvc.totalCnt(Integer.parseInt(prdNo));
 		PageQnaDTO paging = new PageQnaDTO(Integer.parseInt(page), totalCnt);	
 		
 		ProductVO product = svc.findProduct(Integer.parseInt(prdNo));

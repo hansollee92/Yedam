@@ -27,8 +27,8 @@ public class QnaServiceImpl implements QnaService {
 
 	//문의게시판 전체건수(totalCnt)
 	@Override
-	public int totalCnt() {
-		return mapper.selectCount();
+	public int totalCnt(int prdNo) {
+		return mapper.selectCount(prdNo);
 	}
 
 	//문의게시판 글등록
