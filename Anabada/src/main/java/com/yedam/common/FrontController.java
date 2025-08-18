@@ -35,7 +35,6 @@ public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 			map.put("/login.do", new LoginControl());              // 로그인 기능
 			map.put("/logout.do", new LogoutControl());            // 로그아웃 기능
 			map.put("/payForm.do", new PayFormControl());          // 결제 화면
-			map.put("/pay.do", new PayControl());                  // 결제 기능
 			map.put("/paySuccess.do", new PaySuccessControl());  // 결제 성공
 			map.put("/payFail.do", new PayFailControl());     // 결제 실패
 			// End 오민수
