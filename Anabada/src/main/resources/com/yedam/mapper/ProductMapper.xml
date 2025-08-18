@@ -82,36 +82,6 @@
 		    lat = #{lat},
 		    lng = #{lng}
 		where prd_no = #{prdNo}    
-	</update>	
-	
-	
-	<!--  내가 한 찜 목록보기  -->
-	<select id="selectWish" parameterType="int" resultType="product">
-	    select  p.prd_no,
-	            p.prd_name,
-	            p.price,
-	            p.prd_img,
-	            p.sale_status,
-	            w.wish_no
-	    from wish w join product p
-	                  on w.prd_no = p.prd_no
-	    WHERE w.member_no = #{memberNo}
-	    ORDER BY w.wish_no DESC;
-	</select>
-
-	<!--  상품별 찜한 사람 수 조회  -->
-	<select id="countWishMember">
-	    select  p.prd_no,
-	            p.prd_name,
-	            count(w.member_no) AS wish_count
-	    from wish w join product p
-	                  on w.prd_no = p.prd_no
-	                group by p.prd_no, p.prd_name
-	    order by wish_count desc
-	</select> 
-  
-
-
-
+	</update>
 
 </mapper>
