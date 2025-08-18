@@ -35,7 +35,6 @@ public class LoginControl implements Control {
 		if(member == null) {
 			//id, pw 불일치
 			resp.sendRedirect(req.getContextPath() + "/loginForm.do?err=1");
-			return;
 		}else {
 			//로그인 성공
 			HttpSession session = req.getSession();
