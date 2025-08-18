@@ -23,7 +23,7 @@
     </div>
     
     <div class="login-search">
-    	<a href="#">아이디/비밀번호 찾기</a>
+    	<a href="${ctx}/findIdPwForm.do">아이디/비밀번호 찾기</a>
     </div>
 
     <div class="form-actions">

@@ -8,11 +8,18 @@ document.addEventListener("DOMContentLoaded", function() {
 	const memberIdInput = document.querySelector("#memberId");
 	const memberPwInput = document.querySelector("#memberPw");
   const pwConfirmInput = document.querySelector("#pwConfirm");
+	const joinForm = document.querySelector("#joinForm");
   const memberBirthInput = document.querySelector("#memberBirth");
   const memberPhoneInput = document.querySelector("#memberPhone");
 	const pwMsg = document.querySelector("#pwMsg");
+	let isIdChecked = false; // 중복체크 완료 여부
 	
 	memberIdInput.focus();
+	
+	// 아이디 입력이 바뀌면 다시 중복체크 필요
+  memberIdInput.addEventListener("input", function() {
+    isIdChecked = false;
+  });
 	
 	// 중복체크 버튼을 '클릭' 하면 발생하는 이벤트
 	checkIdBtn.addEventListener("click", function() {
@@ -33,16 +40,29 @@ document.addEventListener("DOMContentLoaded", function() {
 				if (data.exists) {
 					alert("이미 사용 중인 아이디입니다");
 					memberIdInput.focus();
+					isIdChecked = false;
 				} else {
 					alert("사용 가능한 아이디입니다");
 					memberPwInput.focus();
+					isIdChecked = true;
 				}
 			})
 			.catch(error => {
 				console.error("중복확인 요청 실패:", error);
 				alert("중복확인 중 오류가 발생했습니다");
+				isIdChecked = false;
 			})
 	});
+	
+	// 회원가입 버튼 눌렀을 때(폼 제출 시)
+  joinForm.addEventListener("submit", function(event) {
+    if (!isIdChecked) {
+      event.preventDefault();  // 폼 제출 막음
+      alert("아이디 중복체크를 해주세요");
+      memberIdInput.focus();
+      return;
+    }
+  });
 	
 	// 비밀번호 확인
 	pwConfirmInput.addEventListener("blur", function () {
@@ -52,11 +72,11 @@ document.addEventListener("DOMContentLoaded", function() {
     // 둘 다 입력된 경우만 판단
     if (pw && pwConfirm) {
       if (pw === pwConfirm) {
-        pwMsg.textContent = "일치";
+        pwMsg.textContent = "비밀번호가 일치합니다.";
         pwMsg.classList.remove("bad");
         pwMsg.classList.add("ok");
       } else {
-        pwMsg.textContent = "불일치";
+        pwMsg.textContent = "비밀번호가 일치하지 않습니다.";
         pwMsg.classList.remove("ok");
         pwMsg.classList.add("bad");
 
@@ -79,37 +99,51 @@ document.addEventListener("DOMContentLoaded", function() {
     pwMsg.textContent = "";
     pwMsg.classList.remove("ok", "bad");
   }
-
-	// 생년월일 검사
-	memberBirthInput.addEventListener("blur", function () {
-	  if (lockBirth) return;
-	  const v = memberBirthInput.value.trim();
-	  if (v && !/^\d{8}$/.test(v)) {
-	    lockBirth = true;
-	    alert("19950105 형식으로 작성해주세요");
-			memberBirthInput.value = "";
-	    setTimeout(() => { memberBirthInput.focus(); lockBirth = false; }, 0);
-	  }
-	});
-
-	// 휴대폰번호 검사
-	memberPhoneInput.addEventListener("blur", function () {
-	  if (lockPhone) return;
-	  const v = memberPhoneInput.value.trim();
-	  if (v && !/^\d{11}$/.test(v)) {
-	    lockPhone = true;
-	    alert("0101231234 ( - 제외 ) 형식으로 작성해주세요");
-	    setTimeout(() => { memberPhoneInput.focus(); lockPhone = false; }, 0);
-	  }
-	});
 	
-	// 생년월일 검사
+	// 생년월일 검사 (형식 + 실제 유효날짜 + 범위)
 	memberBirthInput.addEventListener("blur", function () {
-	  const birthVal = memberBirthInput.value.trim();
-	  if (birthVal && !/^\d{8}$/.test(birthVal)) {
-	    alert("19950105 (YYYYMMDD) 형식으로 작성해주세요");
-			memberBirthInput.value = "";
+	  const v = memberBirthInput.value.trim();
+	  if (!v) return;
+
+	  // 1) 숫자 8자리 형식 검사
+	  if (!/^\d{8}$/.test(v)) {
+	    alert("생년월일은 8자리 숫자(YYYYMMDD)로 작성해주세요");
+	    memberBirthInput.value = "";
 	    memberBirthInput.focus();
+	    return;
+	  }
+
+	  // 2) 실제 존재하는 날짜인지 체크
+	  const y = parseInt(v.substring(0, 4), 10);
+	  const m = parseInt(v.substring(4, 6), 10);
+	  const d = parseInt(v.substring(6, 8), 10);
+
+	  const jsDate = new Date(y, m - 1, d); // JS는 month가 0부터
+	  const valid =
+	    jsDate.getFullYear() === y &&
+	    jsDate.getMonth() === m - 1 &&
+	    jsDate.getDate() === d;
+
+	  if (!valid) {
+	    alert("존재하지 않는 날짜입니다, 확인 후 이용해주세요");
+	    memberBirthInput.value = "";
+	    memberBirthInput.focus();
+	    return;
+	  }
+
+	  // 3) 범위 체크: 1895-01-01 ~ 오늘
+	  const min = new Date(1895, 0, 1); // 1895-01-01
+	  const today = new Date();
+	  // 시간 요소 제거(자정 기준 비교)
+	  min.setHours(0,0,0,0);
+	  today.setHours(0,0,0,0);
+	  jsDate.setHours(0,0,0,0);
+
+	  if (jsDate < min || jsDate > today) {
+	    alert("회원가입이 불가능한 생년월일 입니다, 확인 후 이용해주세요");
+	    memberBirthInput.value = "";
+	    memberBirthInput.focus();
+	    return;
 	  }
 	});
 

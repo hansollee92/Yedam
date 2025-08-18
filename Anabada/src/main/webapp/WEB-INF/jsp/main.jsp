@@ -30,7 +30,7 @@
       <!-- 상품목록(한줄에 4개씩) -->
       <c:forEach items="${product_list}" var="prd" varStatus="status">      
 	      <article class="card">
-	        <a href="#">
+	        <a href="${ctx}/product.do?prdNo=${prd.prdNo}">
 	          <div class="thumb">
 	          	<img src="${ctx}/images/product/${prd.prdImg}" alt="상품이미지 : ${prd.prdName}">
 	          </div>

@@ -1,8 +1,6 @@
 package com.yedam.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -22,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectProductList();
 	}
 	
-	//상품 단건조회
+	//상품 단건조회 + 조회수
 	@Override
 	public ProductVO findProduct(int prdNo) {
 		return mapper.selectProduct(prdNo);
@@ -54,7 +52,23 @@ public class ProductServiceImpl implements ProductService {
 		 return mapper.countProducts(s);
 	}
 
+  @Override
+  public List<ProductVO> searchWish(int memberNo) {
+    return mapper.selectWish(memberNo);
+  } 
 
+	//상품 수정
+	@Override
+	public boolean productModify(ProductVO product) {
+		int r = mapper.updateProduct(product);
+		if(r > 0) {
+			sqlSession.commit();
+			return true;
+		}
+		return false;
+	}
+
+ 
 
 
 }

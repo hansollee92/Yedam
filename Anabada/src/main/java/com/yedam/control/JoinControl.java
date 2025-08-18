@@ -30,7 +30,7 @@ public class JoinControl implements Control {
 
         // 필수값(서버사이드) 간단 체크
         if (isBlank(memberId) || isBlank(memberPw) || isBlank(memberName) || isBlank(birthStr) || isBlank(memberPhone)) {
-            resp.sendRedirect("joinForm.do?msg=invalid");
+            resp.sendRedirect("joinSuccess.do?status=fail&reason=invalid");
             return;
         }
 
@@ -38,7 +38,7 @@ public class JoinControl implements Control {
 
         // 중복 아이디 최종 확인
         if (svc.isDuplicateId(memberId)) {
-            resp.sendRedirect("joinForm.do?msg=dup");
+            resp.sendRedirect("joinSuccess.do?status=fail&reason=dup");
             return;
         }
 
@@ -47,10 +47,18 @@ public class JoinControl implements Control {
         try {
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyyMMdd");
             LocalDate ld = LocalDate.parse(birthStr, fmt);
+
+            // 범위 체크: 1895-01-01 ~ 오늘
+            LocalDate min = LocalDate.of(1895, 1, 1);
+            LocalDate today = LocalDate.now();
+            if (ld.isBefore(min) || ld.isAfter(today)) {
+                resp.sendRedirect("joinSuccess.do?status=fail&reason=badBirthRange");
+                return;
+            }
+
             birthDate = Date.valueOf(ld);
         } catch (Exception e) {
-            // 파싱 실패 시
-            resp.sendRedirect("joinForm.do?msg=badBirth");
+            resp.sendRedirect("joinSuccess.do?status=fail&reason=badBirthFormat");
             return;
         }
 
@@ -65,11 +73,11 @@ public class JoinControl implements Control {
         // 저장 시도
         boolean ok = svc.registerMember(vo);
 
-        // 결과에 따라 리다이렉트 + 메시지
+        // 결과에 따라 리다이렉트 + 상태값
         if (ok) {
-            resp.sendRedirect("joinForm.do?msg=success");
+            resp.sendRedirect("joinSuccess.do?status=success");
         } else {
-            resp.sendRedirect("joinForm.do?msg=fail");
+            resp.sendRedirect("joinSuccess.do?status=fail");
         }
     }
 

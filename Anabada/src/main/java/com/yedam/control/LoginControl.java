@@ -23,7 +23,7 @@ public class LoginControl implements Control {
 		String memberPw = req.getParameter("memberPw");
 		
 		MemberService svc = new MemberServiceImpl();
-		MemberVO member = svc.searchMember(memberId, memberPw);
+		MemberVO member = svc.loginMember(memberId, memberPw);
 		
 		//파라미터 기본 검증
 		if(memberId == null || memberPw == null || memberId.isBlank() || memberPw.isBlank()) {
@@ -40,7 +40,7 @@ public class LoginControl implements Control {
 			//로그인 성공
 			HttpSession session = req.getSession();
 			session.setAttribute("logMember", member);
-			resp.sendRedirect(req.getContextPath() + "/productList.do");
+			resp.sendRedirect(req.getContextPath() + "/main.do");
 		}
 
 	}

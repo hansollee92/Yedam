@@ -57,3 +57,4 @@ public class ProductListControl implements Control {
         req.getRequestDispatcher("product/product_list.tiles").forward(req, resp);
     }
 }
+
