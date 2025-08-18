@@ -23,7 +23,12 @@ public class ProductServiceImpl implements ProductService {
 	//상품 단건조회 + 조회수
 	@Override
 	public ProductVO findProduct(int prdNo) {
-		return mapper.selectProduct(prdNo);
+		ProductVO product = mapper.selectProduct(prdNo);
+		int r = mapper.updateCntProduct(prdNo);
+		if(r > 0) {
+			sqlSession.commit();
+		}
+		return product;
 	}
   
 	//상품 수정
