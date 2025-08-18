@@ -19,15 +19,16 @@
   <meta name="keywords" content="">
   <meta name="description" content="">
 
-  <link rel="stylesheet" href="${ctx}/css/mypage.css">
   <link rel="stylesheet" href="${ctx}/css/mainStyle.css">
-  <link rel="stylesheet" href="${ctx}/css/main.css">  
-  <link rel="stylesheet" href="${ctx}/css/product.css">  
+  <link rel="stylesheet" href="${ctx}/css/main.css">
+  <link rel="stylesheet" href="${ctx}/css/product.css">   
   <link rel="stylesheet" href="${ctx}/css/productModify.css">  
+  <link rel="stylesheet" href="${ctx}/css/mypage.css">         
   <link rel="stylesheet" href="${ctx}/css/login.css">
   <link rel="stylesheet" href="${ctx}/css/joinForm.css"> <!-- 회원가입 화면 CSS -->
-	<link rel="stylesheet" href="${ctx}/css/joinSuccess.css"> <!-- 회원가입 완료 화면 CSS -->
-	<link rel="stylesheet" href="${ctx}/css/pay.css"> <!-- 결제창 CSS -->
+  <link rel="stylesheet" href="${ctx}/css/joinSuccess.css"> <!-- 회원가입 완료 화면 CSS -->
+  <link rel="stylesheet" href="${ctx}/css/pay.css"> <!-- 결제창 CSS -->
+  <link rel="stylesheet" href="${ctx}/css/qna.css">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
@@ -41,14 +42,14 @@
 
 <body>
 
-  <!--header-->
+  <%--header--%>
   <tiles:insertAttribute name="header" />
-  <!-- body -->
+  <%--body--%>
   <tiles:insertAttribute name="body" />
-  <!-- footer -->
+  <%--footer--%>
   <tiles:insertAttribute name="footer" />
 
-  <!--top button-->
+  <%--top button--%>
   <div class="top-btn"><a href="#">TOP</a></div>
   <!-- script -->
   <script src="js/jquery-1.11.0.min.js"></script>

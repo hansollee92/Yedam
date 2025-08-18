@@ -1,0 +1,53 @@
+.qnaDetail-container {
+  width: min(1200px, 94%);
+  border-collapse: collapse;
+  margin: 50px auto;
+  color: var(--black-color);
+}
+.qnaDetail-container .qna-title{
+  font-size: var(--font-md);
+  font-family: var(--font);
+}
+.qnaDetail-container .qna-table{
+  font-family: var(--font);
+}
+.qnaDetail-container .line{
+  background-color: #ccc;
+  margin: 20px 0;
+}
+
+.qna-subtitle{
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black-color);
+}
+.qna-button{
+  padding: 15px 0;
+  color: var(--gray);
+  font-size: var(--font-sm);
+  font-family: var(--font);
+  display: flex;
+  justify-content: right;
+}
+.qna-button button{
+  color: var(--gray);
+  font-size: var(--font-sm);
+  font-family: var(--font);
+  border: 1px solid var(--light-gray);
+  border-radius: 10px;
+  padding: 10px 25px;
+}
+.qna-button a{
+  border: 1px solid var(--light-gray);
+  border-radius: 6px;
+  font-size: var(--font-sm);
+  font-family: var(--font);
+  margin-right: 10px;
+  padding: 10px 25px;
+}
+.qna-button a:hover,
+.qna-button button:hover{
+  background-color: var(--primary-color);
+  color: #fff !important;
+  font-weight: 600;
+}

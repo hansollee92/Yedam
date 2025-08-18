@@ -199,7 +199,7 @@
       	<c:forEach var="qna" items="${qna_list}" varStatus="status">
 	        <tr>
 	          <td>${qna.qnaNo}</td>
-	          <td><a href="#none" style="text-decoration: none; color: #333;">${qna.qnaTitle}</a></td>
+	          <td><a href="${ctx}/qna.do?prdNo=${qna.prdNo}&qnaNo=${qna.qnaNo}" style="text-decoration: none; color: #333;">${qna.qnaTitle}</a></td>
 	          <td>${qna.memberId}</td>
 	          <td><fmt:formatDate value="${qna.qnaDate}" pattern="yyyy-MM-dd"/></td>
 	        </tr>	        

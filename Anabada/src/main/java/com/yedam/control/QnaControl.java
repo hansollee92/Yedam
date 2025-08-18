@@ -25,7 +25,7 @@ public class QnaControl implements Control {
 		
 		req.setAttribute("qna", qna);
 		
-		req.getRequestDispatcher("product/qna.do").forward(req, resp);
+		req.getRequestDispatcher("/product/qna.tiles").forward(req, resp);
 		
 	}
 
