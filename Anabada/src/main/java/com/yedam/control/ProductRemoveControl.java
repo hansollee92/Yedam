@@ -11,7 +11,7 @@ import com.yedam.service.ProductService;
 import com.yedam.service.ProductServiceImpl;
 import com.yedam.vo.ProductVO;
 
-public class ProdcutRemoveControl implements Control {
+public class ProductRemoveControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

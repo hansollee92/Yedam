@@ -16,7 +16,7 @@
 	    <![CDATA[ 
 	    where rownum  <= 16
 	    ]]>
-  </select>
+    </select>
   
 	<!-- 상품 단건 조회 -->
 	<select id="selectProduct" parameterType="int" resultType="product">
@@ -55,7 +55,14 @@
 	<delete id="deleteProduct" parameterType="int">
 		delete from product
 		where prd_no = #{prdNo}
-	</delete>		
+	</delete>	
+	
+	<!-- 상품 판매상태 수정 -->
+	<update id="updateSaleStatus">
+		update product
+		set sale_status = #{saleStatus}
+		where prd_no = #{prdNo}
+	</update>		
 	
 	<!--  내가 한 찜 목록보기  -->
 	<select id="selectWish" parameterType="int" resultType="product">
