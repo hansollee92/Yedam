@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.yedam.common.DBUtil;
 import com.yedam.mapper.ProductMapper;
 import com.yedam.vo.ProductVO;
+import com.yedam.vo.SearchVO;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -22,10 +23,33 @@ public class ProductServiceImpl implements ProductService {
 	//상품 단건조회 + 조회수
 	@Override
 	public ProductVO findProduct(int prdNo) {
-		ProductVO product = mapper.selectProduct(prdNo);
-		mapper.updateCntProduct(prdNo);
-		sqlSession.commit(); //조회수 반영을 위한 커밋
-		return product;		
+		return mapper.selectProduct(prdNo);
+	}
+  
+	
+    @Override
+    public ProductVO searchWish(int memberNo) {
+        return mapper.selectWish(memberNo);
+    }
+
+  
+
+	@Override
+	public List<ProductVO> productList(ProductVO dao) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+	@Override
+	public List<ProductVO> searchProducts(SearchVO s) {
+		return mapper.selectProducts(s);
+	}
+
+	@Override
+	public int countProducts(SearchVO s) {
+		 return mapper.countProducts(s);
 	}
 
   @Override

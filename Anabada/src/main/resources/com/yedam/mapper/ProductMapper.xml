@@ -16,8 +16,8 @@
 	    <![CDATA[ 
 	    where rownum  <= 16
 	    ]]>
-	</select>
-
+  </select>
+  
 	<!-- 상품 단건 조회 -->
 	<select id="selectProduct" parameterType="int" resultType="product">
 		select *
@@ -48,7 +48,7 @@
 		    dong = #{dong},
 		    lat = #{lat},
 		    lng = #{lng}
-		where prd_no = #{prdNo}    
+		where prd_no = #{prdNo} 
 	</update>		
 	
 	<!--  내가 한 찜 목록보기  -->
@@ -83,7 +83,70 @@
         WHERE prd_no = #{prd_no}
     </update>
 
-  
+  	<!-- 목록 조회 -->
+ <select id="selectProducts" parameterType="com.yedam.vo.SearchVO" resultType="com.yedam.vo.ProductVO">
+  SELECT 
+  prd_no, 
+  prd_name, 
+  prd_tag, 
+  price,
+  prd_img,
+  TO_CHAR(PRD_DATE,'YYYY--MM-DD') AS prdDate, 
+  category
+  FROM product
+  <where>
+  <if test="category != null and category != ''">
+      AND CATEGORY = #{category}        <!-- ★ 카테고리 필터 -->
+    </if>
+    
+    <if test="keyword != null and keyword != ''">
+      <choose>
+        <when test="searchCondition == 'N'">
+          AND prd_name LIKE '%' || #{keyword} || '%'
+        </when>
+        <when test="searchCondition == 'T'">
+          AND prd_tag = #{keyword}
+        </when>
+        <otherwise>
+          AND (prd_name LIKE '%' || #{keyword} || '%' OR prd_tag = #{keyword})
+        </otherwise>
+      </choose>
+    </if>
+  </where>
+  ORDER BY prd_no DESC
+  OFFSET #{offset} ROWS FETCH NEXT #{amount} ROWS ONLY
+</select>
+
+  <!-- 총 건수 (페이징 계산용) -->
+  <select id="countProducts"
+          parameterType="com.yedam.vo.SearchVO"
+          resultType="int">
+    SELECT COUNT(*)
+    FROM product
+    <where>
+     <if test="category != null and category != ''">
+      AND CATEGORY = #{category}
+    </if>
+      <if test="keyword != null and keyword != ''">
+        <choose>
+          <when test="searchCondition == 'N'">
+            AND prd_name LIKE CONCAT('%', #{keyword}, '%')
+          </when>
+          <when test="searchCondition == 'T'">
+            AND prd_tag = #{keyword}
+            <!-- 콤마 문자열이면: AND FIND_IN_SET(#{keyword}, prd_tag) > 0 -->
+          </when>
+          <otherwise>
+            AND (prd_name LIKE CONCAT('%', #{keyword}, '%')
+                 OR prd_tag = #{keyword})
+          </otherwise>
+        </choose>
+      </if>
+    </where>
+  </select>
+
+
+
 
 
 
