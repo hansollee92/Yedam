@@ -54,6 +54,7 @@ import com.yedam.control.WishListControl;
 			// End 오민수
 			
 			map.put("/main.do", new MainControl());	//메인페이지
+			map.put("/productList.do", new ProductListControl());   //상품리스트
 			
 			// 상품 
 			map.put("/productList.do", new ProductListControl());                //상품리스트

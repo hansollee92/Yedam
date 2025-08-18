@@ -1,11 +1,11 @@
 package com.yedam.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.yedam.vo.ProductVO;
+import com.yedam.vo.SearchVO;
 
 public interface ProductMapper {
 
@@ -14,14 +14,30 @@ public interface ProductMapper {
     public int updateCntProduct(int prdNo);         //상품 조회수증가 
     public int updateProduct(ProductVO product);    //상품 수정
     
-    public List<ProductVO> productList(ProductVO dao);
-	  public List<ProductVO> selectWish(int memberNo); // 내가 찜한 상품 조회
-
-	  public int updateProductImage(Map<String, Object> param); // 상품 이미지 경로 업데이트
-	  public String getProductImage(int prdNo); // 상품 이미지 경로 조회
-	  public int clearProductImage(int prdNo); // 상품 이미지 경로 삭제
-  
+    
+    
+    public ProductVO selectWish(int memberNo);
+    
+    List<ProductVO> selectProducts(SearchVO s);  // 목록
+    int countProducts(SearchVO s);               // 총건수
     public int insertProduct(ProductVO vo); // 상품등록
+}
+
+      
+       
+    
+    
+    
+    
+    
+    
+    
+    
     
 
-}
+	
+
+  
+   
+    
+

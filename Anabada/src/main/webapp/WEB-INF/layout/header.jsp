@@ -8,7 +8,7 @@
   <div class="wrapper">
     <div class="header-top">
       <div class="logo">
-        <a href="${ctx}/productList.do">
+        <a href="${ctx}/main.do">
           <img src="${ctx}/images/logo.png" alt="아나바다 로고">
           <span class="visually-hidden">아나바다</span>
         </a>
@@ -48,14 +48,14 @@
         <a class="dropdown-toggle" href="#none"><i class="fa-solid fa-bars"></i></a>
         <ul class="dropdown-menu">
           <li class="label">전체 카테고리</li>
-          <li><a class="dropdown-item" href="#none">의류</a></li>
-          <li><a class="dropdown-item" href="#none">신발</a></li>
-          <li><a class="dropdown-item" href="#none">악세사리</a></li>
-          <li><a class="dropdown-item" href="#none">디지털/가전</a></li>
-          <li><a class="dropdown-item" href="#none">스포츠</a></li>
-          <li><a class="dropdown-item" href="#none">도서/티켓</a></li>
-          <li><a class="dropdown-item" href="#none">가구/생활</a></li>
-          <li><a class="dropdown-item" href="#none">기타</a></li>
+          <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=1&category=의류'/>">의류</a></li>
+          <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=1&category=신발'/>">신발</a></li>
+          <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=1&category=악세사리'/>">악세사리</a></li>
+          <li><a class="dropdown-item"href="<c:url value='/productList.do?searchCondition=&keyword=&page=1&category=디지털%2F가전'/>">디지털/가전</a></li>
+          <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=1&category=스포츠'/>">스포츠</a></li>
+          <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=1&category=도서%2F티켓'/>">도서/티켓</a></li>
+          <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=1&category=가구%2F생활'/>">가구/생활</a></li>
+          <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=1&category=기타'/>">기타</a></li>
         </ul>
       </div>
       <div><a href="#none" class="notice-link">공지사항</a></div>
