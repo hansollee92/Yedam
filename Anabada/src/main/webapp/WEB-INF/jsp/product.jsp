@@ -35,7 +35,7 @@
       <div class="pd-meta">
         <span><i class="fa-solid fa-heart"></i> 24</span>
         <span><i class="fa-solid fa-eye"></i> ${product.viewCnt}</span>
-        <span><i class="fa-solid fa-clock"></i> ${product.prdDate}</span>
+        <span><i class="fa-solid fa-clock"></i> <fmt:formatDate value="${product.prdDate}" pattern="yyyy년 MM월 dd일" /></span>
 
 	    <!-- 판매자만 보이는 상태 셀렉트 -->
 	    <c:if test="${owner}">
