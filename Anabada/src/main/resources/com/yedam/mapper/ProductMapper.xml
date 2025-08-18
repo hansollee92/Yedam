@@ -49,7 +49,13 @@
 		    lat = #{lat},
 		    lng = #{lng}
 		where prd_no = #{prdNo} 
-	</update>		
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id="deleteProduct" parameterType="int">
+		delete from product
+		where prd_no = #{prdNo}
+	</delete>		
 	
 	<!--  내가 한 찜 목록보기  -->
 	<select id="selectWish" parameterType="int" resultType="product">
