@@ -4,18 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="${ctx}/css/mypage.css">
-</head>
-
 <body>
     <div class="mypage-container">
         <aside class="sidebar">
@@ -38,25 +26,32 @@
                 <div>현재 평점: <span id="rating-value"><c:out value="${member_info.memberScore}" /></span></div>
             </div>
             <ul class="menu-list">
-                <li><a href="#" class="mypage-menu" data-url="${ctx}/mypage/wish.jsp">찜목록</a></li>
-                <li><a href="#" class="mypage-menu" data-url="${ctx}/mypage/sales_list">판매 내역</a></li>
-                <li><a href="#" class="mypage-menu" data-url="${ctx}/mypage/pur_list">구매 내역</a></li>
-                <li><a href="#" class="mypage-menu" data-url="${ctx}/mypage/reviews">리뷰 내역</a></li>
+                <%-- href로 이동시 페이지 전체 새로고침이 되어 data-url을 설정하여 fetch로 항목 변경만 함 --%>
+                <li><a href="#" class="mypage-menu" data-url="wishList.do?memberNo=${member_info.memberNo}">찜목록</a></li>
+                <li><a href="#" class="mypage-menu" data-url="saleList.do?memberNo=${member_info.memberNo}">판매 내역</a></li>
+                <li><a href="#" class="mypage-menu" data-url="purList.do?memberNo=${member_info.memberNo}">구매 내역</a></li>
+                <li><a href="#" class="mypage-menu" data-url="mylist/reviews">리뷰 내역</a></li>
             </ul>
             <a href="/mypage/update" class="update-myInfo">회원정보 수정</a>
-
         </aside>
 
-        <main class="main-content" id="mainContent">
-            <jsp:include page="wish_list.jsp" />
-        </main>
+        <main class="main-content" id="mainContent" ></main>
     </div>
 
     <!-- 별 동작 부분 -->
     <script src="${ctx}/js/star.js"></script>
 
-    <!-- 메뉴 클릭시 이벤트 발생으로 화면 전환 -->
     <script>
+        <%-- 처음 화면 들어갔을때 찜 목록 보여주기 --%>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("wishList.do?memberNo=${member_info.memberNo}")
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById("mainContent").innerHTML = html;
+                });
+        });
+
+        <!-- 메뉴 클릭시 이벤트 발생으로 화면 전환 -->
         document.querySelectorAll('.mypage-menu').forEach(el => {
             el.addEventListener('click', function(e) {
                 e.preventDefault();

@@ -18,12 +18,12 @@
 	    ]]>
     </select>
   
-	<!-- 상품 단건 조회 -->
-	<select id="selectProduct" parameterType="int" resultType="product">
-		select *
-		from   product
-		where  prd_no = #{prdNo}
-	</select>
+    <!-- 상품 단건 조회 -->
+    <select id="selectProduct" parameterType="int" resultType="product">
+        select *
+        from   product
+        where  prd_no = #{prdNo}
+    </select>
 	
 	<!-- 상품 조회수 증가 -->
 	<update id="updateCntProduct" parameterType="int">
@@ -78,6 +78,27 @@
 	    where w.member_no = #{memberNo}
 	    order by w.wish_no desc
 	</select>
+
+    <!--  내가 판매하는 물건 조회  -->
+    <select id="selectSale" parameterType="int" resultType="product">
+        select  *
+        from    product
+        where   member_no = #{memberNo}
+    </select>
+
+    <!--  내가 구매한 물건 조회  -->
+    <select id="selectPur" parameterType="int" resultType="product">
+        select  prd.prd_no,
+                prd.prd_name,
+                prd.price,
+                prd.prd_img,
+                prd.sale_status,
+                pur.pur_no
+        from    purchase pur join product prd
+                               on pur.prd_no = prd.prd_no
+        where pur.member_no = #{memberNo}
+        order by pur.pur_no desc
+    </select>
 
 	<!--  상품별 찜한 사람 수 조회  -->
 	<select id="countWishMember">

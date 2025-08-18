@@ -50,9 +50,10 @@ public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 			map.put("/qna.do", new QnaControl());                                //문의하기 게시판 상세
 			
 			// 회원
-			map.put("/mypage.do", new MypageControl());
-			// 마이페이지
+			map.put("/mypage.do", new MypageControl()); // 마이페이지
 			map.put("/wishList.do", new WishListControl()); // 찜목록
+			map.put("/saleList.do", new SaleListControl()); // 판매 내역
+			map.put("/purList.do", new PurListControl()); // 구매내역
 			
 			
 		}

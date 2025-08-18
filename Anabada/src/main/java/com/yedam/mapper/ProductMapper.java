@@ -23,6 +23,8 @@ public interface ProductMapper {
     public List<ProductVO> selectProducts(SearchDTO search, CategoryDTO category);  // 검색목록
     public int countProducts(SearchDTO search, CategoryDTO category);               // 총건수
     public int insertProduct(ProductVO vo);             // 상품등록
+    public List<ProductVO> selectSale(int memberNo);    // 내가 판매하는 물건 조회
+    public List<ProductVO> selectPur(int memberNo);     // 내가 구매한 물건 조회
 
 
 }
