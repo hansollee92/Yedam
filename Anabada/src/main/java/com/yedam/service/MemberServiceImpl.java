@@ -12,6 +12,7 @@ public class MemberServiceImpl implements MemberService {
 
     //로그인
 	@Override
+
 	public MemberVO selectMember(String memberId, String memberPw) {
 		return mapper.selectLoginMember(memberId, memberPw);
 	}    
@@ -32,9 +33,10 @@ public class MemberServiceImpl implements MemberService {
 	    return ok;
     }
 
+    // 마이페이지 회원 정보
 	@Override
 	public MemberVO searchMember(int memberNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.selectMember(memberNo);
 	}
+
 }

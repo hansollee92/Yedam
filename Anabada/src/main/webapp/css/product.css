@@ -47,7 +47,7 @@
   border: 2px solid #fff;
   border-radius: 50%;
 }
-.product-detail.soldOut .soldout-mark {
+.product-detail.soldout .soldout-mark {
   display: flex;
 }
 
@@ -134,15 +134,17 @@
 }
 .row-actions {
   display: flex;
+  justify-content: space-between;
   gap: 8px;
   margin-bottom: 10px;
 }
 
-.btn-line {
+/* .btn-line {
+  display: inline-block;
   width: 50%;
+  text-decoration: none;
   padding: 16px 20px;
-  border: 1px solid var(--light-gray);
-  background: #fff;
+  background: var(--light-gray);
   border-radius: 8px;
   font-family: var(--font);
   font-size: var(--font-sm);
@@ -150,8 +152,53 @@
   transition: 0.5s;
 }
 .btn-line:hover{
-  background-color: #eee;
+  background-color: #aaa;
+} */
+
+.row-actions form{
+  display: inline-block;
+  width: 50%;
 }
+.common-btn{
+  width: 100%;
+  border: none;
+}
+a.abtn{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.abtn{
+  text-decoration: none;
+  padding: 16px 20px;
+  display: inline-block;
+  background: var(--light-gray);
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: var(--font-sm);
+  cursor: pointer;
+  transition: 0.5s;
+  color: var(--black-color);
+}
+.abtn:hover{
+  background-color: #aaa;
+}
+.seller-actions .row-actions{
+  display: flex;
+  justify-content: space-between;
+}
+.seller-actions .seller-btn{
+  width: 50%;
+}
+.seller-actions form{
+  width: 50%;
+}
+.seller-actions form button{
+  width: 100%;
+}
+
+
 .btn-primary {
   width: 100%;
   border: 0;
@@ -173,21 +220,25 @@
   cursor: default;
 }
 
-/* Show/Hide by state */
+/* 공통: 기본값은 숨김 */
 .product-detail .buyer-actions,
 .product-detail .seller-actions,
-.product-detail .sold-actions {
-  display: none;
-}
-.product-detail.onSale .buyer-actions {
-  display: block;
-}
-.product-detail.reserved .seller-actions {
-  display: block;
-}
-.product-detail.soldOut .sold-actions {
-  display: block;
-}
+.product-detail .sold-actions { display: none; }
+
+/* 구매자 화면*/
+.product-detail.onsale   .buyer-actions { display:block; }
+.product-detail.reserved .buyer-actions { display:block; }
+.product-detail.soldout  .sold-actions  { display:block; }
+
+/* 판매자 화면*/
+.product-detail.sellerView .seller-actions { display:block; }  /* 판매중/예약중 모두 표시 */
+.product-detail.sellerView .buyer-actions  { display:none; }   /* 판매자에겐 구매자 버튼 숨김 */
+
+/* 판매자 + 판매완료일 때는 '판매완료'만 표시 */
+.product-detail.sellerView.soldout .seller-actions { display:none; }
+.product-detail.sellerView.soldout .sold-actions  { display:block; }
+
+
 
 /* 상세설명 */
 .pd-section {

@@ -24,10 +24,6 @@ public class MainControl implements Control {
 		req.setAttribute("product_list", list);
 		req.getRequestDispatcher("product/main.tiles").forward(req, resp);				
 		
-//		List<ProductVO> list = svc.getMainRecent(12);	
-//		req.setAttribute("productList", list);	
-//		
-//		req.getRequestDispatcher("product/main.tiles").forward(req, resp);
 	}
 
 }

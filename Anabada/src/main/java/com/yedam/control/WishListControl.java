@@ -1,10 +1,7 @@
 package com.yedam.control;
 
-import com.yedam.service.MemberService;
-import com.yedam.service.MemberServiceImpl;
 import com.yedam.service.ProductService;
 import com.yedam.service.ProductServiceImpl;
-import com.yedam.vo.MemberVO;
 import com.yedam.vo.ProductVO;
 
 import javax.servlet.ServletException;
@@ -13,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class MypageControl implements com.yedam.common.Control {
+public class WishListControl implements com.yedam.common.Control {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String memberNo = req.getParameter("memberNo");
 
-        MemberService svc = new MemberServiceImpl();
-        MemberVO member = svc.searchMember(Integer.parseInt(memberNo));
+        ProductService svc = new ProductServiceImpl();
+        List<ProductVO> list = svc.searchWish(Integer.parseInt(memberNo));
 
-        req.setAttribute("member_info", member);
+        req.setAttribute("wish_list", list);
 
-        req.getRequestDispatcher("mypage/mypage.tiles").forward(req, resp);
+        req.getRequestDispatcher("mypage/wish_list.tiles").forward(req, resp);
     }
 }
