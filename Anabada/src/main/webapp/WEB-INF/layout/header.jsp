@@ -15,6 +15,7 @@
       </div>
 
       <div class="search">
+
         <form id="search-form" action="${pageContext.request.contextPath}/productList.do" method="get">
             <input type="text" name="keyword" class="form-control"
                    placeholder="어떤 상품을 찾으시나요? 상품명, 지역명, 태그 검색"
@@ -53,6 +54,7 @@
         <a class="dropdown-toggle" href="#"><i class="fa-solid fa-bars"></i></a>
         <ul class="dropdown-menu">
           <li class="label">전체 카테고리</li>
+
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=의류'/>">의류</a></li>
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=신발'/>">신발</a></li>
           <li><a class="dropdown-item" href="<c:url value='/productList.do?searchCondition=&keyword=&page=&category=악세사리'/>">악세사리</a></li>

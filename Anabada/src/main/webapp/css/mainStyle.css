@@ -28,6 +28,7 @@ body{font-family: var(--font);}
 :root {
   --primary-color: #0C8275;
   --disable-color: #699893;
+  --dark-primary : #03473f;
   --black-color: #333;
   --light-gray: #eee;
   --gray: #888;

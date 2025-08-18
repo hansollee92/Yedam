@@ -14,13 +14,10 @@
   
    <!-- 필터 유지용 히든 폼 -->
   <form id="filterForm" method="get" action="${ctx}/productList.do">
-    <input type="hidden" name="searchCondition" value="${searchCondition}">
-    <input type="hidden" name="keyword"         value="${keyword}">
-    <input type="hidden" name="page"            value="${page }">
-    <input type="hidden" name="category"        id="categoryInput" value="${selectedCat}">
+    <input type="hidden" name="category" id="categoryInput" value="${selectedCat}">
   </form>
   
-  <nav class="cat-wrap">
+  <!--  --><nav class="cat-wrap">
     <ul class="cat-grid">
       <c:forEach var="cat" items="${fn:split(categories, ',')}">
         <c:set var="c" value="${fn:trim(cat)}" />
@@ -94,13 +91,6 @@
     <!-- 이전 -->
     <c:url var="prevUrl" value="/productList.do">
       <c:param name="page" value="${paging.start - 1}"/>
-      <c:param name="amount" value="${amount}"/>
-      <c:param name="searchCondition" value="${searchCondition}"/>
-      <c:param name="keyword" value="${keyword}"/>
-      <c:param name="category" value="${category}"/>
-      <c:param name="sido" value="${sido}"/>
-      <c:param name="sigungu" value="${sigungu}"/>
-      <c:param name="dong" value="${dong}"/>
     </c:url>
     <li class="page-item ${paging.previous ? '' : 'disabled'}">
       <a class="page-link" href="${paging.previous ? prevUrl : '#'}">Previous</a>
@@ -116,14 +106,7 @@
         </c:when>
         <c:otherwise>
           <c:url var="pageUrl" value="/productList.do">
-            <c:param name="page" value="${p}"/>
-            <c:param name="amount" value="${amount}"/>
-            <c:param name="searchCondition" value="${searchCondition}"/>
-            <c:param name="keyword" value="${keyword}"/>
-            <c:param name="category" value="${category}"/>
-            <c:param name="sido" value="${sido}"/>
-            <c:param name="sigungu" value="${sigungu}"/>
-            <c:param name="dong" value="${dong}"/>
+            <c:param name="page" value="${page}"/>
           </c:url>
           <li class="page-item">
             <a class="page-link" href="${pageUrl}">${p}</a>
@@ -135,13 +118,6 @@
     <!-- 다음 -->
     <c:url var="nextUrl" value="/productList.do">
       <c:param name="page" value="${paging.end + 1}"/>
-      <c:param name="amount" value="${amount}"/>
-      <c:param name="searchCondition" value="${searchCondition}"/>
-      <c:param name="keyword" value="${keyword}"/>
-      <c:param name="category" value="${category}"/>
-      <c:param name="sido" value="${sido}"/>
-      <c:param name="sigungu" value="${sigungu}"/>
-      <c:param name="dong" value="${dong}"/>
     </c:url>
     <li class="page-item ${paging.next ? '' : 'disabled'}">
       <a class="page-link" href="${paging.next ? nextUrl : '#'}">Next</a>
