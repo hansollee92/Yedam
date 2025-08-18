@@ -1,5 +1,7 @@
 package com.yedam.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -7,7 +9,7 @@ public class ProductVO {
 	private int prdNo;             //상품번호 (pk)
 	private String prdName;        //상품명
 	private int price;             //상품가격
-	private String prdDate;        //등록일자
+	private Date prdDate;          //등록일자
 	private String category;       //카테고리
 	private String prdStatus;      //상품상태(새제품, 고장...)
 	private String prdDesc;        //상품설명

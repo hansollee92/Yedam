@@ -179,43 +179,31 @@
   <section class="pd-qna-list">
     <table class="qna-table">
       <colgroup>
-        <col>
-        <col style="width:120px">
-        <col style="width:140px">
+        <col style="width:10%">
+        <col style="width:50%">
+        <col style="width:10%">
+        <col style="width:10%">
       </colgroup>
       <thead>
         <tr>
+          <th>번호</th>
           <th>제목</th>
           <th>작성자</th>
           <th>작성일</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>반택해주시면 안되나요?</td>
-          <td>user01</td>
-          <td>2025.08.01</td>
-        </tr>
-        <tr>
-          <td>제가 음촌동 30일날 받는데 그때까지 상품 판매안하고 있어주시면 안되나요?</td>
-          <td>user22</td>
-          <td>2025.08.01</td>
-        </tr>
-        <tr>
-          <td>직거래면 지하철역 까지 와주시는 건가요...</td>
-          <td>user12</td>
-          <td>2025.08.01</td>
-        </tr>
-        <tr>
-          <td>목부분 찢겨짐? 아닌 그냥 가벼인가요?</td>
-          <td>user34</td>
-          <td>2025.08.01</td>
-        </tr>
-        <tr>
-          <td>비밀글입니다 <i class="fa-solid fa-lock"></i></td>
-          <td>user34</td>
-          <td>2025.08.01</td>
-        </tr>
+	    <c:if test="${empty qna_list}">
+			<tr class="no-qna"><td colspan="4">문의가 없습니다.</td></tr>
+		</c:if>
+      	<c:forEach var="qna" items="${qna_list}" varStatus="status">
+	        <tr>
+	          <td>${qna.qnaNo}</td>
+	          <td><a href="#none" style="text-decoration: none; color: #333;">${qna.qnaTitle}</a></td>
+	          <td>${qna.memberId}</td>
+	          <td><fmt:formatDate value="${qna.qnaDate}" pattern="yyyy-MM-dd"/></td>
+	        </tr>	        
+        </c:forEach>
       </tbody>
     </table>
 

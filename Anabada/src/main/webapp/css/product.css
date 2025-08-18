@@ -322,7 +322,10 @@ a.abtn{
   padding: 12px 12px;
   color: #444;
 }
-
+.qna-table .no-qna td{
+	text-align: center;
+	margin: 10px 0;
+}
 .qna-table tbody tr:hover {
   background: #fcfcfc
 }

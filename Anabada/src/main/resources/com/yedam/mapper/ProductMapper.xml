@@ -64,6 +64,7 @@
 		where prd_no = #{prdNo}
 	</update>		
 	
+	
 	<!--  내가 한 찜 목록보기  -->
 	<select id="selectWish" parameterType="int" resultType="product">
 	    select  p.prd_no,
