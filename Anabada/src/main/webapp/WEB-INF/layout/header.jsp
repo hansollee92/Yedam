@@ -39,7 +39,7 @@
 	      		<c:otherwise>
 	      			<li><a href="#"><i class="fa-regular fa-circle-check"></i> 판매하기</a></li>
 	      			<li class="v-line"></li>
-	      			<li><a href="/mypage?memberNo=${memberNo}"><i class="fa-regular fa-circle-user"></i> 마이페이지</a></li>
+	      			<li><a href="mypage.do?memberNo=${logMember.memberNo}"><i class="fa-regular fa-circle-user"></i> 마이페이지</a></li>
 	      			<li class="v-line"></li>
 	      			<li><a href="#"><i class="fa-solid fa-circle-xmark"></i> 로그아웃</a></li>
 	      		</c:otherwise>
