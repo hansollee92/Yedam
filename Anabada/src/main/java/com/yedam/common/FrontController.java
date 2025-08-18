@@ -30,7 +30,7 @@ public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 			map.put("/joinForm.do", new JoinFormControl());        // 회원가입 화면
 			map.put("/join.do", new JoinControl());                // 회원가입 기능
 			map.put("/joinSuccess.do", new JoinSuccessControl());  // 회원가입 성공 시 보이는 화면
-			map.put("/checkId.do", new CheckIdControl());		       // 아이디 중복체크
+			map.put("/checkId.do", new CheckIdControl());		   // 아이디 중복체크
 			map.put("/loginForm.do", new LoginFormControl());      // 로그인 화면
 			map.put("/login.do", new LoginControl());              // 로그인 기능
 			map.put("/logout.do", new LogoutControl());            // 로그아웃 기능
@@ -42,19 +42,23 @@ public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 			map.put("/productList.do", new ProductListControl());   //상품리스트
 			
 			// 상품 
-			map.put("/productList.do", new ProductListControl());                //상품리스트
-			map.put("/product.do", new ProductControl());                        //상품 상세 + 조회수
+			map.put("/product.do", new ProductControl());                        //상품 상세 + 조회수 + 문의하기 목록
 			map.put("/productModifyForm.do", new ProductModifyFormControl());    //상품 수정 화면 
 			map.put("/productModify.do", new ProductModifyControl());            //상품 수정 처리(post)
+
 			map.put("/productInsertForm.do", new ProductInsertFormControl());    //상품 등록 화면 
-			map.put("/productInsert.do", new ProductInsertControl());            //상품 등록 처리(post)
-			
-			map.put("/productRemove.do", new ProdcutRemoveControl());            //상품 삭제
+			map.put("/productInsert.do", new ProductInsertControl());            //상품 등록 처리(post)			
+
+			map.put("/productRemove.do", new ProductRemoveControl());            //상품 삭제
+			map.put("/productSaleStatus.do", new ProductSaleStatusControl());    //상품 판매상태 수정 (수정필요) 
+			map.put("/qna.do", new QnaControl());                                //문의하기 게시판 상세
+
 			
 			// 회원
-			map.put("/mypage.do", new MypageControl());
-			// 마이페이지
+			map.put("/mypage.do", new MypageControl()); // 마이페이지
 			map.put("/wishList.do", new WishListControl()); // 찜목록
+			map.put("/saleList.do", new SaleListControl()); // 판매 내역
+			map.put("/purList.do", new PurListControl()); // 구매내역
 			
 			
 		}

@@ -1,7 +1,9 @@
-/* .change-background{
-	background-color: #f8f8f8;
-	overflow: hidden;
-} */
+body.login-page{
+	background-color: #f7f7f7;
+}
+body.login-page header{
+	background-color: #fff;
+}
 
 /* 로그인 */
 .auth-card{
