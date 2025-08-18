@@ -20,6 +20,8 @@ public interface ProductMapper {
 	  public int updateProductImage(Map<String, Object> param); // 상품 이미지 경로 업데이트
 	  public String getProductImage(int prdNo); // 상품 이미지 경로 조회
 	  public int clearProductImage(int prdNo); // 상품 이미지 경로 삭제
+  
+    public int insertProduct(ProductVO vo); // 상품등록
     
 
 }
