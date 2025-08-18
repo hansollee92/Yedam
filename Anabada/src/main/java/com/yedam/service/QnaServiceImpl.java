@@ -13,10 +13,16 @@ public class QnaServiceImpl implements QnaService {
 	SqlSession sqlSession = DBUtil.getInstance().openSession();
 	QnaMapper mapper = sqlSession.getMapper(QnaMapper.class);
 	
-	// 문의게시판 목록
+	// 문의게시판 목록(다건)
 	@Override
 	public List<QnaVO> searchQnaList(int prdNo) {
 		return mapper.selectqnaList(prdNo);
+	}
+
+	// 문의게시판 상세(단건)
+	@Override
+	public QnaVO searchQna(int prdNo, int qnaNo) {
+		return mapper.selectQna(prdNo, qnaNo);
 	}
 
 }
