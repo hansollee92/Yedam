@@ -49,7 +49,47 @@
 		    lat = #{lat},
 		    lng = #{lng}
 		where prd_no = #{prdNo} 
-	</update>		
+	</update>	
+	
+	<!-- 상품 등록 -->
+	<insert id="insertProduct" parameterType="product">
+		insert into product (
+		prd_no, 
+		prd_name, 
+		price, 
+		category, 
+		prd_status, 
+		prd_desc, 
+		prd_tag, 
+		trade_type, 
+		sale_status, 
+		prd_img, 
+		member_no, 
+		sido, 
+		sigungu, 
+		dong, 
+		lat, 
+		lng
+		)
+		
+		values (
+		product_seq.nextval,
+		#{prdName},
+		#{price},
+		#{category},
+		#{prdStatus},
+		#{prdDesc},
+		#{prdTag},
+		#{tradeType},
+		#{saleStatus},
+		#{prdImg},
+		#{sido},
+		#{sigungu},
+		#{dong},
+		#{lat},
+		#{lng}
+		)
+	</insert>		
 	
 	<!--  내가 한 찜 목록보기  -->
 	<select id="selectWish" parameterType="int" resultType="product">
