@@ -32,15 +32,6 @@ public class ProductServiceImpl implements ProductService {
         return mapper.selectWish(memberNo);
     }
 
-  
-
-	@Override
-	public List<ProductVO> productList(ProductVO dao) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 
 	@Override
 	public List<ProductVO> searchProducts(SearchVO s) {

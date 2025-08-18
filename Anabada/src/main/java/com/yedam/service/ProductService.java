@@ -6,7 +6,6 @@ import com.yedam.vo.ProductVO;
 import com.yedam.vo.SearchVO;
 
 public interface ProductService {
-	  List<ProductVO> productList(ProductVO dao);
 	  public boolean productModify(ProductVO product);   //상품수정 	 
 	  public ProductVO findProduct(int prdNo);       //상품(단건조회 + 조회수)
   
