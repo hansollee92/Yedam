@@ -207,21 +207,83 @@
       </tbody>
     </table>
 
-    <nav aria-label="...">
-      <ul class="pagination">
-        <li class="page-item disabled">
-          <a class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active">
-          <a class="page-link" href="#" aria-current="page">2</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#"><i class="fa-solid fa-chevron-right"></i></a>
-        </li>
-      </ul>
-    </nav>
+	<%-- 페이지네이션 --%>
+	<nav class="pg" aria-label="Page navigation example">
+		<ul class="pagination justify-content-center" 
+		        style="
+		            --bs-pagination-color: var(--black-color);
+			        --bs-pagination-bg: #fff;
+			        --bs-pagination-border-color: var(--light-gray);
+			
+			        --bs-pagination-hover-color: var(--primary-color);
+			        --bs-pagination-hover-bg: rgba(12,130,117,.06);
+			        --bs-pagination-hover-border-color: var(--primary-color);
+			
+			        --bs-pagination-active-color: #fff;
+			        --bs-pagination-active-bg: var(--primary-color);
+			        --bs-pagination-active-border-color: var(--primary-color);
+			
+			        --bs-pagination-disabled-color: var(--gray);
+			        --bs-pagination-disabled-bg: #f4f5f6;
+			        --bs-pagination-disabled-border-color: var(--light-gray);
+			
+			        --bs-pagination-padding-x: 0;
+			        --bs-pagination-padding-y: 0;
+			        --bs-pagination-font-size: 14px;
+			        --bs-pagination-border-radius: 10px;
+			        gap: 8px;
+		        ">
+		  
+		  <%-- 이전페이지 --%>
+		  <c:choose>
+		  	<c:when test="${paging.previous}">
+			  <li class="page-item">
+			    <a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${paging.start -1}">
+			    	<i class="fa-solid fa-angle-left"></i>
+			    </a>
+			  </li>
+			</c:when>
+			<c:otherwise>
+			 <li class="page-item disabled">
+			    <a class="page-link"><i class="fa-solid fa-angle-left"></i></a>
+			  </li>
+			</c:otherwise>
+		  </c:choose>
+		  		  
+		  <c:forEach var="p" begin="${paging.start}" end="${paging.end}">
+			<c:choose>
+				<c:when test="${paging.currPage eq p}">
+					<li class="page-item active" aria-current="page">
+						<span class="page-link">${p}</span>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item">
+						<a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${p}">${p}</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+		  </c:forEach>		  
+		  
+		  <%-- 다음 페이지 --%>
+		  <c:choose>
+			<c:when test="${paging.next}">
+				<li class="page-item">
+					<a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${paging.end +1}">
+						<i class="fa-solid fa-angle-right"></i>
+					</a>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+					<a class="page-link"><i class="fa-solid fa-angle-right"></i></a>
+				</li>
+			</c:otherwise>
+		  </c:choose>
+		  
+		</ul>
+	</nav>
+	
   </section>
 
 </section>
@@ -327,5 +389,29 @@
 	
 	
   	
+</script>
+
+<%-- 페이지네이션 스타일 강제적용(부트스트랩) --%>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.pagination .page-link').forEach(function (el) {
+    el.style.display = 'flex';
+    el.style.alignItems = 'center';
+    el.style.justifyContent = 'center';
+    el.style.minWidth = '35px';
+    el.style.height = '35px';
+    el.style.padding = '0';
+    el.style.lineHeight = '1';
+    el.style.boxShadow = 'none';
+    el.style.textDecoration = 'none';
+    el.style.borderWidth = '1px';
+    el.style.borderStyle = 'solid';
+    el.style.borderRadius = '8px';   // ← 둥글기 추가
+    // 테두리 색은 변수로 가니까 여기선 생략
+    // 아이콘 중앙정렬
+    var i = el.querySelector('i');
+    if (i) { i.style.lineHeight = '1'; i.style.fontSize = '14px'; }
+  });
+});
 </script>
 

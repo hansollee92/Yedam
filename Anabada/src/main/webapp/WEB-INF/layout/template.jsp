@@ -19,6 +19,8 @@
   <meta name="keywords" content="">
   <meta name="description" content="">
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+  
   <link rel="stylesheet" href="${ctx}/css/mainStyle.css">
   <link rel="stylesheet" href="${ctx}/css/main.css">
   <link rel="stylesheet" href="${ctx}/css/product.css">   
@@ -30,7 +32,6 @@
   <link rel="stylesheet" href="${ctx}/css/pay.css"> <!-- 결제창 CSS -->
   <link rel="stylesheet" href="${ctx}/css/qna.css">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

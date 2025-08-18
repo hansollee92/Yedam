@@ -15,14 +15,20 @@ public class QnaServiceImpl implements QnaService {
 	
 	// 문의게시판 목록(다건)
 	@Override
-	public List<QnaVO> searchQnaList(int prdNo) {
-		return mapper.selectqnaList(prdNo);
+	public List<QnaVO> searchQnaList(int prdNo, int page) {
+		return mapper.selectqnaList(prdNo, page);
 	}
 
 	// 문의게시판 상세(단건)
 	@Override
 	public QnaVO searchQna(int prdNo, int qnaNo) {
 		return mapper.selectQna(prdNo, qnaNo);
+	}
+
+	//문의게시판 전체건수(totalCnt)
+	@Override
+	public int totalCnt() {
+		return mapper.selectCount();
 	}
 
 }
