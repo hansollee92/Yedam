@@ -1,0 +1,10 @@
+package com.yedam.mapper;
+
+import java.util.List;
+
+import com.yedam.vo.QnaReplyVO;
+
+public interface QnaReplyMapper {
+
+	public List<QnaReplyVO> selectQnaReplyList(int qnaNo);      //문의게시판 댓글 목록
+}
