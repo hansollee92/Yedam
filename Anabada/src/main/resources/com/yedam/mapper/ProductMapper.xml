@@ -129,9 +129,12 @@
                 prd.price,
                 prd.prd_img,
                 prd.sale_status,
-                pur.pur_no
+                pur.pur_no,
+                r.review_no
         from    purchase pur join product prd
                                on pur.prd_no = prd.prd_no
+                             join review r
+                               on r.pur_no = pur.pur_no
         where pur.member_no = #{memberNo}
         order by pur.pur_no desc
     </select>
