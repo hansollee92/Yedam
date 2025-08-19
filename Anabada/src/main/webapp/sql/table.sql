@@ -21,7 +21,7 @@ create table product (
     prd_desc    varchar2(1000), -- 상품설명
     prd_tag     varchar2(100), -- 태그
     trade_type  varchar2(20) not null, -- 거래방식 : 직거래, 택배거래
-    sale_status  varchar2(20) not null, -- 판매상태 : 판매중, 예약중, 판매완료
+    sale_status  varchar2(20) default '판매중' not null, -- 판매상태 : 판매중, 예약중, 판매완료
     prd_img     varchar2(100), -- 상품이미지명(상품번호_이미지이름.확장자, 예: 3_테이블.jpg)
     sido     varchar2(20),  -- 시/도 (예: 대구광역시)
     sigungu  varchar2(20),  -- 시/군/구 (예: 수성구)
@@ -48,7 +48,7 @@ create table qna (
 -- 4.  상품문의 댓글 테이블
 create table qna_reply (
     qnaReply_no         number(5) primary key, -- 문의댓글번호
-    qnaReply_content    varchar2(200) not null, -- 내용
+    qnaReply_content    varchar2(1000) not null, -- 내용
     qnaReply_date       date default sysdate, -- 작성일
     member_no           number(5),
     qna_no              number(5),
@@ -67,12 +67,12 @@ create table  purchase (
 
 -- 6. 리뷰 테이블
 create table review (
-    review          number(5) primary key, -- 리뷰번호
+    review_no          number(5) primary key, -- 리뷰번호
     review_content  varchar2(200) not null, -- 리뷰내용
     review_score    number default 0 not null, -- 리뷰평점
     member_no       number(5),
     prd_no          number(5),
-    pur_no          number(5),
+    pur_no          number(5) unique,
     foreign key (member_no) references member (member_no),
     foreign key (prd_no) references product (prd_no),
     foreign key (pur_no) references purchase (pur_no)
