@@ -204,14 +204,6 @@
         });
       }
 
-      // 주소 입력(kakao 우편번호 api)
-      document.querySelector('#pm-location').addEventListener('click', () => {
-        const isDirect = document.querySelector('input[name="tradeType"]:checked')?.value === '직거래';
-        if (isDirect) {
-          openPostcode();   // 함수 이름 꼭 확인!
-        }
-      });
-
     </script>
 
 
