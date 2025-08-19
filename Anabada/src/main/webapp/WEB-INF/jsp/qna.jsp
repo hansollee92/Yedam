@@ -6,42 +6,96 @@
 <main class="qnaDetail-container">
   <h2 class="qna-title">상품 문의하기</h2>
   <div class="line"></div>
-
-  <%-- 문의게시판 상세 --%>
-  <table class="qna-table table">
-    <tbody>
-      <tr>
-        <th>번호</th>
-        <td colspan="3">${qna.qnaNo}</td>
-      </tr>
-      <tr>
-        <th>제목</th>
-        <td colspan="3">${qna.qnaTitle}</td>
-      </tr>
-      <tr>
-        <th>작성자</th>
-        <td>${qna.memberId}</td>
-        <th>작성일</th>
-        <td><fmt:formatDate value="${qna.qnaDate}" pattern="yyyy년 MM월 dd일 hh:mm a" /></td>
-      </tr>
-      <tr>
-        <td colspan="4">${qna.qnaContent}</td> <%-- 내용 --%>
-      </tr>
-    </tbody>
-  </table>
-
-  <%-- 수정,삭제 버튼 --%>
-  <div class="qna-actions qna-button" role="group" aria-label="QnA actions">
-	  <a href="#" class="btn btn-edit" aria-label="문의 수정">글 수정</a>
-	  <button type="button" class="btn btn-delete" aria-label="문의 삭제">글 삭제</button>
-  </div>
   
-  <!-- 댓글 목록 -->
+  <!-- mgs 전달값이 있으면 메세지 출력 -->
+  <c:if test="${!empty msg }">
+	 <div style="color:red; font-size: 13px; font-family: var(--font); margin-bottom: 10px;">
+	     <i class="fa-solid fa-circle-exclamation"></i> ${msg}
+	  </div>
+  </c:if>
+  
+  <form action="qnaModifyForm.do" method="get">
+  	<input type="hidden" value="${qna.prdNo}" name="prdNo">
+  	<input type="hidden" value="${qna.qnaNo}" name="qnaNo">
+  	<input type="hidden" value="${qna}" name="qna">
+  
+	  <%-- 문의게시판 상세 --%>
+	  <table class="qna-table table">
+	    <tbody>
+	      <tr>
+	        <th>번호</th>
+	        <td colspan="3">${qna.qnaNo}</td>
+	      </tr>
+	      <tr>
+	        <th>제목</th>
+	        <td colspan="3">${qna.qnaTitle}</td>
+	      </tr>
+	      <tr>
+	        <th>작성자</th>
+	        <td>${qna.memberId}</td>
+	        <th>작성일</th>
+	        <td><fmt:formatDate value="${qna.qnaDate}" pattern="yyyy년 MM월 dd일 hh:mm a" /></td>
+	      </tr>
+	      <tr>
+	        <td colspan="4">${qna.qnaContent}</td> <%-- 내용 --%>
+	      </tr>
+	    </tbody>
+	  </table>
+	
+	  <%-- 수정,삭제 버튼 --%>
+	  <div class="qna-actions qna-button" role="group" aria-label="QnA actions">
+		  <button type="submit" class="btn btn-edit" style="margin-right: 5px;">글 수정</button>
+		  <button type="submit" class="btn btn-delete" onclick="return del_confirm()" formaction="qnaRemove.do">글 삭제</button>
+	  </div>
+	  
+  </form>
+  
+  <%-- 댓글 --%>
   <section class="qna-comments">
     <h3 class="qna-subtitle"><i class="fa-solid fa-comment-dots"></i> 댓글 목록</h3>
 
-    <!-- 페이지네이션 -->
+	<%-- 댓글목록 --%>
+	<ul class="qnaReply-container">
+		<!-- <li>
+			<div class="img-box">
+				<img src="#none" alt="사용자 이미지">
+			</div>
+			<ul class="reply-meta">
+				<li>댓글 작성자 이름</li>
+				<li>댓글내용</li>
+			</ul>
+		</li> -->
+		<li>
+			<span>글쓴이</span>
+			<span>댓글내용</span>
+			<span>댓글날짜</span>
+			<span><button type="button">삭제</button></span>
+		</li>
+	</ul>
+
+    <%-- 페이징 --%>
+    
+    
+    <%-- 댓글 등록 --%>
+    
+    
+    
+    
+    
   </section>  
   
 </main>
+
+<%-- 삭제 --%>
+<script>
+	function del_confirm(){
+		return confirm("해당 문의글을 삭제하시겠습니까?");
+	}
+</script>
+
+<%-- js파일로 값 넘기기 --%>
+<script>
+	const qnaNo = "${qna.qnaNo}";
+</script>
+<script src="${ctx}/js/qna_reply.js"></script>
     

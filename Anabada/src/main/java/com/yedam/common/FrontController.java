@@ -53,11 +53,14 @@ public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 			
 			//문의하기 
 			map.put("/qna.do", new QnaControl());                                //문의하기 게시판 상세
-			map.put("/qnaRegisterFrom.do", new QnaRegisterFormControl());        //문의하기 등록 화면
+			map.put("/qnaRegisterForm.do", new QnaRegisterFormControl());        //문의하기 등록 화면
 		    map.put("/qnaRegister.do", new QnaRegisterControl());                //문의하기 등록 처리
 			map.put("/qnaModifyForm.do", new QnaModifyFormControl());            //문의하기 수정 화면
 			map.put("/qnaModify.do", new QnaModifyControl());                    //문의하기 수정 처리
 			map.put("/qnaRemove.do", new QnaRemoveControl());                    //문의하기 삭제
+			
+			//문의하기 게시판 댓글
+			map.put("/qnaReplyList.do", new QnaReplyListControl());              //댓글 목록
 			
 			// 회원
 			map.put("/mypage.do", new MypageControl()); // 마이페이지

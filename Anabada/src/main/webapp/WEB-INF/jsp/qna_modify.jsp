@@ -4,21 +4,24 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />    
 
 <main class="qnaWrite-container">
-  <h2 class="page-title">상품 문의하기 글 등록</h2>
+  <h2 class="page-title">상품 문의하기 글 </h2>
   <div class="line"></div>
 
-  <form class="qna-form" action="qnaRegister.do" method="post" novalidate>  
-  	<input type="hidden" value="${prdNo}" name="prdNo">
+  <form class="qna-form" action="qnaModify.do" method="get" novalidate>  
+  	<input type="hidden" value="${qna.qnaNo}" name="qnaNo">
+  	<input type="hidden" value="${qna.prdNo}" name="prdNo">
   	
     <div class="form-row">
       <label for="qna-title" class="form-label">제목</label>
-      <input id="qna-title" name="qnaTitle" type="text" class="input form-control" placeholder="제목을 입력하세요" required>
+      <input id="qna-title" name="qnaTitle" type="text" 
+      class="input form-control" placeholder="제목을 입력하세요" value="${qna.qnaTitle}" required >
     </div>
 
     <!-- 내용 -->
     <div class="form-row">
       <label for="qna-content" class="form-label">내용</label>
-	      <textarea id="qna-content" name="qnaContent" class="textarea form-control" rows="10" placeholder="문의 내용을 자세히 작성해주세요." required></textarea>
+	      <textarea id="qna-content" name="qnaContent" class="textarea form-control" rows="10" 
+	      placeholder="문의 내용을 자세히 작성해주세요." required>${qna.qnaContent}</textarea>
     </div>
     <div class="helper">
 	     <div><span id="char-count">0</span>/1,000</div>
@@ -28,7 +31,7 @@
 
     <!-- 버튼 -->
     <div class="form-actions">
-      <button type="submit" class="qnawBtn qnaw-btn-p">등록</button>
+      <button type="submit" class="qnawBtn qnaw-btn-p">수정</button>
       <button type="button" class="qnawBtn qnaw-btn" onclick="history.back()">취소</button>
     </div>
   </form>

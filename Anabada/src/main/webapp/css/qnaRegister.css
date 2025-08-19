@@ -74,4 +74,5 @@
 .qnaWrite-container .textarea::placeholder{
   font-size: var(--font-sm);
   color: var(--gray);
+  font-family: var(--font);
 }

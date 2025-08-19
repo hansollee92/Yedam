@@ -42,4 +42,26 @@ public class QnaServiceImpl implements QnaService {
 		return false;
 	}
 
+	//문의게시판 글수정
+	@Override
+	public boolean qnaModify(int qnaNo, String qnaTitle, String qnaContent) {
+		int r = mapper.updateQna(qnaNo, qnaTitle, qnaContent);
+		if(r > 0) {
+			sqlSession.commit();
+			return true;
+		}		
+		return false;
+	}
+
+	//문의게시판 글삭제
+	@Override
+	public boolean qnaRemove(int qnaNo) {
+		int r = mapper.deleteQna(qnaNo);
+		if(r > 0) {
+			sqlSession.commit();
+			return true;
+		}
+		return false;
+	}
+
 }

@@ -172,8 +172,21 @@
   <section class="pd-qna-head">
     <h2 class="pd-sec-title">문의하기</h2>
     <p class="pd-help">구매하려는 상품에 대해 궁금한 점이 있는 경우 판매자에게 문의해보세요.</p>
-    <a class="btn-primary qnaBtn" href="${ctx}/qnaRegisterFrom.do?prdNo=${product.prdNo}">상품 문의하기</a>
+    
+    <!-- mgs 전달값이 있으면 메세지 출력 -->
+    <c:if test="${!empty msg }">
+	    <div style="color:red; font-size: 13px; font-family: var(--font); margin-bottom: 10px;">
+	       <i class="fa-solid fa-circle-exclamation"></i> ${msg}
+	    </div>
+    </c:if>
+    <form action="qnaRegisterForm.do">
+    	<input type="hidden" value="${product.prdNo}" name="prdNo">
+    	<input type="submit" value="상품 문의하기" class="qnaBtn btn-primary">
+    </form>
   </section>
+  
+  
+
 
   <!-- 문의 목록 -->
   <section class="pd-qna-list">
@@ -414,4 +427,5 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+
 
