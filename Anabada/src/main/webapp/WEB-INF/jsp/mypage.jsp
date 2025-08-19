@@ -25,14 +25,16 @@
                 </div>
                 <div>현재 평점: <span id="rating-value"><c:out value="${member_info.memberScore}" /></span></div>
             </div>
-            <ul class="menu-list">
-                <%-- href로 이동시 페이지 전체 새로고침이 되어 data-url을 설정하여 fetch로 항목 변경만 함 --%>
-                <li><a href="#" class="mypage-menu" data-url="wishList.do?memberNo=${member_info.memberNo}">찜목록</a></li>
-                <li><a href="#" class="mypage-menu" data-url="saleList.do?memberNo=${member_info.memberNo}">판매 내역</a></li>
-                <li><a href="#" class="mypage-menu" data-url="purList.do?memberNo=${member_info.memberNo}">구매 내역</a></li>
-                <li><a href="#" class="mypage-menu" data-url="mylist/reviews">리뷰 내역</a></li>
-            </ul>
-            <a href="/mypage/update" class="update-myInfo">회원정보 수정</a>
+            <div class="list">
+                <ul class="menu-list">
+                    <%-- href로 이동시 페이지 전체 새로고침이 되어 data-url을 설정하여 fetch로 항목 변경만 함 --%>
+                    <li><a href="#" class="mypage-menu" data-url="wishList.do?memberNo=${member_info.memberNo}">찜목록</a></li>
+                    <li><a href="#" class="mypage-menu" data-url="saleList.do?memberNo=${member_info.memberNo}">판매 내역</a></li>
+                    <li><a href="#" class="mypage-menu" data-url="purList.do?memberNo=${member_info.memberNo}">구매 내역</a></li>
+                    <li><a href="#" class="mypage-menu" data-url="reviewList.do?memberNo=${member_info.memberNo}">리뷰 내역</a></li>
+                </ul>
+                <a href="/mypage/update" class="update-myInfo">회원정보 수정</a>
+            </div>
         </aside>
 
         <main class="main-content" id="mainContent" ></main>

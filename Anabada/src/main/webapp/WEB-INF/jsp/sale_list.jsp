@@ -14,7 +14,7 @@
         <a href="product.do?prdNo=${sale.prdNo}" class="item-card">
             <div class="item-img"><img src="${ctx}/images/product/${sale.prdImg}"></div>
             <div class="item-desc"><c:out value="${sale.prdName}" /></div>
-            <div class="item-price"><fmt:formatNumber value="${sale.price}" pattern="#,###" /></div>
+            <div class="item-price"><fmt:formatNumber value="${sale.price}" pattern="#,###" />원</div>
         </a>
     </c:forEach>
 </div>
