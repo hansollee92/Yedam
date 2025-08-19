@@ -25,6 +25,7 @@ public class ProductListControl implements Control {
         String sc        = req.getParameter("searchCondition"); // "N"(상품명) / "T"(태그)
         String kw        = req.getParameter("keyword");
         String cat  	 = req.getParameter("category");
+        String sort 	 = req.getParameter("sort");
         
         page = page == null ? "1" : page;
         
@@ -34,6 +35,7 @@ public class ProductListControl implements Control {
         search.setSearchCondition(sc);
         search.setKeyword(kw);
         search.setCategory(cat);
+        search.setSort(sort);
       
         ProductService svc = new ProductServiceImpl();  //각각의 데이터 공간을 처리해줌
         List<ProductVO> list = svc.searchProducts(search);   // ✅ 메서드명 수정
@@ -51,6 +53,8 @@ public class ProductListControl implements Control {
         req.setAttribute("searchCondition", sc);
         req.setAttribute("keyword", kw);
         req.setAttribute("category", cat);
+        req.setAttribute("paging", paging);
+        req.setAttribute("sort", sort);
 
         // 6) 포워드 (상품 리스트 뷰)
         req.getRequestDispatcher("product/product_list.tiles").forward(req, resp);

@@ -4,20 +4,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-
+<c:set var="searchCondition" value="${param.searchCondition}" />
+<c:set var="sort" value="${empty param.sort ? 'latest' : param.sort}" />
 
 <div class="main-wrap">
 
  <!-- ▶ 카테고리 그리드 (배너 삭제하고 이 블록만 상단에 둠) -->
   <c:set var="selectedCat" value="${param.category}" />
+  <c:set var="selectedpage" value="${empty param.page ? 1 : param.page}" />
   <c:set var="categories" value="의류,신발,악세사리,디지털/가전,스포츠,도서/티켓,가구/생활,기타" />
   
    <!-- 필터 유지용 히든 폼 -->
   <form id="filterForm" method="get" action="${ctx}/productList.do">
     <input type="hidden" name="category" id="categoryInput" value="${selectedCat}">
+    <input type="hidden" name="page" id="pageInput" value="${selectedpage}">
   </form>
-  
-  <!--  --><nav class="cat-wrap">
+  	
+  	<c:if test="${empty fn:trim(param.keyword) and empty fn:trim(param.sort)}">
+  <!-- 카테고리 --><nav class="cat-wrap">
     <ul class="cat-grid">
       <c:forEach var="cat" items="${fn:split(categories, ',')}">
         <c:set var="c" value="${fn:trim(cat)}" />
@@ -31,7 +35,7 @@
       </c:forEach>
     </ul>
   </nav>
-  
+  </c:if>
   
   
 <section>
@@ -52,6 +56,12 @@
       </c:otherwise>
     </c:choose>
   </h3>
+  
+ <nav class="sort-tabs" style="display:flex;gap:10px;margin-top:8px;">
+  <a href="${ctx}/productList.do?sort=latest&page=1"     class="${sort=='latest' ? 'on' : ''}">최신순</a>
+  <a href="${ctx}/productList.do?sort=price_asc&page=1"  class="${sort=='price_asc' ? 'on' : ''}">저가순</a>
+  <a href="${ctx}/productList.do?sort=price_desc&page=1" class="${sort=='price_desc' ? 'on' : ''}">고가순</a>
+</nav>
 
   <!-- 조건 없을 때만 안내 링크 노출 (원하면 항상 보이게 두세요) -->
   <c:if test="${empty selectedCat and empty keyword}">
@@ -63,7 +73,7 @@
       <!-- 상품목록(한줄에 4개씩) -->
       <c:forEach items="${productList}" var="prd" varStatus="status">      
 	      <article class="card">
-	        <a href="#">
+	        <a href="productInsert.do">
 	          <div class="thumb">
 	          	<img src="${ctx}/images/product/${prd.prdImg}" alt="상품이미지 : ${prd.prdName}">
 	          </div>
@@ -84,45 +94,88 @@
   </section>
 </div>
 
+
+
+
+<c:set var="cat"  value="${empty selectedCat ? (empty category ? param.category : category) : selectedCat}" />
+<c:set var="kw"   value="${empty keyword ? param.keyword : keyword}" />
+
 <!-- paging -->
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation">
   <ul class="pagination justify-content-center">
 
-    <!-- 이전 -->
-    <c:url var="prevUrl" value="/productList.do">
-      <c:param name="page" value="${paging.start - 1}"/>
-    </c:url>
-    <li class="page-item ${paging.previous ? '' : 'disabled'}">
-      <a class="page-link" href="${paging.previous ? prevUrl : '#'}">Previous</a>
-    </li>
+    <!-- Prev -->
+    <c:choose>
+      <c:when test="${paging.previous}">
+        <c:url var="prevUrl" value="/productList.do">
+          <!-- 이전 블록의 마지막 페이지로 이동 -->
+          <c:param name="page" value="${paging.start - 1}" />
+          <!-- 기존 파라미터 순서를 유지: category -> searchCondition -> keyword -> page -->
+          <c:if test="${not empty cat}">
+            <c:param name="category" value="${cat}" />
+          </c:if>
+          <c:if test="${not empty kw}">
+            <c:param name="keyword" value="${kw}" />
+          </c:if>
+           <c:if test="${not empty param.sort}">
+    		<c:param name="sort" value="${param.sort}" />
+  			</c:if>
+        </c:url>
+        <li class="page-item"><a class="page-link" href="${prevUrl}">Previous</a></li>
+      </c:when>
+      <c:otherwise>
+        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+      </c:otherwise>
+    </c:choose>
 
-    <!-- 숫자 페이지 -->
+    <!-- 숫자 버튼 -->
     <c:forEach var="p" begin="${paging.start}" end="${paging.end}">
       <c:choose>
         <c:when test="${paging.currPage eq p}">
-          <li class="page-item active" aria-current="page">
-            <span class="page-link">${p}</span>
-          </li>
+          <li class="page-item active" aria-current="page"><span class="page-link">${p}</span></li>
         </c:when>
         <c:otherwise>
-          <c:url var="pageUrl" value="/productList.do">
-            <c:param name="page" value="${page}"/>
+          <c:url var="pUrl" value="/productList.do">
+            <!-- 기존 파라미터 순서를 유지 -->
+            <c:if test="${not empty cat}">
+              <c:param name="category" value="${cat}" />
+            </c:if>
+            <c:if test="${not empty kw}">
+              <c:param name="keyword" value="${kw}" />
+            </c:if>
+             <c:if test="${not empty param.sort}">
+			<c:param name="sort" value="${param.sort}" />
+  			</c:if>
+            <c:param name="page" value="${p}" />
           </c:url>
-          <li class="page-item">
-            <a class="page-link" href="${pageUrl}">${p}</a>
-          </li>
+          <li class="page-item"><a class="page-link" href="${pUrl}">${p}</a></li>
         </c:otherwise>
       </c:choose>
     </c:forEach>
 
-    <!-- 다음 -->
-    <c:url var="nextUrl" value="/productList.do">
-      <c:param name="page" value="${paging.end + 1}"/>
-    </c:url>
-    <li class="page-item ${paging.next ? '' : 'disabled'}">
-      <a class="page-link" href="${paging.next ? nextUrl : '#'}">Next</a>
-    </li>
-
+    <!-- Next -->
+    <c:choose>
+      <c:when test="${paging.next}">
+        <c:url var="nextUrl" value="/productList.do">
+          <!-- 다음 블록의 첫 페이지로 이동 -->
+          <c:param name="page" value="${paging.end + 1}" />
+          <!-- 기존 파라미터 순서를 유지 -->
+          <c:if test="${not empty cat}">
+            <c:param name="category" value="${cat}" />
+          </c:if>
+          <c:if test="${not empty kw}">
+            <c:param name="keyword" value="${kw}" />
+          </c:if>
+           <c:if test="${not empty param.sort}">
+    		<c:param name="sort" value="${param.sort}" />
+  			</c:if>
+        </c:url>
+        <li class="page-item"><a class="page-link" href="${nextUrl}">Next</a></li>
+      </c:when>
+      <c:otherwise>
+        <li class="page-item disabled"><span class="page-link">Next</span></li>
+      </c:otherwise>
+    </c:choose>
   </ul>
 </nav>
 
@@ -156,97 +209,86 @@
   @media (max-width: 640px)  { .cat-grid { grid-template-columns: repeat(2, 1fr); }
                                 .prd-list { grid-template-columns: repeat(2, 1fr); } }
                                 
- /* 색상 커스터마이즈 */
-:root{
-  --pg-primary: #137e78;                 /* 활성/호버 포인트 색 */
-  --pg-text:    #4B5563;                  /* 기본 숫자 색 */
-  --pg-hover-bg: rgba(19,126,120,.12);    /* 호버 배경 */
+   /* 페이징 전체 */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 18px; /* 버튼 간격 */
+  margin: 20px 0;
 }
 
-/* 컨테이너 간격 + 정렬 */
-nav[aria-label="Page navigation example"] .pagination{
-  justify-content: center;
-  gap: 12px;
-  margin: 28px 0;                         /* 위/아래 간격 */
+/* 기본 숫자 버튼 */
+.pagination .page-link {
+  border: none !important;
+  background: transparent !important;
+  color: #111;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  box-shadow: none !important;
 }
 
-/* 기본: 숫자만(박스 없음) */
-nav[aria-label="Page navigation example"] .pagination .page-item .page-link{
-  display: inline-flex; align-items: center; justify-content: center;
-  min-width: 36px; height: 36px;
-  padding: 0 8px;
-  background: transparent;
-  border: none;
-  border-radius: 6px;
-  color: var(--pg-text);
+/* 활성 페이지 (초록 칩 스타일) */
+.pagination .page-item.active .page-link {
+  background: #0f766e !important;
+  color: #fff !important;
   font-weight: 600;
-  line-height: 1;
-  text-decoration: none;
-  transition: background-color .15s ease, color .15s ease, box-shadow .15s ease, transform .05s ease;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 15px;
 }
 
-/* Hover: 박스가 '그때만' 생김 */
-nav[aria-label="Page navigation example"] .pagination
-.page-item:not(.active):not(.disabled) .page-link:hover{
-  background: var(--pg-hover-bg);
-  color: var(--pg-primary);
-  box-shadow: inset 0 0 0 1px var(--pg-primary);
-  transform: translateY(-1px);
+/* Prev / Next 버튼을 화살표만 크게 */
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+  font-size: 0; /* 원래 텍스트 숨김 */
+  padding: 0;
+  border: none;
+  background: transparent !important;
+  box-shadow: none !important;
+  min-width: auto;
 }
 
-/* 활성 페이지(현재) */
-nav[aria-label="Page navigation example"] .pagination .page-item.active .page-link{
-  background: var(--pg-primary);
-  color: #fff;
-  box-shadow: none;
-  cursor: default;
+/* Prev 화살표 */
+.pagination .page-item:first-child .page-link::before {
+  content: "\2039"; /* ‹ */
+  font-size: 22px;   /* 숫자보다 약간 크게 */
+  color: #777;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-/* 비활성 */
-nav[aria-label="Page navigation example"] .pagination .page-item.disabled .page-link{
-  color: #9CA3AF; pointer-events: none;
+/* Next 화살표 */
+.pagination .page-item:last-child .page-link::before {
+  content: "\203A"; /* › */
+  font-size: 22px;
+  color: #777;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-/* ▼ Prev / Next: 텍스트 숨기고 화살표만 크게 보여주기 */
-/* first/last-child 대신 first/last-of-type로 더 안전하게 */
-nav[aria-label="Page navigation example"] .pagination .page-item:first-of-type .page-link,
-nav[aria-label="Page navigation example"] .pagination .page-item:last-of-type  .page-link{
-  font-size: 0 !important;      /* 텍스트 숨김 */
-  padding: 0 !important;
-  min-width: 36px; height: 36px;
+/* Hover */
+.pagination .page-item:first-child .page-link:hover::before,
+.pagination .page-item:last-child .page-link:hover::before {
+  color: #111;
 }
 
-/* 왼쪽 화살표 */
-nav[aria-label="Page navigation example"] .pagination .page-item:first-of-type .page-link::before{
-  content: '\2039';              /* ‹ */
-  font-size: 30px;               /* ← 작게 보이면 이 값 키우기 */
-  line-height: 1;
-  color: inherit;
+/* 비활성 상태 */
+.pagination .page-item.disabled .page-link::before {
+  color: #ccc !important;
 }
-
-/* 오른쪽 화살표 */
-nav[aria-label="Page navigation example"] .pagination .page-item:last-of-type .page-link::before{
-  content: '\203A';              /* › */
-  font-size: 30px;
-  line-height: 1;
-  color: inherit;
-}
-
-/* 키보드 포커스 링 */
-nav[aria-label="Page navigation example"] .pagination .page-item .page-link:focus-visible{
-  outline: 2px solid var(--pg-primary);
-  outline-offset: 2px;
-}
-
-/* 모바일 */
-@media (max-width:480px){
-  nav[aria-label="Page navigation example"] .pagination{ gap: 8px; }
-  nav[aria-label="Page navigation example"] .pagination .page-item .page-link{
-    min-width: 32px; height: 32px; border-radius: 6px;
-  }
-}
+/*최신순*고가순*저가순 */
+.sort-tabs {display:flex; gap:12px; align-items:center;}
+.sort-tabs .sep {color:#ccc;}
+.sort-tabs a {text-decoration:none; color:#888;}
+.sort-tabs a.on {color:#0aa58c; font-weight:700;}
+                                
 </style>
 
+<style>
+  .sort-tabs a{padding:6px 10px;border:1px solid #ddd;border-radius:8px;text-decoration:none;color:#333}
+  .sort-tabs a.on{background:#000;color:#fff}
+</style>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -270,7 +312,13 @@ nav[aria-label="Page navigation example"] .pagination .page-item .page-link:focu
   document.querySelectorAll('.cat-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.getElementById('categoryInput').value = btn.dataset.cat;
+      document.getElementById("pageInput").value = 1; // 카테고리 변경 시 1페이지로 초기화
       document.getElementById('filterForm').submit();
+      
     });
   });
 </script>
+
+
+
+

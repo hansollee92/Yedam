@@ -12,6 +12,8 @@ public class SearchDTO {
     private String sido;     // 시/도
     private String sigungu;  // 시/군/구
     private String dong;     // 읍/면/동
+    
+    private String sort; //latest / price_asc / price_desc
 
 
    
