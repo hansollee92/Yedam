@@ -33,6 +33,16 @@
 		where qnaReply_no = #{qnaReplyNo}
 	</delete>
 	
+	<!-- 댓글 등록 -->
+	<insert id="insertQnaReply" parameterType="qnaReply">
+		<selectKey keyProperty="qnaReplyNo" resultType="int" order="BEFORE">
+			select qnaReply_seq.nextVal from dual
+		</selectKey>
+	
+		insert into qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+		values (#{qnaReplyNo}, #{qnaReplyContent}, #{memberNo}, #{qnaNo})
+	</insert>
+	
 
 
 

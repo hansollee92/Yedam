@@ -53,7 +53,62 @@ function showReplyList(){
 	);
 }
 showReplyList();
-	
+
+
+
+
+// 댓글 등록
+document.querySelector('#replySubmit').addEventListener('click', (e) => {
+
+	//qnaNo, qnaReplyContent, memberNo
+	let qnaReplyContent = document.querySelector('#replyContent').value;
+	if(!qnaNo || !qnaReplyContent || !memberNo){
+		alert('필수값을 입력하세요');
+		return;
+	}
+
+	svc.registerReply({qnaNo, qnaReplyContent, memberNo},
+		result => {
+			if(result.retCode == 'OK'){
+				let r = result.retVal;
+				showReplyList();
+				qnaReplyContent = ''; //입력창 초기화
+			}else if(result.retCode == 'NG'){
+				alert('댓글 등록에 실패했습니다.');
+			}else{
+				alert('댓글 등록 중 오류가 발생했습니다.');
+			}
+		},
+		err => console.error(err)
+	)
+});
+
+
+
+
+
+// 댓글 하나 그려주는 함수
+function makeRow(reply){
+	let target = document.querySelector('ul.qnaReply-container');
+		let text = `<li>
+		<div class="img-box">
+			<img src="images/mypage/user-default2.png" alt="사용자 이미지">
+		</div>
+		<ul class="reply-meta">
+			<li>${reply.qnaReplyNo}</li>
+			<li>${reply.memberId}</li>
+			<li>${reply.qnaReplyContent}</li>
+			<li>${formattedDate} <span class="del-btn">삭제</span></li>
+		</ul>
+		</li>`;
+	target.insertAdjacentHTML('beforeend', text);
+}
+
+
+
+
+
+
 // 댓글 삭제 함수
 function deleteRowFnc(e){
 	let qnaReplyNo = e.target.parentElement.parentElement.children[0].innerText;

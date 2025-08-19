@@ -36,5 +36,17 @@ public class QnaReplyServiceImpl implements QnaReplyService {
 		return false;
 	}
 
+	//댓글 등록
+	@Override
+	public boolean addQnaReply(QnaReplyVO qnaReply) {
+		int r = mapper.insertQnaReply(qnaReply);
+		if(r > 0) {
+			sqlSession.commit();
+			return true;
+		}
+		return false;
+	}
+	
+
 
 }

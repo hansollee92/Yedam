@@ -18,6 +18,14 @@ const svc = {
       .then(resolve => resolve.json())
       .then(successCallback)
       .catch(errorCallback)
-  }
+  },
+
+  // 등록
+	registerReply(param={qnaNo, qnaReplyContent, memberNo}, successCallback, errorCallback){
+		fetch('qnaReplyAdd.do?qnaNo='+param.qnaNo+'&qnaReplyContent='+param.qnaReplyContent+'&memberNo='+param.memberNo)
+			.then(resolve => resolve.json())
+			.then(successCallback)
+			.catch(errorCallback)
+	},
 
 }

@@ -61,7 +61,22 @@
     
     
     <%-- 댓글 등록 --%>
-    
+	<div class="qna-write" id="qna-write">
+	  <div class="img-box">
+	    <img src="${ctx}/images/mypage/user-default2.png" alt="사용자 이미지">
+	  </div>
+	
+	  <div class="write-body">
+	    <textarea id="replyContent" class="qna-textarea" rows="3" maxlength="500"
+	      placeholder="댓글을 입력해주세요."></textarea>
+	
+	    <div class="write-actions">
+	      <div class="btns">
+	        <button type="button" class="btn-submit" id="replySubmit">등록</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
     
     
     
@@ -81,6 +96,7 @@
 <script>
 	const qnaNo = "${qna.qnaNo}";
 	const qnaReplyNo = "${qnaReply.qnaReplyNo}";
+	const memberNo = "${logMember.memberNo}";
 </script>
 <script src="js/qnaReplyService.js"></script>
 <script src="js/qnaReply.js"></script>

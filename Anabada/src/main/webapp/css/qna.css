@@ -174,3 +174,95 @@
 @media (max-width: 520px){
   .qnaReply-container > li{ padding: 10px 12px; }
 }
+
+
+/* 댓글 작성 폼  */
+.qna-write{
+  display: grid;
+  grid-template-columns: 45px 1fr;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid var(--light-gray);
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.05);
+  margin: 80px 0 150px;
+}
+
+.qna-write .img-box{
+  width: 45px; height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--light-gray);
+  background: #f6f6f6;
+}
+.qna-write .img-box img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+.qna-write .write-body{ display:flex; flex-direction:column; gap:8px; }
+
+.qna-textarea{
+  width: 100%;
+  resize: vertical;
+  padding: 10px 12px;
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  font-family: var(--font);
+  line-height: 1.5;
+  outline: none;
+  background: #fff;
+}
+.qna-textarea:focus{
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 20%, transparent);
+}
+
+.write-actions{
+  display:flex; align-items:center; gap:10px;
+}
+.write-actions .char-count{
+  color: var(--gray);
+  font-size: 12px;
+}
+.write-actions .btns{ margin-left:auto; display:flex; gap:8px; }
+
+.write-actions .btn-submit,
+.write-actions .btn-cancel{
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 8px;
+  border: 1px solid var(--light-gray);
+  background: #f7f7f7;
+  color: var(--black-color);
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease, transform .1s ease;
+}
+
+/* 취소 */
+.write-actions .btn-cancel:hover{
+  background:#f0f0f0;
+}
+
+/* 등록 */
+.write-actions .btn-submit{
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color:#fff;
+}
+.write-actions .btn-submit:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+}
+
+/* 비활성화 상태 */
+.write-actions .btn-submit:disabled{
+  background: var(--disable-color);
+  border-color: var(--light-gray);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* 모바일 미세 조정 */
+@media (max-width:520px){
+  .qna-write{ grid-template-columns: 40px 1fr; padding:10px 12px; }
+  .qna-write .img-box{ width:40px; height:40px; }
+}
