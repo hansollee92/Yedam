@@ -49,7 +49,7 @@ public class ProductModifyFormControl implements Control {
 		// 게시글 소유자 검증
 		if(login.getMemberNo() == product.getMemberNo()) {
 			req.setAttribute("product", product);
-			req.getRequestDispatcher("/product/product_register.tiles").forward(req, resp);
+			req.getRequestDispatcher("/product/product_modify.tiles").forward(req, resp);
 		}else {
 			resp.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = resp.getWriter();
