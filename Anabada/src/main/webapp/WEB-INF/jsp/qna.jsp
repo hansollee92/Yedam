@@ -55,23 +55,7 @@
     <h3 class="qna-subtitle"><i class="fa-solid fa-comment-dots"></i> 댓글 목록</h3>
 
 	<%-- 댓글목록 --%>
-	<ul class="qnaReply-container">
-		<!-- <li>
-			<div class="img-box">
-				<img src="#none" alt="사용자 이미지">
-			</div>
-			<ul class="reply-meta">
-				<li>댓글 작성자 이름</li>
-				<li>댓글내용</li>
-			</ul>
-		</li> -->
-		<li>
-			<span>글쓴이</span>
-			<span>댓글내용</span>
-			<span>댓글날짜</span>
-			<span><button type="button">삭제</button></span>
-		</li>
-	</ul>
+	<ul class="qnaReply-container"></ul>
 
     <%-- 페이징 --%>
     
@@ -97,5 +81,6 @@
 <script>
 	const qnaNo = "${qna.qnaNo}";
 </script>
-<script src="${ctx}/js/qna_reply.js"></script>
+<script src="js/qnaReplyService.js"></script>
+<script src="js/qnaReply.js"></script>
     
