@@ -18,5 +18,23 @@ public class QnaReplyServiceImpl implements QnaReplyService {
 	public List<QnaReplyVO> searchQnaReplyList(int qnaNo) {
 		return mapper.selectQnaReplyList(qnaNo);
 	}
+	
+	//댓글 단검 검색
+	@Override
+	public QnaReplyVO searchQnaReply(int qnaReplyNo) {
+		return mapper.selectQnaReply(qnaReplyNo);
+	}
+
+	//댓글 삭제
+	@Override
+	public boolean removeQnaReply(int qnaReplyNo) {
+		int r = mapper.deleteQnaReply(qnaReplyNo);
+		if(r > 0) {
+			sqlSession.commit();
+			return true;
+		}		
+		return false;
+	}
+
 
 }

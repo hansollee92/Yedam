@@ -19,6 +19,20 @@
 	    where qna_no = #{qnaNo}
 	    order by qnaReply_no
 	</select>
+	
+	<!-- 댓글 단건 검색 -->
+	<select id="selectQnaReply" resultType="qnaReply">
+		select *
+		from qna_reply
+		where qnaReply_no = #{qnaReplyNo}
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteQnaReply" parameterType="int">
+		delete from qna_reply
+		where qnaReply_no = #{qnaReplyNo}
+	</delete>
+	
 
 
 

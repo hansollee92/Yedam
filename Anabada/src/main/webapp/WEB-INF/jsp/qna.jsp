@@ -80,6 +80,7 @@
 <%-- js파일로 값 넘기기 --%>
 <script>
 	const qnaNo = "${qna.qnaNo}";
+	const qnaReplyNo = "${qnaReply.qnaReplyNo}";
 </script>
 <script src="js/qnaReplyService.js"></script>
 <script src="js/qnaReply.js"></script>
