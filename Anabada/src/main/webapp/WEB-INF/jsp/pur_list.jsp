@@ -13,7 +13,7 @@
     <c:forEach var="pur" items="${pur_list}" >
         <div>
             <a href="product.do?prdNo=${pur.prdNo}" class="item-card" data-prd-name="${pur.prdName}" data-prd-no="${pur.prdNo}" data-pur-no="${pur.purNo}">
-                <div class="item-img"><img src="${ctx}/images/product/${pur.prdImg}"></div>
+                <div class="item-img"><img src="${ctx}/images/product/${pur.prdImg}" alt="상품이미지"></div>
                 <div class="item-desc"><c:out value="${pur.prdName}" /></div>
                 <div class="item-price"><fmt:formatNumber value="${pur.price}" pattern="#,###" />원</div>
             </a>
@@ -29,6 +29,7 @@
     </c:forEach>
 </div>
 
+<%--
 <!-- Review Modal -->
 <div id="reviewModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal">
@@ -58,6 +59,8 @@
         </form>
     </div>
 </div>
+
+--%>
 
 <script src="${ctx}/js/modal.js"></script>
 
