@@ -201,7 +201,22 @@
             </choose>
           </if>
         </where>
-        ORDER BY prd_no DESC
+        
+         <choose>
+        <when test="sort == 'price_asc'">
+          <!-- 가격 오름차순, 동가일 때 최신 우선 -->
+          ORDER BY price NULLS LAST, prd_no DESC
+        </when>
+        <when test="sort == 'price_desc'">
+          <!-- 가격 내림차순, 동가일 때 최신 우선 -->
+          ORDER BY price DESC NULLS LAST, prd_no DESC
+        </when>
+        <otherwise>
+          <!-- 최신순(기본) -->
+          ORDER BY prd_no DESC
+          <!-- 또는 등록일 기준이면: ORDER BY prd_date DESC, prd_no DESC -->
+        </otherwise>
+      </choose>
       ) p
     )
     WHERE rn BETWEEN (#{page}-1)*12 + 1 AND #{page}*12
