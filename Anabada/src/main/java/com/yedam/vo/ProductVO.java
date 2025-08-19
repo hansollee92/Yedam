@@ -25,6 +25,8 @@ public class ProductVO {
 	private int memberNo;          //회원번호 (fk)
 	private int viewCnt;           //조회수
 	private String  imageUrl;	   //화면용 URL (SQL에서 alias로 내려받거나, JSP에서 조합)
+	private int reviewNo;          //리뷰정보
+	private int purNo;             //구매정보
 }
 
 
