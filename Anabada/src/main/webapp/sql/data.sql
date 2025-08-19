@@ -138,3 +138,26 @@ INSERT INTO qna (qna_no, qna_title, qna_content, member_no, prd_no)
 VALUES (qna_seq.nextval, '직거래 위치 문의', '범어동 근처면 어느 장소가 편하신가요?', 5, 9);
 INSERT INTO qna (qna_no, qna_title, qna_content, member_no, prd_no) 
 VALUES (qna_seq.nextval, '구매 의사 있습니다', '내일 오전 바로 결제 가능해요. 연락 부탁드립니다.', 4, 9);
+
+
+-- 문의게시판 댓글 샘플 (멤버, 상품번호 체크하고 넣기)
+INSERT INTO qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+VALUES (qnaReply_seq.NEXTVAL, '배송 일정이 어떻게 되나요?', 3, 20);
+INSERT INTO qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+VALUES (qnaReply_seq.NEXTVAL, '실물 사진 한 장 더 올려주실 수 있을까요?', 4, 20);
+INSERT INTO qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+VALUES (qnaReply_seq.NEXTVAL, '사용감은 어느 정도인지 궁금해요.', 5, 20);
+INSERT INTO qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+VALUES (qnaReply_seq.NEXTVAL, '직거래 가능한 지역이 어디인가요?', 3, 20);
+INSERT INTO qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+VALUES (qnaReply_seq.NEXTVAL, '하자나 스크래치 있는 부분 있나요?', 4, 20);
+INSERT INTO qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+VALUES (qnaReply_seq.NEXTVAL, '구성품(박스/케이블) 포함인가요?', 5, 20);
+INSERT INTO qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+VALUES (qnaReply_seq.NEXTVAL, '가격 네고 가능할까요?', 3, 20);
+INSERT INTO qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+VALUES (qnaReply_seq.NEXTVAL, '오늘 저녁에 거래 가능하신가요?', 4, 20);
+INSERT INTO qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+VALUES (qnaReply_seq.NEXTVAL, '택배거래시 포장 상태 어떻게 해주시나요?', 5, 20);
+INSERT INTO qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+VALUES (qnaReply_seq.NEXTVAL, '시리얼/제조연월 확인 가능할까요?', 3, 20);

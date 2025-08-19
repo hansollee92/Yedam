@@ -47,8 +47,8 @@ create table qna (
 
 -- 4.  상품문의 댓글 테이블
 create table qna_reply (
-    qnaReply_no         number(5) primary key, -- 문의댓글번호
-    qnaReply_content    varchar2(200) not null, -- 내용
+    qnaReply_no         number(10) primary key, -- 문의댓글번호
+    qnaReply_content    varchar2(1000) not null, -- 내용
     qnaReply_date       date default sysdate, -- 작성일
     member_no           number(5),
     qna_no              number(5),
