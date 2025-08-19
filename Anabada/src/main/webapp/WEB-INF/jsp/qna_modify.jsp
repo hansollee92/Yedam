@@ -7,10 +7,9 @@
   <h2 class="page-title">상품 문의하기 글 </h2>
   <div class="line"></div>
 
-  <form class="qna-form" action="qnaModify.do" method="post" novalidate>  
-  	<input type="hidden" value="${qna}" name="qna">
-  	<input type="hidden" value="${qnaNo}" name="qnaNo">
-  	<input type="hidden" value="${prdNo}" name="prdNo">
+  <form class="qna-form" action="qnaModify.do" method="get" novalidate>  
+  	<input type="hidden" value="${qna.qnaNo}" name="qnaNo">
+  	<input type="hidden" value="${qna.prdNo}" name="prdNo">
   	
     <div class="form-row">
       <label for="qna-title" class="form-label">제목</label>
