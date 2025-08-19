@@ -74,6 +74,7 @@ body.success-page footer {
 /* 로그인 버튼 */
 .btn-login {
   background: #0C8274;
+  color: #fff !important;
 }
 
 /* 홈 버튼 */
