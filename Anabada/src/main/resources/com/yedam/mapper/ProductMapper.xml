@@ -79,6 +79,7 @@
 			   #{tradeType},
 			   #{saleStatus},
 			   #{prdImg},
+			   #{memberNo},
 			   #{sido},
 			   #{sigungu},
 			   #{dong},

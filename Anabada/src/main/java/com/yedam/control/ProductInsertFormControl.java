@@ -31,23 +31,14 @@ public class ProductInsertFormControl implements Control {
 			login = null;
 		}
 		
-		// 비로그인 차단
+		// 비로그인 -> 로그인 화면으로 보내기
 		if(login == null) {
-			// 로그인 안한 상태면 로그인 페이지로 리다이렉트 
-			// next에 현재 url을 담아서 로그인 후 다시 원래 페이지로 돌아올 수 있게 처리
-			resp.sendRedirect(req.getContextPath() + "/loginForm.do?next=" 
-                    + URLEncoder.encode(req.getRequestURI()+"?"+req.getQueryString(), "UTF-8"));
+			req.getRequestDispatcher("/product/login.tiles").forward(req, resp);
 			return;
 		}
+
 		
-		ProductService svc = new ProductServiceImpl();
-		ProductVO product = svc.productInsert();
-
-		req.setAttribute("product", product);
-		req.getRequestDispatcher("/product/product_register.tiles").forward(req, resp);
-		
-
-
+		req.getRequestDispatcher("/product/productregister.tiles").forward(req, resp);
 	}
 
 }

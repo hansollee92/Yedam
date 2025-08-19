@@ -14,6 +14,7 @@
     <typeAlias alias="product" type="com.yedam.vo.ProductVO"/>
     <typeAlias alias="review" type="com.yedam.vo.ReviewVO"/>
     <typeAlias alias="qna" type="com.yedam.vo.QnaVO"/>
+    <typeAlias alias="qnaReply" type="com.yedam.vo.QnaReplyVO"/>    
   </typeAliases>
 
   <environments default="development">

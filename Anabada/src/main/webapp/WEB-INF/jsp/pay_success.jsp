@@ -12,6 +12,6 @@
   </ul>
 
   <div style="display:flex;gap:10px;margin-top:24px;">
-    <a href="<c:url value='/main.do'/>" style="flex:1;height:44px;display:inline-flex;align-items:center;justify-content:center;background:#0C8274;border-radius:8px;color:#fff;font-weight:700;text-decoration:none;">메인으로</a>
+    <a href="<c:url value='/main.do'/>" style="flex:1;height:44px;display:inline-flex;align-items:center;justify-content:center;background:#0C8274;border-radius:8px;color: #fff !important;font-weight:700;text-decoration:none;">메인으로</a>
   </div>
 </div>
