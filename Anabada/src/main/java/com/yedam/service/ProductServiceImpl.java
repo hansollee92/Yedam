@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.yedam.common.DBUtil;
-import com.yedam.common.PageDTO;
 import com.yedam.common.SearchDTO;
 import com.yedam.mapper.ProductMapper;
 import com.yedam.vo.ProductVO;
@@ -58,8 +57,13 @@ public class ProductServiceImpl implements ProductService {
 
 	//상품 등록
 	@Override
-	public ProductVO productInsert() {
-		return mapper.insertProduct();
+	public boolean productInsert(ProductVO vo) {
+	 int r = mapper.insertProduct(vo);
+	    if (r > 0) {
+	        sqlSession.commit();
+	        return true;
+	    }
+	    return false;
 	}
 
 	// 상품삭제
