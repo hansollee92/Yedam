@@ -12,8 +12,8 @@ public class QnaModifyControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
+		req.setCharacterEncoding("utf-8");  // 한글입력시 인코딩
 	}
 
 }

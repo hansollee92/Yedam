@@ -38,10 +38,7 @@ public class QnaRegisterFormControl implements Control {
 			req.setAttribute("prdNo", prdNo);
 			req.setAttribute("logMember", logMember);
 			req.getRequestDispatcher("/product/qna_register.tiles").forward(req, resp);				
-		}
-		
-		
-		
+		}		
 		
 
 	}
