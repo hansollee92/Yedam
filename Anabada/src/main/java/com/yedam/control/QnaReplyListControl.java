@@ -26,7 +26,8 @@ public class QnaReplyListControl implements Control {
 		QnaReplyService svc = new QnaReplyServiceImpl();
 		List<QnaReplyVO> list = svc.searchQnaReplyList(Integer.parseInt(qnaNo));
 		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		//serializeNulls() : null 값 보이게 
+		Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
 		String json = gson.toJson(list);
 		
 		resp.getWriter().print(json);		

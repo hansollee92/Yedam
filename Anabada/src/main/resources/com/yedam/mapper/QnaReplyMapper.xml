@@ -12,7 +12,8 @@
 	           q.qnaReply_date,
 	           q.qna_no,
 	           m.member_id,
-	           m.member_no
+	           m.member_no,
+	           m.member_img
 	    from   qna_Reply q join member m
 	                 on m.member_no = q.member_no
 	    where qna_no = #{qnaNo}

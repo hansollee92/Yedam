@@ -11,6 +11,8 @@ public class QnaReplyVO {
 	private String qnaReplyContent;     //문의 댓글내용
 	private Date qnaReplyDate;          //날짜
 	private int qnaNo;      
-	private int memberNo; 	
+	private int memberNo;
+	private String memberImg;
+	private String memberId;
 	
 }

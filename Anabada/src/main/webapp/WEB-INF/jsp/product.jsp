@@ -428,4 +428,4 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<script src="js/qna_reply.js"></script>
+

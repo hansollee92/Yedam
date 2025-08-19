@@ -50,18 +50,52 @@
 	  
   </form>
   
-  <!-- 댓글 목록 -->
+  <%-- 댓글 --%>
   <section class="qna-comments">
     <h3 class="qna-subtitle"><i class="fa-solid fa-comment-dots"></i> 댓글 목록</h3>
 
-    <!-- 페이지네이션 -->
+	<%-- 댓글목록 --%>
+	<ul class="qnaReply-container">
+		<!-- <li>
+			<div class="img-box">
+				<img src="#none" alt="사용자 이미지">
+			</div>
+			<ul class="reply-meta">
+				<li>댓글 작성자 이름</li>
+				<li>댓글내용</li>
+			</ul>
+		</li> -->
+		<li>
+			<span>글쓴이</span>
+			<span>댓글내용</span>
+			<span>댓글날짜</span>
+			<span><button type="button">삭제</button></span>
+		</li>
+	</ul>
+
+    <%-- 페이징 --%>
+    
+    
+    <%-- 댓글 등록 --%>
+    
+    
+    
+    
+    
   </section>  
   
 </main>
 
+<%-- 삭제 --%>
 <script>
 	function del_confirm(){
 		return confirm("해당 문의글을 삭제하시겠습니까?");
 	}
 </script>
+
+<%-- js파일로 값 넘기기 --%>
+<script>
+	const qnaNo = "${qna.qnaNo}";
+</script>
+<script src="${ctx}/js/qna_reply.js"></script>
     
