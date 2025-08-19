@@ -15,6 +15,6 @@ public interface QnaMapper {
 	public int updateQna(@Param("qnaNo") int qnaNo, 
 			             @Param("qnaTitle") String qnaTitle, 
 			             @Param("qnaContent") String qnaContent);         //문의하기 게시글 수정
-	
+	public int deleteQna(int qnaNo);         //문의하기 게시글 삭제
 	
 }

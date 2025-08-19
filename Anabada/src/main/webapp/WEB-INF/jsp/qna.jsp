@@ -45,7 +45,7 @@
 	  <%-- 수정,삭제 버튼 --%>
 	  <div class="qna-actions qna-button" role="group" aria-label="QnA actions">
 		  <button type="submit" class="btn btn-edit" style="margin-right: 5px;">글 수정</button>
-		  <button type="button" class="btn btn-delete" aria-label="문의 삭제">글 삭제</button>
+		  <button type="submit" class="btn btn-delete" onclick="return del_confirm()" formaction="qnaRemove.do">글 삭제</button>
 	  </div>
 	  
   </form>
@@ -58,4 +58,10 @@
   </section>  
   
 </main>
+
+<script>
+	function del_confirm(){
+		return confirm("해당 문의글을 삭제하시겠습니까?");
+	}
+</script>
     

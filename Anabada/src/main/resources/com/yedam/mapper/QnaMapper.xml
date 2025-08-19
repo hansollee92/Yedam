@@ -63,6 +63,12 @@
 	    qna_content = #{qnaContent}
 		where qna_no = #{qnaNo}
 	</update>
+	
+	<!-- 문의하기 게시글 삭제 -->
+	<delete id="deleteQna" parameterType="int">
+		delete from qna
+		where qna_no = #{qnaNo}
+	</delete>
 
 
 </mapper>
