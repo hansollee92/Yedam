@@ -52,6 +52,7 @@
         <put-attribute name="title" value="Anabada - member" />
         <put-attribute name="header" value="/WEB-INF/layout/mem_header.jsp" />
         <put-attribute name="body" value="/WEB-INF/layout/body.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" /> 
     </definition>
     <definition name="WILDCARD:member/*" extends="member">	<!-- member로 시작하는 뷰만 body부분 덮어씌워짐 -->
 	  <put-attribute name="body" value="/WEB-INF/jsp/{1}.jsp"/>
