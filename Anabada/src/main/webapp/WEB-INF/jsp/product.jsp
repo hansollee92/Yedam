@@ -117,11 +117,26 @@
 				<%-- 2) 구매자/비로그인 화면 --%>
 				<c:otherwise>
 					<div class="top" style="display: flex; gap: 8px;">
-						<form action="${ctx}/wishToggle.do" method="post">
-							<input type="hidden" name="prdNo" value="${product.prdNo}">
-							<button type="submit" class="abtn">찜하기</button>
-						</form>
-						<a class="abtn" href="#pd-qna">문의하기</a>
+					    <c:choose>
+						    <c:when test="${empty loginMember}">
+						      <button type="button" class="abtn" id="wish-login-btn">찜하기</button>
+						    </c:when>
+						    <c:otherwise>
+						      <form action="${ctx}/wishToggle.do" method="post">
+						        <input type="hidden" name="prdNo" value="${product.prdNo}">
+						        <button type="submit" class="abtn">찜하기</button>
+						      </form>
+						    </c:otherwise>
+					    </c:choose>						
+
+						<c:choose>
+						  <c:when test="${empty loginMember}">
+						    <button type="button" class="abtn" id="qna-login-btn">문의하기</button>
+						  </c:when>
+						  <c:otherwise>
+						    <a class="abtn" href="#pd-qna">문의하기</a>
+						  </c:otherwise>
+						</c:choose>
 					</div>
 
 					<%-- 상태 버튼 3가지(모양·폭 통일) --%>
@@ -240,8 +255,7 @@
 			<c:forEach var="qna" items="${qna_list}" varStatus="status">
 				<tr>
 					<td>${qna.qnaNo}</td>
-					<td><a
-						href="${ctx}/qna.do?prdNo=${qna.prdNo}&qnaNo=${qna.qnaNo}"
+					<td><a href="${ctx}/qna.do?prdNo=${qna.prdNo}&qnaNo=${qna.qnaNo}"
 						style="text-decoration: none; color: #333;">${qna.qnaTitle}</a></td>
 					<td>${qna.memberId}</td>
 					<td><fmt:formatDate value="${qna.qnaDate}"
@@ -259,26 +273,30 @@
 			<%-- 이전페이지 --%>
 			<c:choose>
 				<c:when test="${paging.previous}">
-					<li class="page-item"><a class="page-link"
-						href="product.do?prdNo=${product.prdNo}&page=${paging.start -1}#pg-nav">
+					<li class="page-item">
+						<a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${paging.start -1}#pg-nav">
 							<i class="fa-solid fa-angle-left"></i>
-					</a></li>
+						</a>
+					</li>
 				</c:when>
 				<c:otherwise>
-					<li class="page-item disabled"><a class="page-link"><i
-							class="fa-solid fa-angle-left"></i></a></li>
+					<li class="page-item disabled">
+						<a class="page-link">
+							<i  class="fa-solid fa-angle-left"></i>
+						</a>
+					</li>
 				</c:otherwise>
 			</c:choose>
 
 			<c:forEach var="p" begin="${paging.start}" end="${paging.end}">
 				<c:choose>
 					<c:when test="${paging.currPage eq p}">
-						<li class="page-item active" aria-current="page"><span
-							class="page-link">${p}</span></li>
+						<li class="page-item active" aria-current="page">
+						<span class="page-link">${p}</span></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link"
-							href="product.do?prdNo=${product.prdNo}&page=${p}#pg-nav">${p}</a>
+						<li class="page-item">
+						<a class="page-link" href="product.do?prdNo=${product.prdNo}&page=${p}#pg-nav">${p}</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -447,4 +465,24 @@ document.addEventListener('DOMContentLoaded', () => {
 	    document.getElementById("pd-qna")?.scrollIntoView({behavior:"smooth"});
 	  }
 	});
+</script>
+
+<%-- 찜하기 비로그인 시도시 --%>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const goLogin = (msg) => {
+    alert(msg || '로그인이 필요합니다.');
+    const back = encodeURIComponent(location.pathname + location.search + location.hash);
+    location.href = '${ctx}/loginForm.do?redirect=' + back;
+  };
+
+  document.getElementById('wish-login-btn')?.addEventListener('click', () => {
+    goLogin('찜하기는 로그인 후 이용 가능합니다.');
+  });
+  
+  document.getElementById('qna-login-btn')?.addEventListener('click', () => {
+	    goLogin('문의하기는 로그인 후 이용 가능합니다.');
+  });
+
+});
 </script>
