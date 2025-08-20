@@ -17,114 +17,131 @@
 
 
 <div class="main-wrap">
-	
-<!-- 헤더: 왼쪽 제목 / 오른쪽 정렬 -->
-<header class="list-header">
-  <h2 class="lh-title">
-    <c:choose>
-      <c:when test="${not empty keyword and not empty category}">
-        <span class="em"><c:out value="${category}"/></span>의 검색결과 상품
+
+
+	<!-- 헤더: 왼쪽 제목 / 오른쪽 정렬 -->
+	<header class="list-header">
+		<h2 class="lh-title">
+			<c:choose>
+				<c:when test="${not empty keyword and not empty category}">
+					<span class="em"><c:out value="${category}" /></span>의 검색결과 상품
       </c:when>
-      <c:when test="${not empty keyword}">
-        <span class="em"><c:out value='${keyword}'/></span>의 검색결과 상품
+				<c:when test="${not empty keyword}">
+					<span class="em"><c:out value='${keyword}' /></span>의 검색결과 상품
       </c:when>
-      <c:when test="${not empty category}">
-        <span class="em"><c:out value="${category}"/></span>의 상품
+				<c:when test="${not empty category}">
+					<span class="em"><c:out value="${category}" /></span>의 상품
       </c:when>
-      <c:otherwise>전체 상품</c:otherwise>
-    </c:choose>
-    <c:if test="${not empty totalCount}">
-      <span class="lh-count"><fmt:formatNumber value="${totalCount}"/>개</span>
-    </c:if>
-  </h2>
-  
- <nav class="lh-sort" aria-label="정렬">
-  <c:url var="latestUrl" value="/productList.do">
-    <c:if test="${not empty category}"><c:param name="category" value="${category}"/></c:if>
-    <c:if test="${not empty keyword}"><c:param name="keyword" value="${keyword}"/></c:if>
-    <c:param name="sort" value="latest"/>
-    <c:param name="page" value="1"/>
-  </c:url>
-  <a class="lh-link ${sort=='latest' ? 'is-active' : ''}" href="${latestUrl}">최신순</a>
+				<c:otherwise>전체 상품</c:otherwise>
+			</c:choose>
+			<c:if test="${not empty totalCount}">
+				<span class="lh-count"><fmt:formatNumber
+						value="${totalCount}" />개</span>
+			</c:if>
+		</h2>
 
-  <c:url var="priceAscUrl" value="/productList.do">
-    <c:if test="${not empty category}"><c:param name="category" value="${category}"/></c:if>
-    <c:if test="${not empty keyword}"><c:param name="keyword" value="${keyword}"/></c:if>
-    <c:param name="sort" value="price_asc"/>
-    <c:param name="page" value="1"/>
-  </c:url>
-  <a class="lh-link ${sort=='price_asc' ? 'is-active' : ''}" href="${priceAscUrl}">저가순</a>
+		<nav class="lh-sort" aria-label="정렬">
+			<c:url var="latestUrl" value="/productList.do">
+				<c:if test="${not empty category}">
+					<c:param name="category" value="${category}" />
+				</c:if>
+				<c:if test="${not empty keyword}">
+					<c:param name="keyword" value="${keyword}" />
+				</c:if>
+				<c:param name="sort" value="latest" />
+				<c:param name="page" value="1" />
+			</c:url>
+			<a class="lh-link ${sort=='latest' ? 'is-active' : ''}"
+				href="${latestUrl}">최신순</a>
 
-  <c:url var="priceDescUrl" value="/productList.do">
-    <c:if test="${not empty category}"><c:param name="category" value="${category}"/></c:if>
-    <c:if test="${not empty keyword}"><c:param name="keyword" value="${keyword}"/></c:if>
-    <c:param name="sort" value="price_desc"/>
-    <c:param name="page" value="1"/>
-  </c:url>
-  <a class="lh-link ${sort=='price_desc' ? 'is-active' : ''}" href="${priceDescUrl}">고가순</a>
-</nav>
-</header>
-  
-   <!-- 필터 유지용 히든 폼 -->
-  <form id="filterForm" method="get" action="${ctx}/productList.do">
-    <input type="hidden" name="category" id="categoryInput" value="${category}">
-    <input type="hidden" name="page" id="pageInput" value="${selectedpage}">
-  </form>
-  
-  	<c:if test="${empty keyword}">
-  <!-- 카테고리 선택 -->
-  <nav class="cat-wrap">
-    <ul class="cat-grid">
-      <c:forEach var="cat" items="${fn:split(categories, ',')}">
-        <c:set var="c" value="${fn:trim(cat)}" />
+			<c:url var="priceAscUrl" value="/productList.do">
+				<c:if test="${not empty category}">
+					<c:param name="category" value="${category}" />
+				</c:if>
+				<c:if test="${not empty keyword}">
+					<c:param name="keyword" value="${keyword}" />
+				</c:if>
+				<c:param name="sort" value="price_asc" />
+				<c:param name="page" value="1" />
+			</c:url>
+			<a class="lh-link ${sort=='price_asc' ? 'is-active' : ''}"
+				href="${priceAscUrl}">저가순</a>
 
-        <!-- 카테고리별 URL 생성: '전체'는 category 파라미터 미포함 -->
-        <c:url var="catUrl" value="/productList.do">
-          <c:param name="page" value="1"/>
-          <c:if test="${c ne '전체'}">
-            <c:param name="category" value="${c}"/>
-          </c:if>
-        </c:url>
-
-        <li class="cat-item">
-          <!-- '전체' 활성화 조건: 현재 category가 비어있을 때 -->
-          <a href="${catUrl}"
-             class="cat-btn ${ (c eq '전체' and empty category) or (c ne '전체' and c eq category) ? 'active' : ''}">
-            <c:out value="${c}"/>
-          </a>
-        </li>
-      </c:forEach>
-    </ul>
-  </nav>
-</c:if>
-  
-  
+			<c:url var="priceDescUrl" value="/productList.do">
+				<c:if test="${not empty category}">
+					<c:param name="category" value="${category}" />
+				</c:if>
+				<c:if test="${not empty keyword}">
+					<c:param name="keyword" value="${keyword}" />
+				</c:if>
+				<c:param name="sort" value="price_desc" />
+				<c:param name="page" value="1" />
+			</c:url>
+			<a class="lh-link ${sort=='price_desc' ? 'is-active' : ''}"
+				href="${priceDescUrl}">고가순</a>
+		</nav>
+	</header>
 
 
-    <div class="prd-list">
-      <!-- 상품목록(한줄에 4개씩) -->
-      <c:forEach items="${productList}" var="prd" varStatus="status">      
-	      <article class="card">
-	        <a href="product.do?prdNo=${prd.prdNo}">
-	          <div class="thumb">
-	          	<img src="${ctx}/images/product/${prd.prdImg}" alt="상품이미지 : ${prd.prdName}">
-	          </div>
-	          <div class="meta">
-	            <div class="title">${prd.prdName}</div>
-	            <div class="price">
-	            	<fmt:formatNumber value="${prd.price}" pattern="#,###"/><small>원</small>
-	            </div>
-	            <div class="date">
-	            	<fmt:formatDate value="${prd.prdDate}" pattern="yyyy-MM-dd"/>
-	            </div>
-	          </div>
-	        </a>
-	      </article>
-      </c:forEach>
-    </div>
-    
-  </section>
+	<c:if test="${empty keyword}">
+		<!-- 카테고리 선택 -->
+		<nav class="cat-wrap">
+			<ul class="cat-grid">
+				<c:forEach var="cat" items="${fn:split(categories, ',')}">
+					<c:set var="c" value="${fn:trim(cat)}" />
 
+					<!-- 카테고리별 URL 생성: '전체'는 category 파라미터 미포함 -->
+					<c:url var="catUrl" value="/productList.do">
+						<c:param name="page" value="1" />
+						<c:if test="${c ne '전체'}">
+							<c:param name="category" value="${c}" />
+						</c:if>
+						<c:if test="${not empty sort}">
+							<c:param name="sort" value="${sort}" />
+						</c:if>
+						<c:if test="${not empty keyword}">
+							<c:param name="keyword" value="${keyword}" />
+						</c:if>
+					</c:url>
+
+					<li class="cat-item">
+						<!-- '전체' 활성화 조건: 현재 category가 비어있을 때 --> <a href="${catUrl}"
+						class="cat-btn ${ (c eq '전체' and empty category) or (c ne '전체' and c eq category) ? 'active' : ''}">
+							<c:out value="${c}" />
+					</a>
+					</li>
+				</c:forEach>
+			</ul>
+		</nav>
+	</c:if>
+
+
+
+
+	<c:if test="${empty productList}">
+		<p class="empty">해당 조건의 상품이 없습니다.</p>
+	</c:if>
+	<div class="prd-list">
+		<!-- 상품목록(한줄에 4개씩) -->
+		<c:forEach items="${productList}" var="prd" varStatus="status">
+			<article class="card">
+				<a href="${ctx}/product.do?prdNo=${prd.prdNo}">
+					<div class="thumb">
+						<img src="${ctx}/images/product/${prd.prdImg}"
+							alt="상품이미지 : ${prd.prdName}">
+					</div>
+					<div class="meta">
+						<div class="title">${prd.prdName}</div>
+						<div class="price">
+							<fmt:formatNumber value="${prd.price}" pattern="#,###" />
+							<small>원</small>
+						</div>
+						<div class="date">${prd.prdDate}</div>
+					</div>
+				</a>
+			</article>
+		</c:forEach>
+	</div>
 </div>
 
 
@@ -146,8 +163,8 @@
 					<c:if test="${not empty keyword}">
 						<c:param name="keyword" value="${keyword}" />
 					</c:if>
-					<c:if test="${not empty param.sort}">
-						<c:param name="sort" value="${param.sort}" />
+					<c:if test="${not empty sort}">
+						<c:param name="sort" value="${sort}" />
 					</c:if>
 				</c:url>
 				<li class="page-item"><a class="page-link" href="${prevUrl}">Previous</a></li>
@@ -197,8 +214,8 @@
 					<c:if test="${not empty keyword}">
 						<c:param name="keyword" value="${keyword}" />
 					</c:if>
-					<c:if test="${not empty param.sort}">
-						<c:param name="sort" value="${param.sort}" />
+					<c:if test="${not empty sort}">
+						<c:param name="sort" value="${sort}" />
 					</c:if>
 				</c:url>
 				<li class="page-item"><a class="page-link" href="${nextUrl}">Next</a></li>
