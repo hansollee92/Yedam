@@ -58,7 +58,7 @@ public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 			//문의하기 
 			map.put("/qna.do", new QnaControl());                                //문의하기 게시판 상세
 			map.put("/qnaRegisterForm.do", new QnaRegisterFormControl());        //문의하기 등록 화면
-		    map.put("/qnaRegister.do", new QnaRegisterControl());                //문의하기 등록 처리
+		    map.put("/qnaRegister.do", new QnaRegisterControl());              //문의하기 등록 처리
 			map.put("/qnaModifyForm.do", new QnaModifyFormControl());            //문의하기 수정 화면
 			map.put("/qnaModify.do", new QnaModifyControl());                    //문의하기 수정 처리
 			map.put("/qnaRemove.do", new QnaRemoveControl());                    //문의하기 삭제
@@ -67,13 +67,20 @@ public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 			map.put("/qnaReplyList.do", new QnaReplyListControl());              //댓글 목록
 			map.put("/qnaReplyRemove.do", new QnaReplyRemoveControl());          //댓글 삭제
 			map.put("/qnaReplyAdd.do", new QnaReplyAddControl());                //댓글 등록
-			
+
 			// 마이페이지
 			map.put("/mypage.do", new MypageControl());                          // 마이페이지
 			map.put("/wishList.do", new WishListControl());                      // 찜목록
 			map.put("/saleList.do", new SaleListControl());                      // 판매 내역
 			map.put("/purList.do", new PurListControl());                        // 구매 내역
 			map.put("/reviewList.do", new ReviewControl());                      // 리뷰목록
+			
+			//커뮤니티
+			map.put("/commuList.do", new CommuListControl());      // 커뮤니티 상세
+			map.put("/commuForm.do", new CommuFormControl());      // 커뮤니티 화면 
+			map.put("/commuInsert.do", new CommuInsertControl());  // 커뮤니티 등록 처리	
+			map.put("/commuRemove.do", new CommuRemoveControl());  // 커뮤니티 삭제
+			
 			
 		}
 

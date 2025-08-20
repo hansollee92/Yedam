@@ -13,5 +13,6 @@ public class ReviewVO {
 
     // 리뷰 조회를 위한 추가 정보
     private String prdName;
+    private String prdImg;
     private String memberName;
 }
