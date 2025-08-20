@@ -12,13 +12,14 @@
   border-radius: 10px;
   overflow: hidden;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
   max-height: 480px;
   min-height: 280px;
 }
 .pd-gallery img {
   width: 100%;
   height: 100%;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   object-position: center;
   display: block;
@@ -35,6 +36,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .soldout-mark span{
   font-size: var(--font-lg);
   font-family: var(--font);

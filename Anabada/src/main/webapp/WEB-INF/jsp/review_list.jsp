@@ -19,7 +19,21 @@
             <hr>
             <div class="review-item-img"><img src="${ctx}/images/product/${myReview.prdImg}" alt="상품이미지"></div>
             <div class="review-item-name"><c:out value="${myReview.prdName}" /> </div>
-            <div class="review-item-score"><c:out value="${myReview.reviewScore}" /></div>
+
+
+            <!-- 내 별점 -->
+            <div id="my_score">
+                <div class="star-rating" id="star-container">
+                    <span data-star="5">★</span>
+                    <span data-star="4">★</span>
+                    <span data-star="3">★</span>
+                    <span data-star="2">★</span>
+                    <span data-star="1">★</span>
+                </div>
+            </div>
+
+            <div><span id="rating-value"><c:out value="${myReview.reviewScore}" /></span></div>
+
             <div class="review-item-content"><c:out value="${myReview.reviewContent}" /></div>
         </c:forEach>
     </div>
@@ -195,5 +209,7 @@
 </section>
 
 <script src="${ctx}/js/mypage_paging.js" ></script>
+<script src="${ctx}/js/star.js" ></script>
+
 </body>
 
