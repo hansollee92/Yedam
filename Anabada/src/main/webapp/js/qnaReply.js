@@ -30,6 +30,12 @@ function showReplyList(){
 				
 				//댓글 데이터 없을 때
 				if(!Array.isArray(result) || result.length == 0) return;
+				
+				// 내가 쓴 댓글만 삭제 버튼 노출 (reply.memberNo 내려오게 해주세요)
+				const canDelete = IS_LOGGED_IN && (LOGIN_MEMBER_NO === reply.memberNo);
+				const delBtnHTML = canDelete
+				  ? `<button type="button" class="del-btn" data-reply-no="${reply.qnaReplyNo}">삭제</button>`
+				  : '';
 
 				let text = `<li>
 					<div class="img-box">
@@ -39,13 +45,13 @@ function showReplyList(){
 						<li>${reply.qnaReplyNo}</li>
 						<li>${reply.memberId}</li>
 						<li>${reply.qnaReplyContent}</li>
-						<li>${formattedDate} <span class="del-btn">삭제</span></li>
+						<li>${formattedDate} ${delBtnHTML}</li>
 					</ul>
 			    </li>`;
 				target.insertAdjacentHTML('beforeend', text);
 				
 				//삭제 이벤트
-				document.querySelector('.del-btn').addEventListener('click', deleteRowFnc);
+				//document.querySelector('.del-btn').addEventListener('click', deleteRowFnc);
 			})
 			//페이징 목록
 		},
@@ -62,15 +68,21 @@ window.addEventListener('DOMContentLoaded', () => {
 	document.querySelector('#replySubmit').addEventListener('click', onReplySubmit);
 })
 
-function onReplySubmit(){
+	function onReplySubmit(){
+		if (!IS_LOGGED_IN) {
+			alert('로그인을 먼저 해주세요.');
+			// 현재 페이지로 다시 돌아올 수 있게 redirect 파라미터 추가(선택)
+			const back = encodeURIComponent(location.pathname + location.search + location.hash);
+			location.href = `${CTX}/loginForm.do?redirect=${back}`;
+			return; // 서버 호출 막기
+	}
+
 	const reply = document.querySelector('#replyContent');
 	
 	const qnaReplyContent = (reply.value || '').trim();
 	console.log('[DEBUG]', { qnaNo, qnaReplyContent, len: qnaReplyContent.length,
 	                           count: document.querySelectorAll('#replyContent').length });
-	
-	
-	
+		
 	if(!qnaNo || qnaReplyContent.length == 0 ){
 		alert('내용을 입력해주세요');
 		return;
@@ -81,6 +93,10 @@ function onReplySubmit(){
 				let r = result.retVal;
 				showReplyList(r);
 				reply.value = ''; //입력창 초기화
+			}else if(result.retCode === 'LOGIN'){
+				alert('로그인이 필요합니다.');
+				const back = encodeURIComponent(location.pathname + location.search + location.hash);
+				ocation.href = `${CTX}/loginForm.do?redirect=${back}`;
 			}else if(result.retCode == 'NG'){
 				alert('댓글 등록에 실패했습니다.');
 			}else{
@@ -91,11 +107,6 @@ function onReplySubmit(){
 	)
 	
 }
-
-
-
-
-
 
 
 
@@ -115,9 +126,6 @@ function makeRow(reply){
 		</li>`;
 	target.insertAdjacentHTML('beforeend', text);
 }
-
-
-
 
 
 
@@ -146,3 +154,36 @@ function deleteRowFnc(e){
 
 
 
+// 삭제(이벤트 위임)
+document.querySelector('ul.qnaReply-container').addEventListener('click', (e) => {
+  if (!e.target.classList.contains('del-btn')) return;
+
+  // 로그인 안됐으면 차단 + 로그인 이동
+  if (!IS_LOGGED_IN) {
+    alert('로그인이 필요합니다.');
+    const back = encodeURIComponent(location.pathname + location.search + location.hash);
+    location.href = `${CTX}/loginForm.do?redirect=${back}`;
+    return;
+  }
+
+  // 삭제 시도
+  const replyNo = e.target.dataset.replyNo;
+  if (!confirm(`댓글을 삭제하시겠습니까?`)) return;
+
+  svc.removeReply(replyNo,
+    (result) => {
+      if (result.retCode === 'OK') {
+        showReplyList();
+      } else if (result.retCode === 'LOGIN') {
+        alert('로그인이 필요합니다.');
+        const back = encodeURIComponent(location.pathname + location.search + location.hash);
+        location.href = `${CTX}/loginForm.do?redirect=${back}`;
+      } else if (result.retCode === 'DENY') {
+        alert('본인이 작성한 댓글만 삭제할 수 있습니다.');
+      } else {
+        alert('댓글 삭제 중 오류가 발생했습니다.');
+      }
+    },
+    err => console.error(err)
+  );
+});
