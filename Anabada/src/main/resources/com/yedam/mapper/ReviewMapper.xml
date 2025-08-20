@@ -17,6 +17,7 @@
 	<!-- 내가 받은 리뷰 -->
 	<select id="selectOtherReview" parameterType="int" resultType="review">
 		select  p.prd_name,
+				p.prd_Img,
 				m.member_name,
 				r.review_content
 		from product p join review r

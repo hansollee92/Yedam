@@ -22,7 +22,7 @@ public class ReviewControl implements com.yedam.common.Control {
         req.setAttribute("myReviewList", myReviewList);
         req.setAttribute("otherReviewList", otherReviewList);
 
-        req.getRequestDispatcher("mylist/review_list.tiles");
+        req.getRequestDispatcher("mylist/review_list.tiles").forward(req, resp);
 
     }
 }
