@@ -30,7 +30,7 @@ public class ProductInsertControl implements Control {
 		MultipartRequest mr = new MultipartRequest(
 				req, 
 				upload,
-				1024 * 1024 * 5,
+				1024 * 1024 * 10,
 				"UTF-8",
 				new DefaultFileRenamePolicy() 				
 				);		

@@ -4,6 +4,14 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.ProductMapper">
 
+    <!-- 상품 등록한 사용자 이름 조회 -->
+    <select id="selectProductMember" parameterType="int" resultType="String">
+        select  member_name
+        from product p join member m
+                         on p.member_no = m.member_no
+        where p.prd_no = #{prdNo}
+    </select>
+
   
 	<!-- 상품 목록 -->
 	<select id="selectProductList">
@@ -140,18 +148,6 @@
         where pur.member_no = #{memberNo}
         order by pur.pur_no desc
     </select>
-
-	<!--  상품별 찜한 사람 수 조회  -->
-	<select id="countWishMember">
-	    select  p.prd_no,
-	            p.prd_name,
-	            count(w.member_no) AS wish_count
-	    from wish w join product p
-	                  on w.prd_no = p.prd_no
-	                group by p.prd_no, p.prd_name
-	    order by wish_count desc
-	</select> 
-
 	
   	<!-- 목록 조회: 페이지당 10개 고정 -->
   <select id="selectProducts" parameterType="com.yedam.common.SearchDTO" resultType="product">
@@ -166,7 +162,7 @@
         FROM product
         <where>
           <!-- 카테고리 -->
-          <if test="category != null and category != ''">
+         <if test="category != null and category != '' and category != 'ALL' and category != '전체'">
             AND category = #{category}
           </if>
 
@@ -231,7 +227,7 @@
     SELECT COUNT(*)
     FROM product
     <where>
-      <if test="category != null and category != ''">
+      <if test="category != null and category != '' and category != 'ALL' and category != '전체'">
         AND category = #{category}
       </if>
 
