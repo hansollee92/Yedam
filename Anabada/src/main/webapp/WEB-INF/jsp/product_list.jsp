@@ -136,7 +136,7 @@
 							<fmt:formatNumber value="${prd.price}" pattern="#,###" />
 							<small>원</small>
 						</div>
-						<div class="date">${prd.prdDate}</div>
+						<div class="date"><fmt:formatDate value="${prd.prdDate}" pattern="yyyy-MM-dd" /></div>
 					</div>
 				</a>
 			</article>
