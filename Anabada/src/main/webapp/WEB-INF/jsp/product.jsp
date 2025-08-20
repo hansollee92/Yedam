@@ -119,22 +119,26 @@
 					<div class="top" style="display: flex; gap: 8px;">
 					    <c:choose>
 						    <c:when test="${empty loginMember}">
-						      <button type="button" class="abtn" id="wish-login-btn">찜하기</button>
+						      <button type="button" class="abtn" id="wish-login-btn"
+						         <c:if test="${product.saleStatus eq '판매완료' or product.saleStatus eq '예약중'}">disabled</c:if>>찜하기</button>
 						    </c:when>
 						    <c:otherwise>
 						      <form action="${ctx}/wishToggle.do" method="post">
 						        <input type="hidden" name="prdNo" value="${product.prdNo}">
-						        <button type="submit" class="abtn">찜하기</button>
+						        <button type="submit" class="abtn" 
+						          <c:if test="${product.saleStatus eq '판매완료' or product.saleStatus eq '예약중'}">disabled</c:if>>찜하기</button>
 						      </form>
 						    </c:otherwise>
 					    </c:choose>						
 
 						<c:choose>
 						  <c:when test="${empty loginMember}">
-						    <button type="button" class="abtn" id="qna-login-btn">문의하기</button>
+						    <button type="button" class="abtn" id="qna-login-btn"
+						      <c:if test="${product.saleStatus eq '판매완료' or product.saleStatus eq '예약중'}">disabled</c:if>>문의하기</button>
 						  </c:when>
 						  <c:otherwise>
-						    <a class="abtn" href="#pd-qna">문의하기</a>
+						    <a class="abtn" href="#pd-qna" 
+						      <c:if test="${product.saleStatus eq '판매완료' or product.saleStatus eq '예약중'}">disabled</c:if>>문의하기</a>
 						  </c:otherwise>
 						</c:choose>
 					</div>
