@@ -9,6 +9,9 @@
      
 <!-- 로그인 사용자 객체 저장 -->
 <c:set var="loginMember" value="${sessionScope.logMember}" />
+<script>
+	console.log(loginMember.memberNo);
+</script>
 <!-- 판매자 본인여부 체크(ture/false) -->
 <c:set var="owner" value="${not empty loginMember and loginMember.memberNo == product.memberNo }" />
 <!-- 판매상태를 css클래스용 문자열로 변환 (이중삼항연산자)-->
@@ -52,7 +55,7 @@
 	        <div class="pd-status">
 	          <select class="form-select" name="saleStatus">
 	            <option ${product.saleStatus == '판매중' ? 'selected' : ''}>판매중</option>
-	            <option ${product.saleStatus == '예약중' ? 'selected' : ''}>예약중</option>
+	            <option ${product.saleStatus == '예약중' ? 'selectㄴed' : ''}>예약중</option>
 	            <option ${product.saleStatus == '판매완료' ? 'selected' : ''}>판매완료</option>
 	          </select>
 	        </div>
@@ -124,6 +127,7 @@
 		              <%-- 예시: 찜/문의 액션 연결 --%>
 		              <form action="${ctx}/wishToggle.do" method="post">
 		                <input type="hidden" name="prdNo" value="${product.prdNo}">
+						<input type="hidden" name="memberNo" value="${loginMember.memberNo}">
 		                <button type="submit" class="abtn common-btn">찜하기</button>
 		              </form>
 		              <a class="abtn" href="#pd-qna">문의하기</a>

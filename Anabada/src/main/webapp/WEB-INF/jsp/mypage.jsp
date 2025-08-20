@@ -19,7 +19,6 @@
             </div>
             <div class="profile-info">
                 <strong><c:out value="${member_info.memberName}" /></strong>
-                <div class="info-item">19971112</div>
                 <!-- 내 별점 -->
                 <div id="my_score">
                     <div class="star-rating" id="star-container">
