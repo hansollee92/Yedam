@@ -219,56 +219,64 @@
     -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd689b27e4b7fc12b2893cb036221eb8"></script>
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd689b27e4b7fc12b2893cb036221eb8&libraries=services"></script>
 
-    <script>
-	  const locInput = document.getElementById('pm-location');
-	  const latInput = document.getElementById('lat');
-	  const lngInput = document.getElementById('lng');
-	
-	  const geocoder = new kakao.maps.services.Geocoder();
-	
-	  // input 클릭시 직거래일 때만 우편번호 팝업
-	  locInput.addEventListener('click', () => {
-	    const isDirect = document.querySelector('input[name="tradeType"]:checked')?.value === '직거래';
-	    if (isDirect) openPostcode();
-	  });
-	
-	  function openPostcode() {
-	    new daum.Postcode({
-	      oncomplete: function(data) {
-	        // ❶ 우리가 원하는 지번/동 형태 만들기: "시도 시군구 법정동"
-	        // (예: "대구광역시 수성구 범어동")
-	        const jibunArea = [data.sido, data.sigungu, data.bname].filter(Boolean).join(' ');
-	
-	        // 입력창에 세팅
-	        locInput.value = jibunArea;
-	
-	        // ❷ 같은 문자열로 좌표(위도/경도) 구하기
-	        geocoder.addressSearch(jibunArea, function(results, status) {
-	          if (status === kakao.maps.services.Status.OK && results.length) {
-	            latInput.value = results[0].y;  // 위도
-	            lngInput.value = results[0].x;  // 경도
-	          } else {
-	            // 좌표 못 찾으면 도로명/지번 전체주소로 재시도 (fallback)
-	            const fallback = data.jibunAddress || data.roadAddress;
-	            geocoder.addressSearch(fallback, function(rs, st){
-	              if (st === kakao.maps.services.Status.OK && rs.length) {
-	                latInput.value = rs[0].y;
-	                lngInput.value = rs[0].x;
-	              } else {
-	                // 마지막 보호: 좌표 초기화
-	                latInput.value = '';
-	                lngInput.value = '';
-	                alert('선택한 주소의 좌표를 찾지 못했습니다. 다시 선택해주세요.');
-	              }
-	            });
-	          }
-	        });
-	        
-	        //팝업창 자동닫기
-	        this.close();
-	      }
-	    }).open();
-	  }
-	</script>
+<script>
+  // ✅ 필요한 요소들 '모두' 이 블록에서 안전하게 잡기
+  const locInput = document.getElementById('pm-location');   // ← 빠져있던 선언 추가
+  const sidoInput = document.getElementById('sido');
+  const sigunguInput = document.getElementById('sigungu');
+  const dongInput = document.getElementById('dong');
+  const latInput = document.getElementById('lat');
+  const lngInput = document.getElementById('lng');
+
+  const geocoder = new kakao.maps.services.Geocoder();
+
+  // 클릭 한 번에 팝업 2개 열리는 것 방지: 같은 이름의 팝업 재사용
+  function openPostcode() {
+    new daum.Postcode({
+      oncomplete: function (data) {
+        try {
+          // "시도 시군구 법정동" 형태
+          const jibunArea = [data.sido, data.sigungu, data.bname].filter(Boolean).join(' ');
+
+          // 입력창/히든 값 세팅
+          if (locInput) locInput.value = jibunArea;
+          if (sidoInput)    sidoInput.value    = data.sido    || '';
+          if (sigunguInput) sigunguInput.value = data.sigungu || '';
+          if (dongInput)    dongInput.value    = data.bname   || '';
+
+          // 좌표 세팅 (jibunArea → 실패 시 jibun/roadAddress 순서로 재시도)
+          const query = jibunArea || data.jibunAddress || data.roadAddress || '';
+          if (!query) { latInput.value = ''; lngInput.value = ''; return; }
+
+          geocoder.addressSearch(query, function (results, status) {
+            if (status === kakao.maps.services.Status.OK && results.length) {
+              latInput.value = results[0].y;  // 위도
+              lngInput.value = results[0].x;  // 경도
+            } else {
+              latInput.value = '';
+              lngInput.value = '';
+            }
+          });
+
+          // ❌ 팝업 모드에선 명시적 close() 불필요(자동 닫힘)
+          // this.close();  <- 지움
+        } catch (err) {
+          console.error('[postcode oncomplete error]', err);
+          // 에러 시에도 폼이 계속 진행되도록 좌표는 비워둠
+          latInput.value = '';
+          lngInput.value = '';
+        }
+      }
+    }).open({ popupName: 'postcode-popup' }); // ← 고정 이름으로 중복 팝업 방지
+  }
+
+  // input 클릭 시: 직거래일 때만 열기 (리스너 중복 방지)
+  if (locInput) {
+    locInput.addEventListener('click', () => {
+      const isDirect = document.querySelector('input[name="tradeType"]:checked')?.value === '직거래';
+      if (isDirect) openPostcode();
+    }, { passive: true });
+  }
+</script>
