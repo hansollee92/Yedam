@@ -3,58 +3,93 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
   <c:set var="ctx" value="${pageContext.request.contextPath}" />
-  <c:set var="searchCondition" value="${param.searchCondition}" />
   <c:set var="sort" value="${empty param.sort ? 'latest' : param.sort}" />
-  <c:set var="kw"   value="${empty keyword ? param.keyword : keyword}" />
-  <c:set var="cat"  value="${empty selectedCat ? (empty category ? param.category : category) : selectedCat}" />
-  <c:set var="selectedCat" value="${param.category}" />
   <c:set var="selectedpage" value="${empty param.page ? 1 : param.page}" />
   <c:set var="categories" value="의류,신발,악세사리,디지털/가전,스포츠,도서/티켓,가구/생활,기타" />
-
+  <c:set var="category" value="${param.category}" />
+  <c:set var="keyword" value="${not empty fn:trim(keyword) ? fn:trim(keyword) : fn:trim(param.keyword)}" />
+  <c:set var="totalCount" value="${totalCount}"/>
+  <c:set var="isCategoryChooser" value="${empty category and empty keyword}"/>
+  
 
 <div class="main-wrap">
 
+	<!-- 제목  -->
+  <c:set var="baseListUrl">
+  <c:url value="/productList.do">
+    <c:if test="${not empty category}"><c:param name="category" value="${category}"/></c:if>
+    <c:if test="${not empty keyword}"><c:param name="keyword" value="${keyword}"/></c:if>
+  </c:url>
+</c:set>
+
+<!-- 헤더: 왼쪽 제목 / 오른쪽 정렬 -->
+<header class="list-header">
+  <h2 class="lh-title">
+    <c:choose>
+      <c:when test="${not empty keyword and not empty category}">
+        <span class="em"><c:out value="${category}"/></span>의 검색결과 상품
+      </c:when>
+      <c:when test="${not empty keyword}">
+        <span class="em">"<c:out value='${keyword}'/>"</span>의 검색결과 상품
+      </c:when>
+      <c:when test="${not empty category}">
+        <span class="em"><c:out value="${category}"/></span>의 상품
+      </c:when>
+      <c:otherwise>전체 상품</c:otherwise>
+    </c:choose>
+    <c:if test="${not empty totalCount}">
+      <span class="lh-count"><fmt:formatNumber value="${totalCount}"/>개</span>
+    </c:if>
+  </h2>
+  
+ <nav class="lh-sort" aria-label="정렬">
+  <!-- latest: sort 파라미터 없이 링크 -->
+  <a class="lh-link ${sort=='latest' ? 'is-active' : ''}"
+     href="${baseListUrl}&page=1">최신순</a>
+
+  <a class="lh-link ${sort=='price_asc' ? 'is-active' : ''}"
+     href="${baseListUrl}&sort=price_asc&page=1">저가순</a>
+
+  <a class="lh-link ${sort=='price_desc' ? 'is-active' : ''}"
+     href="${baseListUrl}&sort=price_desc&page=1">고가순</a>
+</nav>
+</header>
   
    <!-- 필터 유지용 히든 폼 -->
   <form id="filterForm" method="get" action="${ctx}/productList.do">
     <input type="hidden" name="category" id="categoryInput" value="${selectedCat}">
     <input type="hidden" name="page" id="pageInput" value="${selectedpage}">
   </form>
+  
   	
-  	<c:if test="${empty fn:trim(param.keyword) and empty fn:trim(param.sort)}">
-  <!-- 카테고리 --><nav class="cat-wrap">
+  	<c:if test="${empty category and empty keyword}">
+  <!-- 카테고리 선택 -->
+  <nav class="cat-wrap">
     <ul class="cat-grid">
       <c:forEach var="cat" items="${fn:split(categories, ',')}">
         <c:set var="c" value="${fn:trim(cat)}" />
         <li class="cat-item">
           <button type="button"
-                  class="cat-btn ${c == selectedCat ? 'active' : ''}"
+                  class="cat-btn ${c == category ? 'active' : ''}"
                   data-cat="${c}">
-            ${c}
+            <c:out value="${c}"/>
           </button>
         </li>
       </c:forEach>
     </ul>
   </nav>
-  </c:if>
-  
-  
-  
-  <c:if test="${empty param.category}">
- <nav class="sort-tabs" style="display:flex;gap:10px;margin-top:8px;">
-  <a href="${ctx}/productList.do?sort=latest&page=1"     class="${sort=='latest' ? 'on' : ''}">최신순</a>
-  <a href="${ctx}/productList.do?sort=price_asc&page=1"  class="${sort=='price_asc' ? 'on' : ''}">저가순</a>
-  <a href="${ctx}/productList.do?sort=price_desc&page=1" class="${sort=='price_desc' ? 'on' : ''}">고가순</a>
-</nav>
 </c:if>
+  
+  
 
 
     <div class="prd-list">
       <!-- 상품목록(한줄에 4개씩) -->
       <c:forEach items="${productList}" var="prd" varStatus="status">      
 	      <article class="card">
-	        <a href="productInsert.do">
+	        <a href="product.do?prdNo=${prd.prdNo}">
 	          <div class="thumb">
 	          	<img src="${ctx}/images/product/${prd.prdImg}" alt="상품이미지 : ${prd.prdName}">
 	          </div>
@@ -64,7 +99,7 @@
 	            	<fmt:formatNumber value="${prd.price}" pattern="#,###"/><small>원</small>
 	            </div>
 	            <div class="date">
-	            	<fmt:formatDate value="${prd.prdDate}" pattern="yyyy-MM-dd" />
+	            	${prd.prdDate}
 	            </div>
 	          </div>
 	        </a>
@@ -79,6 +114,7 @@
 <!-- paging -->
 <nav aria-label="Page navigation">
   <ul class="pagination justify-content-center">
+  
 
     <!-- Prev -->
     <c:choose>
@@ -87,11 +123,11 @@
           <!-- 이전 블록의 마지막 페이지로 이동 -->
           <c:param name="page" value="${paging.start - 1}" />
           <!-- 기존 파라미터 순서를 유지: category -> searchCondition -> keyword -> page -->
-          <c:if test="${not empty cat}">
-            <c:param name="category" value="${cat}" />
+          <c:if test="${not empty category}">
+            <c:param name="category" value="${category}" />
           </c:if>
-          <c:if test="${not empty kw}">
-            <c:param name="keyword" value="${kw}" />
+          <c:if test="${not empty keyword}">
+            <c:param name="keyword" value="${keyword}" />
           </c:if>
            <c:if test="${not empty param.sort}">
     		<c:param name="sort" value="${param.sort}" />
@@ -105,6 +141,7 @@
     </c:choose>
 
     <!-- 숫자 버튼 -->
+    <!-- 위에서 파라미터를 선언해두고 조건절 사용해서 페이징할때 파라미터 보이게할지 만듬 -->
     <c:forEach var="p" begin="${paging.start}" end="${paging.end}">
       <c:choose>
         <c:when test="${paging.currPage eq p}">
@@ -113,15 +150,15 @@
         <c:otherwise>
           <c:url var="pUrl" value="/productList.do">
             <!-- 기존 파라미터 순서를 유지 -->
-            <c:if test="${not empty cat}">
-              <c:param name="category" value="${cat}" />
+            <c:if test="${not empty category}">
+              <c:param name="category" value="${category}" />
             </c:if>
-            <c:if test="${not empty kw}">
-              <c:param name="keyword" value="${kw}" />
+            <c:if test="${not empty keyword }">
+             <c:param name="keyword" value="${keyword}" />
             </c:if>
-             <c:if test="${not empty param.sort}">
-			<c:param name="sort" value="${param.sort}" />
-  			</c:if>
+            <c:if test="${not empty sort }">
+            <c:param name="sort" value="${sort}" />
+            </c:if>
             <c:param name="page" value="${p}" />
           </c:url>
           <li class="page-item"><a class="page-link" href="${pUrl}">${p}</a></li>
@@ -136,11 +173,11 @@
           <!-- 다음 블록의 첫 페이지로 이동 -->
           <c:param name="page" value="${paging.end + 1}" />
           <!-- 기존 파라미터 순서를 유지 -->
-          <c:if test="${not empty cat}">
-            <c:param name="category" value="${cat}" />
+          <c:if test="${not empty category}">
+            <c:param name="category" value="${category}" />
           </c:if>
-          <c:if test="${not empty kw}">
-            <c:param name="keyword" value="${kw}" />
+          <c:if test="${not empty keyword}">
+            <c:param name="keyword" value="${keyword}" />
           </c:if>
            <c:if test="${not empty param.sort}">
     		<c:param name="sort" value="${param.sort}" />
@@ -254,17 +291,70 @@
   color: #ccc !important;
 }
 /*최신순*고가순*저가순 */
-.sort-tabs {display:flex; gap:12px; align-items:center;}
-.sort-tabs .sep {color:#ccc;}
-.sort-tabs a {text-decoration:none; color:#888;}
-.sort-tabs a.on {color:#0aa58c; font-weight:700;}
-                                
+/* ===== 헤더 레이아웃 & 여백 ===== */
+.list-header{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  /* 위/아래 간격 */
+  margin:18px 0 20px;     /* 헤더 자체의 바깥 여백 */
+  padding:12px 0;         /* 헤더 안쪽 여백 */
+  border-bottom:1px solid #eee; /* 살짝 구분선 */
+  gap:12px;
+}
+
+/* 제목(왼쪽) */
+.lh-title{
+  margin:0;
+  font-size:22px;
+  line-height:1.3;
+  font-weight:700;
+  color:#111;
+}
+.lh-title .em{ color:#0aa58c; }
+.lh-title .lh-count{
+  margin-left:8px;
+  color:#9aa0a6;
+  font-weight:400;
+}
+
+/* 정렬 탭(오른쪽) - 텍스트 + | 구분자 */
+.lh-sort{
+  margin-left:auto;                 /* 오른쪽으로 밀기 */
+  display:flex; align-items:center; gap:0;
+}
+.lh-link{
+  position:relative;
+  display:inline-block;
+  padding:0 12px;
+  text-decoration:none;
+  color:#8f8f8f;
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  line-height:1.2;
+  white-space:nowrap;
+}
+.lh-link:hover{ color:#111; }
+.lh-link.is-active{ color:#0aa58c; font-weight:700; }
+
+/* 가운데 구분선 |  */
+.lh-link + .lh-link::before{
+  content:"";
+  position:absolute;
+  left:0; top:50%;
+  width:1px; height:14px;
+  background:#e5e7eb;
+  transform:translateY(-50%);
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 640px){
+  .list-header{ flex-wrap:wrap; row-gap:8px; }
+  .lh-title{ font-size:18px; }
+}
 </style>
 
-<style>
-  .sort-tabs a{padding:6px 10px;border:1px solid #ddd;border-radius:8px;text-decoration:none;color:#333}
-  .sort-tabs a.on{background:#000;color:#fff}
-</style>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
