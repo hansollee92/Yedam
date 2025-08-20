@@ -55,29 +55,28 @@
     <h3 class="qna-subtitle"><i class="fa-solid fa-comment-dots"></i> 댓글 목록</h3>
 
 	<%-- 댓글목록 --%>
-	<ul class="qnaReply-container">
-		<!-- <li>
-			<div class="img-box">
-				<img src="#none" alt="사용자 이미지">
-			</div>
-			<ul class="reply-meta">
-				<li>댓글 작성자 이름</li>
-				<li>댓글내용</li>
-			</ul>
-		</li> -->
-		<li>
-			<span>글쓴이</span>
-			<span>댓글내용</span>
-			<span>댓글날짜</span>
-			<span><button type="button">삭제</button></span>
-		</li>
-	</ul>
+	<ul class="qnaReply-container"></ul>
 
     <%-- 페이징 --%>
     
     
     <%-- 댓글 등록 --%>
-    
+	<div class="qna-write" id="qna-write">
+	  <div class="img-box">
+	    <img src="${ctx}/images/mypage/user-default2.png" alt="사용자 이미지">
+	  </div>
+	
+	  <div class="write-body">
+	    <textarea id="replyContent" class="qna-textarea" rows="3" maxlength="500"
+	      placeholder="댓글을 입력해주세요."></textarea>
+	
+	    <div class="write-actions">
+	      <div class="btns">
+	        <button type="button" class="btn-submit" id="replySubmit">등록</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
     
     
     
@@ -96,6 +95,9 @@
 <%-- js파일로 값 넘기기 --%>
 <script>
 	const qnaNo = "${qna.qnaNo}";
+	const qnaReplyNo = "${qnaReply.qnaReplyNo}";
+	const memberNo = "${logMember.memberNo}";
 </script>
-<script src="${ctx}/js/qna_reply.js"></script>
+<script src="js/qnaReplyService.js"></script>
+<script src="js/qnaReply.js"></script>
     

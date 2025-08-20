@@ -19,6 +19,30 @@
 	    where qna_no = #{qnaNo}
 	    order by qnaReply_no
 	</select>
+	
+	<!-- 댓글 단건 검색 -->
+	<select id="selectQnaReply" resultType="qnaReply">
+		select *
+		from qna_reply
+		where qnaReply_no = #{qnaReplyNo}
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteQnaReply" parameterType="int">
+		delete from qna_reply
+		where qnaReply_no = #{qnaReplyNo}
+	</delete>
+	
+	<!-- 댓글 등록 -->
+	<insert id="insertQnaReply" parameterType="qnaReply">
+		<selectKey keyProperty="qnaReplyNo" resultType="int" order="BEFORE">
+			select qnaReply_seq.nextVal from dual
+		</selectKey>
+	
+		insert into qna_reply (qnaReply_no, qnaReply_content, member_no, qna_no)
+		values (#{qnaReplyNo}, #{qnaReplyContent}, #{memberNo}, #{qnaNo})
+	</insert>
+	
 
 
 
