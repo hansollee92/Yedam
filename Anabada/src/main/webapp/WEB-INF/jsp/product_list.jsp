@@ -3,16 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
-<c:set var="searchCondition" value="${param.searchCondition}" />
-<c:set var="sort" value="${empty param.sort ? 'latest' : param.sort}" />
-
-<div class="main-wrap">
-
- <!-- ▶ 카테고리 그리드 (배너 삭제하고 이 블록만 상단에 둠) -->
+  <c:set var="ctx" value="${pageContext.request.contextPath}" />
+  <c:set var="searchCondition" value="${param.searchCondition}" />
+  <c:set var="sort" value="${empty param.sort ? 'latest' : param.sort}" />
+  <c:set var="kw"   value="${empty keyword ? param.keyword : keyword}" />
+  <c:set var="cat"  value="${empty selectedCat ? (empty category ? param.category : category) : selectedCat}" />
   <c:set var="selectedCat" value="${param.category}" />
   <c:set var="selectedpage" value="${empty param.page ? 1 : param.page}" />
   <c:set var="categories" value="의류,신발,악세사리,디지털/가전,스포츠,도서/티켓,가구/생활,기타" />
+
+
+<div class="main-wrap">
+
   
    <!-- 필터 유지용 히든 폼 -->
   <form id="filterForm" method="get" action="${ctx}/productList.do">
@@ -38,36 +40,15 @@
   </c:if>
   
   
-<section>
-  <div class="sec-head">
-  <h3>
-    <c:choose>
-      <c:when test="${not empty selectedCat}">
-        ${selectedCat} 상품
-      </c:when>
-      <c:when test="${not empty keyword}">
-        <c:choose>
-          <c:when test="${searchCondition == 'T'}">태그 ‘${keyword}’ 상품</c:when>
-          <c:otherwise>‘${keyword}’ 상품</c:otherwise>
-        </c:choose>
-      </c:when>
-      <c:otherwise>
-        오늘의 상품 추천
-      </c:otherwise>
-    </c:choose>
-  </h3>
   
+  <c:if test="${empty param.category}">
  <nav class="sort-tabs" style="display:flex;gap:10px;margin-top:8px;">
   <a href="${ctx}/productList.do?sort=latest&page=1"     class="${sort=='latest' ? 'on' : ''}">최신순</a>
   <a href="${ctx}/productList.do?sort=price_asc&page=1"  class="${sort=='price_asc' ? 'on' : ''}">저가순</a>
   <a href="${ctx}/productList.do?sort=price_desc&page=1" class="${sort=='price_desc' ? 'on' : ''}">고가순</a>
 </nav>
+</c:if>
 
-  <!-- 조건 없을 때만 안내 링크 노출 (원하면 항상 보이게 두세요) -->
-  <c:if test="${empty selectedCat and empty keyword}">
-    <a href="${ctx}/productList.do" class="sec-sub">오늘 올라온 상품이 궁금하다면 확인 &gt;</a>
-  </c:if>
-</div>
 
     <div class="prd-list">
       <!-- 상품목록(한줄에 4개씩) -->
@@ -94,11 +75,6 @@
   </section>
 </div>
 
-
-
-
-<c:set var="cat"  value="${empty selectedCat ? (empty category ? param.category : category) : selectedCat}" />
-<c:set var="kw"   value="${empty keyword ? param.keyword : keyword}" />
 
 <!-- paging -->
 <nav aria-label="Page navigation">
