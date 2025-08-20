@@ -19,7 +19,7 @@ create table product (
     category    varchar2(30) not null, -- 카테고리 : 의류, 신발, 악세사리, 디지털/가전, 스포츠, 도서/티켓, 가구/생활, 기타
     prd_status   varchar2(20) not null, -- 상품상태 : 새상품(미사용), 사용감 없음, 사용감 적음, 사용감 많음, 고장/파손 상품
     prd_desc    varchar2(3000), -- 상품설명
-    prd_tag     varchar2(255), -- 태그
+    prd_tag     varchar2(255), -- 태그 : 5개이하
     trade_type  varchar2(20) not null, -- 거래방식 : 직거래, 택배거래
     sale_status  varchar2(20) default '판매중' not null, -- 판매상태 : 판매중, 예약중, 판매완료
     prd_img     varchar2(255), -- 상품이미지명(상품번호_이미지이름.확장자, 예: 3_테이블.jpg)
@@ -29,7 +29,7 @@ create table product (
     lat      number(9,6),   -- 위도
     lng      number(9,6),    -- 경도
     view_cnt   number(10) default 0 not null,   --조회수
-    member_no   number(5),
+    member_no   number(5), -- 1-5번
     foreign key (member_no) references member (member_no)
 );
 

@@ -8,7 +8,7 @@
     <div class="mypage-container">
         <aside class="sidebar">
             <div class="profile-img">
-                <img src="${ctx}/images/mypage/user-default.png"  alt="user_default">
+                <img src="${ctx}/images/mypage/user-default2.png"  alt="user_default">
             </div>
             <div class="profile-info">
                 <strong><c:out value="${member_info.memberName}" /></strong>
