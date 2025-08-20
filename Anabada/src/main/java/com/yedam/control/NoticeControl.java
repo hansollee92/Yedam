@@ -20,9 +20,9 @@ public class NoticeControl implements Control {
 		NoticeService svc = new NoticeServiceImpl();
 		List<NoticeVO> list = svc.noticeList();
 		
-		req.setAttribute("notice", list);
+		req.setAttribute("notices", list);
 		
-		req.getRequestDispatcher("/WEB-INF/jsp/notice.tiles").forward(req, resp);
+		req.getRequestDispatcher("/product/notice.tiles").forward(req, resp);
 		
 		
 	}

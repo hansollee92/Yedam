@@ -64,7 +64,7 @@
 
         </ul>
       </div>
-      <%--<div><a href="#" class="notice-link">공지사항</a></div> --%>
+      <div><a href="${ctx}/notice.do" class="notice-link">공지사항</a></div>
     </nav>
   </div>
 </header>

@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="${ctx}/css/pay.css"> <!-- 결제창 CSS -->
   <link rel="stylesheet" href="${ctx}/css/qna.css">
   <link rel="stylesheet" href="${ctx}/css/qnaRegister.css">
+  <link rel="stylesheet" href="${ctx}/css/notice.css">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
