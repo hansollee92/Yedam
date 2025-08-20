@@ -21,8 +21,9 @@ const svc = {
   },
 
   // 등록
-	registerReply(param={qnaNo, qnaReplyContent, memberNo}, successCallback, errorCallback){
-		fetch('qnaReplyAdd.do?qnaNo='+param.qnaNo+'&qnaReplyContent='+param.qnaReplyContent+'&memberNo='+param.memberNo)
+	registerReply(param, successCallback, errorCallback){
+		fetch('qnaReplyAdd.do?qnaNo=' + encodeURIComponent(param.qnaNo) +
+		        '&qnaReplyContent=' + encodeURIComponent(param.qnaReplyContent))
 			.then(resolve => resolve.json())
 			.then(successCallback)
 			.catch(errorCallback)
