@@ -58,21 +58,29 @@ showReplyList();
 
 
 // 댓글 등록
-document.querySelector('#replySubmit').addEventListener('click', (e) => {
+window.addEventListener('DOMContentLoaded', () => {
+	document.querySelector('#replySubmit').addEventListener('click', onReplySubmit);
+})
 
-	//qnaNo, qnaReplyContent, memberNo
-	let qnaReplyContent = document.querySelector('#replyContent').value;
-	if(!qnaNo || !qnaReplyContent || !memberNo){
-		alert('필수값을 입력하세요');
+function onReplySubmit(){
+	const reply = document.querySelector('#replyContent');
+	
+	const qnaReplyContent = (reply.value || '').trim();
+	console.log('[DEBUG]', { qnaNo, qnaReplyContent, len: qnaReplyContent.length,
+	                           count: document.querySelectorAll('#replyContent').length });
+	
+	
+	
+	if(!qnaNo || qnaReplyContent.length == 0 ){
+		alert('내용을 입력해주세요');
 		return;
 	}
-
-	svc.registerReply({qnaNo, qnaReplyContent, memberNo},
+	svc.registerReply({qnaNo, qnaReplyContent},
 		result => {
 			if(result.retCode == 'OK'){
 				let r = result.retVal;
-				showReplyList();
-				qnaReplyContent = ''; //입력창 초기화
+				showReplyList(r);
+				reply.value = ''; //입력창 초기화
 			}else if(result.retCode == 'NG'){
 				alert('댓글 등록에 실패했습니다.');
 			}else{
@@ -81,7 +89,11 @@ document.querySelector('#replySubmit').addEventListener('click', (e) => {
 		},
 		err => console.error(err)
 	)
-});
+	
+}
+
+
+
 
 
 
@@ -122,10 +134,10 @@ function deleteRowFnc(e){
 		result => {
 			if (result.retCode == 'OK') {
 				showReplyList();
-			} else if (result.retCoe == 'NG') {
-				alert('삭제실패!!');
+			} else if (result.retCode == 'NG') {
+				alert('댓글 삭제를 실패했습니다.');
 			} else {
-				alert('알수없는 코드입니다.');
+				alert('댓글 삭제 중 오류가 발생했습니다.');
 			}
 		},
 		err => console.error(err)

@@ -26,8 +26,7 @@ public class QnaControl implements Control {
 		int qnaNo = Integer.parseInt(req.getParameter("qnaNo"));
 		
 		HttpSession session = req.getSession();
-		MemberVO logMember = (MemberVO) session.getAttribute("logMember");
-		
+		MemberVO logMember = (MemberVO) session.getAttribute("logMember");		
 		
 		QnaService svc = new QnaServiceImpl();
 		QnaVO qna = svc.searchQna(prdNo, qnaNo);
