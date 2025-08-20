@@ -14,7 +14,7 @@ create table member (
 create table product (
     prd_no      number(5) primary key, -- 상품번호
     prd_name    varchar2(150) not null, -- 상품명
-    price       number(40) default 0 not null, -- 상품가격
+    price       number(30) default 0 not null, -- 상품가격
     prd_date    date default sysdate, -- 등록일자
     category    varchar2(30) not null, -- 카테고리 : 의류, 신발, 악세사리, 디지털/가전, 스포츠, 도서/티켓, 가구/생활, 기타
     prd_status   varchar2(20) not null, -- 상품상태 : 새상품(미사용), 사용감 없음, 사용감 적음, 사용감 많음, 고장/파손 상품
