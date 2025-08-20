@@ -7,14 +7,16 @@
   <c:set var="ctx" value="${pageContext.request.contextPath}" />
   <c:set var="sort" value="${empty param.sort ? 'latest' : param.sort}" />
   <c:set var="selectedpage" value="${empty param.page ? 1 : param.page}" />
-  <c:set var="categories" value="의류,신발,악세사리,디지털/가전,스포츠,도서/티켓,가구/생활,기타" />
+  <c:set var="categories" value="전체,의류,신발,악세사리,디지털/가전,스포츠,도서/티켓,가구/생활,기타" />
   <c:set var="category" value="${param.category}" />
   <c:set var="keyword" value="${not empty fn:trim(keyword) ? fn:trim(keyword) : fn:trim(param.keyword)}" />
   <c:set var="totalCount" value="${totalCount}"/>
-  <c:set var="isCategoryChooser" value="${empty category and empty keyword}"/>
+  
   
 
 <div class="main-wrap">
+
+
 
 	<!-- 제목  -->
   <c:set var="baseListUrl">
@@ -32,7 +34,7 @@
         <span class="em"><c:out value="${category}"/></span>의 검색결과 상품
       </c:when>
       <c:when test="${not empty keyword}">
-        <span class="em">"<c:out value='${keyword}'/>"</span>의 검색결과 상품
+        <span class="em"><c:out value='${keyword}'/></span>의 검색결과 상품
       </c:when>
       <c:when test="${not empty category}">
         <span class="em"><c:out value="${category}"/></span>의 상품
@@ -47,7 +49,7 @@
  <nav class="lh-sort" aria-label="정렬">
   <!-- latest: sort 파라미터 없이 링크 -->
   <a class="lh-link ${sort=='latest' ? 'is-active' : ''}"
-     href="${baseListUrl}&page=1">최신순</a>
+     href="${baseListUrl}&sort=latest&page=1">최신순</a>
 
   <a class="lh-link ${sort=='price_asc' ? 'is-active' : ''}"
      href="${baseListUrl}&sort=price_asc&page=1">저가순</a>
@@ -63,19 +65,27 @@
     <input type="hidden" name="page" id="pageInput" value="${selectedpage}">
   </form>
   
-  	
-  	<c:if test="${empty category and empty keyword}">
+  	<c:if test="${empty keyword}">
   <!-- 카테고리 선택 -->
   <nav class="cat-wrap">
     <ul class="cat-grid">
       <c:forEach var="cat" items="${fn:split(categories, ',')}">
         <c:set var="c" value="${fn:trim(cat)}" />
+
+        <!-- 카테고리별 URL 생성: '전체'는 category 파라미터 미포함 -->
+        <c:url var="catUrl" value="/productList.do">
+          <c:param name="page" value="1"/>
+          <c:if test="${c ne '전체'}">
+            <c:param name="category" value="${c}"/>
+          </c:if>
+        </c:url>
+
         <li class="cat-item">
-          <button type="button"
-                  class="cat-btn ${c == category ? 'active' : ''}"
-                  data-cat="${c}">
+          <!-- '전체' 활성화 조건: 현재 category가 비어있을 때 -->
+          <a href="${catUrl}"
+             class="cat-btn ${ (c eq '전체' and empty category) or (c ne '전체' and c eq category) ? 'active' : ''}">
             <c:out value="${c}"/>
-          </button>
+          </a>
         </li>
       </c:forEach>
     </ul>
@@ -297,9 +307,9 @@
   align-items:flex-end;
   justify-content:space-between;
   /* 위/아래 간격 */
-  margin:18px 0 20px;     /* 헤더 자체의 바깥 여백 */
-  padding:12px 0;         /* 헤더 안쪽 여백 */
-  border-bottom:1px solid #eee; /* 살짝 구분선 */
+  margin:28px 0 24px;     /* 상/하 여백 넉넉히 */
+  padding:0;              /* 내부 패딩 제거 */
+  border-bottom:none;     /* 하단 구분선 제거 */
   gap:12px;
 }
 
