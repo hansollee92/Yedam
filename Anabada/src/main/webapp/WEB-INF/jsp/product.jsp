@@ -164,9 +164,11 @@
   </section>
 
   <!-- 지도 -->
-  <section class="pd-map">
-    <div class="map-box"><div id="map"></div></div>
-  </section>
+  <c:if test="${product.tradeType ne '택배거래'}">
+	  <section class="pd-map">
+	    <div class="map-box"><div id="map"></div></div>
+	  </section>
+  </c:if>
 
   <!-- 문의하기 안내 -->
   <section class="pd-qna-head">
@@ -323,6 +325,7 @@
 
 
 <!-- kakao map api -->
+<c:if test="${product.tradeType ne '택배거래'}">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd689b27e4b7fc12b2893cb036221eb8"></script>
 <script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -347,6 +350,7 @@
 	// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 	// marker.setMap(null);    
 </script>
+</c:if>
 
 
 <script>
