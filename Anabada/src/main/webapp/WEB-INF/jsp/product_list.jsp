@@ -18,14 +18,7 @@
 
 
 
-	<!-- 제목  -->
-  <c:set var="baseListUrl">
-  <c:url value="/productList.do">
-    <c:if test="${not empty category}"><c:param name="category" value="${category}"/></c:if>
-    <c:if test="${not empty keyword}"><c:param name="keyword" value="${keyword}"/></c:if>
-  </c:url>
-</c:set>
-
+	
 <!-- 헤더: 왼쪽 제목 / 오른쪽 정렬 -->
 <header class="list-header">
   <h2 class="lh-title">
@@ -47,21 +40,35 @@
   </h2>
   
  <nav class="lh-sort" aria-label="정렬">
-  <!-- latest: sort 파라미터 없이 링크 -->
-  <a class="lh-link ${sort=='latest' ? 'is-active' : ''}"
-     href="${baseListUrl}&sort=latest&page=1">최신순</a>
+  <c:url var="latestUrl" value="/productList.do">
+    <c:if test="${not empty category}"><c:param name="category" value="${category}"/></c:if>
+    <c:if test="${not empty keyword}"><c:param name="keyword" value="${keyword}"/></c:if>
+    <c:param name="sort" value="latest"/>
+    <c:param name="page" value="1"/>
+  </c:url>
+  <a class="lh-link ${sort=='latest' ? 'is-active' : ''}" href="${latestUrl}">최신순</a>
 
-  <a class="lh-link ${sort=='price_asc' ? 'is-active' : ''}"
-     href="${baseListUrl}&sort=price_asc&page=1">저가순</a>
+  <c:url var="priceAscUrl" value="/productList.do">
+    <c:if test="${not empty category}"><c:param name="category" value="${category}"/></c:if>
+    <c:if test="${not empty keyword}"><c:param name="keyword" value="${keyword}"/></c:if>
+    <c:param name="sort" value="price_asc"/>
+    <c:param name="page" value="1"/>
+  </c:url>
+  <a class="lh-link ${sort=='price_asc' ? 'is-active' : ''}" href="${priceAscUrl}">저가순</a>
 
-  <a class="lh-link ${sort=='price_desc' ? 'is-active' : ''}"
-     href="${baseListUrl}&sort=price_desc&page=1">고가순</a>
+  <c:url var="priceDescUrl" value="/productList.do">
+    <c:if test="${not empty category}"><c:param name="category" value="${category}"/></c:if>
+    <c:if test="${not empty keyword}"><c:param name="keyword" value="${keyword}"/></c:if>
+    <c:param name="sort" value="price_desc"/>
+    <c:param name="page" value="1"/>
+  </c:url>
+  <a class="lh-link ${sort=='price_desc' ? 'is-active' : ''}" href="${priceDescUrl}">고가순</a>
 </nav>
 </header>
   
    <!-- 필터 유지용 히든 폼 -->
   <form id="filterForm" method="get" action="${ctx}/productList.do">
-    <input type="hidden" name="category" id="categoryInput" value="${selectedCat}">
+    <input type="hidden" name="category" id="categoryInput" value="${category}">
     <input type="hidden" name="page" id="pageInput" value="${selectedpage}">
   </form>
   

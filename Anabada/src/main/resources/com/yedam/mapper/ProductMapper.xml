@@ -166,7 +166,7 @@
         FROM product
         <where>
           <!-- 카테고리 -->
-          <if test="category != null and category != ''">
+         <if test="category != null and category != '' and category != 'ALL' and category != '전체'">
             AND category = #{category}
           </if>
 
@@ -231,7 +231,7 @@
     SELECT COUNT(*)
     FROM product
     <where>
-      <if test="category != null and category != ''">
+      <if test="category != null and category != '' and category != 'ALL' and category != '전체'">
         AND category = #{category}
       </if>
 
