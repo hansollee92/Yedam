@@ -69,19 +69,19 @@
 
 			<%-- 판매자만 상태 변경 셀렉트 표시 --%>
 			<c:if test="${isOwner}">
-				<div class="right">
-					<form id="statusForm" method="post"
-						action="${ctx}/productStatus.do">
-						<input type="hidden" name="prdNo" value="${product.prdNo}">
-						<select class="form-select" name="saleStatus"
-							onchange="if(confirm('판매상태를 변경할까요?')) this.form.submit(); else this.selectedIndex=this.dataset.prevIdx;">
-							<option value="판매중" ${product.saleStatus eq '판매중'   ? 'selected' : ''}>판매중</option>
-							<option value="예약중" ${product.saleStatus eq '예약중'   ? 'selected' : ''}>예약중</option>
-							<option value="판매완료" ${product.saleStatus eq '판매완료' ? 'selected' : ''}>판매완료</option>
-						</select>
-					</form>
-				</div>
+			  <div class="right">
+			    <form id="statusForm" method="post" action="${ctx}/productSaleStatus.do">
+			      <input type="hidden" name="prdNo" value="${product.prdNo}">
+			      <select class="form-select" name="saleStatus"
+			              onchange="if(confirm('판매상태를 변경할까요?')) this.form.submit(); else this.selectedIndex=this.dataset.prevIdx;">
+			        <option value="판매중"   ${product.saleStatus eq '판매중'   ? 'selected' : ''}>판매중</option>
+			        <option value="예약중"   ${product.saleStatus eq '예약중'   ? 'selected' : ''}>예약중</option>
+			        <option value="판매완료" ${product.saleStatus eq '판매완료' ? 'selected' : ''}>판매완료</option>
+			      </select>
+			    </form>
+			  </div>
 			</c:if>
+			
 		</div>
 
 		<%-- 버튼 영역 : “판매자”와 “구매자/비로그인”을 분기 --%>
