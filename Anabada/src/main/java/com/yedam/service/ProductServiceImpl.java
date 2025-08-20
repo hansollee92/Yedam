@@ -93,6 +93,11 @@ public class ProductServiceImpl implements ProductService {
         return mapper.selectWish(memberNo);
     }
 
+	@Override
+	public String searchProductMember(int prdNo) {
+		return mapper.selectProductMember(prdNo);
+	}
+
 
 	@Override
 	public List<ProductVO> searchProducts(SearchDTO search) {

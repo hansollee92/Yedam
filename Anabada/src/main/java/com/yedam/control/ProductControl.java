@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.common.Control;
 import com.yedam.common.PageDTO;
 import com.yedam.common.PageQnaDTO;
-import com.yedam.service.ProductService;
-import com.yedam.service.ProductServiceImpl;
-import com.yedam.service.QnaService;
-import com.yedam.service.QnaServiceImpl;
+import com.yedam.service.*;
 import com.yedam.vo.ProductVO;
 import com.yedam.vo.QnaVO;
 
@@ -33,17 +30,23 @@ public class ProductControl implements Control {
 		
 		ProductService svc = new ProductServiceImpl();
 		QnaService qsvc = new QnaServiceImpl();
+		WishService wishsvc = new WishServiceImpl();
 		
 		//페이징
 		int totalCnt = qsvc.totalCnt(Integer.parseInt(prdNo));
 		PageQnaDTO paging = new PageQnaDTO(Integer.parseInt(page), totalCnt);	
 		
 		ProductVO product = svc.findProduct(Integer.parseInt(prdNo));
+		String productMember = svc.searchProductMember(Integer.parseInt(prdNo));
+
 		List<QnaVO> qna = qsvc.searchQnaList(Integer.parseInt(prdNo), Integer.parseInt(page));
+		int countWish = wishsvc.searchProductWish(Integer.parseInt(prdNo));
 
 		req.setAttribute("product", product);
 		req.setAttribute("qna_list", qna);
 		req.setAttribute("paging", paging);
+		req.setAttribute("countWish", countWish);
+		req.setAttribute("productMember", productMember);
 
 		req.getRequestDispatcher("product/product.tiles").forward(req, resp);
 

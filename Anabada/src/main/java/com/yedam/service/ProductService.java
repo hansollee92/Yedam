@@ -20,8 +20,9 @@ public interface ProductService {
       public boolean productInsert(ProductVO vo);    // 상품등록
   
 	  public List<ProductVO> searchProducts(SearchDTO search);  //검색목록 / 검색결과
-	  int countProducts(SearchDTO search); //페이징 
-	  public List<ProductVO> searchWish (int memberNo);  //찜한 상품 조회  
+	  public int countProducts(SearchDTO search); //페이징
+	  public List<ProductVO> searchWish (int memberNo);  // 마이페이지에서 찜한 상품 조회
+	  public String searchProductMember (int prdNo);
 
 
 }	  
