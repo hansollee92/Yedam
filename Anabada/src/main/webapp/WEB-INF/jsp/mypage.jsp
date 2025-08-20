@@ -40,7 +40,6 @@
                     <li><a href="#" class="mypage-menu" data-url="purList.do?memberNo=${member_info.memberNo}">구매 내역</a></li>
                     <li><a href="#" class="mypage-menu" data-url="reviewList.do?memberNo=${member_info.memberNo}">리뷰 내역</a></li>
                 </ul>
-                <a href="/mypage/update" class="update-myInfo">회원정보 수정</a>
             </div>
         </aside>
 
@@ -53,7 +52,7 @@
     <script>
         <%-- 처음 화면 들어갔을때 찜 목록 보여주기 --%>
         document.addEventListener("DOMContentLoaded", () => {
-            fetch("wishList.do?memberNo=${member_info.memberNo}")
+            fetch("saleList.do?memberNo=${member_info.memberNo}")
                 .then(res => res.text())
                 .then(html => {
                     document.getElementById("mainContent").innerHTML = html;
@@ -73,5 +72,3 @@
         });
     </script>
 </body>
-
-</html>
