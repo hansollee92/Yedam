@@ -183,7 +183,7 @@
     </c:if>
     <form action="qnaRegisterForm.do">
     	<input type="hidden" value="${product.prdNo}" name="prdNo">
-    	<input type="submit" value="상품 문의하기" class="qnaBtn btn-primary">
+    	<input type="submit" value="상품 문의하기" class="qnaBtn btn-primary" id="direct-btn">
     </form>
   </section>
   
@@ -317,7 +317,7 @@
     </div>
 
     <div class="modal_actions">
-      <a class="trade-btn tradeBtn-primary" href="">직거래 문의하기</a>
+      <a class="trade-btn tradeBtn-primary" href="${ctx}/product.do?prdNo=${product.prdNo}&anchor=pd-qna">직거래 문의하기</a>
       <a class="trade-btn"  href="${ctx}/payForm.do?prdNo=${product.prdNo}">택배 거래</a>
     </div>
   </div>
@@ -403,49 +403,7 @@
 	    if (e.key === 'Escape' && modal?.style.display === 'block') closeModal();
 	  });
 	});
-	
-	
-	
-	// 문의하기 버튼 눌렀을때 
-	document.addEventListener('DOMContentLoaded', () => {
-		  const modal       = document.getElementById('tradeModal');
-		  const overlay     = modal?.querySelector('.modal_overlay');
-		  const closeBtn    = modal?.querySelector('.modal_close');
-		  const purchaseBtn = document.getElementById('purchase-btn');
-		  const directBtn   = document.getElementById('direct-btn');
 
-		  const openModal = (e) => {
-		    e.preventDefault();
-		    modal.style.display = 'block';
-		    document.body.style.overflow = 'hidden';
-		  };
-
-		  const closeModal = () => {
-		    modal.style.display = 'none';
-		    document.body.style.overflow = '';
-		  };
-
-		  // 직거래 버튼 → 모달 닫고 이동
-		  directBtn?.addEventListener('click', (e) => {
-		    e.preventDefault();
-		    closeModal();
-
-		    // 모달 닫기 애니메이션 보이게 0.2초 뒤 이동
-		    setTimeout(() => {
-		      location.href = `${ctx}/product.do?prdNo=${prdNo}#pd-qna`;
-		    }, 200);
-		  });
-
-		  purchaseBtn?.addEventListener('click', openModal);
-		  overlay?.addEventListener('click', closeModal);
-		  closeBtn?.addEventListener('click', closeModal);
-		  document.addEventListener('keydown', (e) => {
-		    if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
-		  });
-		});
-	
-	
-  	
 </script>
 
 <%-- 페이지네이션 스타일 강제적용(부트스트랩) --%>
@@ -472,4 +430,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<%-- 모달창 스타일 보정 --%>
+<!-- 문의하기 링크 > 앵커 처리로 이동 -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+	  const params = new URLSearchParams(window.location.search);
+	  if (params.get("anchor") === "pd-qna") {
+	    document.getElementById("pd-qna")?.scrollIntoView({behavior:"smooth"});
+	  }
+	});
+</script>
