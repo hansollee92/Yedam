@@ -188,6 +188,118 @@ body {
 }
 
 /* 리뷰 목록 css */
+.review-section {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0px 2px 16px rgba(38, 50, 56, 0.06);
+  padding: 30px 28px 30px 28px;
+  margin: 36px auto;
+  max-width: 510px;
+}
+.review-section h6 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.my-list, .other-list {
+  margin-bottom: 20px;
+}
+
+/* 리뷰 항목 전체 묶음 */
+.review-item-img {
+  display: inline-block;
+  vertical-align: top;
+}
+.review-item-img img {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  background: #eee;
+  object-fit: cover;
+}
+
+.review-item-name,
+.review-item-score,
+.review-item-content {
+  display: block;
+  margin-left: 60px;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+/* 첫 줄만 bold 처리 */
+.review-item-name {
+  font-weight: 600;
+  margin-top: -40px;
+}
+
+.review-item-score {
+  color: #FFA500;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+}
+
+/* 평점 또는 구매자명 등에 따라 조정 */
+.review-item-content {
+  color: #222;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #f1f1f1;
+  margin: 16px 0;
+}
+
+.no-review {
+  color: #aaa;
+  text-align: center;
+  padding: 40px 0;
+  font-size: 15px;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0 0 0;
+  padding: 0;
+  list-style: none;
+  gap: 8px;
+}
+
+.page-item {
+  /* Bootstrap-like style */
+}
+
+.page-link {
+  display: block;
+  min-width: 28px;
+  padding: 5px 0;
+  border-radius: 8px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #d2d9df;
+  color: #343a40;
+  font-size: 14px;
+  transition: all 0.12s;
+  cursor: pointer;
+}
+.page-item.active .page-link,
+.page-link:hover {
+  background: #109488;
+  color: #fff;
+  border-color: #109488;
+}
+.page-item.disabled .page-link {
+  background: #f4f5f6;
+  color: #aaa;
+  cursor: default;
+  border-color: #ebebeb;
+}
+
 
 /* 버튼 클래스 */
 .btn {

@@ -8,7 +8,14 @@
     <div class="mypage-container">
         <aside class="sidebar">
             <div class="profile-img">
-                <img src="${ctx}/images/mypage/user-default2.png"  alt="user_default">
+                <c:choose>
+                    <c:when test="${empty member_info.memberImg}">
+                        <img src="${ctx}/images/mypage/user-default2.png"  alt="user_default">
+                    </c:when>
+                    <c:otherwise>
+                        <img src="${ctx}/images/mypage/${member_info.memberImg}"  alt="user_default">
+                    </c:otherwise>
+                </c:choose>
             </div>
             <div class="profile-info">
                 <strong><c:out value="${member_info.memberName}" /></strong>
