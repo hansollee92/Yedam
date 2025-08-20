@@ -51,17 +51,17 @@
         <a class="dropdown-toggle" href="#"><i class="fa-solid fa-bars"></i></a>
         <ul class="dropdown-menu">
           <li class="label">전체 카테고리</li>
-<li><a class="dropdown-item" href="<c:url value='/productList.do?category=의류&page=1'/>">의류</a></li>
-<li><a class="dropdown-item" href="<c:url value='/productList.do?category=신발&page=1'/>">신발</a></li>
-<li><a class="dropdown-item" href="<c:url value='/productList.do?category=악세사리&page=1'/>">악세사리</a></li>
-<li><a class="dropdown-item" href="<c:url value='/productList.do?category=디지털%2F가전&page=1'/>">디지털/가전</a></li>
-<li><a class="dropdown-item" href="<c:url value='/productList.do?category=스포츠&page=1'/>">스포츠</a></li>
-<li><a class="dropdown-item" href="<c:url value='/productList.do?category=도서%2F티켓&page=1'/>">도서/티켓</a></li>
-<li><a class="dropdown-item" href="<c:url value='/productList.do?category=가구%2F생활&page=1'/>">가구/생활</a></li>
-<li><a class="dropdown-item" href="<c:url value='/productList.do?category=기타&page=1'/>">기타</a></li>
+			<li><a class="dropdown-item" href="<c:url value='/productList.do?category=의류&page=1'/>">의류</a></li>
+			<li><a class="dropdown-item" href="<c:url value='/productList.do?category=신발&page=1'/>">신발</a></li>
+			<li><a class="dropdown-item" href="<c:url value='/productList.do?category=악세사리&page=1'/>">악세사리</a></li>
+			<li><a class="dropdown-item" href="<c:url value='/productList.do?category=디지털%2F가전&page=1'/>">디지털/가전</a></li>
+			<li><a class="dropdown-item" href="<c:url value='/productList.do?category=스포츠&page=1'/>">스포츠</a></li>
+			<li><a class="dropdown-item" href="<c:url value='/productList.do?category=도서%2F티켓&page=1'/>">도서/티켓</a></li>
+			<li><a class="dropdown-item" href="<c:url value='/productList.do?category=가구%2F생활&page=1'/>">가구/생활</a></li>
+			<li><a class="dropdown-item" href="<c:url value='/productList.do?category=기타&page=1'/>">기타</a></li>
         </ul>
       </div>
-      <div><a href="#" class="notice-link">공지사항</a></div>
+      <%--<div><a href="#" class="notice-link">공지사항</a></div> --%>
     </nav>
   </div>
 </header>
