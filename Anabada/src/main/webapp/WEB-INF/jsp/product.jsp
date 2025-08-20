@@ -116,7 +116,7 @@
 		                <input type="hidden" name="prdNo" value="${product.prdNo}">
 		                <button type="submit" class="abtn common-btn">찜하기</button>
 		              </form>
-		              <a class="abtn" href="#none">문의하기</a>
+		              <a class="abtn" href="#pd-qna">문의하기</a>
 		            </div>
 		
 		            <%-- 구매하기: '판매중' 일 때만 활성 --%>
@@ -171,7 +171,7 @@
   </c:if>
 
   <!-- 문의하기 안내 -->
-  <section class="pd-qna-head">
+  <section class="pd-qna-head" id="pd-qna">
     <h2 class="pd-sec-title">문의하기</h2>
     <p class="pd-help">구매하려는 상품에 대해 궁금한 점이 있는 경우 판매자에게 문의해보세요.</p>
     
@@ -317,8 +317,8 @@
     </div>
 
     <div class="modal_actions">
-      <a class="trade-btn tradeBtn-primary" href="${ctx}/inquiryForm.do?prdNo=${product.prdNo}">직거래 문의하기</a>
-      <a class="trade-btn"   href="${ctx}/payForm.do?prdNo=${product.prdNo}">택배 거래</a>
+      <a class="trade-btn tradeBtn-primary" href="">직거래 문의하기</a>
+      <a class="trade-btn"  href="${ctx}/payForm.do?prdNo=${product.prdNo}">택배 거래</a>
     </div>
   </div>
 </div>
@@ -405,6 +405,46 @@
 	});
 	
 	
+	
+	// 문의하기 버튼 눌렀을때 
+	document.addEventListener('DOMContentLoaded', () => {
+		  const modal       = document.getElementById('tradeModal');
+		  const overlay     = modal?.querySelector('.modal_overlay');
+		  const closeBtn    = modal?.querySelector('.modal_close');
+		  const purchaseBtn = document.getElementById('purchase-btn');
+		  const directBtn   = document.getElementById('direct-btn');
+
+		  const openModal = (e) => {
+		    e.preventDefault();
+		    modal.style.display = 'block';
+		    document.body.style.overflow = 'hidden';
+		  };
+
+		  const closeModal = () => {
+		    modal.style.display = 'none';
+		    document.body.style.overflow = '';
+		  };
+
+		  // 직거래 버튼 → 모달 닫고 이동
+		  directBtn?.addEventListener('click', (e) => {
+		    e.preventDefault();
+		    closeModal();
+
+		    // 모달 닫기 애니메이션 보이게 0.2초 뒤 이동
+		    setTimeout(() => {
+		      location.href = `${ctx}/product.do?prdNo=${prdNo}#pd-qna`;
+		    }, 200);
+		  });
+
+		  purchaseBtn?.addEventListener('click', openModal);
+		  overlay?.addEventListener('click', closeModal);
+		  closeBtn?.addEventListener('click', closeModal);
+		  document.addEventListener('keydown', (e) => {
+		    if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
+		  });
+		});
+	
+	
   	
 </script>
 
@@ -432,4 +472,4 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-
+<%-- 모달창 스타일 보정 --%>
