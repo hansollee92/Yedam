@@ -208,6 +208,8 @@ body, button, input, select, textarea { font-family: var(--font); }
 }
 .btn-lg{ height:52px; min-width:300px; font-size:16px; }
 
+
+
 /* 비활성화(예약중/판매완료) – 클릭 방지 및 스타일 통일 */
 .btn-primary[disabled],
 .btn-primary.disabled{
@@ -241,7 +243,34 @@ body, button, input, select, textarea { font-family: var(--font); }
   justify-content: center;
 }
 
+/* abtn 기본 호버는 '활성'일 때만 적용 */
+.abtn:not([disabled]):not(.disabled):hover{
+  background-color: var(--gray);
+  color: #fff;
+  cursor: pointer;
+}
 
+/* abtn 비활성화(찜하기/문의하기) */
+.abtn[disabled],
+.abtn.disabled,
+a.abtn[disabled],
+a.abtn.disabled{
+  background-color: #ddd !important;
+  color: #999 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important; /* 클릭 자체 차단 */
+  opacity: .85;
+}
+
+/* 혹시 .btn-primary도 상단 CTA 외에 쓸 때 대비 */
+.btn-primary[disabled],
+.btn-primary.disabled{
+  background: var(--disable-color) !important;
+  color: #fff !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  opacity: .9;
+}
 
 
 
@@ -596,3 +625,6 @@ body, button, input, select, textarea { font-family: var(--font); }
   .product-subInfo > div{ font-size: 13px; gap: 4px; }
   .btn-lg{ height: 46px; font-size: 15px; }
 }
+
+
+

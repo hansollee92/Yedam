@@ -97,6 +97,10 @@
 	const qnaNo = "${qna.qnaNo}";
 	const qnaReplyNo = "${qnaReply.qnaReplyNo}";
 	const memberNo = "${logMember.memberNo}";
+	
+    const CTX = '${pageContext.request.contextPath}';
+    const IS_LOGGED_IN = ${empty sessionScope.logMember ? 'false' : 'true'};
+	const LOGIN_MEMBER_NO = ${empty sessionScope.logMember ? 'null' : sessionScope.logMember.memberNo};
 </script>
 <script src="js/qnaReplyService.js"></script>
 <script src="js/qnaReply.js"></script>
