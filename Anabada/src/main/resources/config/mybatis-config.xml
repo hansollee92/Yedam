@@ -16,6 +16,7 @@
     <typeAlias alias="qna" type="com.yedam.vo.QnaVO"/>
     <typeAlias alias="qnaReply" type="com.yedam.vo.QnaReplyVO"/>    
     <typeAlias alias="notice" type="com.yedam.vo.NoticeVO"/>    
+    <typeAlias alias="wish" type="com.yedam.vo.WishVO"/>
   </typeAliases>
 
   <environments default="development">
@@ -23,8 +24,7 @@
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
-        <!-- <property name="url" value="jdbc:oracle:thin:@192.168.0.43:1521:xe"/> -->
-        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+        <property name="url" value="jdbc:oracle:thin:@192.168.0.43:1521:xe"/>
         <property name="username" value="team"/>
         <property name="password" value="team"/>
       </dataSource>

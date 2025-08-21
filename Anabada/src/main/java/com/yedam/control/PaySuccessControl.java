@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.yedam.common.Control;
+import com.yedam.service.ProductService;
+import com.yedam.service.ProductServiceImpl;
 import com.yedam.service.PurchaseService;
 import com.yedam.service.PurchaseServiceImpl;
 import com.yedam.vo.MemberVO;
@@ -82,6 +84,15 @@ public class PaySuccessControl implements Control {
                     req.getRequestDispatcher("/member/pay_fail.tiles").forward(req, resp);
                     return;
                 }
+                
+                // 상태를 '판매완료'로 변경
+                ProductService prodSvc = new ProductServiceImpl();
+                boolean updated = prodSvc.productSaleStatus("판매완료", prdNo);
+                if (!updated) {
+                    req.setAttribute("error", "상품 상태 변경에 실패했습니다.");
+                    req.getRequestDispatcher("/member/pay_fail.tiles").forward(req, resp);
+                    return;
+                }             
 
                 // 성공 페이지로 값 전달
                 req.setAttribute("orderName", orderName);
