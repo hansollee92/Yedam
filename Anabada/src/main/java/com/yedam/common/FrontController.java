@@ -82,7 +82,6 @@ public class FrontController extends HttpServlet {// HttpServlet를 상속받음
 			map.put("/commuInsert.do", new CommuInsertControl());  // 커뮤니티 등록 처리	
 			map.put("/commuRemove.do", new CommuRemoveControl());  // 커뮤니티 삭제
 			
-			
 		}
 
 		@Override
