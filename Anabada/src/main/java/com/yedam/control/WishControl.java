@@ -22,18 +22,27 @@ public class WishControl implements com.yedam.common.Control {
         parm.setPrdNo(Integer.parseInt(prdNo));
         parm.setMemberNo(Integer.parseInt(memberNo));
 
-        if (svc.findProductMember(Integer.parseInt(prdNo)) == Integer.parseInt(memberNo)) {
+        boolean nowWished;
+        if (svc.exists(parm)) {
             svc.removeWish(parm);
             System.out.println("do wish remove");
+            nowWished = false;
         }
         else {
             svc.registerWish(parm);
             System.out.println("do wish add");
+            nowWished = true;
         }
 
-        int countWish = svc.countProductWish(Integer.parseInt(prdNo));
+        // 현재 찜 개수 조회
+        int wishCount = svc.countProductWish(Integer.parseInt(prdNo));
+
+        // JSON 응답
+        resp.setContentType("application/json;charset=UTF-8");
+        String json = String.format("{\"wished\":%b,\"wishCount\":%d}", nowWished, wishCount);
+        resp.getWriter().print(json);
 
         // 상세로 리다이렉트 (필요 시 상태/카운트 전달)
-        resp.sendRedirect(req.getContextPath() + "/product.do?prdNo=" + prdNo);
+//        resp.sendRedirect(req.getContextPath() + "/product.do?prdNo=" + prdNo);
     }
 }

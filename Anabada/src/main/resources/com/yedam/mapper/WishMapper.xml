@@ -12,10 +12,11 @@
     </select>
 
     <!-- 상품에서 찜을 했는지 하지 않았는지 확인 -->
-    <select id="selectWishProduct" parameterType="int">
-        select  member_no
-        from    wish
-        where   prd_no = ${prd_no}
+    <select id="existWish" parameterType="wish" resultType="int">
+        select count(1)
+        from   wish
+        where prd_no = #{prdNo}
+          and member_no = #{memberNo}
     </select>
 
     <insert id="insertWish" parameterType="wish">

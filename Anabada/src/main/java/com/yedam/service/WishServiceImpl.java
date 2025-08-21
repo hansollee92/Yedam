@@ -16,9 +16,10 @@ public class WishServiceImpl implements WishService {
     }
 
     @Override
-    public int findProductMember(int prdNo) {
-        return mapper.selectWishProduct(prdNo);
+    public boolean exists(WishVO wish) {
+        return mapper.existWish(wish) > 0;
     }
+
 
     @Override
     public boolean registerWish(WishVO wish) {
