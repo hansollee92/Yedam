@@ -182,7 +182,7 @@
 		<div class="pd-card-head">
 			<i class="fa-solid fa-location-dot"></i> 직거래 지역
 		</div>
-		<div class="pd-card-body">${product.sido}${product.sigungu}
+		<div class="pd-card-body">${product.sido} ${product.sigungu}
 			${product.dong}</div>
 	</div>
 	<div class="pd-card">
