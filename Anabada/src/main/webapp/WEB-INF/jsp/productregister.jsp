@@ -215,63 +215,60 @@
        4) 응답받은 위도, 경도를 hidden 필드에 저장 
      
     -->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <!--services libraries=services 추가  -->
+
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dd689b27e4b7fc12b2893cb036221eb8&libraries=services"></script>
 
-    <script>
+	<script>
+	  const sidoInput = document.getElementById('sido');
+	  const sigunguInput = document.getElementById('sigungu');
+	  const dongInput = document.getElementById('dong');
 	  const latInput = document.getElementById('lat');
 	  const lngInput = document.getElementById('lng');
 	
 	  const geocoder = new kakao.maps.services.Geocoder();
 	
-	  // input 클릭시 직거래일 때만 우편번호 팝업
-	  locInput.addEventListener('click', () => {
-	    const isDirect = document.querySelector('input[name="tradeType"]:checked')?.value === '직거래';
-	    if (isDirect) openPostcode();
-	  });
-	
 	  function openPostcode() {
 	    new daum.Postcode({
-	      oncomplete: function(data) {
-	        // ❶ 우리가 원하는 지번/동 형태 만들기: "시도 시군구 법정동"
-	        // (예: "대구광역시 수성구 범어동")
-	        const jibunArea = [data.sido, data.sigungu, data.bname].filter(Boolean).join(' ');
+	      oncomplete: function (data) {
+	        try {
+	          const jibunArea = [data.sido, data.sigungu, data.bname].filter(Boolean).join(' ');
 	
-	        // 입력창에 세팅
-	        locInput.value = jibunArea;
-	        
-	        // DB 저장용 hidden 값 세팅
-	        document.getElementById('sido').value    = data.sido || '';
-	        document.getElementById('sigungu').value = data.sigungu || '';
-	        document.getElementById('dong').value    = data.bname || '';
+	          if (locInput) locInput.value = jibunArea;
+	          if (sidoInput)    sidoInput.value    = data.sido    || '';
+	          if (sigunguInput) sigunguInput.value = data.sigungu || '';
+	          if (dongInput)    dongInput.value    = data.bname   || '';
 	
-	        // ❷ 같은 문자열로 좌표(위도/경도) 구하기
-	        geocoder.addressSearch(jibunArea, function(results, status) {
-	          if (status === kakao.maps.services.Status.OK && results.length) {
-	            latInput.value = results[0].y;  // 위도
-	            lngInput.value = results[0].x;  // 경도
-	          } else {
-	            // 좌표 못 찾으면 도로명/지번 전체주소로 재시도 (fallback)
-	            const fallback = data.jibunAddress || data.roadAddress;
-	            geocoder.addressSearch(fallback, function(rs, st){
-	              if (st === kakao.maps.services.Status.OK && rs.length) {
-	                latInput.value = rs[0].y;
-	                lngInput.value = rs[0].x;
-	              } else {
-	                // 마지막 보호: 좌표 초기화
-	                latInput.value = '';
-	                lngInput.value = '';
-	                alert('선택한 주소의 좌표를 찾지 못했습니다. 다시 선택해주세요.');
-	              }
-	            });
-	          }
-	        });
-	        
-	        //팝업창 자동닫기
-	        this.close();
+	          const query = jibunArea || data.jibunAddress || data.roadAddress || '';
+	          if (!query) { latInput.value = ''; lngInput.value = ''; return; }
+	
+	          geocoder.addressSearch(query, function (results, status) {
+	            if (status === kakao.maps.services.Status.OK && results.length) {
+	              latInput.value = results[0].y;
+	              lngInput.value = results[0].x;
+	            } else {
+	              latInput.value = '';
+	              lngInput.value = '';
+	            }
+	          });
+	
+	          // 팝업 모드: 명시적 close() 불필요(자동 닫힘)
+	        } catch (err) {
+	          console.error('[postcode oncomplete error]', err);
+	          latInput.value = '';
+	          lngInput.value = '';
+	        }
 	      }
-	    }).open();
+	    }).open({ popupName: 'postcode-popup' });
+	  }
+	
+	  // 직거래일 때만 열기 (위 스크립트에서 locInput 이미 선언되어 있음)
+	  if (locInput) {
+	    locInput.addEventListener('click', () => {
+	      const isDirect = document.querySelector('input[name="tradeType"]:checked')?.value === '직거래';
+	      if (isDirect) openPostcode();
+	    }, { passive: true });
 	  }
 	</script>
+		
