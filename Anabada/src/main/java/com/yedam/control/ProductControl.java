@@ -11,8 +11,10 @@ import com.yedam.common.Control;
 import com.yedam.common.PageDTO;
 import com.yedam.common.PageQnaDTO;
 import com.yedam.service.*;
+import com.yedam.vo.MemberVO;
 import com.yedam.vo.ProductVO;
 import com.yedam.vo.QnaVO;
+import com.yedam.vo.WishVO;
 
 public class ProductControl implements Control {
 
@@ -31,7 +33,22 @@ public class ProductControl implements Control {
 		ProductService svc = new ProductServiceImpl();
 		QnaService qsvc = new QnaServiceImpl();
 		WishService wishsvc = new WishServiceImpl();
-		
+
+		// 찜 데이터 넘겨주는 코드
+		MemberVO loginMember = (MemberVO) req.getSession().getAttribute("logMember");
+		boolean wished = false;
+
+		if (loginMember != null) {
+			WishVO wishVo = new WishVO();
+			wishVo.setPrdNo(Integer.parseInt(prdNo));
+			wishVo.setMemberNo(loginMember.getMemberNo());
+
+			wished = wishsvc.exists(wishVo);
+		}
+
+		req.setAttribute("wished", wished);
+
+
 		//페이징
 		int totalCnt = qsvc.totalCnt(Integer.parseInt(prdNo));
 		PageQnaDTO paging = new PageQnaDTO(Integer.parseInt(page), totalCnt);	
