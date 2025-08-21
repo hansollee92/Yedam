@@ -41,10 +41,8 @@
 		<div class="product-subInfo">
 			<div class="wish">
 				<i class="fa-solid fa-heart"></i>
-				<c:choose>
-					<c:when test="${countWish == 0}">0</c:when>
-					<c:otherwise>${countWish}</c:otherwise>
-				</c:choose>
+				<%-- 찜한 사람 수 보여주기 --%>
+				<span id="wish-count">${countWish}</span>
 			</div>
 			<div class="view-cnt">
 				<i class="fa-solid fa-eye"></i> ${product.viewCnt}
@@ -126,9 +124,15 @@
 								<form id="wish-form" style="display:inline">
 								<input type="hidden" name="prdNo" value="${product.prdNo}">
 								<input type="hidden" name="memberNo" value="${loginMember.memberNo}">
-						        <button id="wish-btn" type="button" class="abtn"
-						          <c:if test="${product.saleStatus eq '판매완료' or product.saleStatus eq '예약중'}">disabled</c:if>>
-									<span id="wish-count">${countWish}</span>
+						        <button id="wish-btn" type="button" class="abtn">
+									<c:choose>
+										<c:when test="${wished}">
+											찜취소
+										</c:when>
+										<c:otherwise>
+											찜하기
+										</c:otherwise>
+									</c:choose>
 								</button>
 							  </form>
 						    </c:otherwise>
@@ -491,32 +495,28 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		const btn = document.getElementById('wish-btn');
+		const countSpan = document.getElementById('wish-count');
 		const prdNo = document.querySelector('input[name="prdNo"]').value;
 		const memberNo = document.querySelector('input[name="memberNo"]').value;
-		const countSpan = document.getElementById('wish-count');
-
-		// 초기 상태 불러오기 (선택사항)
-		// loadWishStatus();
 
 		btn.addEventListener('click', () => {
-			if (btn.disabled) return;  // 비활성 상태면 무시
+			if (btn.disabled) return;
 
 			fetch('${ctx}/wishToggle.do', {
 				method: 'POST',
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				body: `prdNo=${prdNo}&memberNo=${memberNo}`
+				body: `prdNo=${product.prdNo}&memberNo=${loginMember.memberNo}`
 			})
-					.then(res => res.json())
-					.then(data => {
-						// 버튼 텍스트 바꾸기
-						btn.textContent = data.wished ? '찜취소' : '찜하기';
-						// 찜 수 업데이트
-						countSpan.textContent = data.wishCount;
-					})
-					.catch(err => {
-						alert('찜 기능 처리 중 오류가 발생했습니다.');
-						console.error(err);
-					});
+				.then(res => res.json())
+				.then(data => {
+					// 버튼 텍스트만 바꾸기
+					btn.textContent = data.wished ? '찜취소' : '찜하기';
+
+					// 찜 개수 숫자 업데이트는 별도 영역에
+					countSpan.textContent = data.wishCount;
+				})
+				.catch(() => alert('찜 처리 중 오류가 발생했습니다.'));
 		});
 	});
+
 </script>
