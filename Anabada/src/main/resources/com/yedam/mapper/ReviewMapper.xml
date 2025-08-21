@@ -7,6 +7,7 @@
 	<!-- 내가 쓴 리뷰 -->
 	<select id="selectMyReview" parameterType="int" resultType="review">
 		select  p.prd_name,
+				p.prd_Img,
 				r.review_score,
 				r.review_content
 		from review r join product p
