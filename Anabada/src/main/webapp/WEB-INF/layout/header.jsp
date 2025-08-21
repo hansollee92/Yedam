@@ -52,6 +52,7 @@
         <ul class="dropdown-menu">
           <li class="label">전체 카테고리</li>
 
+
               <li><a class="dropdown-item" href="<c:url value='/productList.do?&page=1'/>">전체</a></li>
               <li><a class="dropdown-item" href="<c:url value='/productList.do?category=의류&page=1'/>">의류</a></li>
               <li><a class="dropdown-item" href="<c:url value='/productList.do?category=신발&page=1'/>">신발</a></li>
