@@ -138,17 +138,10 @@
 					</c:choose>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
 
 	</div>
 </div>
-
-
-
-
-
-
 
 
 <!-- 상품 정보 -->
@@ -178,8 +171,8 @@
 		</div>
 		<div class="pd-card-body tags">
 			<!-- <span>잘려진 태그1</span> 
-      	     <span>잘려진 태그2</span> 
-      	     <span>잘려진 태그3</span> 
+      	   <span>잘려진 태그2</span> 
+      	   <span>잘려진 태그3</span> 
       	-->
 		</div>
 	</div>

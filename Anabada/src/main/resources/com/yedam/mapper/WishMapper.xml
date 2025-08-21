@@ -5,10 +5,34 @@
 <mapper namespace="com.yedam.mapper.WishMapper">
 
     <!-- 상품에서 찜한 사람 수 확인 -->
-    <select id="selectProductWish" parameterType="int" resultType="int">
+    <select id="countWishMember" parameterType="int" resultType="int">
         select  count(member_no)
         from    wish
         where   prd_no = ${prd_no}
     </select>
+
+    <!-- 상품에서 찜을 했는지 하지 않았는지 확인 -->
+    <select id="selectWishProduct" parameterType="int">
+        select  member_no
+        from    wish
+        where   prd_no = ${prd_no}
+    </select>
+
+    <insert id="insertWish" parameterType="wish">
+        insert into wish (wish_no,
+                          member_no,
+                          prd_no)
+        values (wish_seq.nextval,
+                #{memberNo},
+                #{prdNo})
+    </insert>
+
+    <delete id="deleteWish">
+        delete  wish
+        where   prd_no = #{prdNo}
+          and   member_no = #{memberNo}
+    </delete>
+
+
 
 </mapper>

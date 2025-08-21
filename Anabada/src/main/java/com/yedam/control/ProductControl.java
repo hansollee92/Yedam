@@ -40,7 +40,7 @@ public class ProductControl implements Control {
 		String productMember = svc.searchProductMember(Integer.parseInt(prdNo));
 
 		List<QnaVO> qna = qsvc.searchQnaList(Integer.parseInt(prdNo), Integer.parseInt(page));
-		int countWish = wishsvc.searchProductWish(Integer.parseInt(prdNo));
+		int countWish = wishsvc.countProductWish(Integer.parseInt(prdNo));
 
 		req.setAttribute("product", product);
 		req.setAttribute("qna_list", qna);
