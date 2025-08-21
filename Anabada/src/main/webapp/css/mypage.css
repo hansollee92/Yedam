@@ -189,12 +189,7 @@ body {
 
 /* 리뷰 목록 css */
 .review-section {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0px 2px 16px rgba(38, 50, 56, 0.06);
-  padding: 30px 28px 30px 28px;
   margin: 36px auto;
-  max-width: 510px;
 }
 .review-section h6 {
   font-size: 17px;
