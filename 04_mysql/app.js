@@ -22,6 +22,9 @@ const app = express();
 // x-www-form-urlendcoded
 app.use(parser.urlencoded());
 
+// json문자열 정보
+app.use(parser.json());
+
 // 라우팅(route) 코드
 app.get("/", (req, resp) => {
   resp.send("/ 실행");
@@ -52,15 +55,15 @@ app.get("/customers", (req, resp) => {
 
 // 등록(insert)
 app.post("/customer", (req, resp) => {
-  console.log(req.body);
+  console.log(req.body.param);
   pool.getConnection((err, connection) => {
     if (err) {
       console.log(err);
       return;
     }
     connection.query(
-      "insert into customers (name, email, phone) values (?, ?, ?)",
-      [req.body.name, req.body.email, req.body.phone],
+      "insert into customers set ?",
+      [req.body.param], // [{"name": "김식빵", "email": "sickbbang@mail.com", "phone": "010-5784-1542"}]
       (err, results) => {
         if (err) {
           console.log(err);
