@@ -5,10 +5,6 @@ const express = require("express"); //express 모듈
 const mysql = require("mysql2"); //mysql2 모듈
 const parser = require("body-parser"); //body-parser 모듈
 
-// Express에서 요청(req) 본문(body)을 해석하기 위한 미들웨어 설정
-// x-www-form-urlendcoded
-app.use(parser.urlencoded);
-
 // connect pool 생성
 const pool = mysql.createPool({
   host: "127.0.0.1",
@@ -22,6 +18,11 @@ const pool = mysql.createPool({
 // express 객체 생성
 const app = express();
 
+// Express에서 요청(req) 본문(body)을 해석하기 위한 미들웨어 설정
+// x-www-form-urlendcoded
+app.use(parser.urlencoded());
+
+// 라우팅(route) 코드
 app.get("/", (req, resp) => {
   resp.send("/ 실행");
 });
@@ -51,7 +52,7 @@ app.get("/customers", (req, resp) => {
 
 // 등록(insert)
 app.post("/customer", (req, resp) => {
-  console.log(req.params);
+  console.log(req.body);
   pool.getConnection((err, connection) => {
     if (err) {
       console.log(err);
@@ -59,7 +60,7 @@ app.post("/customer", (req, resp) => {
     }
     connection.query(
       "insert into customers (name, email, phone) values (?, ?, ?)",
-      ["Test", "test@email.com", "010-1234-1234"],
+      [req.body.name, req.body.email, req.body.phone],
       (err, results) => {
         if (err) {
           console.log(err);
@@ -72,8 +73,8 @@ app.post("/customer", (req, resp) => {
           connection.release();
         }
       }
-    ); // end of query()
-  }); // end of getConnection()
+    );
+  });
 });
 
 // Express 서버를 실행하는 부분
