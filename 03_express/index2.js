@@ -56,7 +56,7 @@ const corsOpt = {
   origin: "http://localhost:5500", //특정 domain만 허용
 };
 
-//cors
+//cors -> app.use(cors()); 모든 domain에 대해서 허용
 app.use(cors(corsOpt));
 
 app.get("/", (req, resp) => {
