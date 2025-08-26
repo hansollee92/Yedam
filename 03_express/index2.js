@@ -1,26 +1,26 @@
 // index2.js
 const express = require("express");
-const app = express(); //express 인스턴스
-const bodyParser = require("body-parser"); //body정보 해석처리
+const app = express();
+const bodyParser = require("body-parser");
 const multer = require("multer");
 const path = require("path");
+// CORS 동일출처원칙
+const cors = require("cors");
 
 app.use(bodyParser.urlencoded()); //id=u01&pw=1111
 app.use(bodyParser.json()); //{"id": "user01", "pw": "1234"}
 
 // multer 셋업
-// 이미지 / 일반파일 구분해서 업로드
 // ① 일반파일 업로드
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/file/");
   },
   filename: (req, file, cb) => {
-    // original파일 이름 인코딩
     const originalname = Buffer.from(file.originalname, "latin1").toString(
       "utf-8"
     );
-    cb(null, new Date().valueOf() + originalname); //2025-08-26-시간+홍길동.jpg
+    cb(null, new Date().valueOf() + originalname);
   },
 });
 const uploads = multer({
@@ -41,7 +41,7 @@ const imgStorage = multer.diskStorage({
 });
 const imgUpload = multer({
   storage: imgStorage,
-  // 파일필터링 (이미지파일이 아니면)
+  // 파일필터링
   fileFilter: (req, file, cb) => {
     //이미지 파일여부 image/jpg, image/png
     if (file.mimetype.startsWith("image/")) {
@@ -51,6 +51,13 @@ const imgUpload = multer({
     }
   },
 });
+
+const corsOpt = {
+  origin: "http://localhost:5500", //특정 domain만 허용
+};
+
+//cors
+app.use(cors(corsOpt));
 
 app.get("/", (req, resp) => {
   resp.send("/ 요청");
@@ -70,12 +77,21 @@ app.post("/imgupload", imgUpload.single("image"), (req, resp) => {
   resp.send("이미지 업로드 성공");
 });
 // 에러처리
-app.use((err, req, resp) => {
+app.use((err, req, resp, next) => {
   if (err instanceof multer.MulterError) {
     resp.status(400).send("Multer에러 발생" + err);
   } else if (err) {
     resp.status(400).send(err);
   }
+});
+
+// json결과 반환
+app.get("/bookList", (req, resp) => {
+  const list = [
+    { no: 1, title: "이것이 자바다" },
+    { no: 2, title: "웹기초" },
+  ];
+  resp.json(list);
 });
 
 app.listen(3000, () => {
