@@ -80,6 +80,34 @@ app.post("/customer", (req, resp) => {
   });
 });
 
+// 삭제(delete)
+// http://localhost:8080/boardList.do?page=3
+// http://localhost:3000/customer/:id    << 여기서 :id 도 파라미터이다.
+app.delete("/customer/:id", (req, resp) => {
+  console.dir(req.params.id);
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    connection.query(
+      "delete from customers where id = ?",
+      [req.params.id],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          resp.send("쿼리 실행중 에러");
+          return;
+        } else {
+          console.log(results);
+          resp.json(results);
+          connection.release();
+        }
+      }
+    );
+  });
+});
+
 // Express 서버를 실행하는 부분
 app.listen(3000, () => {
   console.log("http://localhost:3000");
