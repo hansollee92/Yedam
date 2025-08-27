@@ -1,6 +1,12 @@
 // 05_job/app.js
 const express = require("express");
-const nodemail = require("./nodemail");
+require("dotenv").config({
+  path: "./.env",
+});
+const nodemail = require("./nodemail"); //읽기전에 환경변수에 넣어줘야해서 위의 순서처럼 작성
+//const process = require("process"); 내장객체여서 import 해도 되고 안해도 됨
+
+console.log(process.env);
 
 const app = express();
 app.use(express.urlencoded()); //body-parser를 import로 넣어도 되고 이렇게 넣어도 된다.

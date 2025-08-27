@@ -8,8 +8,8 @@ let transporter = nodemail.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: "hanarin92@daum.net",
-    pass: "fcgqrgspmmupbmsr",
+    user: process.env.SEND_MAIL,
+    pass: process.env.DAUM_PASS,
   },
 });
 
