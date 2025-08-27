@@ -67,6 +67,11 @@ app.get("/excel_down", (req, resp) => {
   resp.send("📥 다운로드 완료");
 });
 
+// 엑셀파일 첨부 -> nodemailer로 이메일 보내기
+const sendAttachedEmail = async () => {
+  excel.db_to_excel();
+};
+
 app.listen(3000, () => {
   console.log("http://localhost:3000");
 });
