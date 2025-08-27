@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="mail" method="post">
+      <table>
+        <tr>
+          <th>보내는이:</th>
+          <th>
+            <input type="email" name="sender" value="hanarin92@daum.net" />
+          </th>
+        </tr>
+        <tr>
+          <th>받는이:</th>
+          <th>
+            <input type="email" name="receiver" value="hansol2886@gmail.com" />
+          </th>
+        </tr>
+        <tr>
+          <th>제목:</th>
+          <th><input type="text" name="subject" /></th>
+        </tr>
+        <tr>
+          <th>내용:</th>
+          <th><textarea name="content"></textarea></th>
+        </tr>
+        <tr>
+          <td colspan="2" align="center">
+            <input type="submit" value="요청" />
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
