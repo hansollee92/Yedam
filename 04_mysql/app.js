@@ -66,6 +66,23 @@ app.delete("/customer/:id", async (req, resp) => {
   }
 });
 
+// 수정(update)
+app.put("/customer", async (req, resp) => {
+  try {
+    let result = await sql.execute(
+      "update customers set ? where id = ?", //
+      [req.body[0], req.body[1]]
+      // 또는 디스트럭처링(배열풀기) 사용해서
+      // const [fields, id] = req.body; -> [fields, id] 사용하는 방법도 있음
+    );
+    console.log(result);
+    resp.json(result);
+  } catch (err) {
+    console.log(err);
+    resp.json({ retCode: "Error" });
+  }
+});
+
 // Express 서버를 실행하는 부분
 app.listen(3000, () => {
   console.log("http://localhost:3000");
