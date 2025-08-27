@@ -5,8 +5,9 @@ require("dotenv").config({
 });
 const nodemail = require("./nodemail"); //읽기전에 환경변수에 넣어줘야해서 위의 순서처럼 작성
 //const process = require("process"); 내장객체여서 import 해도 되고 안해도 됨
+const excel = require("./excel");
 
-console.log(process.env);
+//console.log(process.env);
 
 const app = express();
 app.use(express.urlencoded()); //body-parser를 import로 넣어도 되고 이렇게 넣어도 된다.
@@ -58,6 +59,12 @@ app.post("/mail", (req, resp) => {
   };
   nodemail.mailSend(data);
   resp.send("done");
+});
+
+// 문제 : "/excel_down" => customers 테이블의 데이터를 logs/customer2.xlsx로 저장 (get방식)
+app.get("/excel_down", (req, resp) => {
+  excel.db_to_excel();
+  resp.send("📥 다운로드 완료");
 });
 
 app.listen(3000, () => {
