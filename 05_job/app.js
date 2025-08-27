@@ -1,5 +1,6 @@
 // 05_job/app.js
 const express = require("express");
+const nodemail = require("./nodemail");
 
 const app = express();
 app.use(express.urlencoded()); //body-parser를 import로 넣어도 되고 이렇게 넣어도 된다.
@@ -46,7 +47,8 @@ app.post("/mail", (req, resp) => {
     from: req.body.sender,
     to: req.body.receiver,
     subject: req.body.subject,
-    text: req.body.content,
+    html: "<div>" + req.body.content.replace(/\r?\n/g, "<br>") + "</div>",
+    //text: req.body.content,
   };
   nodemail.mailSend(data);
   resp.send("done");
