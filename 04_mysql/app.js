@@ -2,18 +2,8 @@
 
 // import
 const express = require("express"); //express 모듈
-const mysql = require("mysql2"); //mysql2 모듈
 const parser = require("body-parser"); //body-parser 모듈
-
-// connect pool 생성
-const pool = mysql.createPool({
-  host: "127.0.0.1",
-  port: 3306,
-  user: "dev01",
-  password: "dev01",
-  database: "dev",
-  connectionLimit: 10,
-});
+const sql = require("./sql"); //index.js를 안써도 이렇게 적으면 그 의미
 
 // express 객체 생성
 const app = express();
@@ -31,81 +21,49 @@ app.get("/", (req, resp) => {
 });
 
 // 고객목록(select)
-app.get("/customers", (req, resp) => {
-  pool.getConnection((err, connection) => {
-    // getConnection => connection 객체 획득
-    if (err) {
-      console.log(err);
-      return;
-    }
-    connection.query("select * from customers", (err, results) => {
-      if (err) {
-        console.log(err);
-        resp.send("쿼리 실행중 에러");
-        return;
-      } else {
-        console.log(results);
-        // resp.send("쿼리 실행완료");
-        resp.json(results); //json 문자열로 가져오기
-        connection.release(); //사용했던 connection을 pool로 환원
-      }
-    }); // end of query()
-  }); // end of getConnection()
+app.get("/customers", async (req, resp) => {
+  try {
+    let customerList = await sql.execute("select * from customers");
+    console.log(customerList);
+    resp.json(customerList);
+  } catch (err) {
+    console.log(err);
+    resp.json({ retCode: "Error" });
+  }
 });
 
 // 등록(insert)
-app.post("/customer", (req, resp) => {
+app.post("/customer", async (req, resp) => {
   console.log(req.body.param);
-  pool.getConnection((err, connection) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    connection.query(
-      "insert into customers set ?",
-      [req.body.param], // [{"name": "김식빵", "email": "sickbbang@mail.com", "phone": "010-5784-1542"}]
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          resp.send("쿼리 실행중 에러");
-          return;
-        } else {
-          console.log(results);
-          // resp.send("쿼리 실행완료");
-          resp.json(results);
-          connection.release();
-        }
-      }
+  try {
+    let result = await sql.execute(
+      "insert into customers set ?", //
+      [req.body.param]
     );
-  });
+    console.log(result);
+    resp.json(result);
+  } catch (err) {
+    console.log(err);
+    resp.json({ retCode: "Error" });
+  }
 });
 
 // 삭제(delete)
 // http://localhost:8080/boardList.do?page=3
 // http://localhost:3000/customer/:id    << 여기서 :id 도 파라미터이다.
-app.delete("/customer/:id", (req, resp) => {
+app.delete("/customer/:id", async (req, resp) => {
   console.dir(req.params.id);
-  pool.getConnection((err, connection) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    connection.query(
-      "delete from customers where id = ?",
-      [req.params.id],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          resp.send("쿼리 실행중 에러");
-          return;
-        } else {
-          console.log(results);
-          resp.json(results);
-          connection.release();
-        }
-      }
+  try {
+    let result = await sql.execute(
+      "delete from customers where id = ?", //
+      [req.params.id]
     );
-  });
+    console.log(result);
+    resp.json(result);
+  } catch (err) {
+    console.log(err);
+    resp.json({ retCode: "Error" });
+  }
 });
 
 // Express 서버를 실행하는 부분
