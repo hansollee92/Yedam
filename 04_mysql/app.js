@@ -4,6 +4,9 @@
 const express = require("express"); //express 모듈
 const parser = require("body-parser"); //body-parser 모듈
 const sql = require("./sql"); //index.js를 안써도 이렇게 적으면 그 의미
+const prodSql = require("./sql/sql"); //mini-projcet query
+
+//console.log(prodSql["imageList"].query); //productList의 query구문을 반환해줌
 
 // express 객체 생성
 const app = express();
@@ -18,6 +21,20 @@ app.use(parser.json());
 // 라우팅(route) 코드
 app.get("/", (req, resp) => {
   resp.send("/ 실행");
+});
+
+// 상품쿼리
+app.post("/api/:alias", async (req, resp) => {
+  //console.log(prodSql[req.params.alias].query);
+  let search = prodSql[req.params.alias].query;
+  let param = req.body.param; // [{product_id:9, type:1, path:test.jpg}]
+  try {
+    let result = await sql.execute(search, param);
+    resp.json(result);
+  } catch (err) {
+    console.log(err);
+    resp.json({ retCode: "Error" });
+  }
 });
 
 // 고객목록(select)
