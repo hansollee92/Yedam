@@ -2,6 +2,7 @@
   <h3><input type="text" v-model.number="valueText" /></h3>
   <h3><input type="number" v-model.number="valueNum" /></h3>
   <p>
+    <!-- select/option -->
     <select v-on:change="calculating" v-model="operator">
       <option value="+">더하기</option>
       <option value="-">빼기</option>
@@ -10,6 +11,7 @@
     </select>
   </p>
   <h3>
+    <!-- v-on:click 이벤트 -->
     <button v-on:click="sumNumber">더하기</button>
     <button v-on:click="multiNumber">곱하기</button>
     <button v-on:click="minusNumber">빼기</button>
@@ -54,6 +56,14 @@ export default {
       }
       this.result = `${this.valueText} ${this.operator} ${this.valueNum} = ${result}`;
     },
+  },
+  // 생명주기
+  // 데이터변경때마다 이 훅들이 어떻게 되는지 확인하기 위해서 넣어봄
+  beforeUpdate() {
+    console.log("beforeUpdate");
+  },
+  updated() {
+    console.log("updated");
   },
 };
 </script>
