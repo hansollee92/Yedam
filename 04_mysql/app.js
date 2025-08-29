@@ -5,6 +5,7 @@ const express = require("express"); //express 모듈
 const parser = require("body-parser"); //body-parser 모듈
 const sql = require("./sql"); //index.js를 안써도 이렇게 적으면 그 의미
 const prodSql = require("./sql/sql"); //mini-projcet query
+const cors = require("cors");
 
 //console.log(prodSql["imageList"].query); //productList의 query구문을 반환해줌
 
@@ -17,6 +18,9 @@ app.use(parser.urlencoded());
 
 // json문자열 정보
 app.use(parser.json());
+
+// cors
+app.use(cors());
 
 // 라우팅(route) 코드
 app.get("/", (req, resp) => {
