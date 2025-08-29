@@ -142,7 +142,7 @@
     </ul>
 
     <script>
-      // Create a "close" button and append it to each list item
+      // 'x'버튼 생성 + 각 list item에 붙이기
       var myNodelist = document.getElementsByTagName("LI");
       var i;
       for (i = 0; i < myNodelist.length; i++) {
@@ -153,7 +153,7 @@
         myNodelist[i].appendChild(span);
       }
 
-      // Click on a close button to hide the current list item
+      // x 버튼 클릭시 현재 list item 숨기기
       var close = document.getElementsByClassName("close");
       var i;
       for (i = 0; i < close.length; i++) {
@@ -163,37 +163,41 @@
         };
       }
 
-      // Add a "checked" symbol when clicking on a list item
+      // list item 클릭시 class에 checked 추가
       var list = document.querySelector("ul");
       list.addEventListener(
         "click",
         function (ev) {
           if (ev.target.tagName === "LI") {
-            ev.target.classList.toggle("checked");
+            ev.target.classList.toggle("checked"); //checked가 되면 ---- 이렇게 글자 취소선 생김
           }
         },
         false
       );
 
-      // Create a new list item when clicking on the "Add" button
+      // Add버튼 클릭시 새로운 list item 생성
       function newElement() {
         var li = document.createElement("li");
         var inputValue = document.getElementById("myInput").value;
         var t = document.createTextNode(inputValue);
-        li.appendChild(t);
+        li.appendChild(t); //<li>test</li> 작업한 것
         if (inputValue === "") {
-          alert("You must write something!");
+          //input값이 없으면 아래 메세지
+          alert("to-do List를 입력 해주세요!");
         } else {
+          //input값이 있으면 ul>li들 아래에 추가됨
           document.getElementById("myUL").appendChild(li);
         }
-        document.getElementById("myInput").value = "";
+        document.getElementById("myInput").value = ""; //input초기화
 
+        // x 버튼 생성
         var span = document.createElement("SPAN");
         var txt = document.createTextNode("\u00D7");
         span.className = "close";
         span.appendChild(txt);
         li.appendChild(span);
 
+        // x버튼 클릭시 해당 list 숨기기
         for (i = 0; i < close.length; i++) {
           close[i].onclick = function () {
             var div = this.parentElement;
