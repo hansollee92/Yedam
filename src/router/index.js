@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import DataBindingView from "../views/ComputedOption.vue";
+import DataBindingView from "../views/DataBindingAxios.vue";
 
 const routes = [
   // 필요한 라우팅 정보를 아래와 같이 작성하면 된다.
