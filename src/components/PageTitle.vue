@@ -4,8 +4,12 @@
 
     <h3>{{ title }}</h3>
 
-    <p>Likes: {{ likes }}</p>
-    <p>isOk: {{ isOk ? "Yes" : "No" }}</p>
+    <div v-if="isShow">
+      <p>Likes: {{ likes }}</p>
+      <p>isOk: {{ isOk ? "Yes" : "No" }}</p>
+    </div>
+    <!-- ◎ 그러면, 상위요소의 isShow가 true, false가 바뀔때마다
+     하위컴포넌트의 이곳이 v-if로 해당 <p></p>들이 보였다가 보이지 않았다가 한다. -->
 
     <h3>MemberList</h3>
     <ul>
@@ -30,6 +34,7 @@ export default {
     memberList: { type: Array, default: () => [] },
     // 객체(Object), 배열(Array)의 경우 초기값은 함수(function)으로 정의해줘야한다.
     // () => [] 라는 의미 function(){return [];}와 같은 의미로 빈배열이라는 의미로 화살표함수로 표시한 것
+    isShow: { type: Boolean, default: false },
   },
 };
 </script>
