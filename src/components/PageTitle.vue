@@ -1,3 +1,5 @@
+<!-- compoents/PageTitle.vue -->
+
 <template>
   <div class="child-container">
     {{ msg }}
@@ -8,8 +10,6 @@
       <p>Likes: {{ likes }}</p>
       <p>isOk: {{ isOk ? "Yes" : "No" }}</p>
     </div>
-    <!-- ◎ 그러면, 상위요소의 isShow가 true, false가 바뀔때마다
-     하위컴포넌트의 이곳이 v-if로 해당 <p></p>들이 보였다가 보이지 않았다가 한다. -->
 
     <h3>MemberList</h3>
     <ul>
@@ -17,6 +17,12 @@
         {{ family.name }} - {{ family.age }} year old.
       </li>
     </ul>
+
+    <!-- 좀더 다양한 형태의 데이터를 전달할 수도 있다 -->
+    <input v-model="name" />
+    <input type="text" v-model="age" />
+    <!-- 하위요소에 실제 이벤트 함수 호출 -->
+    <button @click="callParentEvent">call parent event</button>
   </div>
 </template>
 
@@ -25,6 +31,8 @@ export default {
   data() {
     return {
       msg: "Child Component",
+      name: "",
+      age: 0,
     };
   },
   props: {
@@ -32,9 +40,17 @@ export default {
     likes: { type: Number, default: 0 },
     isOk: { type: Boolean, default: false },
     memberList: { type: Array, default: () => [] },
-    // 객체(Object), 배열(Array)의 경우 초기값은 함수(function)으로 정의해줘야한다.
-    // () => [] 라는 의미 function(){return [];}와 같은 의미로 빈배열이라는 의미로 화살표함수로 표시한 것
     isShow: { type: Boolean, default: false },
+  },
+  methods: {
+    callParentEvent() {
+      this.$emit("child-clicked", { name: this.name, age: this.age });
+      // $emit() : 부모컴포넌트로 이벤트를 송출하겠다는 의미 -> 송출하면 부모가 알아서 이벤트를 실행
+    },
+  },
+  mounted() {
+    console.log(this);
+    this.$parent.msg = "부모 컴포넌트";
   },
 };
 </script>

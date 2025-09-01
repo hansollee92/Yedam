@@ -3,9 +3,8 @@
 
 <template>
   <div class="parent-container">
-    {{ msg }}
+    {{ msg }} / {{ age }}
     <button @click="toggleDetails">Toggle</button>
-    <!-- ◎ 버튼을 클릭할때마다 ToggleDetails 함수를 호출하고  -->
     <PageTitle
       v-bind:title="title"
       v-bind:likes="likeCnt"
@@ -13,8 +12,13 @@
       :memberList="members"
       :isShow="showDetail"
       ref="page-component"
+      @child-clicked="handleChildClick"
     />
-    <!-- 상위 컴포넌트에서 위와 같이 다양한 데이터타입으로 데이터를 전달해서 페이지를 구성할 수 있다 -->
+    <!-- @child-clicked="handleChildClick"은
+    하위요소로부터 이벤트가 발생하면 해당 이벤트가 실행될 수 있도록 child-clicked 등록 
+    (child-clicked는 사용자정의 이벤트로 실제적으로 @click처럼 존재하는게 아니라 자식에서 이벤트가 실행되었을때
+    부모한테 그 이벤트가 전달되어 실행될 수 있도록 사용자가 정의한 이벤트이다.)
+    => 실제 자식한테 이 이벤트가 실행될 수 있도록 존재해야함 -->
   </div>
 </template>
 
@@ -27,6 +31,7 @@ export default {
   data() {
     return {
       msg: "Parent Component",
+      age: 0,
       title: "Dynamic Data from Parent",
       likeCnt: 3,
       okVal: true,
@@ -40,13 +45,16 @@ export default {
   },
   methods: {
     toggleDetails() {
-      // showDetail 값을 true, false로 변경하는 기능
-      // ◎ 이 함수가 호출되면서 showDetail의 값이 true, fasle로 변경이 될 것이다.
       this.showDetail = !this.showDetail;
+    },
+    handleChildClick(payload = { name: "Lee", age: 0 }) {
+      this.msg = payload.name;
+      this.age = payload.age;
+      // 자식 컴포넌트가 전달한 값을 위와 같이 매개변수로 받아서 나타낼수도 있다.
     },
   },
   mounted() {
-    console.log(this);
+    //console.log(this);
   },
 };
 </script>
