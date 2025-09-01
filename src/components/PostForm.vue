@@ -1,3 +1,5 @@
+<!-- components/PostForm.vue -->
+
 <template>
   <h3>{{ msg }}</h3>
   <form @submit.prevent="handleSubmit" class="post-form">
@@ -69,7 +71,7 @@ h3 {
   padding: 10px;
   border-radius: 5px;
   outline: none;
-  font-family: "Segoe UI", "Apple SD Gothic Neo", "맑은 고딕", sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 .form-group input:focus,
 .form-group textarea:focus {
