@@ -5,6 +5,10 @@
     <h3>초간단 게시판</h3>
     <PostForm @add-post="addPost" />
     <PostList v-bind:posts="posts" />
+
+    <a @click="kakaoLogin">
+      <img src="./assets/kakao_logo.png" alt="카카오 로그인 버튼" />
+    </a>
   </div>
 </template>
 
@@ -39,6 +43,31 @@ export default {
         title: payload.title,
         content: payload.content,
         date: new Date().toLocaleDateString(),
+      });
+    },
+    kakaoLogin() {
+      window.Kakao.Auth.login({
+        scope: "profile_nickname, account_email",
+        success: this.getKakaoAccount,
+      });
+    },
+    getKakaoAccount() {
+      window.Kakao.API.request({
+        url: "/v2/user/me",
+        success: (res) => {
+          console.log(res);
+          const kakao_account = res.kakao_account;
+          const nickname = kakao_account.profile.nickname; //카카오 닉네임
+          const email = kakao_account.email; //카카오 이메일
+          console.log("nickname", nickname);
+          console.log("email", email);
+
+          //로그인 처리 구현
+          alert("로그인 성공!");
+        },
+        fail: (error) => {
+          console.log(error);
+        },
       });
     },
   },
