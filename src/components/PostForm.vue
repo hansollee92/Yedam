@@ -2,12 +2,8 @@
 
 <template>
   <h3>{{ msg }}</h3>
+  <slot name="header"></slot>
   <form @submit.prevent="handleSubmit" class="post-form">
-    <!-- prevent -> 어떤 페이지로 이동하지 않게끔 (action을 통해서 어떤 페이지로 이동하는데)
-     그 이벤트에 대해서 기본 기능을 차단하기 위해서 자바스크립트에서      
-     document.querySelector('form', e => {
-      e.preventDefault();})      
-    이런식으로 차단하는 기능을 썼었다. 이것을 위에서도 똑같이 쓰는 것-->
     <div class="form-group">
       <label for="title">제목</label>
       <input type="text" id="title" v-model="title" required />
@@ -16,8 +12,10 @@
       <label for="content">내용</label>
       <textarea id="content" v-model="content" rows="4" required></textarea>
     </div>
+    <slot></slot>
     <button type="submit">글 등록</button>
   </form>
+  <slot name="footer"></slot>
 </template>
 
 <script>
