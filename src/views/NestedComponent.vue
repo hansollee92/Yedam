@@ -12,6 +12,7 @@
       v-bind:isOk="okVal"
       :memberList="members"
       :isShow="showDetail"
+      ref="page-component"
     />
     <!-- 상위 컴포넌트에서 위와 같이 다양한 데이터타입으로 데이터를 전달해서 페이지를 구성할 수 있다 -->
   </div>
@@ -43,6 +44,9 @@ export default {
       // ◎ 이 함수가 호출되면서 showDetail의 값이 true, fasle로 변경이 될 것이다.
       this.showDetail = !this.showDetail;
     },
+  },
+  mounted() {
+    console.log(this);
   },
 };
 </script>
