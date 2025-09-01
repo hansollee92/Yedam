@@ -3,7 +3,7 @@
   <!-- Router 설치시 아래와 같이 라우팅정보로 변경되어 있음 
    <router-link></router-link> 태그안에 적혀있음. 이 라우터정보는 router/index.js에 있음 -->
   <nav>
-    <router-link to="/">Home</router-link> |
+    <router-link to="/">Home</router-link> | <!-- Home을 볼려면 router/index.js로 가서 확인가능 -->
     <router-link to="/about">About</router-link> |
     <router-link to="/binding">Databinding</router-link>
   </nav>

@@ -5,3 +5,4 @@ import router from "./router"; //라우터(컴포넌트들을 연결)
 createApp(App).use(router).mount("#app");
 // creatApp으로 만들어진 것을 mount - #app에 연결
 // #app은 pulic/index.html 내에 <div id="app"></div>으로 만들어져 있음
+// App.vue에 컴포넌트를 만들어 주는데 그래서 실제적으로 App.vue에 페이지가 만들어짐
