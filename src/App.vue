@@ -3,7 +3,10 @@
 <template>
   <div class="container">
     <h3>초간단 게시판</h3>
-    <PostForm @add-post="addPost" />
+    <p v-if="!user.id">로그인을 진행하세요.</p>
+    <div v-else>
+      <PostForm @add-post="addPost" />
+    </div>
     <PostList v-bind:posts="posts" />
 
     <a @click="kakaoLogin">
@@ -17,6 +20,18 @@ import PostForm from "./components/PostForm.vue";
 import PostList from "./components/PostList.vue";
 
 export default {
+  // 객체를 이용해서 값을 지정하는 방식을 'OptionsAPI'방식(객체활용) 이라고 한다.
+  // 이 뒤로 나온 방식이 CompositionAPI 방식으로 이 방식은 함수를 기반으로 한다.
+  // 현재 우리는 OptionsAIP방식을 사용하는데 (좀더 쉬워서)
+
+  // 그런데, provide를 작성할려면 함수를 참조하는 CompositionAPI방식으로 작성을 해야한다.
+  // 이 방식을 사용하기 위해서는 import { ref } from "vue"; 를 해줘야하고
+  // 아래와 같이 uid : ref(null), 라고 작성해서 초기값을 null로 설정한다. (그냥 ref("")라고 작성해도 괜춘)
+  // ** 이 ref는 원시값의 주소값을 참조한다. -> 일반값을 참조방식으로 바꾸는 함수가 바로 ref()이다.
+
+  // 그리고 아래에서 이 값의 value값을 보라고 이렇게 작성 -> this.uid.value = email;
+  // provide에서도 uid: this.uid, 이렇게 작성이 되어야한다.
+
   name: "App",
   components: {
     PostForm,
@@ -24,7 +39,7 @@ export default {
   },
   data() {
     return {
-      logId: "user01",
+      user: { id: "", name: "" }, // 처음에 빈 객체
       posts: [
         // {
         //   id: 1,
@@ -33,7 +48,6 @@ export default {
         //   date: new Date().toLocaleDateString(),
         // },
       ],
-      // [{id:1, title: 'test', content: 'test', date: new Date().toLocaleDateString()}] < 이런형태로 작성할 예정
     };
   },
   methods: {
@@ -64,6 +78,12 @@ export default {
 
           //로그인 처리 구현
           alert("로그인 성공!");
+
+          // this.user = { id: email, name: nickname }; // 새로운 값이여서 provide에 전달이 안됨
+          // this.uid.value = email;
+
+          this.user.id = email;
+          this.user.name = nickname;
         },
         fail: (error) => {
           console.log(error);
@@ -73,12 +93,7 @@ export default {
   },
   provide() {
     return {
-      uid: "user01",
-      // PostItem.vue에서 이 로그인한 작성자 id가 필요한데 이걸 쓸려면
-      // App.vue > PostList.vue > PostItem.vue 형태로 되어 있기 때문에
-      // props로 해서 전달할려니 너무 복잡하다.
-      // 그럴 경우 provide()를 이용해서 이렇게 작성하고
-      // inject : ["uid"]를 PostItem.vue에서 작성해서 데이터를 전달할 수 있다.
+      user: this.user, // 객체 자체를 내려줌
     };
   },
 };
