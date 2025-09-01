@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import DataBindingView from "../views/DataBindingAxios.vue";
+import DataBindingView from "../views/NestedComponent.vue";
 
 const routes = [
   // 필요한 라우팅 정보를 아래와 같이 작성하면 된다.
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: HomeView, //HomeView가 어디에 있는지 import를 봐서 따라가보면
   },
   {
     path: "/about",
