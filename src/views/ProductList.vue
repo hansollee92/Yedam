@@ -71,6 +71,14 @@ export default {
       productList: [], //상품목록 배열
     };
   },
+  methods: {
+    goToDetail(product_id) {
+      this.$router.push({
+        name: "ProductDetail",
+        query: { product_id: product_id },
+      });
+    },
+  },
   created() {
     axios({
       method: "post",

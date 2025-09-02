@@ -150,4 +150,47 @@
   </main>
 </template>
 
-<script></script>
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      productId: 0,
+      productDetail: {},
+      productImage: [],
+      total: 0,
+      totalPrice: 0,
+    };
+  },
+  methods: {
+    getCurrencyFormat() {
+      return "";
+    },
+  },
+  created() {
+    // 상품 디테일 가져오기
+    // console.log(this.$route.query.product_id);
+    this.productId = this.$route.query.product_id;
+    axios({
+      method: "post",
+      url: "/api/productDetail",
+      data: { param: [this.productId] },
+    }) //
+      .then((result) => {
+        console.log(result);
+        this.productDetail = result.data[0];
+      });
+
+    // 이미지 슬라이드(목록) 가져오기
+    axios({
+      method: "post",
+      url: "/api/productMainImages",
+      data: { param: [this.productId] },
+    }) //
+      .then((result) => {
+        console.log(result);
+        this.productImage = result.data;
+      });
+  },
+};
+</script>
