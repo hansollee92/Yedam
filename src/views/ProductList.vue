@@ -62,4 +62,25 @@
   </main>
 </template>
 
-<script></script>
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      productList: [], //상품목록 배열
+    };
+  },
+  created() {
+    axios({
+      method: "post",
+      url: "/api/productList2",
+      data: {},
+    }) //
+      .then((result) => {
+        console.log(result.data);
+        this.productList = result.data;
+      });
+  },
+};
+</script>
