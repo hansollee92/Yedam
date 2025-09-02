@@ -59,6 +59,11 @@ app.get("/download/:product_id/:path", (req, resp) => {
   resp.header("Content-type", `image/${path.substring(path.lastIndexOf("."))}`);
 
   const filepath = `${__dirname}/uploads/${product_id}/${path}`;
+  if (!fs.existsSync(filepath)) {
+    // 경로에 이미지파일이 없을 경우
+    resp.send(404, { error: "file not found" });
+    return;
+  }
   fs.createReadStream(filepath).pipe(resp);
 });
 
