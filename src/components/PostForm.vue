@@ -31,6 +31,9 @@ export default {
     boardNo() {
       return this.$store.getters.getBoardNo;
     },
+    logId() {
+      return this.$store.getters.getLogId;
+    },
   },
   methods: {
     handleSubmit() {
@@ -39,6 +42,7 @@ export default {
         title: this.title,
         content: this.content,
         date: new Date().toLocaleDateString(),
+        writer: this.logId,
       };
       //this.$emit("add-post", post); //$emit 사용
       this.$store.commit("addBoard", post); //store의 commit, mutations을 이용

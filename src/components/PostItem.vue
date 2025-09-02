@@ -5,7 +5,7 @@
     <h3>{{ post.title }}</h3>
     <p>{{ post.content }}</p>
     <small>작성일 : {{ post.date }}</small>
-    <small>작성자 : {{ user.id }}</small>
+    <small>작성자 : {{ post.writer }}</small>
   </div>
 </template>
 

@@ -90,11 +90,10 @@ export default {
           //로그인 처리 구현
           alert("로그인 성공!");
 
-          // this.user = { id: email, name: nickname }; // 새로운 값이여서 provide에 전달이 안됨
-          // this.uid.value = email;
-
           this.user.id = email;
           this.user.name = nickname;
+
+          this.$store.commit("setId", email);
         },
         fail: (error) => {
           console.log(error);
