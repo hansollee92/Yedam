@@ -74,7 +74,7 @@ export default {
   created() {
     axios({
       method: "post",
-      url: "/api/productList2",
+      url: "/api/productList",
       data: {},
     }) //
       .then((result) => {

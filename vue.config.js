@@ -13,6 +13,10 @@ module.exports = defineConfig({
         target,
         changeOrigin: true,
       },
+      "^/download": {
+        target,
+        changeOrigin: true,
+      },
     },
   },
 });
