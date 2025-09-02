@@ -1,4 +1,5 @@
 <!-- components/PostItem.vue -->
+
 <template>
   <div class="post-item">
     <h3>{{ post.title }}</h3>

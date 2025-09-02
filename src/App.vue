@@ -40,19 +40,30 @@ export default {
   data() {
     return {
       user: { id: "", name: "" }, // 처음에 빈 객체
-      posts: [
-        // {
-        //   id: 1,
-        //   title: "test",
-        //   content: "test",
-        //   date: new Date().toLocaleDateString(),
-        // },
-      ],
+      // posts: [
+      //   // {
+      //   //   id: 1,
+      //   //   title: "test",
+      //   //   content: "test",
+      //   //   date: new Date().toLocaleDateString(),
+      //   // },
+      // ],
     };
+  },
+  computed: {
+    //계산된 속성
+    // mounted()는 한번 실행되고 더이상 실행되지 않기 때문에
+    // 계속적으로 감시(업데이트되면 데이터가 바뀌게끔)되는 computed를 사용하는것이 가장 적당
+    posts() {
+      return this.$store.getters.getBoardList;
+    },
+    // data()에 있는 posts: []은 주석처리
+    // -> 여기에다가 이제 이것을 사용하게끔 하기 위해서
   },
   methods: {
     addPost(payload) {
       this.posts.push({
+        //배열이기 때문에 push
         id: this.posts.length + 1,
         title: payload.title,
         content: payload.content,
@@ -95,6 +106,9 @@ export default {
     return {
       user: this.user, // 객체 자체를 내려줌
     };
+  },
+  mounted() {
+    console.log(this.$store.state.boardList);
   },
 };
 </script>

@@ -27,13 +27,22 @@ export default {
       content: "",
     };
   },
+  computed: {
+    boardNo() {
+      return this.$store.getters.getBoardNo;
+    },
+  },
   methods: {
     handleSubmit() {
       let post = {
+        id: this.boardNo,
         title: this.title,
         content: this.content,
+        date: new Date().toLocaleDateString(),
       };
-      this.$emit("add-post", post);
+      //this.$emit("add-post", post); //$emit 사용
+      this.$store.commit("addBoard", post); //store의 commit, mutations을 이용
+
       // 입력필드 초기화
       this.title = "";
       this.content = "";
