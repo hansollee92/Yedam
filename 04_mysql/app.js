@@ -49,6 +49,19 @@ app.post("/upload/:file_name", (req, resp) => {
   }); // 매개변수 : file, data, incoding
 });
 
+// 이미지 링크 정보(get방식)
+// vue-shop프로젝트의 ProductList.vue의 template를 보면 <img :src="`/download/${product.id}/${product.path}`" > 구조가 있다.
+// 이걸 위한 이미지 링크 정보 get방식이 필요하기 때문에 여기서 작성을 해야한다.
+app.get("/download/:product_id/:path", (req, resp) => {
+  let product_id = req.params.product_id;
+  let path = req.params.path; //keyboard.jpg
+
+  resp.header("Content-type", `image/${path.substring(path.lastIndexOf("."))}`);
+
+  const filepath = `${__dirname}/uploads/${product_id}/${path}`;
+  fs.createReadStream(filepath).pipe(resp);
+});
+
 // 상품쿼리
 app.post("/api/:alias", async (req, resp) => {
   //console.log(prodSql[req.params.alias].query);
