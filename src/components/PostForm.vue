@@ -45,7 +45,8 @@ export default {
         writer: this.logId,
       };
       //this.$emit("add-post", post); //$emit 사용
-      this.$store.commit("addBoard", post); //store의 commit, mutations을 이용
+      // this.$store.commit("addBoard", post); //mutations 정의된 함수
+      this.$store.dispatch("saveBoard", post); //actions 정의된 함수
 
       // 입력필드 초기화
       this.title = "";

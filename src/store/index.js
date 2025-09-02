@@ -16,21 +16,25 @@ export default createStore({
     logId: "", //로그인 정보 저장
   },
   mutations: {
+    // 동기방식
     addBoard(state, post) {
-      // state : 위에 있는 state 의미
       state.boardList.push(post);
     },
     setId(state, id) {
       state.logId = id;
     },
   },
+  actions: {
+    // 비동기방식 처리
+    saveBoard({ commit }, post) {
+      commit("addBoard", post);
+    },
+  },
   getters: {
     getBoardList(state) {
-      // BoardList를 get 할 수 있는 함수
       return state.boardList;
     },
     getBoardNo(state) {
-      // BoardList의 id
       return state.boardList.length + 1;
     },
     getLogId(state) {
