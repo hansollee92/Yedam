@@ -158,13 +158,31 @@ export default {
       productId: 0,
       productDetail: {},
       productImage: [],
-      total: 0,
-      totalPrice: 0,
+      total: 1,
+      // totalPrice: 0,
     };
   },
+  computed: {
+    totalPrice() {
+      return this.productDetail.product_price * this.total;
+    },
+  },
   methods: {
-    getCurrencyFormat() {
-      return "";
+    calculatePrice(cnt) {
+      let total = this.total + cnt;
+      if (total < 1) total = 1;
+      this.total = total;
+      this.totalPrice = this.productDetail.product_price * this.total;
+    },
+    // 가격 나타내기
+    getCurrencyFormat(price) {
+      // krw
+      const krwFormatter = new Intl.NumberFormat("ko-KR", {
+        style: "currency",
+        currency: "KRW",
+      });
+
+      return krwFormatter.format(price);
     },
   },
   created() {
