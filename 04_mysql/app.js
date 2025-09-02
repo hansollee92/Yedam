@@ -27,6 +27,14 @@ app.get("/", (req, resp) => {
   resp.send("/ 실행");
 });
 
+// 파일업로드
+app.post("/upload/:file_name", (req, resp) => {
+  let file_name = req.params.file_name;
+  console.log(req.body.data);
+  console.log(file_name);
+  resp.send("OK");
+});
+
 // 상품쿼리
 app.post("/api/:alias", async (req, resp) => {
   //console.log(prodSql[req.params.alias].query);
