@@ -6,6 +6,7 @@ const parser = require("body-parser"); //body-parser 모듈
 const sql = require("./sql"); //index.js를 안써도 이렇게 적으면 그 의미
 const prodSql = require("./sql/sql"); //mini-projcet query
 const cors = require("cors");
+const fs = require("fs"); //파일시스템
 
 //console.log(prodSql["imageList"].query); //productList의 query구문을 반환해줌
 
@@ -19,6 +20,13 @@ app.use(parser.urlencoded());
 // json문자열 정보
 app.use(parser.json());
 
+// 용량 옵션
+app.use(
+  express.json({
+    limit: "10mb",
+  })
+);
+
 // cors
 app.use(cors());
 
@@ -30,9 +38,15 @@ app.get("/", (req, resp) => {
 // 파일업로드
 app.post("/upload/:file_name", (req, resp) => {
   let file_name = req.params.file_name;
-  console.log(req.body.data);
-  console.log(file_name);
-  resp.send("OK");
+  let data = req.body.param;
+  console.log(file_name, data);
+  fs.writeFile(__dirname + "/uploads/" + file_name, data, "base64", (err) => {
+    if (err) {
+      resp.send(err);
+      return;
+    }
+    resp.send("OK");
+  }); // 매개변수 : file, data, incoding
 });
 
 // 상품쿼리
