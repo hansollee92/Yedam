@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>HelloJSP</display-name>
+
+	<!-- tiles -->
+	<!-- .tiles 라면 작동
+	타일즈 세팅에 되어있는데로 레이아웃을 만들어줌 (아래에 있는 서블릿) 
+	우리는 그 서버로 이동하게끔 하는 기능을 만들었다면 tiles는 그런 기능이 있다 -->
+	<listener>
+		<listener-class>org.apache.tiles.extras.complete.CompleteAutoloadTilesListener</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>Tiles Dispatch Servlet</servlet-name>
+		<servlet-class>org.apache.tiles.web.util.TilesDispatchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Tiles Dispatch Servlet</servlet-name>
+		<url-pattern>*.tiles</url-pattern>
+	</servlet-mapping>
+
+	<!-- 서블릿 등록 -->
+	<!-- 근데 이 서블릿도 간단하게 쓸려고 하는건데 쭈욱 서블릿들을 적다보면 굉장히 보기가 힘들어진다. 그래서 대표서블릿을 설정하고자 
+		한다. -->
+	<servlet>
+		<servlet-name>front</servlet-name>
+		<servlet-class>com.yedam.common.FrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>front</servlet-name>
+		<url-pattern>*.do</url-pattern>
+		<!-- *.do라는 걸로 끝나는 요청은 모두 이 서블릿을 실행하겠다 -->
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

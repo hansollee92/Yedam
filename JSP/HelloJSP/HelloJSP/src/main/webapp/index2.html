@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>한솔 페이지</title>
+</head>
+<body>
+	<h3>환영합니다~</h3>
+	<h4>안녕하세요. 이한솔입니다.</h4>
+	
+	<!-- index.html주소 http://localhost:8080/HelloJSP/index.html -->
+	<!-- servlet주소 http://localhost:8080/HelloJSP/BoardListServlet -->
+	
+	<!-- 두개를 잘 살펴보면 같은 레벨(폴더)안에 있기 때문에 상대경로로 아래처럼 작성이 가능하다.  -->
+	<a href="BoardListServlet">글목록이동</a>
+	
+	<!-- 만약, webapp아래에 html이라는 폴더가 있고 그 안에 index.html이 있다고 해보자.  	
+	그러면 경로가 	http://localhost:8080/HelloJSP/html/index.html 
+	            http://localhost:8080/HelloJSP/BoardListServlet
+	여기에서는 경로를 만약에 걸려면 
+	<a href="../BoardListServlet">글목록이동</a> 
+	이렇게 상위폴더로 이동한다는 걸 적어줘야한다. 	
+	-->
+	
+	
+</body>
+</html>
