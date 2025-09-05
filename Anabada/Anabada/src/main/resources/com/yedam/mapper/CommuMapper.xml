@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.CommuMapper">
+
+ <!--  VO 매핑 -->
+  <resultMap id="commuResult" type="com.yedam.vo.CommuVO">
+    <id property="commuNo" column="commu_no"/>
+    <result property="commuTitle" column="commu_title"/>
+    <result property="commuDate" column="commu_date"/>
+    <result property="memberNo" column="member_no"/>
+  </resultMap>
+
+  <!-- 전체 조회 -->
+  <select id="selectCommu" resultMap="commuResult">
+    SELECT *
+    FROM commu
+    ORDER BY commu_no DESC
+  </select>
+
+  <!-- 단건 조회 -->
+  <select id="selectCommuOne" resultMap="commuResult" parameterType="int">
+    SELECT *
+    FROM commu
+    WHERE commu_no = #{commuNo}
+  </select>
+
+  <!-- 등록 -->
+  <insert id="insertCommu" parameterType="com.yedam.vo.CommuVO">
+    INSERT INTO commu (commu_no, commu_title, commu_date, member_no)
+    VALUES (#{commuNo}, #{commuTitle}, SYSDATE, #{memberNo})
+  </insert>
+
+  <!-- 수정 -->
+  <update id="updateCommu" parameterType="com.yedam.vo.CommuVO">
+    UPDATE commu
+    SET commu_title = #{commuTitle}
+    WHERE commu_no = #{commuNo}
+  </update>
+
+  <!-- 삭제 -->
+  <delete id="deleteCommu" parameterType="int">
+    DELETE FROM commu
+    WHERE commu_no = #{commuNo}
+  </delete>
+
+</mapper>

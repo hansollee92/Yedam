@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.PurchaseMapper">
+
+  <!-- purchase_seq 로 PK 생성 -->
+  <insert id="insertPurchase" parameterType="com.yedam.vo.PurchaseVO">
+  	<!-- 구매번호 생성 -->
+    <selectKey keyProperty="purNo" resultType="int" order="BEFORE">
+      SELECT purchase_seq.NEXTVAL FROM dual
+    </selectKey>
+
+    INSERT INTO purchase (
+      pur_no, member_no, prd_no
+    ) VALUES (
+      #{purNo}, #{memberNo}, #{prdNo}
+    )
+  </insert>
+
+</mapper>

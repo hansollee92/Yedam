@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.QnaMapper">
+
+	<!-- 문의하기 게시판 목록 -->
+	<select id="selectqnaList" parameterType="int">	   
+	   select ta.*
+	   from (select /*+ INDEX_DESC(q PK_QNA) */ rownum rn, b.*
+	         from   (select q.qna_no,
+		                    q.qna_title,
+		                    q.qna_content,
+		                    q.qna_date,
+		                    q.member_no,
+		                    q.prd_no,
+		                    m.member_id
+		             from qna q join member m
+		                         on m.member_no = q.member_no
+		             where q.prd_no = #{prdNo}
+		             order by q.qna_no desc 
+		             ) b 
+		     ) ta
+		where ta.rn > (#{page} - 1) * 5
+		<![CDATA[
+		and ta.rn <= #{page} * 5
+		]]>		
+	</select>
+
+	<!-- 문의하기 게시판 단건 조회 -->
+	<select id="selectQna" resultType="qna">
+		select 
+			q.qna_no,
+			q.qna_title,
+			q.qna_content,
+			q.qna_date,
+			q.member_no,
+			q.prd_no,
+			m.member_id  
+		from qna q join member m
+				   on m.member_no = q.member_no
+		where q.prd_no = #{prdNo}
+		  and q.qna_no = #{qnaNo}
+	</select>
+	
+	<!-- 문의하기 게시글 전체건수(totalCnt) -->
+	<select id="selectCount" parameterType="int" resultType="int">
+		select count(1)
+		from qna
+		where prd_no = #{prdNo}
+	</select>
+	
+	<!-- 문의하기 게시글 등록 -->
+	<insert id="insertQna" parameterType="qna">
+		insert into qna (qna_no, qna_title, qna_content, member_no, prd_no) 
+	    values (qna_seq.nextval, #{qnaTitle}, #{qnaContent}, #{memberNo}, #{prdNo})
+	</insert>
+	
+	<!-- 문의하기 게시글 수정 -->
+	<update id="updateQna">
+		update qna
+		set qna_title = #{qnaTitle},
+	    qna_content = #{qnaContent}
+		where qna_no = #{qnaNo}
+	</update>
+	
+	<!-- 문의하기 게시글 삭제 -->
+	<delete id="deleteQna" parameterType="int">
+		delete from qna
+		where qna_no = #{qnaNo}
+	</delete>
+
+
+</mapper>

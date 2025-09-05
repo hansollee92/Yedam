@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mapper.WishMapper">
+
+    <!-- 상품에서 찜한 사람 수 확인 -->
+    <select id="countWishMember" parameterType="int" resultType="int">
+        select  count(member_no)
+        from    wish
+        where   prd_no = ${prd_no}
+    </select>
+
+    <!-- 상품에서 찜을 했는지 하지 않았는지 확인 -->
+    <select id="existWish" parameterType="wish" resultType="int">
+        select count(1)
+        from   wish
+        where prd_no = #{prdNo}
+          and member_no = #{memberNo}
+    </select>
+
+    <insert id="insertWish" parameterType="wish">
+        insert into wish (wish_no,
+                          member_no,
+                          prd_no)
+        values (wish_seq.nextval,
+                #{memberNo},
+                #{prdNo})
+    </insert>
+
+    <delete id="deleteWish">
+        delete  wish
+        where   prd_no = #{prdNo}
+          and   member_no = #{memberNo}
+    </delete>
+
+
+
+</mapper>
