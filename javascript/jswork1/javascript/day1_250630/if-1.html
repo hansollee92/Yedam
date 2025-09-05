@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>조건문</title>
+</head>
+<body>
+  <script>
+    // 점수를 입력받아서 등급을 출력받는 프로그램
+    // 90점이상 A  80점이상 B  70점이상 C 나머지 F
+    let a = prompt('점수 입력');
+    if(a >= 90){
+      alert(a + '는 A등급입니다');
+    }else if(a >= 80){
+      alert(a + '는 B등급입니다');
+    }else if(a >= 70){
+      alert(a + '는 C등급입니다');
+    }else{
+      alert(a + '는 F등급입니다.');
+    }
+    alert('end');
+  </script>
+</body>
+</html>

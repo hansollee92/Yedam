@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>기념일 계산</title>
+  <style>
+    #container {
+      width: 400px;
+      border: 1px solid #ccc;
+      padding-top: 30px;
+      margin: 0 auto;
+
+    }
+
+    #day1 {
+      text-align: center;
+    }
+
+    #day1 h3 {
+      color: rgb(208, 25, 166);
+      font-size: 24px;
+      ;
+    }
+
+    #day1 p {
+      background-color: black;
+      color: #fff;
+      text-align: left;
+      padding: 8px;
+    }
+
+    ul {
+      border-bottom: 1px solid #ccc;
+      margin: 20px 40px;
+      padding: 20px;
+      list-style: none;
+      overflow: hidden;
+    }
+
+    #day2 ul:last-child {
+      border: none;
+    }
+
+    ul li {
+      float: left;
+      font-weight: bold;
+    }
+
+    ul li:last-child {
+      float: right;
+      font-weight: bold;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="day1">
+      <h1>우리 만난 지</h1>
+      <h3 id="accent">몇일?</h3>
+      <p>기념일 계산</p>
+    </div>
+    <div id="day2">
+      <ul>
+        <li>100일</li>
+        <li id="date100"></li>
+      </ul>
+
+      <ul>
+        <li>200일</li>
+        <li id="date200"></li>
+      </ul>
+
+      <ul>
+        <li>1년</li>
+        <li id="date365"></li>
+      </ul>
+      <ul>
+        <li>500일</li>
+        <li id="date500"></li>
+      </ul>
+    </div>
+    <script>
+      // // 웹문서 위치 접근
+      // let passDay = document.querySelector('#accent');
+      // // 날짜 계산
+      // let today = new Date();
+      // let firstDay = new Date('2025-6-16');
+      // let result = parseInt((today - firstDay) / (1000 * 60 * 60 * 24));
+      // passDay.innerHTML = result + '일';
+
+      // // 기념일 날짜계산
+      // // 함수 선언
+      function d_day(day) {
+        let anyday = new Date(2025, 5, 16 + day);
+
+        let year = anyday.getFullYear();
+        let month = anyday.getMonth() + 1;
+        month = month < 10 ? `0${month}` : month;
+        let date = anyday.getDate();
+        date = date < 10 ? `0${date}` : date;
+        let str = `${year}년 ${month}월 ${date}일`;
+        document.querySelector('#date' + day).innerHTML = str; 
+        // 여기서 str 만든건 너무 길어져서 가독성이 떨어져서 이런식으로 했음
+        // 이렇게 조합하는거 함수 생각할 수 있어야함~! (즉, 이런식으로 만들 수 있다는 걸 생각하고 또 id를 규칙있게 만들면 이런식으로 작업이 가능하다는거~! )
+      }
+
+      // // 함수 호출
+      // d_day(100);
+      // d_day(200);
+      // d_day(365);
+      // d_day(500);
+
+
+      // -----------------------------------------------------------------------------  
+
+      let passDay = document.querySelector('#accent');
+      // 몇일인지 계산할려면 > today - 현재의 날짜를 빼면 됨
+      let today = new Date();
+      let dayday = new Date('2025-01-10');
+      let currentday = parseInt((today - dayday) / (1000*60*60*24));
+      passDay.innerHTML = `${currentday}일`;
+
+      // 기념일 계산 어떻게? 
+      // 우리가 알고 싶은거 년/월/일 > getFullYear(), getMonth(), getDate() 
+      // 형식은 년 월 일 << 이런식으로 알고 싶은거
+      
+      // 기념일 계산 함수 
+      function d_day(day){
+        let anyday = new Date(2025, 5, 6 + day);
+        let year = anyday.getFullYear();
+        let month = anyday.getMonth() + 1;
+        if(month < 10){
+          month = `0${month}`;
+        }
+        let date = anyday.getDate();
+        if(date < 10){
+          date = `0${date}`;
+        }
+        let str = `${year}년 ${month}월 ${date}일`;
+        document.querySelector('#date' + day).innerHTML = str;
+      }
+
+      // 함수호출
+      d_day(100);
+      d_day(200);
+      d_day(365);
+      d_day(500);
+
+
+
+
+    </script>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도전문제(p39)</title>
+</head>
+
+<body>
+  <h1>도전문제</h1>
+
+  <script>
+    /*
+    사용자에게 수를 입력받아
+    홀수와 짝수를 구분하는 프로그램을 작성 해 보세요
+    - 입력이 취소되면 '입력 취소'출력
+    - 값이 입력되었을 경우 홀짝 구별
+    */
+
+    // 사용자 수
+    // let user = prompt('수를 입력하세요');
+
+    // 입력이 취소 되면 > 입력 취소 출력
+    // user == null
+    // user != true
+
+    // 홀수면 홀수, 짝수면 짝수 출력
+    // if (user == null) {
+    //   alert('입력 취소');
+    // } else if (user % 2 == 0) {
+    //   alert(`${user}는 짝수다`);
+    // } else {
+    //   alert(`${user}는 홀수다`);
+    // }
+
+
+    //---------------------------------------------------------------
+    /*
+    사용자에게 국어, 영어, 수학 점수를 입력 받아
+    평균을 구하고
+    수,우,미,양,가를 구분하는 프로그램을 만들어 보세요.
+    */
+
+    // 점수입력 -> 3개 저장
+    let kor = Number(prompt('국어 점수를 입력하세요'));
+    let en = Number(prompt('영어 점수를 입력하세요'));
+    let math = Number(prompt('수학 점수를 입력하세요'));
+
+    // 평균 -> (국어+영어+수학)/3
+    let avg = parseInt((kor + en + math) / 3);
+
+    // 평가 => 평균에 따라 수,우,미,양,가
+    let grade;
+
+    if(avg >=90){
+      grade = '수';
+    }else if(avg >= 80){
+      grade = '우';
+    }else if(avg >= 70){
+      grade = '미';
+    }else if(avg >= 60){
+      grade = '양';
+    }else {
+      grade = '가';
+    }
+    console.log(`${avg}점 -> ${grade}`);
+    
+    // switch : 조건이 여러개 일 때 if 문 대신 사용
+    switch( parseInt(avg / 10) ){
+      case 10 : 
+      case 9 : 
+        grade = '수';
+        break;
+      case 8 :
+        grade = '우';
+        break;
+      case 7 :
+        grade = '미';
+        break;
+      case 6 :
+        grade = '양';
+        break;
+      default : 
+        grade = '가';
+        break;      // 마지막 break는 적어도 되고 안적어 된다. (어차피 마지막 빠져나오니 )
+    }
+
+    // 결과 => 콘솔창 출력 (형태는 : 91점 -> 수)
+    // console.log 계속 들어가는 것보다 위에처럼 작성하는 것이 좋음 
+    console.log(`${avg}점 -> ${grade}`);
+
+
+    // if (91 <= avg <= 100) {
+    //   console.log(`당신의 평균점수는 ${avg}이며 수입니다.`);
+    // } else if (81 <= avg <= 90) {
+    //   console.log(`당신의 평균점수는 ${avg}이며 우입니다.`);
+    // } else if (71 <= avg <= 80) {
+    //   console.log(`당신의 평균점수는 ${avg}이며 미입니다.`);
+    // } else if (61 <= avg <= 70) {
+    //   console.log(`당신의 평균점수는 ${avg}이며 양입니다.`);
+    // } else {
+    //   console.log(`당신의 평균점수는 ${avg}이며 가입니다.`);
+    // }
+
+    // 이거 자바스크립트에서는 안됨(파이썬 가능)
+    // avg >= 91 && avg <= 100 
+    // 위와 같은 식으로만 해야지 가능
+
+    // 이걸 만약 더 짧게 쓰고 싶어서 for, 배열을 사용한다면?
+
+
+
+
+    // -----------------------------------------------------------
+    // 평균을 7로 나눈 나머지 => 요일
+    // 0 -> 일요일 ~6 -> 토요일
+    // switch문을 이용
+    // 1번 출력 나머지 : 0 -> 요일
+    let week;
+    switch( avg % 7 ){
+      case 0 : week = '일요일'; break;
+      case 1 : week = '월요일'; break;
+      case 2 : week = '화요일'; break;
+      case 3 : week = '수요일'; break;
+      case 4 : week = '목요일'; break;
+      case 5 : week = '금요일'; break;
+      case 6 : week = '토요일'; break;
+    }
+    // console.log(avg % 7 + ' : -> ' + week);
+    // 이걸 백틱${} 써서는 어캐씀? 
+    console.log(`나머지 ${avg % 7} -> ${week}`);
+
+
+    //--------------------------------------------------------------
+    // 유인물 p42 문제2
+    // (조건) ? true실행물 : false실행물 ; 
+    // 위의 switch에서 마지막에 break; 안쓰면 밑에꺼 실행 안됨....... 
+
+    let age = Number(prompt('나이 입력 : '));
+    age >= 18 ? alert(`${age}세 판매 가능`) : alert(`${age}세 판매 불가!`);
+    
+    // 프로그램에서 {}은 블럭을 만들어준다!라고 생각~
+
+    
+
+  </script>
+</body>
+
+</html>

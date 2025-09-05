@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>총주문금액</title>
+</head>
+<body>
+  <script>
+    // 총주문금액 계산하는 프로그램 (주문수량 * 단가)
+    
+    // 변수 선언
+    let orderN;
+    let price;
+    let result;
+
+    // 수량과 단가 입력(prompt)
+    orderN = prompt('주문수량 입력하세요');
+    price = prompt('단가를 입력하세요');
+
+    // 계산
+    result = orderN * price;
+
+    // 결과출력
+    console.log(orderN, price, result);
+
+  </script>
+</body>
+</html>

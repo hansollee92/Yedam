@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품 주문서</title>
+  <style>
+    *{
+      box-sizing: border-box;
+    }
+    #container{
+      width: 700px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      padding: 30px;
+    }
+    legend{
+      color: #8e1aa5;
+      font-weight: 700;
+      font-size: 20px;
+    }
+    fieldset{
+      margin-bottom: 20px;
+    }
+    form ul{
+      list-style: none;
+    }
+    form li{
+      overflow: hidden;
+      margin: 5px 0;
+    }
+    label{
+      width: 100px;
+      font-weight: 700;
+      float: left;
+    }
+    input{
+      padding: 3px;
+    }
+    textarea{
+      width: 400px;
+      margin-top: 6px;
+      padding: 3px;
+    }
+    .order-info label{
+      width: 100%;
+      font-weight: 400;
+      float: none;
+    }
+    .btn{
+      border: none;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>상품 주문서</h1>
+    <form name="form" action="ddd.jsp" method="post">
+      <fieldset>
+        <legend>개인정보</legend>
+        <ul>
+          <li>
+            <label for="user-name">이름</label>
+            <input type="text" id="user-name" name="user-name" placeholder="여백없이 입력">
+          </li>
+          <li>
+            <label for="user-phone">연락처</label>
+            <input type="tel" id="user-phone" name="user-phone" placeholder="연락가능한 번호">
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>배송지 정보</legend>
+        <ul>
+          <li>
+            <label for="user-address">주소</label>
+            <input type="text" id="user-address" name="user-address" size="52">
+          </li>
+          <li>
+            <label for="user-call">전화번호</label>
+            <input type="tel" id="user-call" name="user-call">
+          </li>
+          <li>
+            <label for="memo">메모</label>
+            <textarea name="memo" id="memo" rows="4"></textarea>
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset class="order-info">
+        <legend>주문 정보</legend>
+        <ul>
+          <li>
+            <label><input type="checkbox" name="order-info" value="k-melon">경북성주 참외(5kg)</label>
+            <input type="number" id="number-km" name="number-km" min="0" max="10" value="0">Box
+            <!-- label은 input태그가 (1) 무엇인지 알려주는 역할과 함께 (2) 마우스로 클릭했을 때 더 빨리 체크될 수 있도록 하는 역할을 한다. 
+            그렇기 때문에 하나의 <input>과 연결이 가능하지 label안에 input이 두개 들어갈 순 없다.
+            대신, 스핀박스인 input의 id값과 name값을 참외갯수라고 알수있게 적게해서 데이터가 넘어갈때 바로 볼 수 있도록 하는 방법을 선택해야한다! -->
+          </li>
+          <li>
+            <label><input type="checkbox" name="order-info" value="grape">경북영천 포도(5kg)</label>
+            <input type="number" id="number-gr" name="number-gr" min="0" max="10" value="0">Box
+          </li>
+          <li>
+            <label><input type="checkbox" name="order-info" value="water-melon">경북봉화 수박(5kg)</label>
+            <input type="number" id="number-wm" name="number-wm" min="0" max="10" value="0">Box
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset class="btn">
+        <button type="submit">주문하기</button>
+        <button type="reset">다시 작성</button>
+      </fieldset>
+    </form>
+  </div>
+</body>
+</html>

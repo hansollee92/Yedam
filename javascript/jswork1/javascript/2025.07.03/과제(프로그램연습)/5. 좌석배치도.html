@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>좌석배치도</title>
+  <style>
+    table {
+      /* border: 1px solid #ccc; */
+      border-collapse: collapse;
+      empty-cells: hide;
+      margin-top: 30px;
+
+    }
+
+    td {
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>좌석배치도</h1>
+  <form name="output">
+    <label for="person">입장객 수</label>
+    <input type="text" id="person" name="person" size="5">
+    <label for="colNum">1줄 자릿 수</label>
+    <input type="text" id="colNum" name="colNum" size="5">
+    <button type="button" id="btn">배치도</button>
+  </form>
+  <div id="layout"></div>
+
+  <script>
+    // 변수 지정
+    let person = document.querySelector('#person');    //입장객수
+    let colNum = document.querySelector('#colNum');    //1줄자리수
+    let btn = document.querySelector('#btn');
+    let layout = document.querySelector('#layout');
+    
+    
+    seatNum = 0;
+    function makelayout() {
+      let rowNum = parseInt(person.value / colNum.value);  //한줄에 앉을 수 있는 사람수
+      table = '<table border=1>';
+      for (let i = 1; i <= rowNum; i++) {
+        table += '<tr>';
+        for (let j = 1; j <= colNum.value; j++) {
+          seatNum++;
+          table += `<td>좌석 : ${seatNum}</td>`;
+          if (person.value <= seatNum) {
+            break;
+          }
+        }
+        table += '</tr>'
+      }
+      table += '</table>'
+      layout.innerHTML = table;
+    }
+
+    // 이벤트 발생 
+    btn.onclick = makelayout;
+    // makelayout();
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>폼</title>
+  <style>
+    #container {
+      width: 600px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+    }
+    form label {
+      width: 100px;
+      /* display: inline-block; */
+      float: left;
+    }
+    form li {
+      /* list-style: none; */
+      margin: 5px 0;
+      overflow: hidden;
+      /* <li><label></label><input></li> 구조인 애들이 float:left;문제로 
+      모두 한줄에 나타나는 문제가 발생하기에 
+      label의 부모인 li에게 overflow:hidden;을 줘서 
+      자식의 크기값을 알 수 있게 만들어줘서 해결하는 방법이 있다 */
+    }
+    .label-w label {
+      /* float: none;
+      display: inline-block; */
+      /* 이런식으로 설정을 하면 원래 overflow:hidden; 처리한 것과 동일하게 나타나야하는데 현재 나타나지 않고 있는데 그 이유를 한번 같이 찾아보자 
+      > float과 display는 함께 사용할 수 없음 그래서 float:none; 처리를 해야함!
+      (서로 완전히 다른 개념임!)
+      
+      (왜인지는 모르겠지만 list-style:none;을 주석처리하니 내려가는데 이건 또 왜 이럴까)*/
+    }
+    .redaccent {
+      color: #f00;
+      font-weight: 700;
+    }
+    /* input:enabled{
+      background-color: rgb(255, 253, 133);
+    } */
+     input:checked + span {
+        color: #00f;
+        font-weight: 700;
+     }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <h1>폼 만들기</h1>
+    <form name="form1" action="aaa.jsp" method="post">
+      <fieldset>
+        <legend>로그인 입력</legend>
+        <!-- input은 inline요소이기 때문에 ul>li을 넣어서 줄바꿈 되게 해준다 -->
+        <ul>
+          <li>
+            <label for="user-id">아이디</label>
+            <input type="text" id="user-id" name="user-id" size="10" maxlength="5">
+          </li>
+          <li>
+            <label for="pw">비밀번호</label>
+            <input type="password" id="pw" name="pw">
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>개인정보</legend>
+        <ul>
+          <li>
+            <label for="user-name">이름 <span class="redaccent">*</span></label>
+            <input type="text" id="user-name" name="user-name" required>
+          </li>
+          <li>
+            <label for="user-url">홈페이지</label>
+            <input type="url" id="user-url" name="user-url" disabled>
+          </li>
+          <li>
+            <label for="user-email">이메일 주소</label>
+            <input type="email" id="user-email" name="user-email">
+          </li>
+          <li>
+            <label for="phone">전화번호</label>
+            <input type="tel" id="phone" name="phone" placeholder="- 빼고 숫자만 입력하세요">
+            <!-- pc환경에서는 아니지만 모바일에서는 숫자선택으로 바로 뜸 -->
+          </li>
+          <li>
+            <label for="search">검색</label>
+            <input type="search" id="search" name="search" value="검색안됨" readonly>
+          </li>
+          <li>
+            <label for="memo">메모</label>
+            <textarea cols="40" rows="5" name="memo" id="memo" placeholder="지원동기 간략히"></textarea>
+          </li>
+          <li>
+            <label for="notice">공지</label>
+            <textarea cols="40" rows="5" id="notice" readonly>
+1. 다음주에 자바스크립트 수업 시작
+2. 태그와 css복습 (이번주 주말 활용)
+            </textarea>
+            <!-- textarea 탭구분해놓은 띄어쓰기때문에 안의 내용 이상하게 나타나는 부분 해결할 수 있는 방법은? 
+             1. html 내에서 위와 같이 공백을 없애기
+             2. Javascript에서 .trim() 또는 replace()기법을 사용하는 방법-->
+            <!-- textarea를 공지와 같은 형태로 사용한다면 name, id 속성값을 적을 필요가 있는가? 
+             id값은 JS때문에 필요할 수 있지만 name은 readonly로 사용되니 필요없음 -->
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset class="label-w">
+        <legend>선택항목</legend>
+        <ul>
+          <li>
+            <label>
+              <input type="radio" name="color" value="red">
+              <span>빨강</span>
+            </label>
+            <label>
+              <input type="radio" name="color" value="green" checked>
+              <span>초록</span>
+            </label>
+            <label>
+              <input type="radio" name="color" value="blue">
+              <span>파랑</span>
+            </label>
+          </li>
+          <li>
+            <label><input type="checkbox" name="sns" value="facebook">페이스북</label>
+            <label><input type="checkbox" name="sns" value="insta" checked>인스타그램</label>
+            <label><input type="checkbox" name="sns" value="x">엑스</label>
+            <!-- checkbox는 배열에 담아서 가져감, 반복문 사용 > 타입에 따라 저장되는 자료구조가 다름 -->
+          </li>
+          <li>
+            <label for="file">파일전송</label>
+            <input type="file" id="file" name="file">
+          </li>
+          <li>
+            <label for="color">색선택</label>
+            <input type="color" id="color" name="color">
+          </li>
+          <li>
+            <label for="select">색상선택</label>
+            <select name="select" id="select">
+              <optgroup label="차가운색">
+                <option value="blue">파란색</option>
+                <option value="gray">회색</option>
+                <option value="white">흰색</option>
+              </optgroup>
+              <optgroup label="따뜻한색">
+                <option value="red">빨간색</option>
+                <option value="yellow">노란색</option>
+                <option value="orange" selected>주황색</option>
+              </optgroup>
+            </select>
+          </li>
+          <li>
+            <label for="dlist">데이터선택</label>
+            <input type="text" id="dlist" name="dlist" list="sns">
+            <!-- datalist는 그냥 직접 입력할 수 있는데 자주 사용하는 것들을 미리 입력해놓고 선택할 수 있게 하는 것 -->
+            <!-- select와 datalist와의 차이는 select는 설정한 리스트 외에는 입력이 불가능하지만 datalist는 사용자 편의성을 위해서 넣어둔 것이기 때문에 가능하다 -->
+            <datalist id="sns">
+              <option value="insta">인스타그램</option>
+              <option value="facebook">페이스북</option>
+              <option value="x">엑스</option>
+            </datalist>
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>숫자/날짜 데이터</legend>
+        <ul>
+          <li>
+            <label for="number">스핀박스</label>
+            <input type="number" id="number" name="number" min="0" max="10" value="2" step="2">
+            <!-- min, max, step 위와 같이 설정되어있어도 키보드로 값을 넣으면 값은 들어가겠지만 실제적으로 submit 전송버튼을 눌러서 확인해보면 값이 넘어가지 않음! -->
+          </li>
+          <li>
+            <label for="range">슬라이더</label>
+            <input type="range" id="range" name="range" min="1" max="16" step="3" value="1">
+          </li>
+          <li>
+            <label for="date">년월일</label>
+            <input type="date" id="date" name="date">
+          </li>
+          <li>
+            <label for="month">년월</label>
+            <input type="month" id="month" name="month">
+          </li>
+          <li>
+            <label for="week">년주</label>
+            <input type="week" id="week" name="week">
+          </li>
+          <li>
+            <label for="datetime">년월일시간</label>
+            <input type="datetime-local" id="datetime" name="datetime">
+          </li>
+          <li>
+            <label for="time">시간</label>
+            <input type="time" id="time" name="time">
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <ul>
+          <li>
+            <input type="submit" value="전송버튼">
+            <input type="reset" value="취소버튼">
+            <input type="button" value="창열기" onclick="window.open()">
+          </li>
+          <li>
+            <button type="submit">전송버튼</button>
+            <button type="reset">취소버튼</button>
+            <button type="button" onclick="window.open()">창열기</button>
+          </li>
+        </ul>
+      </fieldset>
+    </form>
+  </div>
+</body>
+
+</html>

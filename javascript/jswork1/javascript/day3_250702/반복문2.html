@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>반복문</title>
+  <style>
+    table, td{
+      border: 1px solid #333;
+      border-collapse: collapse;
+    }
+    td{
+      background-color: rgb(223, 223, 223);
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>반복문</h3>
+
+  <script>
+    //별찍기 ------------------------------------------------------------------------------------
+
+    /*
+    이렇게 작성할 수도 있지만 이렇게 작성할 경우
+    *
+    ***
+    ******
+    이렇게 찍힐 것이다 왜?
+    for문 한번 돌려봐
+    i가 1일때 j가 1로 시작, j가 1이기 때문에 별 하나 찍힘
+    j++로 j가 2가 되고 j는 1보다 크기 때문에 빠져나온다.
+    i가 2일때 j가 1로 시작, j가 1이기 때문에 별이 또 하나 찍힐꺼다
+    근데, 여기서 stars 안에는 이미 별이 *있기 때문에 ** 되고
+    j++로 j가 2가 되면 i도 2이기 때문에 별이 하나 더 찍혀서
+    ***이 되고 j가 3이 되면 그제서야 for문을 빠져나오기 때문에
+    결국 별 3개가 찍히게 되는 것이다 .
+    >>> 즉, 이런식으로 for문이 돌기 때문에
+    stars라는 변수를 for문 안에서 초기화 해줘야지
+    원하던데로
+    *
+    **
+    ***
+    식으로 찍히게 된다.
+
+    let stars = '';
+    for(let i=1; i<=5; i++){
+      for(let j=1; j<=i; j++){
+        stars += '*';
+      }
+      console.log(stars);
+    }
+    */
+
+    for (let i = 1; i <= 5; i++) {
+      let stars = '';
+      for (let j = 1; j <= i; j++) {
+        stars += '*';
+      }
+      console.log(stars);
+    }
+
+
+    // 별찍기2 ----------------------------------------------------------------------------------
+
+    // ************문제1 :별찍기ver1
+    //줄수 5까지
+    //빈칸수 5-i까지
+    //별수 i까지
+
+    // 줄수
+    for (let i = 1; i <= 5; i++) {
+      // 별과 b를 쌓을 변수 할당(문자여서 '')
+      let stars = "";
+      // 빈칸 돌려
+      for (let j = 1; j <= 5 - i; j++) {
+        stars += "b";
+      }
+      // 별 돌려
+      for (let k = 1; k <= i; k++) {
+        stars += "*";
+      }
+      // 변수 출력
+      console.log(stars);
+    }
+
+
+    // ************문제2 : 별찍기ver2
+    let stars = "";
+    for (let i = 1; i <= 5; i++) {
+      for (let j = 1; j <= 5 - i; j++) {
+        stars += "b";
+      }
+      for (let k = 1; k <= i; k++) {
+        stars += "*";
+      }
+      stars += '\n'
+    }
+    console.log(stars);
+
+
+    // ************문제3 : 다이아몬드 찍기 (숙제)
+
+
+    // 유인물 p53 문제7 --------------------------------------------------------------------------
+    // 자리배치도
+
+    // ① 사람수 : personNum
+    // ② 한줄에 앉을 수 있는 사람수 : colNum
+    // ③ 몇 줄 : rowNum
+    // ④ 의자번호 : seatNum
+    // ⑤ 배치도 : layout
+
+    // 값을 입력받으라고 했는데 처음에는 정해진 값을 넣어서 설정
+    // let personNum = prompt('관객 수를 입력하세요');
+    // let colNum = prompt('한줄에 앉을 수 있는 사람수를 입력하세요');
+    // let rowNum = parseInt(personNum / colNum);
+    // 나머지가 있는지 없는지 체크해야함(if로 해도 상관없지만 삼항연산자 이용해보자)
+    // if (personNum % colNum != 0) {
+    //   rowNum++;
+    // }
+    // ++가 앞에 있는지 뒤에 있는지에 따라서 처리 순서 때문에 좌석 9까지밖에 안나타는 문제 발생
+    // 문제 발생되면 console.log()찍어보고 처리할 것
+    // rowNum = personNum % colNum == 0 ? rowNum : ++rowNum;
+
+    // let seatNum = 0;   //카운터로 쓰는건 0으로 시작
+    // let layout = `<table>
+    //   <caption> 자리배치도 </caption>`;
+
+    // for (let i = 1; i <= rowNum; i++) {   //tr
+    //   layout += '<tr>';
+    //   for (let j = 1; j <= colNum; j++) {   //td
+    //     seatNum++;
+    //     layout += `<td>좌석${seatNum}</td>`;
+    //     if (personNum <= seatNum) {
+    //       break;
+    //     }
+    //   }
+    //   layout += '</tr>';
+    // }
+    // layout += '</table>';
+    // document.write(layout);
+    // 왜 10까지 안나타나고 9까지만 이렇게 나타날까?????
+    // 삼항연산자했을떄 ++이 앞,뒤 차이의 순서 차이가 있어서 문제 발생 
+    // 해당 연산자 다르게 설정하면 처리됨
+
+
+    // -------------------------------------------------------------------------
+    // min에서 max까지 홀수합과 짝수합 구하기
+
+    let min = Number(prompt('최소값을 넣으세요'));
+    let max = Number(prompt('최대값을 넣으세요'));
+    let zzak = 0;
+    let hol = 0;
+    // 여기서 0 숫자값 할당안해주면 NaN으로 나옴!
+    let result;
+
+    for(let i=min; i<=max; i++){
+      if(i % 2 == 0){
+        zzak += i;
+      }else{
+        hol += i;
+      }
+      result = `홀수합은 ${hol}, 짝수합은 ${zzak}`;
+    }
+
+    // console.log(`홀수합은 ${hol}, 짝수합은 ${zzak}`);
+    console.log(result);
+
+
+
+
+  </script>
+</body>
+
+</html>

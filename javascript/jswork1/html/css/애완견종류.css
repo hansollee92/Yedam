@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Noto+Sans+KR:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+.jua-regular {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+/* class값으로 html에 클래스를 만들어서 폰트를 적용할 수도 있다 */
+
+#container {
+  width: 1000px;
+  margin: 0 auto;
+  font-family: "Noto Sans KR", sans-serif;
+}
+header {
+  background-color: beige;
+}
+header ul{
+  margin: 0;
+}
+nav li{
+  display: inline-block;
+  padding: 5px 10px 5px 6px;
+  margin: 10px 0;
+  border-bottom: 3px solid #ccc;
+  border-radius: 10px;
+}
+nav li:hover{
+  border-color: #f00;
+}
+a{
+  text-decoration: none;
+  font-weight: 700;
+}
+.top{
+  display: block;
+  text-align: right;
+  margin-right: 20px;
+}
+/* a:visited{
+  color: #000; 웹표준성에 맞지않음
+} */
+section {
+  background-color: #ddd;
+  padding: 10px;
+}
+section ul{
+  text-align: center;
+  list-style: none;
+  /* padding-inline-start: 0; */
+  padding: 0;
+}
+section li{
+  display: inline;
+  margin : 10px;
+  padding: 10px;
+}
+article {
+  border: 1px solid #aaa;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.1);
+  font-family: "Gowun Batang", "Noto Sans KR";
+  border-radius: 20px;
+  margin-top: 10px;
+}
+figure{
+  text-align: center;
+}
+.hid{
+  /* display:none과 visibility:hidden의 차이 알기! 
+  (opacity: 0;)*/
+  /* visibility: hidden; */
+  /* display: none; */
+  opacity: 0.5;
+}
+.hid:hover{
+  opacity: 1;
+}
+img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 1px 1px 5px 3px #aaa;
+  margin: 10px;
+  /* img는 inline요소이지만 margin이 먹히는 것을 확인할 수 있음(태그들 마다 다름) */
+  /* opacity: 0.5; */
+}
+img:hover{
+  opacity: 0.5;
+}
+aside {
+  padding: 10px;
+  background-color: #ffdeb5;
+}
+aside li{
+  line-height: 1.5;
+}
+footer {
+  color: #fff;
+  background-color: #000;
+  padding: 10px;
+  text-align: center;
+}
+footer p{
+  margin-top: 0;
+}
+.fixed{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #ecd9cc;
+  text-align: center;
+  line-height: 70px;
+  color: #fff;
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+}
+.fixed p{
+  margin: 0;
+}
