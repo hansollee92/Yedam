@@ -19,7 +19,11 @@
       <tbody>
         <!-- 임시변수 in 배열 -->
         <!-- v-for 디렉티브 사용할 때 사용하길 권장되는 :key. 이 key를 보면서 뭐가 변경되었는지 확인함(Key를 쓰지 않으면 성능저하가 일어남) -->
-        <tr v-for="book in bookList" v-bind:key="book.no">
+        <tr
+          v-for="book in bookList"
+          v-bind:key="book.no"
+          @click="goToDetail(book.no)"
+        >
           <td>{{ book.no }}</td>
           <td>{{ book.name }}</td>
           <td>{{ book.writer }}</td>
@@ -47,6 +51,13 @@ const bookList = shallowRef([]);
 const count = computed(() => {
   return bookList.value.length;
 });
+
+// VueRouter 사용
+import { useRouter } from "vue-router";
+const router = useRouter();
+const goToDetail = (bookNo) => {
+  router.push({ name: "bookInfo", params: { bno: bookNo } });
+};
 
 // 2) Server로부터 데이터 가져오기 => axios API
 const getBookList = async () => {
