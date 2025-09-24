@@ -2,27 +2,75 @@
   <div class="container">
     <form @submit.prevent>
       <label for="no">No.</label>
-      <input type="text" id="no" readonly />
+      <input type="text" id="no" v-model="bookInfo.no" readonly />
 
       <label for="name">도서명</label>
-      <input type="text" id="name" />
+      <input type="text" id="name" v-model="bookInfo.name" />
 
       <label for="writer">저자</label>
-      <input type="text" id="writer" />
+      <input type="text" id="writer" v-model="bookInfo.writer" />
 
       <label for="publisher">출판사</label>
-      <input type="text" id="publisher" />
+      <input type="text" id="publisher" v-model="bookInfo.publisher" />
 
       <label for="publication_date">출판일자</label>
-      <input type="date" id="publication_date" />
+      <input
+        type="date"
+        id="publication_date"
+        v-model="bookInfo.publication_date"
+      />
 
       <label for="info">소개</label>
-      <textarea id="info" style="height: 200px"></textarea>
+      <textarea
+        id="info"
+        style="height: 200px"
+        v-model="bookInfo.info"
+      ></textarea>
 
-      <button type="button" class="btn btn-xs btn-info">저장</button>
+      <button type="button" class="btn btn-xs btn-info" v-on:click="bookInsert">
+        저장
+      </button>
     </form>
   </div>
 </template>
+
+<!-- 등록은 사용자가 입력하는 것으로 내부에서 다 변경이 되어야하니 ref()를 사용! -->
+<script setup>
+import axios from "axios";
+import { ref } from "vue";
+
+// 도서 정보(내부 데이터 변경)
+const bookInfo = ref({
+  no: "",
+  name: "",
+  writer: "",
+  publisher: "",
+  publication_date: "",
+  info: "",
+});
+
+const bookInsert = async () => {
+  let obj = {
+    name: bookInfo.value.name,
+    writer: bookInfo.value.writer,
+    publisher: bookInfo.value.publisher,
+    publication_date: bookInfo.value.publication_date,
+    info: bookInfo.value.info,
+  };
+
+  let result = await axios
+    .post("/api/books", obj)
+    .catch((err) => console.error(err));
+  let addRes = result.data;
+  if (addRes.isSuccessed) {
+    alert("도서가 등록되었습니다.");
+    bookInfo.value.no = addRes.bookNo;
+  } else {
+    alert("도서 등록에 실패했습니다.");
+  }
+};
+</script>
+
 <style scoped>
 /* Style inputs with type="text", select elements and textareas */
 input,
