@@ -40,11 +40,11 @@ import { onBeforeMount, shallowRef, computed } from "vue";
 import useDates from "@/utils/useDates.js";
 
 // 1) 데이터가 필요
-let bookList = shallowRef([]);
+const bookList = shallowRef([]);
 //      let bookList = []; <- '반응형 객체'가 되어야함/
 //      그리고 이것은 선언만 해놓고 2)에서 데이터가 들어가야하니 바뀐다 -> 근데 들고와서 값이 변경안됨 shallowRef()
 //      그래서 위와같이 작성
-let count = computed(() => {
+const count = computed(() => {
   return bookList.value.length;
 });
 
