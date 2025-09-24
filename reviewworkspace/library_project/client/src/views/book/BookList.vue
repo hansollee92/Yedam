@@ -3,6 +3,9 @@
     <table class="table table-hover">
       <caption>
         total :
+        {{
+          count
+        }}
       </caption>
       <thead>
         <tr>
@@ -33,7 +36,7 @@
 <script setup>
 // composition 방식으로 작성할 때는 setup이라는 속성을 script에 넣는다. option방식 넣으면 에러띄게 만들어줌
 import axios from "axios";
-import { onBeforeMount, shallowRef } from "vue";
+import { onBeforeMount, shallowRef, computed } from "vue";
 import useDates from "@/utils/useDates.js";
 
 // 1) 데이터가 필요
@@ -41,6 +44,9 @@ let bookList = shallowRef([]);
 //      let bookList = []; <- '반응형 객체'가 되어야함/
 //      그리고 이것은 선언만 해놓고 2)에서 데이터가 들어가야하니 바뀐다 -> 근데 들고와서 값이 변경안됨 shallowRef()
 //      그래서 위와같이 작성
+let count = computed(() => {
+  return bookList.value.length;
+});
 
 // 2) Server로부터 데이터 가져오기 => axios API
 const getBookList = async () => {
