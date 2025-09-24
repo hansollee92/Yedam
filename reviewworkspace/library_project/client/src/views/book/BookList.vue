@@ -14,12 +14,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <!-- 임시변수 in 배열 -->
+        <!-- v-for 디렉티브 사용할 때 사용하길 권장되는 :key. 이 key를 보면서 뭐가 변경되었는지 확인함(Key를 쓰지 않으면 성능저하가 일어남) -->
+        <tr v-for="book in bookList" v-bind:key="book.no">
+          <td>{{ book.no }}</td>
+          <td>{{ book.name }}</td>
+          <td>{{ book.writer }}</td>
+          <td>{{ book.publisher }}</td>
+          <td>
+            {{ useDates.dateFormat(book.publication_date, "yyyy-MM-dd") }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -30,6 +34,7 @@
 // composition 방식으로 작성할 때는 setup이라는 속성을 script에 넣는다. option방식 넣으면 에러띄게 만들어줌
 import axios from "axios";
 import { onBeforeMount, shallowRef } from "vue";
+import useDates from "@/utils/useDates.js";
 
 // 1) 데이터가 필요
 let bookList = shallowRef([]);
