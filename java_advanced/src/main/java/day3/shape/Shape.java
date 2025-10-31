@@ -1,6 +1,6 @@
 package day3.shape;
 
-public class Shape {
+public abstract class Shape {
 
 	// field
 	private int sx;  // 시작좌표
@@ -56,9 +56,8 @@ public class Shape {
 		return "Shape [toString()=" + super.toString() + "]";
 	}
 	
-	public void draw() {
-		System.out.println("도형을 그리다");
-	}
+	// 추상메서드
+	public abstract void draw();
 		
 	
 }
