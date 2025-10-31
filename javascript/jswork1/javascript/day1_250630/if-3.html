@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>숫자맞추기 게임</title>
+</head>
+
+<body>
+  <script>
+    // 숫자 맞추기 게임
+
+    // 변수 선언
+    let com;     // 컴퓨터가 만든 수
+    let me;      // 내가 입력하는 수
+
+    // 1~10 사이의 난수
+    com = Math.floor(Math.random() * 10) + 1;
+
+    // while(true){
+    //   // 사용자 입력 수 
+    //   me = prompt('1~10 사이의 수를 적으세요');
+
+    //   // 결과 출력
+    //   if(me > com){
+    //     alert('크다');
+    //   }else if(me < com){
+    //     alert('작다');
+    //   }else{
+    //     alert('같다');
+    //     break;
+    //   }
+    // }
+
+    // 사용자 입력 수 
+    me = prompt('1~10 사이의 수를 적으세요');
+
+    // 결과 출력
+    if (me > com) {
+      alert('크다');
+    } else if (me < com) {
+      alert('작다');
+    } else {
+      alert('같다');
+    }
+
+
+  </script>
+</body>
+
+</html>

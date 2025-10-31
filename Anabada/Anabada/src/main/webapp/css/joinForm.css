@@ -1,0 +1,158 @@
+/* 배경 회색 */
+body.join-page {
+  background-color: #f7f7f7;
+}
+
+/* header는 흰색 */
+body.join-page header {
+  background-color: #fff;
+}
+
+/* footer도 회색 */
+body.join-page footer {
+  background-color: #EEEEEE !important;
+}
+
+/* join 전체 wrapper */
+.join-wrapper {
+  position: relative;
+  margin-bottom: 12px;
+  background: #EEEEEE;
+  padding: 80px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-family: var(--font);
+}
+
+/* 카드 컨테이너 (가입 폼) */
+.join-container {
+  flex: 0 1 500px;
+  max-width: 500px;
+  width: 100%;
+  margin: 50px 0;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  padding: 60px 50px;
+  font-family: var(--font);
+}
+
+/* 제목 스타일 */
+.joinTitle h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--font);
+}
+.joinTitle p {
+  margin: 0 0 50px;
+  color: #189a7e;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font);
+}
+
+.input-wrapper{
+  position: relative;
+  margin-bottom: 12px;
+}
+
+/* input 스타일 */
+.input-wrapper input{
+  width:100%;
+  height:44px;
+  border:1px solid #e3e5e7;
+  border-radius:8px;
+  padding:0 14px;
+  padding-left:150px;   /* 라벨 공간 */
+  font-size:14px;
+  outline:none;
+  font-family: var(--font);
+}
+.input-wrapper input:focus {
+  border-color: #16a085;
+  box-shadow: 0 0 0 3px rgba(22,160,133,0.12);
+}
+
+/* label */
+.inside-label{
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+  width: 110px;
+  font-family: var(--font);
+}
+
+.topJoinInfo {
+  margin-bottom: 20px;
+}
+
+/* 아이디 인풋만 버튼 공간을 추가로 확보 */
+#memberId{
+  padding-right: 100px;    /* 중복확인 버튼 공간 */
+}
+
+/* 아이디 칸의 '중복확인' 버튼을 인풋 안 오른쪽에 배치 */
+#checkIdBtn{
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background: #EEEEEE;
+  color:#333;
+  font-family: var(--font);
+}
+
+/* 버튼 영역 */
+.joinBtn {
+  margin-top: 50px;
+  display: flex;
+  gap: 10px;
+  font-family: var(--font);
+}
+.joinBtn button {
+  flex: 1;
+  height: 44px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font);
+}
+.joinBtn button[type="submit"] {
+  background: #0C8274;
+  color: #fff;
+}
+.joinBtn button[type="button"] {
+  background: #EEEEEE;
+  color: #333;
+}
+
+/* 비밀번호 확인 메시지 공통 */
+.inline-msg {
+	text-align: right;
+  display: block;
+  margin-top: 6px;
+  margin-right: 7px;
+  margin-bottom: 3px;
+  font-size: 13px;
+  min-height: 20px;         /* ← 메시지 없을 때도 공간 확보 */
+  visibility: hidden;       /* 기본은 보이지 않음(공간은 유지) */
+  font-family: var(--font);
+}
+
+.inline-msg.ok  { color: #28a745; visibility: visible; }
+.inline-msg.bad { color: #d9534f; visibility: visible; }

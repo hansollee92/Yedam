@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내장객체</title>
+</head>
+
+<body>
+  <h3>내장객체</h3>
+  <script>
+    let today = new Date();
+    console.log(today);
+    // GMT 영국 그리니치 천문대 기준으로 시차발생하는거 알려주는거
+
+    let year = today.getFullYear();
+
+    let month = today.getMonth() + 1;
+    // 현재 월보다 -1된 숫자가 보이는데 0부터 숫자가 시작되어서 그런 것
+    // 그래서 월가져올때 항상 위에 +1 해줘야함
+
+    let date = today.getDate();
+
+    let day = today.getDay();
+    // 요일인데 번호가 나올 것임
+    /*
+    0 : 일요일
+    1 : 월요일
+    2 : 화요일
+    3 : 수요일
+    4 : 목요일
+    5 : 금요일
+    6 : 토요일
+    */
+    // 숫자로 나오면 알아보기 힘드니깐 바꿔보자!
+    let dayStr = '';
+    switch (day) {
+      case 0: dayStr = '일요일'; break;
+      case 1: dayStr = '월요일'; break;
+      case 2: dayStr = '화요일'; break;
+      case 3: dayStr = '수요일'; break;
+      case 4: dayStr = '목요일'; break;
+      case 5: dayStr = '금요일'; break;
+      case 6: dayStr = '토요일'; break;
+    }
+
+    console.log(`${year}년 ${month}월 ${date}일 ${dayStr}`);
+    console.log(new Date(1));
+    console.log(today.getTime());
+    console.log(new Date(1751515517550));
+
+    console.log(today.toLocaleString());
+
+
+    // 크리스마스까지 몇일 남았을까? ----------------------------------
+    let xmas = new Date('2025-12-25');
+
+    let remain = xmas - today;
+    console.log(remain);   // 수로 나옴 
+
+    remain = parseInt(remain / (1000 * 60 * 60 * 24));
+    console.log(remain + '일 남았음');
+
+    // 응용해서 우리가 만난 날을 계산해보자
+    let firstDay = new Date('2025-06-16');
+    let passDay = parseInt((today - firstDay) / (1000 * 60 * 60 * 24));
+    console.log(passDay + '일 지났음');
+
+
+
+    // 로또번호 발생 --------------------------------------------------
+    // let lotto = '';
+    // for(let i=0; i<=5; i++){
+    //   for(let j=0; j<=6; j++){
+    //     lotto += Math.floor(Math.random() * 45) + 1 + '\t';
+    //   }
+    //   lotto += '\n';
+    // }
+    // console.log(lotto);
+
+    // 근데 여기에서는 중복되는 숫자가 발생한다. 
+    // 배열에 숫자들을 저장해두고 중복이 되는지 체크하는 작업이 필요
+    for (let i = 1; i <= 5; i++) {
+      let lotto = [];
+      for (let j = 0; j < 6; j++) {
+        let ranNum = Math.floor(Math.random() * 45) + 1;
+        // 중복체크
+        if (lotto.indexOf(ranNum) == -1) {
+          lotto.push(ranNum);
+        }else {
+          j--;
+          // 이 작업을 하지 않으면 index는 늘었났는데 중복된 애는 그냥 빠져서 빈 공간으로 나타날 것이다. 그래서 이 작업을 해줘야한다. 
+        }
+      }
+      console.log(lotto.join(' : '));
+    }
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+/* 배경 회색 */
+body.success-page {
+  background-color: #EEEEEE;
+}
+
+/* header 흰색 */
+body.success-page header {
+  background-color: #fff;
+}
+
+/* footer 회색 */
+body.success-page footer {
+  background-color: #EEEEEE !important;
+}
+
+/* 전체 wrapper */
+.success-wrapper {
+  position: relative;
+  background: #EEEEEE;
+  padding: 80px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* 카드 컨테이너 */
+.success-container {
+  flex: 0 1 500px;
+  max-width: 500px;
+  width: 100%;
+  margin: 50px 0;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  padding: 60px 50px;
+  text-align: center;
+}
+
+/* 제목 */
+.success-container h1 {
+  font-size: 22px;
+  margin-bottom: 80px;
+  font-weight: 700;
+}
+
+.fail-subtext {
+  font-size: 16px;    /* h1보다 작게 */
+  color: #666;        /* 약간 연한 회색 톤 */
+  margin-top: -70px;  /* h1과 버튼 사이 균형 맞춤 (필요 시 조정) */
+  margin-bottom: 60px;
+}
+
+/* 버튼 그룹 */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* 버튼 스타일 */
+.button-group a {
+  flex: 1;
+  max-width: 180px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* 로그인 버튼 */
+.btn-login {
+  background: #0C8274;
+  color: #fff !important;
+}
+
+/* 홈 버튼 */
+.btn-home {
+  background: #EEEEEE;
+  color: #333 !important;
+}

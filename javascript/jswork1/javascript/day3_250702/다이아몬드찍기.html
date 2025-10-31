@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다이아몬드 별찍기(중첩 반복문)</title>
+</head>
+
+<body>
+    <script>
+        // 다이아몬드 별찍기(중첩 반복문)
+        /*
+        bbbb*bbbb
+        bbb***bbb
+        bb*****bb
+        b*******b
+        *********    <<
+        b*******b
+        bb*****bb
+        bbb***bbb
+        bbbb*bbbb
+        */
+
+        /*
+        줄 생성을 위한 반복문
+        b = blank(빈칸)
+        stars = 별
+        ------ 을 중심으로 아래 위가 뒤집히는 구조
+
+        줄     b      *
+        -----------------------
+        1      8      1
+        2      6      3
+        3      4      5 
+        4      2      7
+        5      0      9 <<
+        6      2      7
+        7      4      5
+        8      6      3
+        9      8      1
+        1.    4 * 4
+        2.    3 * 3
+        3     2   2
+        4     1.  1
+        */
+        for (let i = 1; i <= 9; i++) {
+            let stars = '';
+            //빈칸먼저 4번 돌려
+            for (let j = 1; j <= 5 - i; j++) {
+                stars += 'b';
+                // console.log(`구분을 위한 ${stars}`)
+            }
+            // 별 1하나 찍어
+            for (let k = 1; k <= (2 * i) - 1; k++) {
+                stars += '*';
+            }
+            for (let j = 1; j <= (9 - i) / 2; j++) {
+                stars += 'b';
+                // console.log(`구분을 위한 ${stars}`)
+            }
+            console.log(stars);
+        }
+    </script>
+</body>
+
+</html>

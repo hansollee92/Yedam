@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <title>첫페이지</title>
+  <style>
+    body {
+      width: 1000px;
+      margin: 0 auto;
+    }
+    header {
+      width: 100%;
+      background-color: #ccc;
+    }
+    nav {
+      background-color: rgb(110, 255, 129);
+      padding: 10px;
+    }
+    main {
+      width: 80%;
+      float: left;
+      background-color: rgba(255, 225, 240, 0.5);
+      padding: 10px;
+    }
+    aside {
+      width: 18%;
+      float: right;
+      background-color: rgb(250, 235, 215);
+    }
+    footer {
+      clear: both;
+      background-color: aquamarine;
+      padding: 10px;
+    }
+    table {
+      border: 1px solid grey;
+      border-collapse: collapse;
+      /* 테두리 합치기 */
+    }
+    th,
+    td {
+      border: 1px solid grey;
+    }
+    thead {
+      background-color: beige;
+    }
+    tbody {
+      /* background-color: #ffd3c4; */
+      text-align: center;
+    }
+    tfoot {
+      background-color: #e6efff;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>html구조</h1>
+    <!-- div는 p처럼 문단을 나누지는 않음 -->
+    <h3>header : <span style="color: red;">문서의</span> 맨 위 영역</h3>
+    <p><b>헤더영역</b>에는 <strong>웹페이지의 로고나 검색창을 배치</strong>합니다.<br>
+      메뉴를 포함할 때도 있습니다. </p>
+    <nav>
+      <h3>nav : 메뉴영역입니다</h3>
+      <p>웹페이지에서 보여줄 내용을 항목별로 구성해 놓은 영역입니다.</p>
+    </nav>
+  </header>
+  <!-- <hr> -->
+  <main>
+    <h3>main : 웹페이지 중심내용 영역</h3>
+    <P><em>웹페이지에 <b>한 번만</b> 쓸 수 있는 태그</em>입니다.</P>
+    <section>
+      <h4>section : 주제별로 본문을 편집하는 영역</h4>
+      <!-- 속성 타이틀은 툴틸이라고 한다(마우스 올리면 나타나는) -->
+      <h5><abbr title="엉덩이를 뜨겁게">엉뜨</abbr></h5>
+      <h5>y=x<sup>2</sup></h5>
+      <h5>H<sub>2</sub>O</h5>
+      <p>반드시 주제를 나타내는 제목 태그가 있어야 합니다.</p>
+      <p>
+        Lorem ipsum<br>
+        dolor sit amet consectetur adipisicing elit.
+        <!-- 태그 자체에 기본적으로 가지고 있는 CSS가 있음 -->
+      <blockquote>
+        <i>provident neque sunt ea cumque est nam, necessitatibus similique.</i><br>
+        <cite>- 네이버 블로그에서 인용 -</cite>
+      </blockquote>
+      Veritatis ut quibusdam rerum ratione dolor, fuga cum aperiam provident dicta quae?
+      </p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, quisquam.</p>
+    </section>
+    <section>
+      <h3>목록만들기</h3>
+      <h4>순서 있는 목록 만들기</h4>
+      <p>코끼리 냉장고에 넣기</p>
+      <ol type="a" start="3">
+        <li>코끼리 잡는다.</li>
+        <li>냉장고를 산다.</li>
+        <li>냉장고 문을 연다.</li>
+        <li>코끼리를 넣는다.</li>
+        <li>냉장고 문을 닫는다.</li>
+      </ol>
+      <h4>순서 없는 목록 만들기</h4>
+      <p>여행 준비물</p>
+      <ul>
+        <li>여권</li>
+        <li>세면도구</li>
+        <li>보조배터리</li>
+        <li>결제카드</li>
+        <li>수영복</li>
+      </ul>
+      <h4>설명 목록 만들기</h4>
+      <p>웹 개발자 기초 과목</p>
+      <dl>
+        <dt>html</dt>
+        <dd>웹문서의 구조를 만듬</dd>
+        <dt>css</dt>
+        <dd>웹문서의 디자인 담당</dd>
+        <dt>javascript</dt>
+        <dd>사용자의 상호작용을 처리</dd>
+        <dd>동적 사이트를 제작</dd>
+      </dl>
+    </section>
+    <section>
+      <h3>표만들기</h3>
+      <table>
+        <caption>선물용과 가정용 상품 구성</caption>
+        <!-- 열에도 스타일값을 넣고 싶을때는 아래의 colgroup을 이용한다 -->
+        <colgroup>
+          <!-- 색이 겹쳐질 때는 행이 우선이다(열보다) -->
+          <col style="background-color: #ffe1f0;">
+          <col>
+          <!-- [교재p99] 열단위로 뭔갈 처리하고 싶을 때는 이런식으로 처리도 가능하다.
+           이때 col그룹은 첫번째 행이 시작되기전에 시작되어야하기 때문에 caption아래에 넣어야함 -->
+          <col span="2" style="background-color: aquamarine;">
+          <!-- <col> -->
+        </colgroup>
+        <thead>
+          <tr>
+            <th>용도</th>
+            <th>중량</th>
+            <th>개수</th>
+            <th>구성</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- 행/렬 합치는 거 헷갈리지 말 것! -->
+            <td rowspan="2">선물용</td>
+            <td>3kg</td>
+            <td>11~16과</td>
+            <td>35,000원</td>
+          </tr>
+          <tr>
+            <td>5kg</td>
+            <td>18~26과</td>
+            <td>52,000원</td>
+          </tr>
+          <tr>
+            <td rowspan="2">가정용</td>
+            <td>3kg</td>
+            <td>11~16과</td>
+            <td>30,000원</td>
+          </tr>
+          <tr>
+            <td>5kg</td>
+            <td>18~26과</td>
+            <td>47,000원</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <td colspan="4">* 제품 구매 시기에 따라 가격이 변동이 될 수 있습니다</td>
+        </tfoot>
+      </table>
+    </section>
+    <article>
+      <h4>article : 독립된 기사 편집 영역</h4>
+      <p>섹션과 차이는 독립된 내용인 경우에 사용</p>
+      <pre>
+        <mark>** pre태그는 코드 넣을 때 사용</mark>
+        <q>Lorem ipsum</q> dolor sit amet consectetur 
+        adipisicing elit. Dolor laboriosam perferendis incidunt, 
+        doloribus quod velit ipsam? 
+        Vero odit ab accusantium dolores sit voluptate excepturi, 
+        ducimus labore inventore magni provident commodi!
+      </pre>
+    </article>
+    <div>
+      <ruby>學習<rt>학습</rt></ruby>
+    </div>
+  </main>
+  <aside>
+    <h3>aside : 주 내용과 상관없는 광고 영역</h3>
+    <p>로그인 폼이나, 광고 사이트 연결</p>
+  </aside>
+  <!-- <hr> -->
+  <footer>
+    <h3>footer 영역</h3>
+    <p>개인정보 보호 방침, 사이트 주소, sns 정보</p>
+  </footer>
+</body>
+
+</html>

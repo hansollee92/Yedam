@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>성적처리</title>
+  <style>
+    table, td, th{
+      border: 1px solid #333;
+      border-collapse: collapse;
+      padding: 10px 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>성적처리</h3>
+  <script>
+    // 유인물 2-p16 문제2
+
+    // 성적처리 함수 선언
+    function sungjuk(name, kor, eng, math) {
+      // 총점
+      let total = kor + eng + math;
+      // 평균
+      let avg = Math.round(total / 3);
+      // 등급
+      let grade = '';
+      if (avg >= 90) {
+        grade = 'A';
+      } else if (avg >= 80) {
+        grade = 'B';
+      } else {
+        grade = 'C';
+      }
+      // 이름 총점 평균 등급 출력(콘솔 창)
+      console.log(`${name}\t\t${total}\t\t${avg}\t\t${grade}`);
+      return `<tr>
+        <td>${name}</td>
+        <td>${total}</td>
+        <td>${avg}</td>
+        <td>${grade}</td></tr>`;
+    }
+
+    // 필드명 출력(콘솔창)
+    console.log(`이름\t총점\t평균\t등급`);
+
+    // 성적 자료 넘김(함수 호출);
+    document.write(`<table>
+      <tr>
+        <th>이름</th>
+        <th>총점</th>
+        <th>평균</th>
+        <th>등급</th>
+      </tr>`)
+    document.write(sungjuk('aaa', 80, 70, 90));
+    document.write(sungjuk('bbb', 90, 88, 99));
+    document.write(sungjuk('ccc', 100, 85, 94));
+    document.write(`</table>`);
+
+
+  </script>
+</body>
+
+</html>

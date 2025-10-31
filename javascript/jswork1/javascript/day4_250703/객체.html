@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="객체">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>객체(object)</title>
+</head>
+<body>
+  <h3>객체(object)</h3>
+  <script>
+    // 객체
+    let person = {
+      name : '홍길동',
+      age : 25,
+      job : 'programmer',
+      eat : function(food){
+        console.log(`${food} 먹어요`);
+      }
+    }
+
+    // 객체 접근
+    console.log(person.name);
+    console.log(person.job);
+    console.log(person.eat); // 함수자체가 나옴(매서드 key만 쓰면)
+    console.log(person.eat()); // eat안에 있는 함수
+    console.log(person.eat('빵')) // 인수를 주면 '빵'먹어요
+    person.eat('빵');
+    // ## undefined가 나오는 이유는? -- console.log()를 해줬기때문
+
+    // 객체 추가
+    console.log(person);
+    person.haircolor = '파랑';
+    person.run = function(){
+      console.log(`${this.name}은 달린다`);
+    }
+    console.log(person.run());
+
+    // 객체 수정
+    person.haircolor = '빨강';
+
+    // 객체 삭제
+    delete (person.haircolor);
+
+    //---------------------------------------------------------------
+    // 유인물(3.객체) p11 문제1번
+    // 생성자 함수명 : Product
+
+    // 생성자 함수 생성
+    function Product(name, weight, price){
+      this.name = name;
+      this.weight = weight;
+      this.price = price;
+    };
+
+    // 프로토타입 
+    Product.prototype.calculate = function(w){
+      return Math.round(w / this.weight * this.price);
+    };
+
+    // 객체 생성
+    // let sam = new Product('삼겹살', 100, 1500);
+    // let galbi = new Product('갈비', 100, 10000);
+
+    // 손님이 와서 1000g의 '삼겹살' 구매를 할려고 한다면?
+    // let result = sam.calculate(1000);
+    // console.log(`${sam.name} => ${result}원 입니다`);
+    // result = galbi.calculate(500);
+    // console.log(`${galbi.name} => ${result}원 입니다`);
+
+
+    // [응용] 객체들의 값을 3-4개 더 생성하고
+    // 배열로 바꾼 다음에
+    // 그 배열을 출력해보시오. 
+
+    /*
+    삼겹살 100 1200
+    갈비 100 1500
+    소고기 100 2000
+    갈매기살 100 1800
+    */
+
+    // 배열 생성
+    let meetArr = [
+      // 객체 생성
+      new Product('삼겹살', 100, 1500),
+      new Product('갈비', 100, 1500),
+      new Product('소고기', 100, 2000),
+      new Product('갈매기살', 100, 1800)
+    ];
+
+    // 주문할 고기g
+    // 이걸 만약에 랜덤으로 생성하면?
+    // let howEaArr = [300, 500, 1000, 2000];
+    let howEaArr = [];
+    for(let i=0; i<4; i++){
+      howEaArr[i] = parseInt(Math.random() * 1000 + 1);
+    }
+    console.log(howEaArr);
+
+    // 배열 출력
+    for(let i=0; i<meetArr.length; i++){
+      console.log(`${meetArr[i].name} ${meetArr[i].calculate(howEaArr[i])}`)
+    }
+
+    // 부동소수점 오차(Floating Point Error)
+    // w / this.weight * this.price 이 위의 계산에서 컴퓨터는 2진수로 변환한다음에 계산을 하기 때문에 소수점 오류가 생긴다..? (0.1, 0.2 와 같은 수를 정확하게 2진수로 표현을 못함! 그렇기 때문에 Math.round()를 하거나 toFixed(2):2자리고정하는뭐시기 를 써서 고쳐야함
+
+  </script>
+</body>
+</html>

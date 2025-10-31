@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>const 변수</title>
+</head>
+<body>
+  <script>
+    // 원의 면적을 구하는 프로그램 PI * R * R
+
+    // 변수 선언
+    let radius;    // 반지름
+    const PI = 3.14;   // const 불변
+    let result = 0;    // 결과
+
+    // PI = 3;
+    //  Assignment to constant variable. 라고 오류메세지 
+    // Why? const 로 변수 선언했는데 재할당했음
+    
+    // 반지름 입력(prompt)
+    radius = prompt('반지름을 입력하세요');
+
+    // 계산
+    result = PI * radius * radius
+
+    // 결과 출력
+    console.log('반지름 : ' + radius +', 원의 면적 : '+ result);
+
+  </script>
+</body>
+</html>

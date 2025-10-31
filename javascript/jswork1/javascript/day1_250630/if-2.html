@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>홀짝게임</title>
+</head>
+<body>
+  <script>
+    // 홀짝게임 (0:짝, 1:홀)
+    let com;
+    let me;
+
+    // 0,1 난수 생성
+    com = Math.floor(Math.random() * 2);
+    
+    // 0,1 중에서 입력 (prompt)
+    me = prompt('0,1 중에서 입력');
+
+    // 정답 출력(if~else)
+    if(me == com){
+      alert('맞다');
+    }else{
+      alert('틀리다');
+    }
+  </script>
+</body>
+</html> 

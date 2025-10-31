@@ -1,0 +1,78 @@
+.qnaWrite-container{
+  width: min(1200px, 94%);
+  margin: 50px auto;
+}
+.qnaWrite-container .page-title{
+  font-size: var(--font-md);
+  font-family: var(--font);
+  color: var(--black-color);
+}
+.qnaWrite-container .line{
+  background-color: #ccc;
+  margin: 20px 0;
+}
+
+.qnaWrite-container .form-row{
+  display: flex;
+  align-items: flex-start;
+  margin: 30px 0;
+}
+.qnaWrite-container label{
+  width: 20%;
+  font-weight: 700;
+  color: var(--black-color);
+  font-family: var(--font);
+}
+
+.qnaWrite-container .helper{
+  width: 100%;
+  height: 15px;
+  position: relative;
+  font-size: var(--font-sm);
+  font-family: var(--font);
+  color: var(--gray);
+}
+.qnaWrite-container .helper div{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.qnawBtn{
+  width: 200px;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-family: var(--font);
+  font-size: var(--font-sm);
+  border: none;
+  font-weight: 600;
+  transition: .5s;
+}
+
+.qnaw-btn-p{
+  background-color: var(--primary-color);
+  color: #fff;
+}
+.qnaw-btn-p:hover{
+  background-color: var(--dark-primary);
+}
+.qnaw-btn{
+  background-color: var(--light-gray);
+  color: var(--black-color);
+}
+.qnaw-btn:hover{
+  background-color: var(--gray);
+}
+
+.qnaWrite-container .input:focus, 
+.qnaWrite-container .textarea:focus{
+  outline:0;
+  border-color:var(--primary-color);
+  box-shadow:0 0 0 .2rem rgba(12,130,117,.15);
+}
+.qnaWrite-container .input::placeholder, 
+.qnaWrite-container .textarea::placeholder{
+  font-size: var(--font-sm);
+  color: var(--gray);
+  font-family: var(--font);
+}

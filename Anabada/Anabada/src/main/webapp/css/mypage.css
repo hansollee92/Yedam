@@ -1,0 +1,409 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', Arial, sans-serif;
+}
+
+.mypage-container {
+  display: flex;
+  width: min(1200px, 94%);
+  margin: 35px auto;
+  gap: 32px;
+}
+
+
+.sidebar {
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  border-radius: 10px;
+  width: 240px;
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: fit-content;
+}
+
+.update-myInfo {
+  color: #999;
+  margin-top: 40px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.update-myInfo:hover {
+  text-decoration: underline;
+}
+
+.profile-img > img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.profile-info strong {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.info-item {
+  font-size: 15px;
+  color: #333;
+  margin: 2px 0;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 8px 0;
+}
+
+.stars {
+  color: #159e9c;
+  font-size: 18px;
+}
+
+.score {
+  margin-left: 6px;
+  font-size: 15px;
+  color: #00796b;
+}
+
+.menu-list {
+  list-style: none;
+  margin: 24px 0 0 0;
+  padding: 0;
+}
+
+.menu-list li {
+  font-size: 17px;
+  color: #262626;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.menu-list a:hover {
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 2px;
+}
+
+.main-content {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  padding: 32px;
+}
+
+.main-content h2 {
+  margin-top: 0;
+  font-size: 20px;
+  margin-bottom: 28px;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 20px;
+}
+
+.item-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  text-decoration: none;
+  margin-bottom: 15px;
+}
+
+.item-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.8 / 2; /* 가로:세로 비율 */
+  background: #eff2f6;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border: none;
+}
+
+.item-img:hover img {
+  transform: scale(1.05);
+}
+
+.item-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s cubic-bezier(.25,.46,.45,.94);
+  transform-origin: center center;
+}
+
+.item-desc {
+  font-size: 15px;
+  color: #2d2d2d;
+  margin-bottom: 6px;
+}
+
+.item-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* 별점 css */
+.star-rating {   
+  position: relative;
+  display: inline-block;
+  font-size: 1.5rem;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  cursor: pointer;
+  user-select: none;
+}
+
+.star-rating > span {
+  display: inline-block;
+  position: relative;
+  color: white; 
+  -webkit-text-stroke: 1px #0c8275;
+}
+
+.star-rating > span.full {
+  color: #0c8275;
+}
+
+.star-rating > span.partial {
+  background: linear-gradient(90deg, #0c8275 var(--percent), white var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 리뷰 목록 css */
+.review-section {
+  margin: 36px auto;
+}
+.review-section h6 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.my-list, .other-list {
+  margin-bottom: 20px;
+}
+
+/* 리뷰 항목 전체 묶음 */
+.review-item-img {
+  display: inline-block;
+  vertical-align: top;
+}
+.review-item-img img {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  background: #eee;
+  object-fit: cover;
+}
+
+.review-item-name,
+.review-item-score,
+.review-item-content {
+  display: block;
+  margin-left: 60px;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+/* 첫 줄만 bold 처리 */
+.review-item-name {
+  font-weight: 600;
+  margin-top: -40px;
+}
+
+.review-item-score {
+  color: #FFA500;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+}
+
+/* 평점 또는 구매자명 등에 따라 조정 */
+.review-item-content {
+  color: #222;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #f1f1f1;
+  margin: 16px 0;
+}
+
+.no-review {
+  color: #aaa;
+  text-align: center;
+  padding: 40px 0;
+  font-size: 15px;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0 0 0;
+  padding: 0;
+  list-style: none;
+  gap: 8px;
+}
+
+.page-item {
+  /* Bootstrap-like style */
+}
+
+.page-link {
+  display: block;
+  min-width: 28px;
+  padding: 5px 0;
+  border-radius: 8px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #d2d9df;
+  color: #343a40;
+  font-size: 14px;
+  transition: all 0.12s;
+  cursor: pointer;
+}
+.page-item.active .page-link,
+.page-link:hover {
+  background: #109488;
+  color: #fff;
+  border-color: #109488;
+}
+.page-item.disabled .page-link {
+  background: #f4f5f6;
+  color: #aaa;
+  cursor: default;
+  border-color: #ebebeb;
+}
+
+
+/* 버튼 클래스 */
+.btn {
+  padding:8px 10px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.btn-primary {
+  background:#16a085;
+  color:#fff;
+  border-color:#16a085;
+}
+
+.btn-disabled {
+  background:#f2f2f2;
+  color:#999;
+  cursor:default;
+}
+
+/* 모달창 디자인 */
+.modal-backdrop {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+
+.modal {
+  width:420px;
+  background:#fff;
+  border-radius:10px;
+  padding:22px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.modal-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.modal-title {
+  font-size:18px;
+  font-weight:700;
+}
+
+.modal-close {
+  border:none;
+  background:transparent;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.stars {
+  font-size:28px;
+  color:#ddd;
+  cursor:pointer;
+}
+
+.stars .on {
+  color:#ffb400;
+}
+
+.modal textarea {
+  width:100%;
+  height:120px;
+  resize:none;
+  padding:10px;
+  border:1px solid #ddd;
+  border-radius:8px;
+}
+
+.modal-footer {
+  margin-top:14px;
+  text-align:center;
+}
+
+@media (max-width: 900px) {
+  .items-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .mypage-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    padding: 24px 8px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .list {
+    display: flex;
+    flex-direction: row;
+    gap: 16px; /* 메뉴 아이템 사이 간격 */
+    overflow-x: auto; /* 가로 스크롤 가능하도록 (필요 시) */
+  }
+
+  .list li {
+    margin-bottom: 0; /* 세로 마진 제거 */
+  }
+
+}

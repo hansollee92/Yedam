@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 자리배치도
+
+    // ① 사람수 : personNum
+    // ② 한줄에 앉을 수 있는 사람수 : colNum
+    // ③ 몇 줄 : rowNum
+    // ④ 의자번호 : seatNum
+    // ⑤ 배치도 : layout
+
+    // 값을 입력받으라고 했는데 처음에는 정해진 값을 넣어서 설정
+    let personNum = prompt('관객 수를 입력하세요');
+    let colNum = prompt('한줄에 앉을 수 있는 사람수를 입력하세요');
+    let rowNum = parseInt(personNum / colNum);
+    // 나머지가 있는지 없는지 체크해야함(if로 해도 상관없지만 삼항연산자 이용해보자)
+    if (personNum % colNum != 0) {
+      rowNum++;
+    }
+    // ++가 앞에 있는지 뒤에 있는지에 따라서 처리 순서 때문에 좌석 9까지밖에 안나타는 문제 발생
+    // 문제 발생되면 console.log()찍어보고 처리할 것
+    // rowNum = personNum % colNum == 0 ? rowNum : ++rowNum;
+
+    let seatNum = 0;   //카운터로 쓰는건 0으로 시작
+    let layout = `<table border='1'>
+      <caption> 자리배치도 </caption>`;
+
+    for (let i = 1; i <= rowNum; i++) {   //tr
+      layout += '<tr>';
+      for (let j = 1; j <= colNum; j++) {   //td
+        seatNum++;
+        layout += `<td>좌석${seatNum}</td>`;
+        if (personNum <= seatNum) {
+          break;
+        }
+      }
+      layout += '</tr>';
+    }
+    layout += '</table>';
+    document.write(layout);
+    // 왜 10까지 안나타나고 9까지만 이렇게 나타날까?????
+    // 삼항연산자했을떄 ++이 앞,뒤 차이의 순서 차이가 있어서 문제 발생
+    // 해당 연산자 다르게 설정하면 처리됨
+
+  </script>
+</body>
+
+</html>

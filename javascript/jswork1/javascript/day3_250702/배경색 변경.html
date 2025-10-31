@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배경색 변경</title>
+    <style>
+        #container{
+            width: 500px;
+            margin: 0 auto;
+        }
+        li{
+            display: inline-block;
+            padding: 10px;
+            list-style: none;
+            border: 1px solid #ccc;
+            
+        }
+        #result{
+            width: 300px;
+            height: 200px;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <ul>
+            <li onclick="change('green')">green</li>
+            <li onclick="change('orange')">orange</li>
+            <li onclick="change('purple')">purple</li>
+        </ul>
+        <div id="result"></div>
+        <button type="button" id="bg">배경색</button>
+    </div>
+
+    <script>
+        function change(bgcolor){
+            // 자바스크립트에서는 -로 작성xxx 
+            // 그래서 style 속성값 넣을때도 아래와 같이 들어가짐(두번째의 첫글자 대문자)
+            document.querySelector('#result').style.backgroundColor = bgcolor;
+        }
+    </script>
+</body>
+</html>

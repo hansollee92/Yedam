@@ -1,0 +1,26 @@
+-- 삭제에 필요한 것들
+-- 필요시 주석 해제 후 사용할 것!!
+
+-- table 삭제 (순서대로 할 것)
+-- drop table wish;
+-- drop table qna_reply;
+-- drop table qna;
+-- drop table notice;
+-- drop table review;
+-- drop table purchase;
+-- drop table product;
+-- drop table commu_reply;
+-- drop table commu;
+-- drop table member;
+
+-- sequence 삭제
+-- drop sequence member_seq;
+-- drop sequence product_seq;
+-- drop sequence qna_seq;
+-- drop sequence qnaReply_seq;
+-- drop sequence purchase_seq;
+-- drop sequence review_seq;
+-- drop sequence commu_seq;
+-- drop sequence commuReply_seq;
+-- drop sequence notice_seq;
+-- drop sequence wish_seq;

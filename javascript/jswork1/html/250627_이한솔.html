@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이한솔</title>
+  <style>
+    *{
+      box-sizing: border-box;
+      font-family: '맑은 고딕', sans-serif;
+    }
+    #container{
+      width: 1000px;
+      margin: 0 auto;
+    }
+    nav{
+      background-color: #000;
+    }
+    header h1{
+      text-align: center;
+    }
+    ul{
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      list-style: none;
+    }
+    nav li{
+      float: left;
+    }
+    /* .nav-notice{
+      float: right;
+    } */
+    nav li:last-child{
+      float: right;
+    }
+    nav li:nth-child(2n+1){
+      background-color: navy;
+    }
+    nav a{
+      display: block;
+      text-decoration: none;
+      color: #fff;
+      padding: 20px;
+    }
+    nav a:hover{
+      color: #000;
+      background-color: #ff0;
+    }
+    aside{
+     width: 200px; 
+     height: 500px;
+     text-align: center;
+     float: left;
+     background-color: #ddd;
+    }
+    section{
+      width: 600px;
+      height: 500px;
+      float: left;
+      background-color: #eee;
+      padding: 0 30px;
+      text-align: center;
+    }
+    form{
+      width: 500px;
+      margin: 0 auto;
+      background-color: #ddd;
+      padding: 10px;
+    }
+    fieldset{
+      border: none;
+    }
+    legend{
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    form li{
+      border-radius: 5px;
+      background-color: rgb(255, 255, 255, 0.5);
+      border: 2px solid #fff;
+      padding: 10px;
+      margin-bottom: 5px;
+    }
+    label{
+      width: 130px;
+      display: inline-block;
+    }
+    input{
+      width: 250px;
+      padding: 3px;
+    }
+    .btn{
+      text-align: center;
+    }
+    button{
+      width: 150px;
+      border: none;
+      border-radius: 30px;
+      background-color: #fef;
+      padding: 15px;
+      cursor: pointer;
+    }
+    button:hover{
+      background-color: #ddb5dd;
+    }
+    footer{
+      clear: both;
+      background-color: #666;
+      padding: 10px;
+    }
+    footer p{
+      text-align: center;
+      font-size: 25px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <header>
+      <h1>이한솔 페이지에 온 것을 환영합니다.</h1>
+      <nav>
+        <ul>
+          <li><a href="#">메인메뉴</a></li>
+          <li><a href="#">메인메뉴</a></li>
+          <li><a href="#">메인메뉴</a></li>
+          <li class="nav-notice"><a href="#">공지사항</a></li>
+        </ul>
+      </nav>
+    </header>
+    <aside>
+      <h2>좌측 사이드</h2>
+    </aside>
+    <section>
+      <h2>회원가입 영역입니다</h2>
+      <form name="form1" action="aaa.jsp" method="post">
+        <fieldset>
+          <legend>개인정보 등록</legend>
+          <ul>
+            <li>
+              <label for="user-id">계정아이디</label>
+              <input type="text" id="user-id" name="user-id" autofocus>
+            </li>
+            <li>
+              <label for="user-pw">비밀번호</label>
+              <input type="password" id="user-pw" name="user-pw">
+            </li>
+            <li>
+              <label for="user-pwd">비밀번호 확인</label>
+              <input type="password" id="user-pwd" name="user-pwd">
+            </li>
+            <li>
+              <label for="user-name">이름</label>
+              <input type="text" id="user-name" name="user-name" placeholder="5자 미만 공백없이">
+            </li>
+            <li>
+              <label for="user-phone">전화번호</label>
+              <input type="tel" id="user-phone" name="user-phone">
+            </li>
+          </ul>
+        </fieldset>
+        <fieldset class="btn">
+          <button type="submit">회원 가입</button>
+          <button type="reset">정보 수정</button>
+        </fieldset>
+      </form>
+    </section>
+    <aside>
+      <h2>우측 사이드</h2>
+    </aside>
+    <footer>
+      <p>푸터영역 입니다</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열</title>
+</head>
+
+<body>
+    <h3>배열작업</h3>
+    <script>
+        // // 배열에 1에서 100사이의 무작위 수 10개를 입력
+        // let arr = [];
+        // for(let i=0; i<10; i++){
+        //     arr[i] = parseInt(Math.random() * 100 + 1);
+        // };
+        // console.log(arr);
+
+        // // 배열의 합 계산
+        // // 최대값과 최소값 구하기 
+        // let sum = 0;
+        // let max = 0;   //초기화 할 때 최소값
+        // let min = 100;  //초기화 할 때 최대값
+
+        // for(let ele of arr){
+        //     // 배열의 합
+        //     sum += ele;
+        //     // 최대값과 최소값
+        //     // if 아래와 같이 간단하게 작성가능함
+        //     if(max < ele) max = ele;
+        //     if(min > ele) min = ele;
+        // }
+
+        // // 콘솔창에 결과 출력
+        // console.log(`최대값 : ${max}\n최소값 : ${min}\n합 : ${sum}`);
+        // console.log(arr.reduce((a, b) => a + b ));
+
+
+        // ----------------------------------------------------------------------
+        // ----------------------------------------------------------------------
+        // 배열에 1~100사이의 무작위 수 10개를 입력하고
+        // 배열의 합, 최대값, 최소값을 구하는 프로그램을 작성
+
+        // 배열에 1~100사이 무작위 수 만들기
+        let arry = [];
+
+        // 배열의 합, 최대값, 최소값 변수 지정
+        let arrySum = 0;
+        let max = 0;
+        let min = 100;
+
+        for (let i = 0; i < 10; i++) {
+            // 무작위 수 10개 만들기
+            arry[i] = Math.round(Math.random() * 100 + 1);
+
+            // 배열 합 구하기
+            arrySum += arry[i];
+
+            // 배열의 최대값?
+            if(max < arry[i]){
+                max = arry[i];
+            }
+
+            // 배열의 최소값?
+            if(min > arry[i]){
+                min = arry[i];
+            }
+        }
+
+        // 출력
+        console.log(arry);
+        console.log(`합 : ${arrySum}\n최대값 : ${max}\n최소값 : ${min}`);
+
+
+    </script>
+
+
+</body>
+
+</html>
