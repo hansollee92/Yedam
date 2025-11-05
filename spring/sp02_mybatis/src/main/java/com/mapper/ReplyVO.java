@@ -1,0 +1,18 @@
+package com.mapper;
+
+import java.util.Date;
+
+import lombok.Data;
+
+@Data
+public class ReplyVO {
+	
+	// 필드
+	private Long rno;
+	private Long bno;
+	private String reply;
+	private String replyer;
+	private Date replydate;
+	private Date updatedate;
+	
+}

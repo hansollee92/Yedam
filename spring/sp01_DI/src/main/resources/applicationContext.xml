@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 이 파일이 바로 “스프링 컨테이너가 어떤 객체를 만들지” 알려주는 설정파일 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="Speaker" class="com.container.AppleSpeaker"></bean>
+		
+	<bean id="tv" class="com.factory.SamsungTV">
+		<!-- <constructor-arg ref="Speaker"></constructor-arg> 생성자 방식-->
+		<property name="Speaker" ref="Speaker"></property>
+		<!-- name은 클래스 필드명, ref은 bean의 id이름 -->
+	</bean>
+	<!-- class만 com.factory.lg 이렇게만 변경하면 lg티비가 실행됨 -->
+	
+		
+</beans>
