@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.board.mapper.BoardMapper">
+
+	<!-- resultMap을 사용하여 필드가 다를 때 적용시키는 방법 -->
+	<resultMap type="BoardVO" id="boardmap">
+		<id column="bno" property="bno"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content" />
+		<result column="writer" property="writer" />
+		<result column="regdate" property="regdate" />
+		<result column="updatedate" property="updatedate" />
+			
+		<collection property="reply" ofType="ReplyVO">
+			<id column="rno" property="rno" />
+			<result column="reply" property="reply" />
+			<result column="replyer" property="replyer" />
+		</collection>
+	</resultMap>
+
+
+	<select id="getList" resultMap="boardmap">
+		SELECT a.*
+		       ,b.rno
+		       ,b.reply
+		       ,b.replyer
+		FROM tbl_board a
+		LEFT OUTER JOIN tbl_reply b
+		ON (a.bno = b.bno)
+	</select>
+
+<!-- 	<select id="getList" resultMap="boardmap">
+		SELECT bno
+		       ,title
+		       ,content
+		       ,writer
+		       ,regdate
+		       ,updatedate 
+		FROM tbl_board
+	</select> -->
+	
+	<insert id="insert">
+		<!-- 등록된 번호 단건조회 -->
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+			SELECT seq_board.nextval
+			FROM dual
+		</selectKey>
+		<!-- order=before은 insert 하기 전에 먼저 조회하라는 뜻
+		resultType에는 조회할 데이터의 타입(대/소문자 상관없음)
+		keyProperty는 조회할 데이터 필드명 -->
+		
+		INSERT INTO tbl_board (bno, title, content, writer)
+		VALUES (#{bno}, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<update id="update">
+		UPDATE tbl_board
+		SET title = #{title},
+		    content = #{content}
+		WHERE bno = #{bno}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM tbl_board
+		WHERE bno = #{bno}
+	</delete>
+	
+	<!-- 단건조회 with tbl_reply -->
+<!-- 	<select id="getBoard" resultMap="boardmap">
+		SELECT a.*
+		       ,b.rno
+		       ,b.reply
+		       ,b.replyer
+		FROM tbl_board a
+		LEFT OUTER JOIN tbl_reply b
+		ON (a.bno = b.bno)
+		WHERE a.bno = #{bno}
+	</select> -->
+	
+	<!-- 검색을 위한 조회 -->
+	<select id="getListByWriter">
+		SELECT *
+		FROM tbl_board
+		<where>
+			<if test="writer != null">AND writer LIKE '%' || #{writer} || '%'</if>
+			<if test="title != null">AND title  LIKE '%' || #{title} || '%'</if>
+		</where>
+		<!-- '%${writer}%' -->
+		<!-- 조건이 없을때는 where이 필요없는데 그때 사용하는게 <where> 조건이 있으면 알아서 붙고 없으면 사라짐
+		또한, 앞에 AND도 맨 처음꺼는 없어도 되는데 그걸 알아서 붙였다 땠다 해줌 -->
+	</select>
+	
+ 
+</mapper>
