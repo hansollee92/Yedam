@@ -16,6 +16,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/file/**" location="file:/c:/upload/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -26,7 +27,12 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	</beans:bean>
 
 	<context:component-scan base-package="com.yedam" />
-	
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
-	
+
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+
+	<annotation-driven validator="validator" />
+	<beans:bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
 </beans:beans>

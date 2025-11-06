@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>할롱~!!!!</h1>
+	<img src="/file/cat2.jpg" width="300">
 </body>
 </html>
