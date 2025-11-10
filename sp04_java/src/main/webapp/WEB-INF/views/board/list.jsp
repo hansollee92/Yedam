@@ -1,4 +1,4 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%--  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -10,6 +10,7 @@
     rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
     crossorigin="anonymous">
+    
   <title>게시글 목록</title>
 
   <style>
@@ -137,24 +138,6 @@
               <td class="text-nowrap">${board.writer}</td>
             </tr>
 
-            <!-- 댓글 묶음 행 -->
-            <c:if test="${not empty board.reply}">
-              <tr class="reply-block">
-                <td colspan="4">
-                  <ul class="list-group list-group-flush small">
-                    <c:forEach items="${board.reply}" var="reply">
-                      <li class="list-group-item d-flex align-items-start justify-content-between">
-                        <div>
-                          <span class="reply-meta">#${reply.rno}</span>
-                          <strong class="me-2">${reply.replyer}</strong>
-                          <span class="text-body-secondary">— ${reply.reply}</span>
-                        </div>
-                      </li>
-                    </c:forEach>
-                  </ul>
-                </td>
-              </tr>
-            </c:if>
           </c:forEach>
         </tbody>
       </table>
@@ -167,182 +150,212 @@
   
 </body>
 </html>
-
+  --%>
  
- 
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>게시글 목록</title>
+<meta charset="UTF-8">
+<title>게시글 목록</title>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-  <style>
-    :root {
-      --grad-start: #4f46e5; /* indigo-600 */
-      --grad-end: #2563eb;   /* blue-600 */
-      --bg: #f8fafc;         /* slate-50 */
-      --text-main: #0f172a;
-      --muted: #6b7280;
-      --border: #e2e8f0;
-      --hover: #f1f5f9;
-      --chip-bg: #e0f2fe;
-      --chip-fg: #0369a1;
-    }
+<style>
+  :root{
+    --grad-start:#4f46e5; /* indigo-600 */
+    --grad-end:#2563eb;   /* blue-600  */
+    --bg:#f8fafc;
+    --text:#0f172a;
+    --muted:#6b7280;
+    --border:#e2e8f0;
+    --row-divider:#eef2f6;
+    --hover:#f8f9fb;
+    --chip-bg:#ede9fe;
+    --chip-fg:#4338ca;
+  }
 
-    body { background: var(--bg); font-family: "Pretendard","Noto Sans KR",sans-serif; }
+  body {
+    background: var(--bg);
+    font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  }
 
-    .board-card{
-      background:#fff;border-radius:1rem;overflow:hidden;
-      box-shadow:0 6px 20px rgba(0,0,0,.05);
-    }
+  .board-card {
+    max-width: 1100px;
+    margin: 80px auto;
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,.05);
+    border: 1px solid #eef1f6;
+  }
 
-    .card-header{
-      background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
-      color:#fff;padding:1.25rem 1.5rem;
-    }
-    .card-header h3{margin:0;font-weight:700;}
+  /* 💜 상단 헤더만 그라디언트 */
+  .board-header {
+    background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+    color: #fff;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    .btn-write{background:#fff;color:var(--grad-end);font-weight:600;border-radius:50px;}
-    .btn-write:hover{background:var(--grad-end);color:#fff;}
+  .board-header h3 {
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: .3px;
+  }
 
-    .table.clean{margin:0;}
-    .table.clean thead{background:#f8fafc;border-bottom:2px solid var(--border);}
-    .table.clean thead th{color:var(--text-main);font-weight:700;border:none;}
-    .table.clean tbody tr{border-bottom:1px solid var(--border);transition:background-color .15s ease,transform .1s ease;}
-    .table.clean tbody tr:hover{background:var(--hover);transform:translateY(-1px);}
+  .btn-light {
+    font-weight: 600;
+  }
 
-    .post-title{color:var(--text-main);font-weight:600;text-decoration:none;}
-    .post-title:hover{color:var(--grad-end);text-decoration:underline;}
+  /* 테이블 스타일 */
+  .table thead th {
+    color: #495057;
+    font-weight: 700;
+  }
 
-    /* 댓글 수 칩: 한 줄 고정 */
-    .chip{
-      display:inline-flex;align-items:center;gap:.35rem;
-      padding:.2rem .6rem;border-radius:999px;font-size:.75rem;font-weight:700;
-      background:var(--chip-bg);color:var(--chip-fg);white-space:nowrap;
-    }
+  .table td, .table th {
+    vertical-align: middle;
+    padding: 1rem;
+  }
 
-    /* 말풍선: 한 줄로 표시 (줄바꿈 방지) */
-    .reply-bubble{
-      display:inline-flex;align-items:center;white-space:nowrap;
-      background:#fff;border:1px solid var(--border);border-radius:12px;
-      padding:.45rem .6rem;box-shadow:0 2px 5px rgba(0,0,0,.03);max-width:100%;
-    }
+  .table tbody tr {
+    border-bottom: 1px solid var(--row-divider);
+    transition: .2s;
+  }
 
-    .reply-block{background:#f9fafb;}
-    .reply-block .list-group-item{background:transparent;border:none;padding:.6rem 0;display:flex;align-items:flex-start;}
-    .reply-meta{font-size:.8rem;color:var(--muted);margin-bottom:.25rem;}
+  .table tbody tr:hover td {
+    background: var(--hover);
+  }
 
-    /* 접힘 영역 상단에 본문 보여주는 박스 */
-    .content-box{
-      background:#fff;border-bottom:1px solid var(--border);
-      padding:1rem 1.25rem;
-    }
-    .content-box .label{font-size:.8rem;color:var(--muted);margin-bottom:.25rem;}
-    .content-box .body{color:#111827;line-height:1.6;}
+  /* 첫 컬럼 */
+  tbody td:first-child {
+    color: var(--muted);
+    font-weight: 600;
+    width: 80px;
+  }
 
-    @media (max-width: 768px){
-      /* 내용 컬럼 제거했으므로 모바일 조정만 */
-    }
-  </style>
+  /* 제목 링크 */
+  a.title-link {
+    color: #212529;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  a.title-link:hover {
+    color: var(--grad-start);
+  }
+
+  /* 댓글수 배지 */
+  .chip {
+    display: inline-block;
+    background: var(--chip-bg);
+    color: var(--chip-fg);
+    font-weight: 600;
+    font-size: .75rem;
+    padding: .15rem .5rem;
+    border-radius: 999px;
+    margin-left: .4rem;
+  }
+
+  /* 말줄임 */
+  .text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 비어있을 때 */
+  .empty-state {
+    text-align: center;
+    padding: 5rem 1rem;
+    color: var(--muted);
+  }
+  .empty-state span {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 992px) {
+    th.col-content, td.col-content { display: none; }
+  }
+</style>
 </head>
+
 <body>
-  <div class="container-xl py-4">
-    <div class="board-card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h3><i class="bi bi-chat-left-text me-2"></i>게시글 목록</h3>
-        <a href="/board/register" class="btn btn-sm btn-write px-3">
-          <i class="bi bi-pencil-square me-1"></i>새 글쓰기
-        </a>
-      </div>
-
-      <div class="table-responsive">
-        <table class="table clean align-middle">
-          <thead>
-            <tr>
-              <th style="width:70px;">#</th>
-              <th style="width:45%;">제목</th>
-              <!-- (변경) 내용 컬럼 제거 -->
-              <th style="width:20%;">글쓴이</th>
-              <th style="width:60px;" class="text-center">댓글</th>
-            </tr>
-          </thead>
-          <tbody>
-            <c:if test="${empty list}">
-              <tr><td colspan="4" class="text-center text-muted py-5">등록된 게시글이 없습니다.</td></tr>
-            </c:if>
-
-            <c:forEach items="${list}" var="board">
-              <!-- 행 클릭 시 댓글/내용 토글 -->
-              <tr class="collapse-toggle"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#replies-${board.bno}">
-                <td class="text-muted fw-semibold">${board.bno}</td>
-
-                <td>
-                  <a class="post-title"
-                     href="/board/update?bno=${board.bno}"
-                     onclick="event.stopPropagation();">
-                    ${board.title}
-                  </a>
-                </td>
-
-                <!-- (변경) 내용 셀 삭제 -->
-                <td class="text-nowrap">
-                  <i class="bi bi-person me-1 text-secondary"></i>${board.writer}
-                </td>
-
-                <td class="text-center">
-                  <c:set var="replyCount" value="${empty board.reply ? 0 : fn:length(board.reply)}"/>
-                  <span class="chip"><i class="bi bi-chat-dots"></i> ${replyCount}</span>
-                </td>
-              </tr>
-
-              <!-- 접힘 영역: 위에 본문 내용, 아래 댓글 말풍선 리스트 -->
-              <tr class="reply-block">
-                <!-- (변경) colspan 5 → 4 (내용 컬럼 제거 영향) -->
-                <td colspan="4" class="p-0">
-                  <div id="replies-${board.bno}" class="collapse">
-                    <!-- 본문 내용 박스 -->
-                    <div class="content-box">
-                      <div class="label"><i class="bi bi-text-left me-1"></i>내용</div>
-                      <div class="body">${board.content}</div>
-                    </div>
-
-                    <!-- 댓글 목록 -->
-                    <ul class="list-group list-group-flush px-4 py-2">
-                      <c:if test="${empty board.reply}">
-                        <li class="text-muted small py-2">등록된 댓글이 없습니다.</li>
-                      </c:if>
-
-                      <c:forEach items="${board.reply}" var="reply">
-                        <li class="list-group-item">
-                          <div>
-                            <div class="reply-meta">#${reply.rno} · ${reply.replyer}</div>
-                            <!-- (핵심) 말풍선 한 줄 표시 -->
-                            <div class="reply-bubble">${reply.reply}</div>
-                          </div>
-                        </li>
-                      </c:forEach>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
-            </c:forEach>
-          </tbody>
-        </table>
-      </div>
+  <div class="board-card">
+    <!-- 💜 헤더 -->
+    <div class="board-header">
+      <h3><i class="bi bi-list-ul me-2"></i>목록</h3>
+      <a href="/board/register" class="btn btn-sm btn-light">
+        <i class="bi bi-pencil-square me-1"></i> 새 글쓰기
+      </a>
     </div>
+
+    <!-- 💬 게시판 테이블 -->
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th style="width:90px;">#</th>
+            <th style="width:70%">제목</th>
+            <th style="width:15%">작성자</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <c:if test="${empty list}">
+            <tr>
+              <td colspan="4">
+                <div class="empty-state">
+                  <span>🪶</span>
+                  등록된 게시글이 없습니다.
+                  <div class="mt-3">
+                    <a href="/board/register" class="btn btn-outline-dark btn-sm">
+                      첫 글 쓰기
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </c:if>
+
+          <c:forEach items="${list}" var="board">
+            <tr>
+              <td>${board.bno}</td>
+              <td>
+                <a href="/board/info?bno=${board.bno}" class="title-link">
+                  ${board.title}
+                </a>
+                <c:if test="${not empty board.reply}">
+                  <span class="chip">${fn:length(board.reply)}</span>
+                </c:if>
+              </td>
+              <td>${board.writer}</td>
+            </tr>
+          </c:forEach>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 페이지네이션 -->
+    <c:if test="${not empty pagination}">
+      <div class="p-3 d-flex justify-content-center">
+        ${pagination}
+      </div>
+    </c:if>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
- --%>
+
  

@@ -4,6 +4,18 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<!-- Bootstrap CDN -->
+	<link
+	  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+	  rel="stylesheet"
+	  integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+	  crossorigin="anonymous">
+	<!-- jQuery CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
 	<title>Insert title here</title>
 </head>
 <body>
@@ -13,202 +25,386 @@
 	<div>작성자: ${board.writer}</div>
 	<div>작성날짜: ${board.regdate}</div>
 	<div>내용: ${board.content}</div>
-	<div id="reply"></div>
+	<div>
+		<input type="text" id="replyer" name="replyer" placeholder="작성자">
+		<input type="text" id="reply" name="reply" placeholder="댓글을 등록해주세요." >
+		<button type="button" class="btnInsert">등록</button>
+	</div>
+	<div id="replyList"></div>
 	
 	<script>
 		let bno = ${board.bno};
+		
+		// 등록
+		$(".btnInsert").on('click', (e) => {
+			// input태그값을 콘솔에 출력 val()
+			const replyer = $("#replyer").val();
+			const reply = $("#reply").val();
+			console.log(replyer, reply);
+			
+			fetch('/reply', {
+				  method: 'POST',
+				  body: JSON.stringify({replyer, reply, bno}), 
+				  // {replyer:replyer, reply:reply}와 같은 표현
+				  // 칼럼명이랑 값이 같으면 이런식으로 생략 가능
+				  headers: {
+				    'Content-type': 'application/json; charset=UTF-8',
+				  },
+				})
+				  .then((response) => response.json())  // 등록값을 int로 한다면 text()로 받아야함 
+				  .then((response) => {
+					  let data = response.data;
+					  let replyList = document.querySelector("#replyList");
+					  let newTag = `<div class="row" data-rno="\${data.rno}">
+							<div class="col">\${data.replyer}</div>
+							<div class="col-7">\${data.reply}</div>
+							<div class="col">
+								<button class="btn btn-danger btnDelete">삭제</button>
+				                <button class="btn btn-secondary btnUpdate">수정</button>
+				            </div>
+						</div>`;
+					  replyList.insertAdjacentHTML("afterbegin", newTag);
+					  
+				  });
+
+		});
+			
 	
 		// 전체조회
 		// \${}으로 작성안하면 안됨 => 왜? 
 		fetch(`http://localhost:81/board/\${bno}/reply`)
 		  .then((response) => response.json())
 		  .then((datas) => {
-			  let reply = document.querySelector("#reply");
+			  let replyList = document.querySelector("#replyList");
 			  for(data of datas){
-				  let newTag = `<div>\${data.reply} \${data.replyer}</div>`;
-				  reply.insertAdjacentHTML("beforeend", newTag);
+				  let newTag = `<div class="row" data-rno="\${data.rno}">
+						<div class="col">\${data.replyer}</div>
+						<div class="col-7">\${data.reply}</div>
+						<div class="col">
+							<button class="btn btn-danger btnDelete">삭제</button>
+			                <button class="btn btn-secondary btnUpdate">수정</button>
+			            </div>
+					</div>`;
+				  replyList.insertAdjacentHTML("beforeend", newTag);
 			  }
-			  
 		  });
-	
+
+
+		// 이벤트가 아래와 같이 들어가는 이유는 동적으로 들어가기 때문에 -> 일일이 하나씩 이벤트를 걸지 않고 이벤트위임(그룹이벤트)를 이용
+		$("#reply").on("click", ".btnDelete", (e) => {
+			const rno = $(e.target).closest(".row").data("rno");
+			console.log(rno)
+			fetch(`http://localhost:81/reply/\${rno}`, {
+				method: 'DELETE'
+			})
+				.then((result) => result.text())  // .json넘겨주는게 아님
+				.then((data) => {
+					console.log(data);
+					$(e.target).closest(".row").remove();
+					alert('해당 댓글이 삭제되었습니다.');					
+				})
+		})
+		
 	</script>
 </body>
-</html> 
+</html>  
+
+
 
 
  
- 
- 
-  --%>
-  
-  
-  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ --%>
+
+
+
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>게시글 상세보기</title>
+<meta charset="UTF-8">
+<title>게시글 상세</title>
 
-  <!-- Bootstrap & Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<!-- ✅ Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-  <style>
-    :root{
-      --grad-start:#4f46e5; --grad-end:#2563eb;
-      --bg:#f8fafc; --text:#0f172a; --muted:#6b7280; --border:#e2e8f0;
-    }
-    body{ background:var(--bg); font-family:"Pretendard","Noto Sans KR",sans-serif; }
+<style>
+  :root {
+    --grad-start:#4f46e5;
+    --grad-end:#2563eb;
+    --bg:#f8fafc;
+    --muted:#6b7280;
+    --border:#e2e8f0;
+    --hover:#f9fafb;
+    --edit-btn:#4f46e5;
+    --delete-btn:#ef4444;
+  }
 
-    .view-card{ max-width:920px; margin:64px auto; background:#fff; border-radius:1rem; overflow:hidden;
-      border:1px solid #eef1f6; box-shadow:0 12px 30px rgba(16,24,40,.08); }
-    .card-header{ background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
-      color:#fff; padding:1.25rem 1.5rem; display:flex; justify-content:space-between; align-items:center; }
-    .card-header h3{ margin:0; font-weight:800; }
+  body { background: var(--bg); font-family: "Pretendard","Noto Sans KR",sans-serif; }
 
-    .post-title{ font-size:1.5rem; font-weight:800; color:var(--text); margin-bottom:.25rem; }
-    .post-meta{ color:var(--muted); font-size:.9rem; }
-    .divider{ border-top:1px solid var(--border); margin:1.25rem 0; }
-    .post-content{ white-space:pre-wrap; line-height:1.8; color:#111827; word-break:break-word; }
+  .form-card {
+    max-width: 960px;
+    margin: 72px auto;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(16,24,40,.08);
+    overflow: hidden;
+    border: 1px solid #eef1f6;
+  }
 
-    .chip{ display:inline-flex; align-items:center; gap:.35rem; padding:.2rem .6rem; border-radius:999px;
-      font-size:.75rem; font-weight:700; background:#e0f2fe; color:#0369a1; white-space:nowrap; }
+  .card-header {
+    background: linear-gradient(135deg,var(--grad-start),var(--grad-end));
+    color:#fff; padding:1.25rem 1.5rem;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .card-header h3 { margin:0; font-weight:800; }
 
-    .reply-item{ display:flex; gap:.75rem; padding:.75rem 0; border-bottom:1px solid var(--border); }
-    .reply-avatar{ width:36px; height:36px; border-radius:50%; background:#e5e7eb; color:#475569;
-      font-weight:700; display:flex; align-items:center; justify-content:center; flex:0 0 36px; }
-    .reply-meta{ font-size:.82rem; color:var(--muted); margin-bottom:.2rem; }
-    .reply-bubble{ display:inline-block; background:#fff; border:1px solid var(--border); border-radius:12px;
-      padding:.5rem .75rem; box-shadow:0 2px 5px rgba(0,0,0,.03); max-width:100%; }
-    .empty{ color:var(--muted); padding:1rem 0; }
+  .card-body { padding:2rem 2.25rem; }
 
-    .btn-primary{ background:linear-gradient(135deg,var(--grad-start),var(--grad-end)); border:none; font-weight:700; }
-    .btn-primary:hover{ filter:brightness(.95); }
-    .btn-light{ background:#fff; border-color:#cbd5e1; }
-  </style>
+  /* 기본 정보 */
+  .meta-table { border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:1rem; }
+  .meta-row { display:grid; grid-template-columns:140px 1fr; border-bottom:1px solid var(--border); }
+  .meta-row:last-child { border-bottom:0; }
+  .meta-label { background:#f7f8fa; padding:.9rem 1rem; font-weight:700; color:#374151; }
+  .meta-value { padding:.9rem 1rem; color:#0f172a; }
+
+  /* 본문 */
+  .content-box {
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:1.25rem 1rem;
+    background:#fff;
+    white-space: pre-wrap;
+    line-height:1.65;
+  }
+
+  /* 댓글 영역 */
+  .reply-wrap { margin-top:2.5rem; }
+  .reply-header {
+    font-weight:800; color:#111;
+    border-bottom:2px solid var(--grad-start);
+    padding-bottom:.5rem; margin-bottom:1rem;
+    font-size:1.2rem;
+  }
+  .reply-input {
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:#fff;
+    padding:1rem;
+    margin-bottom:1rem;
+  }
+  .reply-list {
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:#fff;
+    padding:.4rem;
+  }
+
+  #replyList > .row {
+    --bs-gutter-x: 1rem;
+    margin: .5rem 0 !important;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:.65rem .55rem;
+    background:#fff;
+    transition: all .2s ease;
+  }
+  #replyList > .row:hover {
+    background: var(--hover);
+    box-shadow: 0 4px 12px rgba(0,0,0,.05);
+  }
+
+  #replyList .col, #replyList .col-7 { display:flex; align-items:center; }
+
+  /* ✅ 댓글 버튼 리디자인 */
+  #replyList .btn {
+    --bs-btn-padding-y: .3rem;
+    --bs-btn-padding-x: .8rem;
+    font-size: .85rem;
+    border: none;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 600;
+    transition: all .2s ease;
+  }
+  #replyList .btnUpdate {
+    background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  }
+  #replyList .btnUpdate:hover {
+    filter: brightness(.95);
+    box-shadow: 0 0 0 3px rgba(79,70,229,.15);
+  }
+  #replyList .btnDelete {
+    background: #dc2626;
+  }
+  #replyList .btnDelete:hover {
+    background: #dc2626;
+    box-shadow: 0 0 0 3px rgba(239,68,68,.15);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg,var(--grad-start),var(--grad-end));
+    border:none; font-weight:700;
+  }
+
+  .btn-primary:hover { filter: brightness(.95); }
+
+  @media (max-width:768px) {
+    .meta-row { grid-template-columns:1fr; }
+    .meta-label { border-bottom:1px solid var(--border); }
+  }
+</style>
 </head>
+
 <body>
   <div class="container">
-    <!-- board가 모델에 있으면 data-bno로, 없으면 쿼리스트링에서 읽도록 JS에서 처리 -->
-    <div class="view-card" id="postView" data-bno="${board.bno}">
+    <div class="form-card">
       <div class="card-header">
-        <h3><i class="bi bi-journal-text me-2"></i>게시글 상세보기</h3>
+        <h3><i class="bi bi-journal-text me-2"></i>게시글 상세</h3>
         <div class="d-flex gap-2">
           <a href="/board" class="btn btn-sm btn-light"><i class="bi bi-list-ul me-1"></i>목록</a>
-          <c:if test="${not empty board.bno}">
-            <a href="/board/update?bno=${board.bno}" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square me-1"></i>수정</a>
-          </c:if>
+          <a href="/board/update?bno=${board.bno}" class="btn btn-sm btn-outline-light"><i class="bi bi-pencil-square me-1"></i>수정</a>
         </div>
       </div>
 
-      <div class="card-body p-4 p-md-5">
-        <div class="post-title"><c:out value="${board.title}"/></div>
-        <div class="post-meta">
-          <span class="me-3">#<c:out value="${board.bno}"/></span>
-          <i class="bi bi-person"></i> <c:out value="${board.writer}"/>
-          <span class="mx-2">·</span>
-          <i class="bi bi-calendar-event"></i> <c:out value="${board.regdate}"/>
+      <div class="card-body">
+        <!-- 기본 정보 -->
+        <div class="meta-table">
+          <div class="meta-row"><div class="meta-label">글 번호</div><div class="meta-value">#${board.bno}</div></div>
+          <div class="meta-row"><div class="meta-label">작성자</div><div class="meta-value">${board.writer}</div></div>
+          <div class="meta-row"><div class="meta-label">작성일</div><div class="meta-value">${board.regdate}</div></div>
         </div>
 
-        <div class="divider"></div>
+        <!-- 내용 -->
+        <div class="mb-2 fw-bold">내용</div>
+        <div class="content-box">${board.content}</div>
 
-        <div class="post-content"><c:out value="${board.content}"/></div>
+        <!-- 댓글 -->
+        <div class="reply-wrap">
+          <div class="reply-header"><i class="bi bi-chat-dots me-2"></i>댓글</div>
 
-        <div class="divider"></div>
+          <!-- 입력 -->
+          <div class="reply-input">
+            <div class="row g-2 align-items-center">
+              <div class="col-12 col-md-3">
+                <input type="text" id="replyer" name="replyer" class="form-control" placeholder="작성자">
+              </div>
+              <div class="col-12 col-md-7">
+                <input type="text" id="reply" name="reply" class="form-control" placeholder="댓글을 등록해주세요.">
+              </div>
+              <div class="col-12 col-md-2 d-grid">
+                <button type="button" class="btn btn-primary btnInsert"><i class="bi bi-send me-1"></i>등록</button>
+              </div>
+            </div>
+          </div>
 
-        <div class="d-flex align-items-center justify-content-between">
-          <h5 class="m-0"><i class="bi bi-chat-dots me-2"></i>댓글</h5>
-          <span id="replyCount" class="chip"><i class="bi bi-chat-left-text"></i> 0</span>
-        </div>
-
-        <div id="replyList" class="mt-2">
-          <div id="replyLoading" class="text-secondary small">불러오는 중...</div>
+          <!-- 목록 -->
+          <div id="replyList" class="reply-list"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // 1) bno 얻기: data-bno 우선, 없으면 ?bno= 파싱
-    var container = document.getElementById('postView');
-    var bno = container && container.getAttribute('data-bno');
-    if (!bno) {
-      var params = new URLSearchParams(location.search);
-      bno = params.get('bno');
-    }
+<script>
+	let bno = ${board.bno};	     // jsp EL
+	
+	add();     //등록이벤트
+	remove();  //삭제이벤트
+	getList(); //전체조회	
+	
+	/* -------------------------------------------
+			댓글 등록
+	    ---------------------------------------------*/
+		function add(){
+			$(".btnInsert").on('click', (e) => {
+				// input태그값을 콘솔에 출력 val()
+				const replyer = $("#replyer").val();
+				const reply = $("#reply").val();
+				console.log(replyer, reply);
+				
+				fetch('/reply', {
+					  method: 'POST',
+					  body: JSON.stringify({replyer, reply, bno}), 
+					  // {replyer:replyer, reply:reply}와 같은 표현
+					  // 칼럼명이랑 값이 같으면 이런식으로 생략 가능
+					  headers: {
+					    'Content-type': 'application/json; charset=UTF-8',
+					  },
+					})
+					  .then((response) => response.json())  // 등록값을 int로 한다면 text()로 받아야함 
+					  .then((response) => {
+						  //getList();
+						  let data = response.data;
+						  let replyList = document.querySelector("#replyList");
+						  let newTag = `<div class="row" data-rno="\${data.rno}">
+								<div class="col">\${data.replyer}</div>
+								<div class="col-7">\${data.reply}</div>
+								<div class="col">
+					                <button class="btn btn-secondary btnUpdate"><i class="bi bi-pencil-square me-1"></i>수정</button>
+									<button class="btn btn-danger btnDelete"><i class="bi bi-trash3 me-1"></i>삭제</button>
+					            </div>
+							</div>`;
+						  replyList.insertAdjacentHTML("afterbegin", newTag);
+						  
+					  });// end of then
+			}); // end of on
+		}// end of function 
+		
+		
+		/* -------------------------------------------
+			전체조회
+		---------------------------------------------*/
+		function getList(){
+			// \${}으로 작성안하면 안됨 => 왜? 
+			fetch(`http://localhost:81/board/\${bno}/reply`)
+			  .then((response) => response.json())
+			  .then((datas) => {
+				  let replyList = document.querySelector("#replyList");
+				  for(data of datas){
+					  let newTag = `<div class="row" data-rno="\${data.rno}">
+							<div class="col">\${data.replyer}</div>
+							<div class="col-7">\${data.reply}</div>
+							<div class="col">
+				                <button class="btn btn-secondary btnUpdate"><i class="bi bi-pencil-square me-1"></i>수정</button>
+								<button class="btn btn-danger btnDelete"><i class="bi bi-trash3 me-1"></i>삭제</button>
+				            </div>
+						</div>`;
+					  replyList.insertAdjacentHTML("beforeend", newTag);
+				  }
+			  });
+		}	
+	
+		
+		/* -------------------------------------------
+			댓글 삭제
+		---------------------------------------------*/
+		function remove(){
+			// 이벤트가 아래와 같이 들어가는 이유는 동적으로 들어가기 때문에 -> 일일이 하나씩 이벤트를 걸지 않고 이벤트위임(그룹이벤트)를 이용
+			$("#replyList").on("click", ".btnDelete", (e) => {
+				const rno = $(e.target).closest(".row").data("rno");
+				console.log(rno)
+				fetch(`http://localhost:81/reply/\${rno}`, {
+					method: 'DELETE'
+				})
+					.then((result) => result.text())  // .json넘겨주는게 아님
+					.then((data) => {
+						console.log(data);
+						$(e.target).closest(".row").remove();
+						alert('해당 댓글이 삭제되었습니다.');		
+					})
+			})	
+		} 
 
-    // 2) 댓글 API 호출: 경로형(/board/{bno}/reply) 시도 → 실패하면 쿼리형(/board/reply?bno=) 재시도
-    function fetchReplies(bno) {
-      var pathUrl = '/board/' + encodeURIComponent(bno) + '/reply';
-      return fetch(pathUrl).then(function(res) {
-        if (res.ok) return res.json();
-        // 404/405 등일 때 쿼리형으로 폴백
-        var queryUrl = '/board/reply?bno=' + encodeURIComponent(bno);
-        return fetch(queryUrl).then(function(res2){
-          if (!res2.ok) throw new Error('reply api not found');
-          return res2.json();
-        });
-      });
-    }
-
-    fetchReplies(bno)
-      .then(function(datas){
-        var list = document.getElementById('replyList');
-        var loading = document.getElementById('replyLoading');
-        var count = document.getElementById('replyCount');
-        if (loading) loading.remove();
-
-        var len = Array.isArray(datas) ? datas.length : 0;
-        count.innerHTML = '<i class="bi bi-chat-left-text"></i> ' + len;
-
-        if (!Array.isArray(datas) || len === 0) {
-          var empty = document.createElement('div');
-          empty.className = 'empty';
-          empty.textContent = '등록된 댓글이 없습니다.';
-          list.appendChild(empty);
-          return;
-        }
-
-        datas.forEach(function(data){
-          var item = document.createElement('div');
-          item.className = 'reply-item';
-
-          var avatar = document.createElement('div');
-          avatar.className = 'reply-avatar';
-          avatar.textContent = (data.replyer && data.replyer.charAt) ? data.replyer.charAt(0).toUpperCase() : '?';
-
-          var body = document.createElement('div');
-          var meta = document.createElement('div');
-          meta.className = 'reply-meta';
-          meta.textContent = '#' + (data.rno || '') + ' · ' + (data.replyer || '익명');
-
-          var bubble = document.createElement('div');
-          bubble.className = 'reply-bubble';
-          bubble.textContent = data.reply || '';
-
-          body.appendChild(meta);
-          body.appendChild(bubble);
-          item.appendChild(avatar);
-          item.appendChild(body);
-          list.appendChild(item);
-        });
-      })
-      .catch(function(err){
-        console.error(err);
-        var list = document.getElementById('replyList');
-        var loading = document.getElementById('replyLoading');
-        if (loading) loading.remove();
-        var errBox = document.createElement('div');
-        errBox.className = 'text-danger small';
-        errBox.textContent = '댓글을 불러오지 못했습니다. (API 경로 확인 필요)';
-        list.appendChild(errBox);
-      });
-  </script>
+		
+	</script>
+	<!-- <script src="/resources/reply.js"></script> -->
 </body>
 </html>
-  
-  
-  
+
+
   

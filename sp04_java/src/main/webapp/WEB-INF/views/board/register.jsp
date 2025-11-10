@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -58,12 +58,6 @@
 <body>
   <div class="container">
     <div class="form-wrapper">
-<%--       <c:if test="${empty board.bno}">
-	      <h3 class="text-center">게시글 등록</h3>   
-      </c:if>
-      <c:if test="${not empty board.bno}">
-      	  <h3 class="text-center">게시글 수정</h3>   
-      </c:if> --%>
       <h3 style="text-align:center;">게시글 ${empty board.bno ? "등록" : "수정"}</h3>
 
       <form method="post" action="/board/${empty board.bno ? 'register' : 'update'}" name="frm">
@@ -109,10 +103,10 @@
   
 </body>
 </html>
-
+ --%>
  
  
- <%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -201,7 +195,6 @@
             <label for="title" class="form-label">제목</label>
             <input type="text" class="form-control" id="title" name="title"
                    value="${board.title}" placeholder="제목을 입력하세요" autofocus>
-            <div class="form-text hint">프로젝트/이슈 키워드가 들어가면 검색이 쉬워집니다.</div>
           </div>
 
           <!-- 작성자 & (선택) 카테고리 영역 예시 -->
@@ -256,15 +249,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // 삭제 이벤트
-    function boardDelete(){
-      if(confirm('정말 삭제하시겠습니까?')){
-        const f = document.forms['frm'];
-        f.action = '/board/delete';
-        f.method = 'post';
-        f.submit();
-      }
-    }
+  /* 삭제이벤트 */
+	function boardDelete(){
+	  if(confirm('삭제할까요?')){
+		  document.frm.action = '/board/delete';
+		  document.frm.submit();
+	  }
+  }
 
     // 작은 UX: 제목 비었을 때 등록/수정 클릭 시 포커스
     document.forms['frm']?.addEventListener('submit', function(e){
@@ -280,4 +271,3 @@
  
  
  
- --%> 
