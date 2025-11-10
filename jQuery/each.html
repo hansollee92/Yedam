@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>each.html</title>
+    <!-- jQuery CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div>each함수에서 break</div>
+
+    <ul>
+      <li>3000</li>
+      <li>500</li>
+      <li>2000</li>
+      <li>5000</li>
+    </ul>
+
+    <script>
+      // 순수 js에서는 break를 사용해서 멈출 수 없다.
+      // document.querySelectorAll("li").forEach((ele, idx) => {
+      //   const price = parseInt(ele.innerHTML);
+      //   console.log(price);
+      //   // 금액이 1000미만이면 중단
+      //   if (price < 1000) {
+      //     return;
+      //   }
+      // });
+
+      // jQuery each문에서는 break를 사용할 수 있다.
+      $("li").each((idx, ele) => {
+        const price = parseInt(ele.innerHTML);
+        console.log(price);
+        // 금액이 1000미만이면 중단
+        if (price < 1000) {
+          return false; // break 역할
+          // 그냥 return을 하면 continue와 같음
+        }
+      });
+    </script>
+  </body>
+</html>

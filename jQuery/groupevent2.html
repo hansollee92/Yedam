@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>groupevent.html</title>
+    <!-- jQuery CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <input id="txt" /><button class="btn">추가</button>
+    <ul>
+      <li>바나나 <span>4000</span></li>
+      <li>사과 <span>3000</span></li>
+    </ul>
+
+    <script>
+      // 문제3) 새로 추가된 li태그를 클릭했을 때에도 1번 이벤트가 걸리도록 설정해라
+      //    해결법2) ul 태그에 이벤트를 걸어준다(부모)
+      $(".btn").bind("click", (e) => {
+        let list = $("#txt").val();
+        let newTag = $(`<li>${list} <span>4000</span></li>`);
+        $("ul").append(newTag);
+      });
+
+      // 문제4) <span>태그를 클릭했을 때에만, 배경색상이 바뀌도록 설정해라
+      //        -> 이벤트 위임(=그룹이벤트)
+      $("ul").on("click", "span", (e) => {
+        $(e.target).parent().css("backgroundColor", "yellowgreen");
+      });
+
+      // 순수 js로도 이벤트 위임이 가능했는데 아래와 같이 작성을 해야했다.
+      // document.querySelector("ul").addEventListener("click", (e) => {
+      //   if (e.target.tagName == "SPAN") {
+      //     e.target.parentElement.style.backgroundColor = "yellowgreen";
+      //   }
+      // });
+    </script>
+  </body>
+</html>

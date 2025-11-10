@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>classlist.html</title>
+
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+    <!-- <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script> -->
+
+    <style>
+      .active {
+        background-color: #def7f8;
+      }
+      .bold {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="more">보기</button>
+    <ul style="display: none">
+      <li class="active">게시판</li>
+      <li>인사관리</li>
+      <li>부서관리</li>
+    </ul>
+
+    <script>
+      // 문제1) li태그를 클릭했을 때, actvie인 클래스가 제거되고, 클릭한 li에만 active 클래스가 추가되도록 해라.
+      $("li").on("click", (e) => {
+        $(".active").removeClass("active");
+        $(e.target).addClass("active");
+      });
+
+      // 문제2) 버튼을 클릭했을 때, show/hide/toggle를 이용해서 ul 태그가 보이도록 해라
+      $("#more").on("click", (e) => {
+        $("ul").toggle(2000, "easeInOutElastic", () => {
+          alert("show!!");
+        });
+      });
+    </script>
+  </body>
+</html>

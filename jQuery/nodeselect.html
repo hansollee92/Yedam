@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <title>nodeselect.html</title>
+    <!-- jQuery CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td><button class="btn" data-id="r3">확인</button></td>
+      </tr>
+      <tr data-id="r10">
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td><button class="btn" data-id="r5">확인</button></td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td><button class="btn" data-id="r7">확인</button></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+    <script>
+      //문제 : 버튼을 클릭했을 때 해당 값 data-id 속성값을 콘솔창에 출력하는 이벤트를 걸어보세요.
+
+      // js 방식
+      function jsClikc() {
+        document.querySelectorAll(".btn").forEach((ele, idx) => {
+          ele.addEventListener("click", (e) => {
+            console.log(ele.dataset.id);
+            // console.log(ele.getAttribute("data-id"));
+          });
+        });
+      }
+
+      // jQuery 방식
+      function jQueryClick() {
+        $(".btn").bind("click", (e) => {
+          //console.log("jquery: ", $(e.target).data("id")); //$(e.target)이 클릭한 해당 영역을 의미(= $(this))
+
+          // 문제) 해당 버튼의 첫번째 td 태그 내용을 출력
+          console.log($(e.target).closest("tr").find("td").first().text());
+        });
+      }
+      jQueryClick();
+    </script>
+  </body>
+</html>

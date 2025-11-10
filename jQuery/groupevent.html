@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>groupevent.html</title>
+    <!-- jQuery CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <input id="txt" /><button class="btn">추가</button>
+    <ul>
+      <li>바나나</li>
+      <li>사과</li>
+    </ul>
+
+    <script>
+      // 문제1) li태그를 클릭했을 때 배경색상을 변경해라
+      $("li").bind("click", (e) => {
+        $(e.target).css("backgroundColor", "yellowgreen");
+      });
+
+      // 문제2) 버튼을 클릭했을 때 input에 넣었던 값을 li 태그로 추가해라
+      $(".btn").bind("click", (e) => {
+        let list = $("#txt").val();
+        let newTag = $(`<li>${list}</li>`);
+        newTag.bind("click", (e) => {
+          $(e.target).css("backgroundColor", "yellowgreen");
+        });
+        $("ul").append(newTag);
+        // $("ul").append(`<li>${list}</li>`);
+      });
+
+      // 문제3) 새로 추가된 li태그를 클릭했을 때에도 1번 이벤트가 걸리도록 설정해라
+      //    해결법1) 새로 추가된 li에 하나씩 이벤트를 걸어준다 -> 위의 코드 참고
+      //    해결법2) ul 태그에 이벤트를 걸어준다(부모) -> 이벤트 위임
+    </script>
+  </body>
+</html>
