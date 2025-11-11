@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,13 +99,26 @@
   <div class="container-lg">
     <div class="d-flex align-items-end justify-content-between" style="margin: 50px 0 20px;">
       <h3 class="m-0">게시글 목록</h3>
+      <div>총게시글수 ${fn:length(list) }</div>
+      <div>
+      	<my:header></my:header>
+      	<my:search />
+      </div>
       <a href="/board/register" class="btn btn-dark">새 글쓰기</a>
+    </div>
+    
+    <div>
+    	<!-- 내장객체 공부 -->
+    	${header["user-agent"]} 
+    	<hr>
+    	<span>쿠키: ${cookie.JSESSIONID.value}</span>
     </div>
 
     <div class="table-responsive rounded-3 shadow-sm">
       <table class="table clean align-middle m-0">
         <thead class="styled-head position-sticky top-0" style="z-index:1">
           <tr>
+          	<th>status count</th>
             <th style="width:80px;">#</th>
             <th style="width:25%;">제목</th>
             <th>내용</th>
@@ -121,9 +135,11 @@
             </tr>
           </c:if>
 
-          <c:forEach items="${list}" var="board">
+          <c:forEach items="${list}" var="board" varStatus="status">
+          	<c:if test="${status.first}"><div>목록시작</div></c:if>
             <!-- 게시글 행 -->
             <tr>
+              <td>${status.count}</td>
               <td>${board.bno}</td>
               <td>
                 <div class="d-flex align-items-center gap-2">
