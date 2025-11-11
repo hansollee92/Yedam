@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>emp.html</title>
+</head>
+<body layout:fragment="content">
+<h3>사원관리</h3>
+<table>
+	<thead>
+		<tr>
+			<th>사원번호</th>
+			<th>이름</th>
+			<th>email</th>
+			<th>급여</th>
+		</tr>
+	</thead>
+	<tbody id="empList">
+	</tbody>
+</table>
+<script>
+	getList();
+	function getList(){
+		fetch("/emp")
+		.then(response => response.json())
+		.then(response => {
+			const empList = document.querySelector("#empList");
+			for(emp of response) {
+				const newTag = `
+				<tr>
+					<td>${emp.employeeId}</td>
+					<td>${emp.firstName} ${emp.lastName}</td>
+					<td>${emp.email}</td>
+					<td>${emp.salary}</td>
+				</tr>`;
+				empList.insertAdjacentHTML("afterbegin",newTag);
+			}
+		})
+	}
+
+</script>
+
+</body>
+</html>

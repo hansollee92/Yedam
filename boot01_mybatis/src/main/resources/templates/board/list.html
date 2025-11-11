@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	
+	<style>
+		.writer{ color: red; }
+		.bold{ 
+			font-weight: bold; 
+		}
+	/* 타임리프가 똑똑하게도 body에 fragment="content"가 걸려있음에도 header는 알아서 가져간다 */
+	</style>
+</head>
+<body layout:fragment="content">
+<a th:href="@{/board/{bno}/{rno}/info(bno=7, rno=5)}">@{} 링크연습</a>
+ <table>
+  <tr>
+    <th>글번호</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>작성일</th>
+  </tr>
+  <tr th:each="board : ${list}" th:object="${board}">
+  	<!--/* 이중중괄호로 아래와 같이 직접 작성해줄 수 있음 */-->
+    <td>[[${boardStat.count}]] [[${board.bno}]]</td>
+    <td><a th:href="@{/board/info?(bno=${board.bno})}" th:text="*{title}"></a></td>
+    <td th:text="${board.writer}" class="writer" th:classappend="${board.writer == 'user00' ? 'bold' : _ }"></td>
+    <td th:text="${#dates.format(board.regdate, 'yyyy-MM-dd')}"></td>
+  </tr>
+ </table>
+ 
+ <!--/* templates 폴더 바로 아래에 footer.html이 있으니 insert="footer"라고 바로 작성 
+ 만약 aaa폴더 아래에 있다면 aaa/footer 이렇게 작성(확장자는 작성하지 않아도 됨) */-->
+ <div id="mainfooter" th:replace="~{footer::copyKr}"></div>
+ 
+ <!--/* 타임리프주석 : [[${}]] */-->
+ 
+</body>
+</html>

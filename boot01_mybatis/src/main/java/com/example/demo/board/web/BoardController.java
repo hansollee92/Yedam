@@ -19,14 +19,6 @@ public class BoardController {
 	
 	@Autowired BoardService boardService;
 	
-	// Json 문자열 자동 변환
-	@GetMapping("/api/board")
-	@ResponseBody
-	public List<BoardVO> selectJson() {
-		return boardService.getList();
-	}	
-	
-	
 	// 전체조회
 	@GetMapping("/board")
 	public String selectall(Model model) {

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head>
+        <title>Spring Security Example </title>
+    </head>
+    <body>
+    	<h1>로그인</h1>
+        <div th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form th:action="login" method="post">
+            <div><label> User Name : <input type="text" name="username"/> </label></div>
+            <!-- 기본적으로 name="username"인데 위와같이 다를경우 WebSecurityConfig에서 .usernameParameter("userid")이거 설정 해줘야한다. -->
+            <div><label> Password: <input type="password" name="password"/> </label></div>
+            <div><input type="submit" value="로그인"/></div>
+        </form>
+    </body>
+</html>
