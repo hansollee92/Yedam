@@ -31,7 +31,19 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li>
+                        	<!-- 로그인이 되어 있을 때 -->
+							<form th:if="${#authorization.expression('isAuthenticated()')}" 
+							  	  th:action="@{/logout}" method="post">
+							    <button class="dropdown-item">Logout</button>                    
+							</form>
+							
+							<!-- 로그인이 되어 있지 않을 때 -->
+							<a th:unless="${#authorization.expression('isAuthenticated()')}" 
+							  th:href="@{/login}"
+							  class="dropdown-item">로그인</a>
+                        </li>
+                       <!-- <li><a class="dropdown-item" href="/logout">Logout</a></li> -->
                     </ul>
                 </li>
             </ul>

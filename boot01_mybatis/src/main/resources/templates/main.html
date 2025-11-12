@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{layout}">
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 </head>
-<body>
+<body layout:fragment="content">
 	<h3>main 페이지 입니다.</h3>
+	
+	<div sec:authorize="isAnonymous()">로그인 전</div>
+	
+	<div sec:authorize="isAuthenticated()">
+		name: <span sec:authentication="principal.fullName">사용자이름</span><br/>
+		sec: <span sec:authentication="principal.deptName">부서</span><br/>
+		session: <span th:text="${session.deptName}">부서명</span>
+	</div>
+	
+	<div sec:authorize="hasRole('ROLE_ADMIN')">어드민 권한이 있으면</div>
+	
 </body>
 </html>
