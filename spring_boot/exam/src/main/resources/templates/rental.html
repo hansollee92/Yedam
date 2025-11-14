@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{layout}">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<style>
+		.wrap{
+		    display: flex;
+	        flex-direction: column;
+	        gap: 10px;
+	        justify-content: center;
+	        align-items: center;
+		}
+		thead{
+			text-weight: bold;
+			background: #333;
+			color: #fff;
+		}
+		td, th{
+			padding: 10px;
+		}
+		table, tr, td, th{
+			border: 1px solid #aaa;
+			border-collapse: collapse;
+		}
+		img{
+			width: 50px;
+		}
+	
+	</style>
+</head>
+<body layout:fragment="content">
+	<div class="wrap">
+		<h3>도서별 대여매출현황</h3>
+		<hr>
+		<table>
+			<thead>
+				<tr>
+					<th>도서번호</th>
+					<th>도서제목</th>
+					<th>도서총계</th>
+					<th>대여횟수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${book.bookNo}"></td>
+					<td th:text="${book.bookName}"></td>
+					<td th:text="${book.sum}"></td>
+					<td th:text="${book.cnt}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

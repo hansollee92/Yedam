@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		header{
+			width: 100%;
+			height: 100px;
+			text-align: center;
+			line-height: 100px;
+			background: #eee;
+		}
+		nav{
+			width: 100%;
+			background: #ccc;
+			padding: 10px;
+		}
+		ul{
+			display: flex;
+			gap: 100px;
+			justify-content: center;
+			align-items: center;
+		}
+		ul li{
+			list-style-type: none;
+		}
+		a{
+			text-decoration: none;
+			color: inherit;
+		}
+		a:hover{
+			color: blue;
+		}
+		.container{
+			width: 100%;
+			background: #eee;
+			padding: 15px;
+		}
+		footer{
+			width: 100%;
+			padding: 10px;
+			color: #fff;
+			background: #555;
+			text-align: center;
+		}
+	
+	</style>
+</head>
+<body>
+	<header>
+		<h1>도서대여관리</h1>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="/register">도서등록</a></li>
+			<li><a href="/book">도서목록조회</a></li>
+			<li><a href="/rental">대여현황조회</a></li>
+			<li><a href="/">홈으로</a></li>
+		</ul>
+	</nav>
+	<div class="container">
+		<section layout:fragment="content" ></section>
+	</div>
+	<footer>
+		HRDKOREA @Copyright 
+	</footer>
+</body>
+</html>

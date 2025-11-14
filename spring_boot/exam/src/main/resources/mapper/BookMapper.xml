@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.book.mapper.BookMapper">
+
+	<!-- 전체조회 -->
+	<select id="getList">
+		SELECT book_no, 
+		       book_name, 
+		       book_coverimg, 
+		       book_date, 
+		       book_price, 
+		       book_publisher, 
+		       book_info
+		FROM book_tbl_06
+	</select>
+
+	<!-- 단건조회 -->
+	<select id="getBook">
+		SELECT *
+		FROM book_tbl_06
+		WHERE book_No = #{bookNo}
+	</select>
+	
+	<!-- 등록 -->
+    <insert id="insert">
+		<selectKey keyProperty="bookNo" order="BEFORE" resultType="long">
+			SELECT seq_book.nextval
+			FROM dual
+		</selectKey>
+		
+		INSERT INTO book_tbl_06 (book_no, book_name, book_coverimg, 
+		                         book_date, book_price, book_publisher, book_info)
+		VALUES (#{bookNo}, #{bookName}, #{bookCoverimg}, 
+		        #{bookDate}, #{bookPrice}, #{bookPublisher}, #{bookInfo})
+	</insert>
+	
+	<!-- 도서대여 조회 -->
+	<select id="getRental">
+		SELECT
+              b.book_name,
+              r.book_no, 
+              COUNT(*) AS cnt,
+              SUM(book_price) AS sum
+		FROM book_tbl_06 b
+		 JOIN rent_tbl_06 r
+		    ON b.book_no = r.book_no
+		GROUP BY r.book_no, b.book_name
+	</select>
+	
+</mapper>

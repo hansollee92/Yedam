@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{MM-dd HH:mm:ss} [%t] %-5p %c{2} %M(%L)- %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<!-- 전체 기본 로그 수준 -->
+		<!-- Root 레벨은 debug로 하면 너무 많은 로그가 나와서 info로 보통 설정 -->
+		<Root level="info">
+			<AppenderRef ref="Console" />
+		</Root>
+
+		<!-- SQL문만 표시 -->
+		<Logger name="jdbc.sqlonly" level="off" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		<!-- SQL + 수행시간 표시 -->
+		<Logger name=" jdbc.sqltiming" level="debug" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+		
+		<!-- ResultSet(결과테이블) 출력 -->
+		<Logger name=" jdbc.resultsettable" level="info" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+		
+		<!-- DB 연결/해제 표시 -->
+		<Logger name=" jdbc.connection" level="off" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		<!-- 커넥션 오픈/닫힘, Statement 실행 등 -->
+		<Logger name=" jdbc.audit" level="off" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		<!-- ResultSet 내부 데이터 접근 로그 -->
+		<Logger name=" jdbc.resultset" level="off" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+		
+		<!-- HikariCP(커넥션풀) 관련 로그 -->
+		<Logger name="com.zaxxer.hikari" level="off" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+	
+		<Logger name="org.springframework.web" level="debug" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+		
+	</Loggers>
+</Configuration> 

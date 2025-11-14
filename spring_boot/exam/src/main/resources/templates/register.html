@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+	layout:decorate="~{layout}">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<!-- jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	
+	<style>
+		.wrap{
+		    display: flex;
+	        flex-direction: column;
+	        gap: 10px;
+	        justify-content: center;
+	        align-items: center;
+		}
+		thead{
+			text-weight: bold;
+			background: #333;
+			color: #fff;
+		}
+		td, th{
+			padding: 10px;
+		}
+		table, tr, td, th{
+			border: 1px solid #aaa;
+			border-collapse: collapse;
+		}
+		img{
+			width: 50px;
+		}
+	
+	</style>
+</head>
+<body layout:fragment="content">
+	<div class="wrap">
+		<h3>도서등록</h3>
+		<br>
+		<form action="/register" method="post" name="registerBook">
+			<table>
+				<tr>
+					<td>도서명</td>
+					<td><input type="text" name="bookName" id="bookName" required></td>
+				</tr>
+				<tr>
+					<td>도서표지</td>
+					<td><input type="file" name="bookCoverimg"></td>
+				</tr>
+				<tr>
+					<td>출판일자</td>
+					<td><input type="date" name="bookDate" required></td>
+				</tr>
+				<tr>
+					<td>금액</td>
+					<td><input type="number" name="bookPrice" required></td>
+				</tr>
+				<tr>
+					<td>출판사</td>
+					<td><input type="text" name="bookPublisher" required></td>
+				</tr>
+				<tr>
+					<td>도서소개</td>
+					<td><textarea name="bookInfo" required></textarea></td>
+				</tr>
+			</table>
+			<br>
+			<button type="submit" 
+			        style="padding: 8px 30px; margin: 0 auto;" 
+			        onclick="checker()">등록</button>
+		</form>
+	</div>
+	
+	<script>
+		// 유효성체크
+		function checker() {
+		    var bookName = document.getElementById('bookName');
+		
+		    if (!bookName.value) {
+		        alert("도서명을 입력하세요.");
+		        bookName.focus();
+		        return false;
+		    }
+		    document.registerBook.submit();
+		}
+	
+	</script>
+</body>
+</html>
